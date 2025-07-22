@@ -13,12 +13,12 @@ import json
 def generate_rule_json():
     entrance_json_accumulator: List[Dict[str, Any]] = list()
 
-    for gator_entrance in deathsdoor_entrances:
+    for entrance in deathsdoor_entrances:
         rule_dict = dict()
-        rule_dict["starting_region"] = gator_entrance.starting_region
-        rule_dict["ending_region"] = gator_entrance.ending_region
-        if gator_entrance.rule is not None:
-            rule_dict["rule_json"] = gator_entrance.rule.to_dict()
+        rule_dict["starting_region"] = entrance.starting_region
+        rule_dict["ending_region"] = entrance.ending_region
+        if entrance.rule is not None:
+            rule_dict["rule_json"] = entrance.rule.to_dict()
         else:
             rule_dict["rule_json"] = True_().to_dict()
         entrance_json_accumulator.append(rule_dict)

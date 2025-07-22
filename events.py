@@ -28,7 +28,10 @@ class DeathsDoorEventName(str, Enum):
     ACCESS_TO_NIGHT = "Access to Night"
     ACCESS_TO_DAY = "Access to Day"
     GREY_CROW_BOSS = "Can Defeat Grey Crow Boss"
-    ACTIVATED_FURNACE_BURNERS = "Activated First Furnace Burner"
+    ACTIVATED_FURNACE_BURNERS = "Can Activate First Furnace Burner"
+    LIT_WATCHTOWER_TORCH = "Can Light a Watchtower Burner"
+    MUSHROOM_DUNGEON_MAIN_GATE = "Can Open the Mushroom Dungeon Main Gate"
+    RESCUE_GRUNT = "Can Rescue Grunt"
     PLANTED_SEED = "Can Plant a Seed"
     OOL = "Out of Logic Item"  # For Universal Tracker
 
@@ -40,6 +43,14 @@ class DeathsDoorEventLocationName(str, Enum):
     ACCESS_TO_DAY = "Access to Day"
     GREY_CROW_BOSS = "Grey Crow Boss"
     ACTIVATED_FURNACE_BURNERS = "First Furnace Burner"
+    WATCHTOWER_ENTRANCE_TORCH = "Watchtower Entrance Torch"
+    WATCHTOWER_JAMMING_START_TORCH = "Watchtower Jamming Start Torch"
+    WATCHTOWER_BOXES_TORCH = "Watchtower Boxes Torch"
+    WATCHTOWER_FIRST_POT_TORCH = "Watchtower First Pot Area Torch"
+    WATCHTOWER_BOOMERS_TORCH_1 = "Watchtower Boomers Torch 1"
+    WATCHTOWER_BOOMERS_TORCH_2 = "Watchtower Boomers Torch 2"
+    MUSHROOM_DUNGEON_MAIN_GATE = "Mushroom Dungeon Main Gate"
+    RESCUE_GRUNT = "Mushroom Dungeon Grunt Rescue"
     POT_OUTSIDE_CATACOMBS_EXIT = "Pot-Outside_Catacombs_Exit"
     POT_CATACOMBS_ROOM_2 = "Pot-Catacombs_Room_2"
     POT_CEMETERY_RIGHT_ARENA = "Pot-Cemetery_Right_Arena"
@@ -92,7 +103,6 @@ class DeathsDoorEventLocationName(str, Enum):
     POT_FORTRESS_EXIT = "Pot-Fortress_Exit"
 
 
-
 class DeathsDoorEventLocationData(NamedTuple):
     name: DeathsDoorEventLocationName
     region: R
@@ -128,71 +138,311 @@ event_location_table: List[DeathsDoorEventLocationData] = [
         R.INNER_FURNACE_ENTRANCE,
         DeathsDoorEventName.ACTIVATED_FURNACE_BURNERS,
     ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.WATCHTOWER_ENTRANCE_TORCH,
+        R.OLD_WATCHTOWERS_ENTRANCE,
+        DeathsDoorEventName.LIT_WATCHTOWER_TORCH,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.WATCHTOWER_JAMMING_START_TORCH,
+        R.OLD_WATCHTOWERS_JAMMING_START,
+        DeathsDoorEventName.LIT_WATCHTOWER_TORCH,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.WATCHTOWER_BOXES_TORCH,
+        R.OLD_WATCHTOWERS_JAMMING_START,
+        DeathsDoorEventName.LIT_WATCHTOWER_TORCH,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.WATCHTOWER_FIRST_POT_TORCH,
+        R.OLD_WATCHTOWERS_FIRST_POT_AREA,
+        DeathsDoorEventName.LIT_WATCHTOWER_TORCH,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.WATCHTOWER_BOOMERS_TORCH_1,
+        R.OLD_WATCHTOWERS_BOOMERS,
+        DeathsDoorEventName.LIT_WATCHTOWER_TORCH,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.WATCHTOWER_BOOMERS_TORCH_2,
+        R.OLD_WATCHTOWERS_BOOMERS,
+        DeathsDoorEventName.LIT_WATCHTOWER_TORCH,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.MUSHROOM_DUNGEON_MAIN_GATE,
+        R.OVERGROWN_RUINS_FOREST_SETTLEMENT,
+        DeathsDoorEventName.MUSHROOM_DUNGEON_MAIN_GATE,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.RESCUE_GRUNT,
+        R.MUSHROOM_DUNGEON_LOBBY,
+        DeathsDoorEventName.RESCUE_GRUNT,
+    ),
 ]
 
 pot_table: List[DeathsDoorEventLocationData] = [
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_OUTSIDE_CATACOMBS_EXIT, R.LOST_CEMETERY_CENTRAL, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_CATACOMBS_ROOM_2, R.LOST_CEMETERY_CATACOMBS_ROOM_1, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_CEMETERY_RIGHT_ARENA, R.LOST_CEMETERY_RIGHT_ARENA, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_BOMB_SILENT_SERVANT, R.LOST_CEMETERY_EAST_TREE_BRIDGE, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_CEMETERY_SUMMIT, R.LOST_CEMETERY_SUMMIT, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_CEMETERY_CENTRAL_ARENA, R.LOST_CEMETERY_STEADHONE, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_FIRE_SILENT_SERVANT, R.CRYPT_MAIN_ROOM, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_ESTATE_DOOR, R.ESTATE_OF_THE_URN_WITCH_SOUTH, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_GARDEN_OF_JOY, R.ESTATE_OF_THE_URN_WITCH_SOUTH, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_GARDEN_OF_PEACE, R.ESTATE_OF_THE_URN_WITCH_SOUTH, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_GARDEN_OF_LOVE_ENTRANCE, R.ESTATE_OF_THE_URN_WITCH_NORTH, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_GARDEN_OF_LOVE_HIDDEN_LEFT, R.ESTATE_OF_THE_URN_WITCH_NORTH, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_GARDEN_OF_LOVE_HIDDEN_RIGHT, R.ESTATE_OF_THE_URN_WITCH_NORTH, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_GARDEN_OF_LIFE, R.ESTATE_OF_THE_URN_WITCH_NORTH, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_MANOR_LOBBY, R.CERAMIC_MANOR_MAIN_LOBBY, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_MANOR_RAFTERS, R.CERAMIC_MANOR_LEFT, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_MANOR_IMP_LOFT, R.CERAMIC_MANOR_MAIN_LOBBY, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_MANOR_POST_DINING, R.CERAMIC_MANOR_MAIN_LOBBY, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_MANOR_LIBRARY, R.CERAMIC_MANOR_LIBRARY, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_MANOR_BEDROOM, R.CERAMIC_MANOR_LEFT, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_INNER_FURNACE_BURNER_2, R.INNER_FURNACE_POST_BURNER_2, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_INNER_FURNACE_BURNER_3, R.INNER_FURNACE_POST_BURNER_3, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_INNER_FURNACE_ISLANDS, R.INNER_FURNACE_POST_BURNER_6, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_INNER_FURNACE_BURNER_8, R.INNER_FURNACE_POST_BURNER_8, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_INNER_FURNACE_FINAL, R.INNER_FURNACE_POST_BURNER_9, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_HOOKSHOT_SILENT_SERVANT, R.STRANDED_SAILOR_CAVES, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_LOCKSTONE_WEST_CROW, R.CASTLE_LOCKSTONE_CENTRAL, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_LOCKSTONE_WEST_KEYED_CROW, R.CASTLE_LOCKSTONE_CENTRAL, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_LOCKSTONE_ENTRANCE, R.CASTLE_LOCKSTONE_CENTRAL, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_LOCKSTONE_EAST_CROW, R.CASTLE_LOCKSTONE_EAST_CROW, DeathsDoorEventName.PLANTED_SEED),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_CAMP_CASTLE_DOOR, R.CAMP_OF_THE_FREE_CROWS_CASTLE_DOOR, DeathsDoorEventName.PLANTED_SEED),
-    # DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_WATCHTOWERS_FIRST, R., DeathsDoorEventName.PLANTED_SEED),
-    # DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_WATCHTOWERS_BARB_ELEVATOR, R., DeathsDoorEventName.PLANTED_SEED),
-    # DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_WATCHTOWERS_LASERS_ARENA, R., DeathsDoorEventName.PLANTED_SEED),
-    # DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_WATCHTOWERS_OWL, R., DeathsDoorEventName.PLANTED_SEED),
-    # DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_WATCHTOWERS_CAVE_ENTRANCE, R., DeathsDoorEventName.PLANTED_SEED),
-    # DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_RUINS_KEY, R., DeathsDoorEventName.PLANTED_SEED),
-    # DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_RUINS_FIRE_PLANT_CORRIDOR, R., DeathsDoorEventName.PLANTED_SEED),
-    # DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_RUINS_RIGHT_ARENA, R., DeathsDoorEventName.PLANTED_SEED),
-    # DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_RUINS_SEWER, R., DeathsDoorEventName.PLANTED_SEED),
-    # DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_RUINS_LEFT_OF_LORD_OF_DOORS_ARENA, R., DeathsDoorEventName.PLANTED_SEED),
-    # DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_DUNGEON_COBWEB_ROOM, R., DeathsDoorEventName.PLANTED_SEED),
-    # DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_DUNGEON_WATER_ARENA, R., DeathsDoorEventName.PLANTED_SEED),
-    # DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_DUNGEON_HALL, R., DeathsDoorEventName.PLANTED_SEED),
-    # DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_DUNGEON_RIGHTMOST_CROW, R., DeathsDoorEventName.PLANTED_SEED),
-    # DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_FORTRESS_MAIN_GATE, R., DeathsDoorEventName.PLANTED_SEED),
-    # DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_FORTRESS_U_TURN, R., DeathsDoorEventName.PLANTED_SEED),
-    # DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_FORTRESS_BREAKABLE_BRIDGES, R., DeathsDoorEventName.PLANTED_SEED),
-    # DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_FORTRESS_BRIDGE, R., DeathsDoorEventName.PLANTED_SEED),
-    # DeathsDoorEventLocationData(DeathsDoorEventLocationName.POT_FORTRESS_EXIT, R., DeathsDoorEventName.PLANTED_SEED),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_OUTSIDE_CATACOMBS_EXIT,
+        R.LOST_CEMETERY_CENTRAL,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_CATACOMBS_ROOM_2,
+        R.LOST_CEMETERY_CATACOMBS_ROOM_1,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_CEMETERY_RIGHT_ARENA,
+        R.LOST_CEMETERY_RIGHT_ARENA,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_BOMB_SILENT_SERVANT,
+        R.LOST_CEMETERY_EAST_TREE_BRIDGE,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_CEMETERY_SUMMIT,
+        R.LOST_CEMETERY_SUMMIT,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_CEMETERY_CENTRAL_ARENA,
+        R.LOST_CEMETERY_STEADHONE,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_FIRE_SILENT_SERVANT,
+        R.CRYPT_MAIN_ROOM,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_ESTATE_DOOR,
+        R.ESTATE_OF_THE_URN_WITCH_SOUTH,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_GARDEN_OF_JOY,
+        R.ESTATE_OF_THE_URN_WITCH_SOUTH,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_GARDEN_OF_PEACE,
+        R.ESTATE_OF_THE_URN_WITCH_SOUTH,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_GARDEN_OF_LOVE_ENTRANCE,
+        R.ESTATE_OF_THE_URN_WITCH_NORTH,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_GARDEN_OF_LOVE_HIDDEN_LEFT,
+        R.ESTATE_OF_THE_URN_WITCH_NORTH,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_GARDEN_OF_LOVE_HIDDEN_RIGHT,
+        R.ESTATE_OF_THE_URN_WITCH_NORTH,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_GARDEN_OF_LIFE,
+        R.ESTATE_OF_THE_URN_WITCH_NORTH,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_MANOR_LOBBY,
+        R.CERAMIC_MANOR_MAIN_LOBBY,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_MANOR_RAFTERS,
+        R.CERAMIC_MANOR_LEFT,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_MANOR_IMP_LOFT,
+        R.CERAMIC_MANOR_MAIN_LOBBY,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_MANOR_POST_DINING,
+        R.CERAMIC_MANOR_MAIN_LOBBY,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_MANOR_LIBRARY,
+        R.CERAMIC_MANOR_LIBRARY,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_MANOR_BEDROOM,
+        R.CERAMIC_MANOR_LEFT,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_INNER_FURNACE_BURNER_2,
+        R.INNER_FURNACE_POST_BURNER_2,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_INNER_FURNACE_BURNER_3,
+        R.INNER_FURNACE_POST_BURNER_3,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_INNER_FURNACE_ISLANDS,
+        R.INNER_FURNACE_POST_BURNER_6,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_INNER_FURNACE_BURNER_8,
+        R.INNER_FURNACE_POST_BURNER_8,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_INNER_FURNACE_FINAL,
+        R.INNER_FURNACE_POST_BURNER_9,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_HOOKSHOT_SILENT_SERVANT,
+        R.STRANDED_SAILOR_CAVES,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_LOCKSTONE_WEST_CROW,
+        R.CASTLE_LOCKSTONE_CENTRAL,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_LOCKSTONE_WEST_KEYED_CROW,
+        R.CASTLE_LOCKSTONE_CENTRAL,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_LOCKSTONE_ENTRANCE,
+        R.CASTLE_LOCKSTONE_CENTRAL,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_LOCKSTONE_EAST_CROW,
+        R.CASTLE_LOCKSTONE_EAST_CROW,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_CAMP_CASTLE_DOOR,
+        R.CAMP_OF_THE_FREE_CROWS_CASTLE_DOOR,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_WATCHTOWERS_FIRST,
+        R.OLD_WATCHTOWERS_FIRST_POT_AREA,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_WATCHTOWERS_BARB_ELEVATOR,
+        R.OLD_WATCHTOWERS_BARB_ELEVATOR,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_WATCHTOWERS_LASERS_ARENA,
+        R.OLD_WATCHTOWERS_LASERS_ARENA,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_WATCHTOWERS_OWL,
+        R.OLD_WATCHTOWERS_HEADLESS_LORD_OF_DOORS,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_WATCHTOWERS_CAVE_ENTRANCE,
+        R.OLD_WATCHTOWERS_CAVE_ENTRANCE,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_RUINS_KEY,
+        R.OVERGROWN_RUINS_OUTSIDE_MAIN_DUNGEON_GATE,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_RUINS_FIRE_PLANT_CORRIDOR,
+        R.OVERGROWN_RUINS_FOREST_SETTLEMENT,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_RUINS_RIGHT_ARENA,
+        R.OVERGROWN_RUINS_FOREST_SETTLEMENT,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_RUINS_SEWER,
+        R.OVERGROWN_RUINS_FOREST_SETTLEMENT,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_RUINS_LEFT_OF_LORD_OF_DOORS_ARENA,
+        R.OVERGROWN_RUINS_FOREST_SETTLEMENT,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_DUNGEON_COBWEB_ROOM,
+        R.MUSHROOM_DUNGEON_BIG_DOOR,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_DUNGEON_WATER_ARENA,
+        R.MUSHROOM_DUNGEON_WATER_ARENA,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_DUNGEON_HALL,
+        R.MUSHROOM_DUNGEON_MAIN_HALL,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_DUNGEON_RIGHTMOST_CROW,
+        R.MUSHROOM_DUNGEON_RIGHTMOST_CROW,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_FORTRESS_MAIN_GATE,
+        R.FLOODED_FORTRESS_INSIDE_MAIN_GATE,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_FORTRESS_U_TURN,
+        R.FLOODED_FORTRESS_U_TURN,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_FORTRESS_BREAKABLE_BRIDGES,
+        R.FLOODED_FORTRESS_BREAKABLE_BRIDGES,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_FORTRESS_BRIDGE,
+        R.FLOODED_FORTRESS_BRIDGE,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.POT_FORTRESS_EXIT,
+        R.FLOODED_FORTRESS_EXIT,
+        DeathsDoorEventName.PLANTED_SEED,
+    ),
 ]
 
-pot_specific_rules = dict[
-    DeathsDoorEventLocationName, Rule["DeathsDoorWorld"]] = {
-        DeathsDoorEventLocationName.POT_CATACOMBS_ROOM_2 : Has(I.FIRE),
-        DeathsDoorEventLocationName.POT_BOMB_SILENT_SERVANT : Has(I.BOMB),
-        DeathsDoorEventLocationName.POT_MANOR_IMP_LOFT : Has(I.FIRE), ##TODO: Check?
-        DeathsDoorEventLocationName.POT_HOOKSHOT_SILENT_SERVANT : Has(I.LEVER_HOOKSHOT_SILENT_SERVANT),
-        DeathsDoorEventLocationName.POT_LOCKSTONE_WEST_KEYED_CROW : Has(I.PINK_KEY, 5),
-        DeathsDoorEventLocationName.POT_FORTRESS_MAIN_GATE : Has(I.BOMB),
-    }
-
+pot_specific_rules = dict[DeathsDoorEventLocationName, Rule["DeathsDoorWorld"]] = {
+    DeathsDoorEventLocationName.POT_CATACOMBS_ROOM_2: Has(I.FIRE),
+    DeathsDoorEventLocationName.POT_BOMB_SILENT_SERVANT: Has(I.BOMB),
+    DeathsDoorEventLocationName.POT_MANOR_IMP_LOFT: Has(I.FIRE),  ##TODO: Check?
+    DeathsDoorEventLocationName.POT_HOOKSHOT_SILENT_SERVANT: Has(
+        I.LEVER_HOOKSHOT_SILENT_SERVANT
+    ),
+    DeathsDoorEventLocationName.POT_LOCKSTONE_WEST_KEYED_CROW: Has(I.PINK_KEY, 5),
+    DeathsDoorEventLocationName.POT_FORTRESS_MAIN_GATE: Has(I.BOMB),
+}
 
 
 deaths_door_event_rules: dict[
@@ -216,12 +466,37 @@ deaths_door_event_rules: dict[
         ]
     ),
     DeathsDoorEventLocationName.ACTIVATED_FURNACE_BURNERS: Has(I.FIRE),
+    DeathsDoorEventLocationName.ACTIVATED_FURNACE_BURNERS: HasAll(
+        [I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT]
+    ),
+    DeathsDoorEventLocationName.WATCHTOWER_ENTRANCE_TORCH: HasAll(
+        [I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT]
+    ),
+    DeathsDoorEventLocationName.WATCHTOWER_JAMMING_START_TORCH: HasAll(
+        [I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT]
+    ),
+    DeathsDoorEventLocationName.WATCHTOWER_BOXES_TORCH: HasAll(
+        [I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT]
+    ),
+    DeathsDoorEventLocationName.WATCHTOWER_FIRST_POT_TORCH: HasAll(
+        [I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT]
+    ),
+    DeathsDoorEventLocationName.WATCHTOWER_BOOMERS_TORCH_1: HasAll(
+        [I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT]
+    ),
+    DeathsDoorEventLocationName.WATCHTOWER_BOOMERS_TORCH_2: HasAll(
+        [I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT]
+    ),
+    DeathsDoorEventLocationName.MUSHROOM_DUNGEON_MAIN_GATE: HasAll(
+        [I.MAGICAL_FOREST_HORN, DeathsDoorEventName.ACCESS_TO_DAY]
+    ),
+    DeathsDoorEventLocationName.RESCUE_GRUNT: Has(I.BOMB),
 }
 
 # Add in pots to existing tables to be able to use the same infrastructure
 event_location_table = event_location_table + pot_table
 for pot in pot_table:
-    rule = Has(I.LIFE_SEED, 50) ## TODO: Make a yaml setting
+    rule = Has(I.LIFE_SEED, 50)  ## TODO: Make a yaml setting
     if pot.name in pot_specific_rules.keys:
         rule = rule & pot_specific_rules[pot.name]
     deaths_door_event_rules[pot.name] = rule
@@ -238,4 +513,3 @@ def set_event_rules(world: "DeathsDoorWorld") -> None:
                 event_location_data.name.value, player
             )
             world.set_rule(event_location, rule)
-        

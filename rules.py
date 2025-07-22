@@ -54,7 +54,7 @@ class HasAny(RBHasAny, game="Death's Door"):
 
     @override
     def __init__(
-        self, *item_names: I, options: "Iterable[OptionFilter[Any]]" = ()
+        self, *item_names: I | E, options: "Iterable[OptionFilter[Any]]" = ()
     ) -> None:
         super().__init__(
             *tuple(item_name.value for item_name in item_names), options=options
@@ -66,7 +66,7 @@ class HasAll(RBHasAll, game="Death's Door"):
 
     @override
     def __init__(
-        self, *item_names: I, options: "Iterable[OptionFilter[Any]]" = ()
+        self, *item_names: I | E, options: "Iterable[OptionFilter[Any]]" = ()
     ) -> None:
         super().__init__(
             *tuple(item_name.value for item_name in item_names), options=options

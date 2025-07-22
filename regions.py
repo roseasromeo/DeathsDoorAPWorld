@@ -42,7 +42,7 @@ class DeathsDoorRegionName(str, Enum):
     LOST_CEMETERY_EXIT_TO_OVERGROWN_RUINS = "Lost Cemetery Exit to Overgrown Ruins"
     LOST_CEMETERY_EXIT_TO_STRANDED_SAILOR = "Lost Cemetery Exit to Stranded Sailor"
     LOST_CEMETERY_BELLTOWER = "Lost Cemetery Belltower"
-    LOST_CEMETERY_CATACOMBS_ROOM_1 = "Lost Cemetery Catacombs Room 1"
+    LOST_CEMETERY_CATACOMBS_ROOM_1 = "Lost Cemetery Catacombs"
     LOST_CEMETERY_EAST_TREE_BRIDGE = "Lost Cemetery East Tree Bridge"
     LOST_CEMETERY_SUMMIT = "Lost Cemetery Summit"
 
@@ -118,20 +118,42 @@ class DeathsDoorRegionName(str, Enum):
     # Overgrown Ruins Regions
     OVERGROWN_RUINS = "Overgrown Ruins"
     OVERGROWN_RUINS_DOOR = "Overgrown Ruins Door"
-    OVERGROWN_RUINS_OUTSIDE_FRONT_GATE = "Overgrown Ruins Outside Front Gate"
     OVERGROWN_RUINS_EXIT_TO_LOST_CEMETERY = "Overgrown Ruins Exit to Lost Cemetery"
+    OVERGROWN_RUINS_OUTSIDE_FRONT_GATE = "Overgrown Ruins Outside Front Gate"
+    OVERGROWN_RUINS_OUTSIDE_MAIN_DUNGEON_GATE = "Overgrown Ruins Outside Main Dungeon Gate"
+    OVERGROWN_RUINS_FOREST_SETTLEMENT = "Overgrown Ruins Forest Settlement"
+    OVERGROWN_RUINS_EXIT_TO_MUSHROOM_DUNGEON_MAIN = "Overgrown Ruins Exit to Mushroom Dungeon Main" ## TODO: right now, not handling all the different entrances to mushroom dungeon
 
     # Mushroom Dungeon Regions
-    MUSHROOM_DUNGEON_DOOR = "Mushroom Dungeon Door"
     MUSHROOM_DUNGEON = "Mushroom Dungeon"
+    MUSHROOM_DUNGEON_DOOR = "Mushroom Dungeon Door"
+    MUSHROOM_DUNGEON_EXIT_TO_OVERGROWN_RUINS_MAIN = "Mushroom Dungeon Exit to Overgrown Ruins Main Gate"
+    MUSHROOM_DUNGEON_MAIN_HALL = "Mushroom Dungeon Main Hall"
+    MUSHROOM_DUNGEON_RIGHTMOST_CROW = "Mushroom Dungeon Rightmost Crow"
+    MUSHROOM_DUNGEON_LOBBY = "Mushroom Dungeon Lobby"
+    MUSHROOM_DUNGEON_BIG_DOOR = "Mushroom Dungeon Big Door"
+    MUSHROOM_DUNGEON_WATER_ARENA = "Mushroom Dungeon Water Arena"
+    MUSHROOM_DUNGEON_EXIT_TO_FLOODED_FORTRESS = "Mushroom Dungeon Exit to Flooded Fortress"
 
     # Flooded Fortress Regions
     FLOODED_FORTRESS = "Flooded Fortress"
     FLOODED_FORTRESS_DOOR = "Flooded Fortress Door"
+    FLOODED_FORTRESS_EXIT_TO_MUSHROOM_DUNGEON = "Flooded Fortress Exit to Mushroom Dungeon"
+    FLOODED_FORTRESS_ENTRANCE = "Flooded Fortress Entrance"
+    FLOODED_FORTRESS_WATCHTOWER_LOWER = "Flooded Fortress Watchtower Lower"
+    FLOODED_FORTRESS_FROG_KING_STATUE = "Flooded Fortress Frog King Statue"
+    FLOODED_FORTRESS_FROG_KING_ENCOUNTER = "Flooded Fortress Frog King Encounter"
+    FLOODED_FORTRESS_INSIDE_MAIN_GATE = "Flooded Fortress Inside Main Gate"
+    FLOODED_FORTRESS_U_TURN = "Flooded Fortress U Turn"
+    FLOODED_FORTRESS_BREAKABLE_BRIDGES = "Flooded Fortress Breakable Bridges"
+    FLOODED_FORTRESS_BRIDGE = "Flooded Fortress Bridge"
+    FLOODED_FORTRESS_EXIT = "Flooded Fortress Exit"
+    FLOODED_FORTRESS_EXIT_TO_THRONE_OF_THE_FROG_KING = "Flooded Fortress Exit to Throne of the Frog King"
 
     # Throne of the Frog King Regions
     THRONE_OF_THE_FROG_KING = "Throne of the Frog King"
     THRONE_OF_THE_FROG_KING_DOOR = "Throne of the Frog King Door"
+    THRONE_OF_THE_FROG_KING_EXIT_TO_FLOODED_FORTRESS = "Throne of the Frog King Exit to Flooded Fortress"
 
     # Stranded Sailor Regions
     STRANDED_SAILOR = "Stranded Sailor"
@@ -188,17 +210,32 @@ class DeathsDoorRegionName(str, Enum):
     CAMP_OF_THE_FREE_CROWS_EXIT_TO_CASTLE_LOCKSTONE = (
         "Camp of the Free Crows Exit to Castle Lockstone (via Roof)"
     )
-    CAMP_OF_THE_FREE_CROWS_CAMP_BRIDGE = (
-        "Camp of the Free Crows Exit to Castle Lockstone (via Roof)"
-    )
-    CAMP_OF_THE_FREE_CROWS_CASTLE_DOOR = (
-        "Camp of the Free Crows Exit to Castle Lockstone (via Roof)"
+    CAMP_OF_THE_FREE_CROWS_CAMP_BRIDGE = "Camp of the Free Crows Camp Bridge"
+    CAMP_OF_THE_FREE_CROWS_CASTLE_DOOR = "Camp of the Free Crows Castle Door"
+    CAMP_OF_THE_FREE_CROWS_VILLAGE = "Camp of the Free Crows Village"
+    CAMP_OF_THE_FREE_CROWS_ELEVATOR = "Camp of the Free Crows Elevator"
+    CAMP_OF_THE_FREE_CROWS_EXIT_TO_OLD_WATCHTOWERS = (
+        "Camp of the Free Crows Exit to Old Watchtowers"
     )
 
     # Old Watchtowers Regions
     OLD_WATCHTOWERS = "Old Watchtowers"
     OLD_WATCHTOWERS_DOOR = "Old Watchtowers Door"
+    OLD_WATCHTOWERS_EXIT_TO_CAMP_OF_THE_FREE_CROWS = "Old Watchtowers Exit to Camp of the Free Crows"
+    OLD_WATCHTOWERS_ENTRANCE = "Old Watchtowers Entrance"
+    OLD_WATCHTOWERS_JAMMING_START = "Old Watchtowers Jamming Start"
+    OLD_WATCHTOWERS_FIRST_POT_AREA = "Old Watchtowers First Pot Area"
+    OLD_WATCHTOWERS_BARB_ELEVATOR = "Old Watchtowers Barb Elevator"
+    OLD_WATCHTOWERS_LASERS_ARENA = "Old Watchtowers Lasers Arena"
+    OLD_WATCHTOWERS_ICE_SKATING_START = "Old Watchtowers Ice Skating Start"
+    OLD_WATCHTOWERS_ICE_SKATING_END = "Old Watchtowers Ice Skating End"
+    OLD_WATCHTOWERS_HEADLESS_LORD_OF_DOORS = "Old Watchtowers Headless Lord of Doors"
+    OLD_WATCHTOWERS_CAVE_ENTRANCE = "Old Watchtowers Cave Entrance"
+    OLD_WATCHTOWERS_BOOMERS = "Old Watchtowers Boomers"
+    OLD_WATCHTOWERS_EXIT_TO_BETTYS_LAIR = "Old Watchtowers Exit to Betty's Lair"
+
 
     # Betty's Lair Regions
     BETTYS_LAIR = "Betty's Lair"
     BETTYS_LAIR_DOOR = "Betty's Lair Door"
+    BETTYS_LAIR_EXIT_TO_OLD_WATCHTOWERS = "Betty's Lair Exit to Old Watchtowers"
