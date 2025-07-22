@@ -7,19 +7,27 @@ try:
     from rule_builder import RuleWorldMixin
 except ModuleNotFoundError:
     from .rule_builder import RuleWorldMixin
-from .options import DeathsDoorOptions, deathsdoor_options_presets, deathsdoor_option_groups
+from .options import (
+    DeathsDoorOptions,
+    deathsdoor_options_presets,
+    deathsdoor_option_groups,
+)
 from .items import (
     item_name_to_id,
     item_table,
     item_name_groups,
     DeathsDoorItemName as I,
-    DeathsDoorEventName as E,
 )
 from .locations import (
     location_name_to_id,
     location_table,
     location_name_groups,
+)
+from .events import (
+    DeathsDoorEventName as E,
     DeathsDoorEventLocationName as EL,
+    event_location_table,
+    set_event_rules,
 )
 from .regions import DeathsDoorRegionName as R
 from .entrances import deathsdoor_entrances
@@ -59,8 +67,7 @@ class DeathsDoorWeb(WebWorld):
 
 
 class DeathsDoorWorld(RuleWorldMixin, World):
-    """Reaping souls of the dead and punching a clock might get monotonous but it's honest work for a Crow. The job gets lively when your assigned soul is stolen and you must track down a desperate thief to a realm untouched by death - where creatures grow far past their expiry.
-    """
+    """Reaping souls of the dead and punching a clock might get monotonous but it's honest work for a Crow. The job gets lively when your assigned soul is stolen and you must track down a desperate thief to a realm untouched by death - where creatures grow far past their expiry."""
 
     game = "Death's Door"  # name of the game/world
     web = DeathsDoorWeb()
@@ -94,7 +101,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                 f"Death's Door version error: The version of apworld used to generate this world ({slot_version}) does not match the version of your installed apworld ({current_version})."
             )
         return slot_data
-    
+
     @override
     def generate_early(self) -> None:
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
@@ -123,6 +130,18 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             )
             region.locations.append(location)
 
+        for event_location_data in event_location_table:
+            region = self.multiworld.get_region(
+                event_location_data.region.value, self.player
+            )
+            event_location = DeathsDoorLocation(
+                self.player, event_location_data.name.value, None, region
+            )
+            region.locations.append(event_location)
+            event_location.place_locked_item(
+                self.create_item(event_location_data.event_name.value)
+            )
+
         for deathsdoor_entrance in deathsdoor_entrances:
             start_region = self.multiworld.get_region(
                 deathsdoor_entrance.starting_region.value, self.player
@@ -132,19 +151,12 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             )
             self.create_entrance(start_region, end_region, deathsdoor_entrance.rule)
 
-        # Will need to set up Goals
-        victory_region = self.multiworld.get_region(R.GOAL.value, self.player)
-        victory_location = DeathsDoorLocation(
-            self.player, EL.VICTORY.value, None, victory_region
-        )
-        victory_region.locations.append(victory_location)
-        self.set_rule(victory_location, can_complete_game)
-        victory_location.place_locked_item(self.create_item(E.VICTORY.value))
-
     def create_item(self, name: str) -> DeathsDoorItem:
         # if the name provided is an event, create it as an event
         if name in [member.value for member in E]:
-            return DeathsDoorItem(name, ItemClassification.progression, None, self.player)
+            return DeathsDoorItem(
+                name, ItemClassification.progression, None, self.player
+            )
 
         # otherwise, look up the item data
         item_data = next(data for data in item_table if data.name.value == name)
@@ -174,6 +186,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
 
     def set_rules(self) -> None:
         set_location_rules(self)
+        set_event_rules(self)
 
         self.set_completion_rule(Has(E.VICTORY))
         self.register_dependencies()
@@ -186,12 +199,9 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         # A dictionary returned from this method gets set as the slot_data and will be sent to the client after connecting.
         # The options dataclass has a method to return a `Dict[str, Any]` of each option name provided and the relevant
         # option's value.
-        slot_data = self.options.as_dict(
-        )
+        slot_data = self.options.as_dict()
         slot_data["APWorldVersion"] = deathsdoor_version
         return slot_data
 
     def get_filler_item_name(self) -> str:
         return "100 Souls"
-
-

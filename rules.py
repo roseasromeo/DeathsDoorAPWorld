@@ -2,10 +2,11 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import override
 import dataclasses
 
-from BaseClasses import CollectionState
 from .options import StartInventoryPool
-from .items import ItemGroup as IG, DeathsDoorItemName as I, DeathsDoorEventName as E
+from .items import ItemGroup as IG, DeathsDoorItemName as I
 from .locations import location_table, DeathsDoorLocationName as L
+from .events import DeathsDoorEventName as E
+from .regions import DeathsDoorRegionName as R
 
 try:
     from rule_builder import (
@@ -17,6 +18,7 @@ try:
         HasAny as RBHasAny,
         HasGroup as RBHasGroup,
         CanReachLocation as RBCanReachLocation,
+        CanReachRegion as RBCanReachRegion,
     )
 except ModuleNotFoundError:
     from .rule_builder import (
@@ -28,6 +30,7 @@ except ModuleNotFoundError:
         HasAny as RBHasAny,
         HasGroup as RBHasGroup,
         CanReachLocation as RBCanReachLocation,
+        CanReachRegion as RBCanReachRegion,
     )
 from collections.abc import Iterable
 
@@ -87,6 +90,15 @@ class CanReachLocation(RBCanReachLocation, game="Death's Door"):
         self, location_name: L, options: "Iterable[OptionFilter[Any]]" = ()
     ) -> None:
         super().__init__(location_name.value, options=options)
+
+@dataclasses.dataclass
+class CanReachRegion(RBCanReachRegion, game="Death's Door"):
+
+    @override
+    def __init__(
+        self, region_name: R, options: "Iterable[OptionFilter[Any]]" = ()
+    ) -> None:
+        super().__init__(region_name.value, options=options)
 
 can_complete_game = True_()
 

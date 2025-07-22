@@ -3,297 +3,1048 @@ from enum import Enum
 from typing import NamedTuple, Dict, List, Set
 from BaseClasses import ItemClassification
 
+
 class ItemGroup(str, Enum):
-    Spell = "Spell"
-    Weapon = "Weapon"
-    Key = "Key"
-    Giant_Soul = "Giant Soul"
-    Shiny_Thing = "Shiny Thing"
-    Tablet = "Tablet"
-    Lever = "Lever"
-    Door = "Door"
-    Lost_Crow = "Lost Crow"
+    SPELL = "Spell"
+    WEAPON = "Weapon"
+    KEY = "Key"
+    GIANT_SOUL = "Giant Soul"
+    SHINY_THING = "Shiny Thing"
+    TABLET = "Tablet"
+    LEVER = "Lever"
+    DOOR = "Door"
+    LOST_CROW = "Lost Crow"
+
 
 class DeathsDoorItemName(str, Enum):
-    Fire = "Fire"
-    Bomb = "Bomb"
-    Hookshot = "Hookshot"
-    Bow = "Arrow Upgrade"
-    Rogue_Daggers = "Rogue Daggers"
-    Discarded_Umbrella = "Discarded Umbrella"
-    Reapers_Greatsword = "Reaper's Greatsword"
-    Thunder_Hammer = "Thunder Hammer"
-    Vitality_Shard = "Vitality Shard"
-    Magic_Shard = "Magic Shard"
-    Life_Seed = "Life Seed"
-    Souls = "100 Souls"
-    Pink_Key = "Pink Key"
-    Green_Key = "Green Key"
-    Yellow_Key = "Yellow Key"
-    Engagement_Ring = "Engagement Ring"
-    Old_Compass = "Old Compass"
-    Incense = "Incense"
-    Undying_Blossom = "Undying Blossom"
-    Old_Photograph = "Old Photograph"
-    Sludge_Filled_Urn = "Sludge-Filled Urn"
-    Token_of_Death = "Token of Death"
-    Rusty_Garden_Trowel = "Rusty Garden Trowel"
-    Captains_Log = "Captain's Log"
-    Giant_Arrowhead = "Giant Arrowhead"
-    Malformed_Seed = "Malformed Seed"
-    Corrupted_Antler = "Corrupted Antler"
-    Magical_Forest_Horn = "Magical Forest Horn"
-    Ancient_Crown = "Ancient Crown"
-    Grunts_Old_Mask = "Grunt's Old Mask"
-    Ancient_Door_Scale_Model = "Ancient Door Scale Model"
-    Modern_Door_Scale_Model = "Modern Door Scale Model"
-    Rusty_Belltower_Key = "Rusty Belltower Key"
-    Surveillance_Device = "Surveillance Device"
-    Shiny_Medallion = "Shiny Medallion"
-    Ink_Covered_Teddy_Bear = "Ink-Covered Teddy Bear"
-    Deaths_Contract = "Death's Contract"
-    Makeshift_Soul_Key = "Makeshift Soul Key"
-    Mysterious_Locket = "Mysterious Locket"
-    Red_Ancient_Tablet_of_Knowledge = "Red Ancient Tablet of Knowledge"
-    Yellow_Ancient_Tablet_of_Knowledge = "Yellow Ancient Tablet of Knowledge"
-    Green_Ancient_Tablet_of_Knowledge = "Green Ancient Tablet of Knowledge"
-    Cyan_Ancient_Tablet_of_Knowledge = "Cyan Ancient Tablet of Knowledge"
-    Blue_Ancient_Tablet_of_Knowledge = "Blue Ancient Tablet of Knowledge"
-    Purple_Ancient_Tablet_of_Knowledge = "Purple Ancient Tablet of Knowledge"
-    Lever_Bomb_Exit = "Lever-Bomb Exit"
-    Lever_Cemetery_Sewer = "Lever-Cemetery Sewer"
-    Lever_Guardian_of_the_Door_Access = "Lever-Guardian of the Door Access"
-    Lever_Cemetery_Shortcut_to_East_Tree = "Lever-Cemetery Shortcut to East Tree"
-    Lever_Cemetery_East_Tree = "Lever-Cemetery East Tree"
-    Lever_Catacombs_Tower = "Lever-Catacombs Tower"
-    Lever_Cemetery_Exit_to_Estate = "Lever-Cemetery Exit to Estate"
-    Lever_Catacombs_Exit = "Lever-Catacombs Exit"
-    Lever_Hookshot_Silent_Servant = "Lever-Hookshot Silent Servant"
-    Lever_Sailor_Turncam_Upper = "Lever-Sailor Turncam Upper"
-    Lever_Sailor_Turncam_Lower = "Lever-Sailor Turncam Lower"
-    Lever_Sailor_Greatsword_Gate = "Lever-Sailor Greatsword Gate"
-    Lever_Lockstone_East_Start_Shortcut = "Lever-Lockstone East Start Shortcut"
-    Lever_Lockstone_Entrance = "Lever-Lockstone Entrance"
-    Lever_Lockstone_East_Lower = "Lever-Lockstone East Lower"
-    Lever_Lockstone_Upper_Shortcut = "Lever-Lockstone Upper Shortcut"
-    Lever_Lockstone_Dual_Laser_Puzzle = "Lever-Lockstone Dual Laser Puzzle"
-    Lever_Lockstone_Tracking_Beam_Puzzle = "Lever-Lockstone Tracking Beam Puzzle"
-    Lever_Lockstone_Vertical_Laser_Puzzle = "Lever-Lockstone Vertical Laser Puzzle"
-    Lever_Lockstone_North_Puzzle = "Lever-Lockstone North Puzzle"
-    Lever_Lockstone_Shrine = "Lever-Lockstone Shrine"
-    Lever_Lockstone_Hookshot_Puzzle = "Lever-Lockstone Hookshot Puzzle"
-    Lever_Lockstone_Upper_Puzzle = "Lever-Lockstone Upper Puzzle"
-    Lever_Lockstone_Upper_Dual_Laser_Puzzle = "Lever-Lockstone Upper Dual Laser Puzzle"
-    Lever_Watchtowers_Before_Ice_Arena = "Lever-Watchtowers Before Ice Arena"
-    Lever_Watchtowers_After_Ice_Skating = "Lever-Watchtowers After Ice Skating"
-    Lever_Watchtowers_After_Boomers = "Lever-Watchtowers After Boomers"
-    Lever_Ruins_Settlement_Gate = "Lever-Ruins Settlement Gate"
-    Lever_Ruins_Upper_Dungeon_Entrance = "Lever-Ruins Upper Dungeon Entrance"
-    Lever_Ruins_Ladder_Left_of_Lord_of_Doors_Arena = "Lever-Ruins Ladder Left of Lord of Doors Arena"
-    Lever_Ruins_Entrance_Ladder_Shortcut = "Lever-Ruins Entrance Ladder Shortcut"
-    Lever_Ruins_Main_Gate = "Lever-Ruins Main Gate"
-    Lever_Dungeon_Entrance_Right_Gate = "Lever-Dungeon Entrance Right Gate"
-    Lever_Dungeon_Entrance_Left_Gate = "Lever-Dungeon Entrance Left Gate"
-    Lever_Dungeon_Above_Rightmost_Crow = "Lever-Dungeon Above Rightmost Crow"
-    Lever_Fortress_Bomb = "Lever-Fortress Bomb"
-    Lever_Fortress_Main_Gate = "Lever-Fortress Main Gate"
-    Lever_Fortress_Central_Shortcut = "Lever-Fortress Central Shortcut"
-    Lever_Fortress_Statue = "Lever-Fortress Statue"
-    Lever_Fortress_Watchtower_Lower = "Lever-Fortress Watchtower Lower"
-    Lever_Fortress_Bridge = "Lever-Fortress Bridge"
-    Lever_Fortress_Pre_Main_Gate = "Lever-Fortress Pre-Main Gate"
-    Lever_Fortress_Watchtower_Upper = "Lever-Fortress Watchtower Upper"
-    Lever_Fortress_North_West = "Lever-Fortress North West"
-    Lever_Estate_Elevator_Left = "Lever-Estate Elevator Left"
-    Lever_Estate_Elevator_Right = "Lever-Estate Elevator Right"
-    Lever_Garden_of_Love = "Lever-Garden of Love"
-    Lever_Garden_of_Life_End = "Lever-Garden of Life End"
-    Lever_Garden_of_Peace = "Lever-Garden of Peace"
-    Lever_Garden_of_Joy = "Lever-Garden of Joy"
-    Lever_Garden_of_Love_Turncam = "Lever-Garden of Love Turncam"
-    Lever_Garden_of_Life_Lanterns = "Lever-Garden of Life Lanterns"
-    Lever_Estate_Underground_Urn_Shed = "Lever-Estate Underground Urn Shed"
-    Lever_Manor_Big_Pot_Arena = "Lever-Manor Big Pot Arena"
-    Lever_Manor_Bookshelf_Shortcut = "Lever-Manor Bookshelf Shortcut"
-    Grove_of_Spirits_Door = "Grove of Spirits Door"
-    Lost_Cemetery_Door = "Lost Cemetery Door"
-    Stranded_Sailor_Door = "Stranded Sailor Door"
-    Castle_Lockstone_Door = "Castle Lockstone Door"
-    Camp_of_the_Free_Crows_Door = "Camp of the Free Crows Door"
-    Old_Watchtowers_Door = "Old Watchtowers Door"
-    Bettys_Lair_Door = "Betty's Lair Door"
-    Overgrown_Ruins_Door = "Overgrown Ruins Door"
-    Mushroom_Dungeon_Door = "Mushroom Dungeon Door"
-    Flooded_Fortress_Door = "Flooded Fortress Door"
-    Throne_of_the_Frog_King_Door = "Throne of the Frog King Door"
-    Estate_of_the_Urn_Witch_Door = "Estate of the Urn Witch Door"
-    Ceramic_Manor_Door = "Ceramic Manor Door"
-    Inner_Furnace_Door = "Inner Furnace Door"
-    The_Urn_Witchs_Laboratory_Door = "The Urn Witch's Laboratory Door"
-    Giant_Soul_of_The_Urn_Witch = "Giant Soul of The Urn Witch"
-    Giant_Soul_of_The_Frog_King = "Giant Soul of The Frog King"
-    Giant_Soul_of_Betty = "Giant Soul of Betty"
-    Crow_Manor_After_Torch_Puzzle = "Crow-Manor After Torch Puzzle"
-    Crow_Manor_Imp_Loft = "Crow-Manor Imp Loft"
-    Crow_Manor_Library = "Crow-Manor Library"
-    Crow_Manor_Bedroom = "Crow-Manor Bedroom"
-    Crow_Dungeon_Hall = "Crow-Dungeon Hall"
-    Crow_Dungeon_Water_Arena = "Crow-Dungeon Water Arena"
-    Crow_Dungeon_Cobweb = "Crow-Dungeon Cobweb"
-    Crow_Dungeon_Rightmost = "Crow-Dungeon Rightmost"
-    Crow_Lockstone_East = "Crow-Lockstone East"
-    Crow_Lockstone_West = "Crow-Lockstone West"
-    Crow_Lockstone_West_Locked = "Crow-Lockstone West Locked"
-    Crow_Lockstone_South_West = "Crow-Lockstone South West"
+    FIRE = "Fire"
+    BOMB = "Bomb"
+    HOOKSHOT = "Hookshot"
+    BOW = "Arrow Upgrade"
+    ROGUE_DAGGERS = "Rogue Daggers"
+    DISCARDED_UMBRELLA = "Discarded Umbrella"
+    REAPERS_GREATSWORD = "Reaper's Greatsword"
+    THUNDER_HAMMER = "Thunder Hammer"
+    VITALITY_SHARD = "Vitality Shard"
+    MAGIC_SHARD = "Magic Shard"
+    LIFE_SEED = "Life Seed"
+    SOULS = "100 Souls"
+    PINK_KEY = "Pink Key"
+    GREEN_KEY = "Green Key"
+    YELLOW_KEY = "Yellow Key"
+    ENGAGEMENT_RING = "Engagement Ring"
+    OLD_COMPASS = "Old Compass"
+    INCENSE = "Incense"
+    UNDYING_BLOSSOM = "Undying Blossom"
+    OLD_PHOTOGRAPH = "Old Photograph"
+    SLUDGE_FILLED_URN = "Sludge-Filled Urn"
+    TOKEN_OF_DEATH = "Token of Death"
+    RUSTY_GARDEN_TROWEL = "Rusty Garden Trowel"
+    CAPTAINS_LOG = "Captain's Log"
+    GIANT_ARROWHEAD = "Giant Arrowhead"
+    MALFORMED_SEED = "Malformed Seed"
+    CORRUPTED_ANTLER = "Corrupted Antler"
+    MAGICAL_FOREST_HORN = "Magical Forest Horn"
+    ANCIENT_CROWN = "Ancient Crown"
+    GRUNTS_OLD_MASK = "Grunt's Old Mask"
+    ANCIENT_DOOR_SCALE_MODEL = "Ancient Door Scale Model"
+    MODERN_DOOR_SCALE_MODEL = "Modern Door Scale Model"
+    RUSTY_BELLTOWER_KEY = "Rusty Belltower Key"
+    SURVEILLANCE_DEVICE = "Surveillance Device"
+    SHINY_MEDALLION = "Shiny Medallion"
+    INK_COVERED_TEDDY_BEAR = "Ink-Covered Teddy Bear"
+    DEATHS_CONTRACT = "Death's Contract"
+    MAKESHIFT_SOUL_KEY = "Makeshift Soul Key"
+    MYSTERIOUS_LOCKET = "Mysterious Locket"
+    RED_ANCIENT_TABLET_OF_KNOWLEDGE = "Red Ancient Tablet of Knowledge"
+    YELLOW_ANCIENT_TABLET_OF_KNOWLEDGE = "Yellow Ancient Tablet of Knowledge"
+    GREEN_ANCIENT_TABLET_OF_KNOWLEDGE = "Green Ancient Tablet of Knowledge"
+    CYAN_ANCIENT_TABLET_OF_KNOWLEDGE = "Cyan Ancient Tablet of Knowledge"
+    BLUE_ANCIENT_TABLET_OF_KNOWLEDGE = "Blue Ancient Tablet of Knowledge"
+    PURPLE_ANCIENT_TABLET_OF_KNOWLEDGE = "Purple Ancient Tablet of Knowledge"
+    LEVER_BOMB_EXIT = "Lever-Bomb Exit"
+    LEVER_CEMETERY_SEWER = "Lever-Cemetery Sewer"
+    LEVER_GUARDIAN_OF_THE_DOOR_ACCESS = "Lever-Guardian of the Door Access"
+    LEVER_CEMETERY_SHORTCUT_TO_EAST_TREE = "Lever-Cemetery Shortcut to East Tree"
+    LEVER_CEMETERY_EAST_TREE = "Lever-Cemetery East Tree"
+    LEVER_CATACOMBS_TOWER = "Lever-Catacombs Tower"
+    LEVER_CEMETERY_EXIT_TO_ESTATE = "Lever-Cemetery Exit to Estate"
+    LEVER_CATACOMBS_EXIT = "Lever-Catacombs Exit"
+    LEVER_HOOKSHOT_SILENT_SERVANT = "Lever-Hookshot Silent Servant"
+    LEVER_SAILOR_TURNCAM_UPPER = "Lever-Sailor Turncam Upper"
+    LEVER_SAILOR_TURNCAM_LOWER = "Lever-Sailor Turncam Lower"
+    LEVER_SAILOR_GREATSWORD_GATE = "Lever-Sailor Greatsword Gate"
+    LEVER_LOCKSTONE_EAST_START_SHORTCUT = "Lever-Lockstone East Start Shortcut"
+    LEVER_LOCKSTONE_ENTRANCE = "Lever-Lockstone Entrance"
+    LEVER_LOCKSTONE_EAST_LOWER = "Lever-Lockstone East Lower"
+    LEVER_LOCKSTONE_UPPER_SHORTCUT = "Lever-Lockstone Upper Shortcut"
+    LEVER_LOCKSTONE_DUAL_LASER_PUZZLE = "Lever-Lockstone Dual Laser Puzzle"
+    LEVER_LOCKSTONE_TRACKING_BEAM_PUZZLE = "Lever-Lockstone Tracking Beam Puzzle"
+    LEVER_LOCKSTONE_VERTICAL_LASER_PUZZLE = "Lever-Lockstone Vertical Laser Puzzle"
+    LEVER_LOCKSTONE_NORTH_PUZZLE = "Lever-Lockstone North Puzzle"
+    LEVER_LOCKSTONE_SHRINE = "Lever-Lockstone Shrine"
+    LEVER_LOCKSTONE_HOOKSHOT_PUZZLE = "Lever-Lockstone Hookshot Puzzle"
+    LEVER_LOCKSTONE_UPPER_PUZZLE = "Lever-Lockstone Upper Puzzle"
+    LEVER_LOCKSTONE_UPPER_DUAL_LASER_PUZZLE = "Lever-Lockstone Upper Dual Laser Puzzle"
+    LEVER_WATCHTOWERS_BEFORE_ICE_ARENA = "Lever-Watchtowers Before Ice Arena"
+    LEVER_WATCHTOWERS_AFTER_ICE_SKATING = "Lever-Watchtowers After Ice Skating"
+    LEVER_WATCHTOWERS_AFTER_BOOMERS = "Lever-Watchtowers After Boomers"
+    LEVER_RUINS_SETTLEMENT_GATE = "Lever-Ruins Settlement Gate"
+    LEVER_RUINS_UPPER_DUNGEON_ENTRANCE = "Lever-Ruins Upper Dungeon Entrance"
+    LEVER_RUINS_LADDER_LEFT_OF_LORD_OF_DOORS_ARENA = (
+        "Lever-Ruins Ladder Left of Lord of Doors Arena"
+    )
+    LEVER_RUINS_ENTRANCE_LADDER_SHORTCUT = "Lever-Ruins Entrance Ladder Shortcut"
+    LEVER_RUINS_MAIN_GATE = "Lever-Ruins Main Gate"
+    LEVER_DUNGEON_ENTRANCE_RIGHT_GATE = "Lever-Dungeon Entrance Right Gate"
+    LEVER_DUNGEON_ENTRANCE_LEFT_GATE = "Lever-Dungeon Entrance Left Gate"
+    LEVER_DUNGEON_ABOVE_RIGHTMOST_CROW = "Lever-Dungeon Above Rightmost Crow"
+    LEVER_FORTRESS_BOMB = "Lever-Fortress Bomb"
+    LEVER_FORTRESS_MAIN_GATE = "Lever-Fortress Main Gate"
+    LEVER_FORTRESS_CENTRAL_SHORTCUT = "Lever-Fortress Central Shortcut"
+    LEVER_FORTRESS_STATUE = "Lever-Fortress Statue"
+    LEVER_FORTRESS_WATCHTOWER_LOWER = "Lever-Fortress Watchtower Lower"
+    LEVER_FORTRESS_BRIDGE = "Lever-Fortress Bridge"
+    LEVER_FORTRESS_PRE_MAIN_GATE = "Lever-Fortress Pre-Main Gate"
+    LEVER_FORTRESS_WATCHTOWER_UPPER = "Lever-Fortress Watchtower Upper"
+    LEVER_FORTRESS_NORTH_WEST = "Lever-Fortress North West"
+    LEVER_ESTATE_ELEVATOR_LEFT = "Lever-Estate Elevator Left"
+    LEVER_ESTATE_ELEVATOR_RIGHT = "Lever-Estate Elevator Right"
+    LEVER_GARDEN_OF_LOVE = "Lever-Garden of Love"
+    LEVER_GARDEN_OF_LIFE_END = "Lever-Garden of Life End"
+    LEVER_GARDEN_OF_PEACE = "Lever-Garden of Peace"
+    LEVER_GARDEN_OF_JOY = "Lever-Garden of Joy"
+    LEVER_GARDEN_OF_LOVE_TURNCAM = "Lever-Garden of Love Turncam"
+    LEVER_GARDEN_OF_LIFE_LANTERNS = "Lever-Garden of Life Lanterns"
+    LEVER_ESTATE_UNDERGROUND_URN_SHED = "Lever-Estate Underground Urn Shed"
+    LEVER_MANOR_BIG_POT_ARENA = "Lever-Manor Big Pot Arena"
+    LEVER_MANOR_BOOKSHELF_SHORTCUT = "Lever-Manor Bookshelf Shortcut"
+    GROVE_OF_SPIRITS_DOOR = "Grove of Spirits Door"
+    LOST_CEMETERY_DOOR = "Lost Cemetery Door"
+    STRANDED_SAILOR_DOOR = "Stranded Sailor Door"
+    CASTLE_LOCKSTONE_DOOR = "Castle Lockstone Door"
+    CAMP_OF_THE_FREE_CROWS_DOOR = "Camp of the Free Crows Door"
+    OLD_WATCHTOWERS_DOOR = "Old Watchtowers Door"
+    BETTYS_LAIR_DOOR = "Betty's Lair Door"
+    OVERGROWN_RUINS_DOOR = "Overgrown Ruins Door"
+    MUSHROOM_DUNGEON_DOOR = "Mushroom Dungeon Door"
+    FLOODED_FORTRESS_DOOR = "Flooded Fortress Door"
+    THRONE_OF_THE_FROG_KING_DOOR = "Throne of the Frog King Door"
+    ESTATE_OF_THE_URN_WITCH_DOOR = "Estate of the Urn Witch Door"
+    CERAMIC_MANOR_DOOR = "Ceramic Manor Door"
+    INNER_FURNACE_DOOR = "Inner Furnace Door"
+    THE_URN_WITCHS_LABORATORY_DOOR = "The Urn Witch's Laboratory Door"
+    GIANT_SOUL_OF_THE_URN_WITCH = "Giant Soul of The Urn Witch"
+    GIANT_SOUL_OF_THE_FROG_KING = "Giant Soul of The Frog King"
+    GIANT_SOUL_OF_BETTY = "Giant Soul of Betty"
+    CROW_MANOR_AFTER_TORCH_PUZZLE = "Crow-Manor After Torch Puzzle"
+    CROW_MANOR_IMP_LOFT = "Crow-Manor Imp Loft"
+    CROW_MANOR_LIBRARY = "Crow-Manor Library"
+    CROW_MANOR_BEDROOM = "Crow-Manor Bedroom"
+    CROW_DUNGEON_HALL = "Crow-Dungeon Hall"
+    CROW_DUNGEON_WATER_ARENA = "Crow-Dungeon Water Arena"
+    CROW_DUNGEON_COBWEB = "Crow-Dungeon Cobweb"
+    CROW_DUNGEON_RIGHTMOST = "Crow-Dungeon Rightmost"
+    CROW_LOCKSTONE_EAST = "Crow-Lockstone East"
+    CROW_LOCKSTONE_WEST = "Crow-Lockstone West"
+    CROW_LOCKSTONE_WEST_LOCKED = "Crow-Lockstone West Locked"
+    CROW_LOCKSTONE_SOUTH_WEST = "Crow-Lockstone South West"
 
-
-class DeathsDoorEventName(str, Enum):
-    VICTORY = "Goal Complete",
-    OOL = "Out of Logic Item"
 
 class DeathsDoorItemData(NamedTuple):
     name: DeathsDoorItemName
     item_id: int | None
     classification: ItemClassification
-    base_quantity_in_item_pool: int 
+    base_quantity_in_item_pool: int
     item_groups: List[ItemGroup]
 
+
 item_table: List[DeathsDoorItemData] = [
-    DeathsDoorItemData(DeathsDoorItemName.Fire, 0, ItemClassification.progression, 1, [ItemGroup.Spell] ),
-    DeathsDoorItemData(DeathsDoorItemName.Bomb, 0, ItemClassification.progression, 1, [ItemGroup.Spell] ),
-    DeathsDoorItemData(DeathsDoorItemName.Hookshot, 0, ItemClassification.progression, 1, [ItemGroup.Spell] ),
-    DeathsDoorItemData(DeathsDoorItemName.Bow, 0, ItemClassification.progression, 1, [ItemGroup.Spell] ),
-    DeathsDoorItemData(DeathsDoorItemName.Rogue_Daggers, 0, ItemClassification.progression, 1, [ItemGroup.Weapon] ),
-    DeathsDoorItemData(DeathsDoorItemName.Discarded_Umbrella, 0, ItemClassification.progression, 1, [ItemGroup.Weapon] ),
-    DeathsDoorItemData(DeathsDoorItemName.Reapers_Greatsword, 0, ItemClassification.progression, 1, [ItemGroup.Weapon] ),
-    DeathsDoorItemData(DeathsDoorItemName.Thunder_Hammer, 0, ItemClassification.progression, 1, [ItemGroup.Weapon] ),
-    DeathsDoorItemData(DeathsDoorItemName.Vitality_Shard, 0, ItemClassification.progression, 1, [] ),
-    DeathsDoorItemData(DeathsDoorItemName.Magic_Shard, 0, ItemClassification.progression, 1, [] ),
-    DeathsDoorItemData(DeathsDoorItemName.Life_Seed, 0, ItemClassification.progression, 1, [] ),
-    DeathsDoorItemData(DeathsDoorItemName.Souls, 0, ItemClassification.progression, 1, [] ),
-    DeathsDoorItemData(DeathsDoorItemName.Pink_Key, 0, ItemClassification.progression, 1, [ItemGroup.Key] ),
-    DeathsDoorItemData(DeathsDoorItemName.Green_Key, 0, ItemClassification.progression, 1, [ItemGroup.Key] ),
-    DeathsDoorItemData(DeathsDoorItemName.Yellow_Key, 0, ItemClassification.progression, 1, [ItemGroup.Key] ),
-    DeathsDoorItemData(DeathsDoorItemName.Engagement_Ring, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Old_Compass, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Incense, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Undying_Blossom, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Old_Photograph, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Sludge_Filled_Urn, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Token_of_Death, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Rusty_Garden_Trowel, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Captains_Log, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Giant_Arrowhead, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Malformed_Seed, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Corrupted_Antler, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Magical_Forest_Horn, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Ancient_Crown, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Grunts_Old_Mask, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Ancient_Door_Scale_Model, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Modern_Door_Scale_Model, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Rusty_Belltower_Key, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Surveillance_Device, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Shiny_Medallion, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Ink_Covered_Teddy_Bear, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Deaths_Contract, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Makeshift_Soul_Key, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Mysterious_Locket, 0, ItemClassification.progression, 1, [ItemGroup.Shiny_Thing] ),
-    DeathsDoorItemData(DeathsDoorItemName.Red_Ancient_Tablet_of_Knowledge, 0, ItemClassification.progression, 1, [ItemGroup.Tablet] ),
-    DeathsDoorItemData(DeathsDoorItemName.Yellow_Ancient_Tablet_of_Knowledge, 0, ItemClassification.progression, 1, [ItemGroup.Tablet] ),
-    DeathsDoorItemData(DeathsDoorItemName.Green_Ancient_Tablet_of_Knowledge, 0, ItemClassification.progression, 1, [ItemGroup.Tablet] ),
-    DeathsDoorItemData(DeathsDoorItemName.Cyan_Ancient_Tablet_of_Knowledge, 0, ItemClassification.progression, 1, [ItemGroup.Tablet] ),
-    DeathsDoorItemData(DeathsDoorItemName.Blue_Ancient_Tablet_of_Knowledge, 0, ItemClassification.progression, 1, [ItemGroup.Tablet] ),
-    DeathsDoorItemData(DeathsDoorItemName.Purple_Ancient_Tablet_of_Knowledge, 0, ItemClassification.progression, 1, [ItemGroup.Tablet] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Bomb_Exit, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Cemetery_Sewer, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Guardian_of_the_Door_Access, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Cemetery_Shortcut_to_East_Tree, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Cemetery_East_Tree, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Catacombs_Tower, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Cemetery_Exit_to_Estate, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Catacombs_Exit, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Hookshot_Silent_Servant, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Sailor_Turncam_Upper, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Sailor_Turncam_Lower, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Sailor_Greatsword_Gate, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Lockstone_East_Start_Shortcut, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Lockstone_Entrance, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Lockstone_East_Lower, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Lockstone_Upper_Shortcut, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Lockstone_Dual_Laser_Puzzle, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Lockstone_Tracking_Beam_Puzzle, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Lockstone_Vertical_Laser_Puzzle, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Lockstone_North_Puzzle, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Lockstone_Shrine, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Lockstone_Hookshot_Puzzle, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Lockstone_Upper_Puzzle, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Lockstone_Upper_Dual_Laser_Puzzle, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Watchtowers_Before_Ice_Arena, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Watchtowers_After_Ice_Skating, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Watchtowers_After_Boomers, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Ruins_Settlement_Gate, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Ruins_Upper_Dungeon_Entrance, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Ruins_Ladder_Left_of_Lord_of_Doors_Arena, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Ruins_Entrance_Ladder_Shortcut, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Ruins_Main_Gate, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Dungeon_Entrance_Right_Gate, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Dungeon_Entrance_Left_Gate, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Dungeon_Above_Rightmost_Crow, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Fortress_Bomb, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Fortress_Main_Gate, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Fortress_Central_Shortcut, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Fortress_Statue, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Fortress_Watchtower_Lower, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Fortress_Bridge, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Fortress_Pre_Main_Gate, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Fortress_Watchtower_Upper, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Fortress_North_West, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Estate_Elevator_Left, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Estate_Elevator_Right, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Garden_of_Love, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Garden_of_Life_End, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Garden_of_Peace, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Garden_of_Joy, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Garden_of_Love_Turncam, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Garden_of_Life_Lanterns, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Estate_Underground_Urn_Shed, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Manor_Big_Pot_Arena, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lever_Manor_Bookshelf_Shortcut, 0, ItemClassification.progression, 1, [ItemGroup.Lever] ),
-    DeathsDoorItemData(DeathsDoorItemName.Grove_of_Spirits_Door, 0, ItemClassification.progression, 1, [ItemGroup.Door] ),
-    DeathsDoorItemData(DeathsDoorItemName.Lost_Cemetery_Door, 0, ItemClassification.progression, 1, [ItemGroup.Door] ),
-    DeathsDoorItemData(DeathsDoorItemName.Stranded_Sailor_Door, 0, ItemClassification.progression, 1, [ItemGroup.Door] ),
-    DeathsDoorItemData(DeathsDoorItemName.Castle_Lockstone_Door, 0, ItemClassification.progression, 1, [ItemGroup.Door] ),
-    DeathsDoorItemData(DeathsDoorItemName.Camp_of_the_Free_Crows_Door, 0, ItemClassification.progression, 1, [ItemGroup.Door] ),
-    DeathsDoorItemData(DeathsDoorItemName.Old_Watchtowers_Door, 0, ItemClassification.progression, 1, [ItemGroup.Door] ),
-    DeathsDoorItemData(DeathsDoorItemName.Bettys_Lair_Door, 0, ItemClassification.progression, 1, [ItemGroup.Door] ),
-    DeathsDoorItemData(DeathsDoorItemName.Overgrown_Ruins_Door, 0, ItemClassification.progression, 1, [ItemGroup.Door] ),
-    DeathsDoorItemData(DeathsDoorItemName.Mushroom_Dungeon_Door, 0, ItemClassification.progression, 1, [ItemGroup.Door] ),
-    DeathsDoorItemData(DeathsDoorItemName.Flooded_Fortress_Door, 0, ItemClassification.progression, 1, [ItemGroup.Door] ),
-    DeathsDoorItemData(DeathsDoorItemName.Throne_of_the_Frog_King_Door, 0, ItemClassification.progression, 1, [ItemGroup.Door] ),
-    DeathsDoorItemData(DeathsDoorItemName.Estate_of_the_Urn_Witch_Door, 0, ItemClassification.progression, 1, [ItemGroup.Door] ),
-    DeathsDoorItemData(DeathsDoorItemName.Ceramic_Manor_Door, 0, ItemClassification.progression, 1, [ItemGroup.Door] ),
-    DeathsDoorItemData(DeathsDoorItemName.Inner_Furnace_Door, 0, ItemClassification.progression, 1, [ItemGroup.Door] ),
-    DeathsDoorItemData(DeathsDoorItemName.The_Urn_Witchs_Laboratory_Door, 0, ItemClassification.progression, 1, [ItemGroup.Door] ),
-    DeathsDoorItemData(DeathsDoorItemName.Giant_Soul_of_The_Urn_Witch, 0, ItemClassification.progression, 1, [ItemGroup.Giant_Soul] ),
-    DeathsDoorItemData(DeathsDoorItemName.Giant_Soul_of_The_Frog_King, 0, ItemClassification.progression, 1, [ItemGroup.Giant_Soul] ),
-    DeathsDoorItemData(DeathsDoorItemName.Giant_Soul_of_Betty, 0, ItemClassification.progression, 1, [ItemGroup.Giant_Soul] ),
-    DeathsDoorItemData(DeathsDoorItemName.Crow_Manor_After_Torch_Puzzle, 0, ItemClassification.progression, 1, [ItemGroup.Lost_Crow] ),
-    DeathsDoorItemData(DeathsDoorItemName.Crow_Manor_Imp_Loft, 0, ItemClassification.progression, 1, [ItemGroup.Lost_Crow] ),
-    DeathsDoorItemData(DeathsDoorItemName.Crow_Manor_Library, 0, ItemClassification.progression, 1, [ItemGroup.Lost_Crow] ),
-    DeathsDoorItemData(DeathsDoorItemName.Crow_Manor_Bedroom, 0, ItemClassification.progression, 1, [ItemGroup.Lost_Crow] ),
-    DeathsDoorItemData(DeathsDoorItemName.Crow_Dungeon_Hall, 0, ItemClassification.progression, 1, [ItemGroup.Lost_Crow] ),
-    DeathsDoorItemData(DeathsDoorItemName.Crow_Dungeon_Water_Arena, 0, ItemClassification.progression, 1, [ItemGroup.Lost_Crow] ),
-    DeathsDoorItemData(DeathsDoorItemName.Crow_Dungeon_Cobweb, 0, ItemClassification.progression, 1, [ItemGroup.Lost_Crow] ),
-    DeathsDoorItemData(DeathsDoorItemName.Crow_Dungeon_Rightmost, 0, ItemClassification.progression, 1, [ItemGroup.Lost_Crow] ),
-    DeathsDoorItemData(DeathsDoorItemName.Crow_Lockstone_East, 0, ItemClassification.progression, 1, [ItemGroup.Lost_Crow] ),
-    DeathsDoorItemData(DeathsDoorItemName.Crow_Lockstone_West, 0, ItemClassification.progression, 1, [ItemGroup.Lost_Crow] ),
-    DeathsDoorItemData(DeathsDoorItemName.Crow_Lockstone_West_Locked, 0, ItemClassification.progression, 1, [ItemGroup.Lost_Crow] ),
-    DeathsDoorItemData(DeathsDoorItemName.Crow_Lockstone_South_West, 0, ItemClassification.progression, 1, [ItemGroup.Lost_Crow] ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.FIRE, 0, ItemClassification.progression, 2, [ItemGroup.SPELL]
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.BOMB, 0, ItemClassification.progression, 2, [ItemGroup.SPELL]
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.HOOKSHOT,
+        0,
+        ItemClassification.progression,
+        2,
+        [ItemGroup.SPELL],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.BOW, 0, ItemClassification.progression, 1, [ItemGroup.SPELL]
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.ROGUE_DAGGERS,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.WEAPON],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.DISCARDED_UMBRELLA,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.WEAPON],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.REAPERS_GREATSWORD,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.WEAPON],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.THUNDER_HAMMER,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.WEAPON],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.VITALITY_SHARD, 0, ItemClassification.progression, 8, []
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.MAGIC_SHARD, 0, ItemClassification.progression, 8, []
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LIFE_SEED, 0, ItemClassification.progression, 50, []
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.SOULS, 0, ItemClassification.progression, 0, []
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.PINK_KEY,
+        0,
+        ItemClassification.progression,
+        5,
+        [ItemGroup.KEY],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.GREEN_KEY,
+        0,
+        ItemClassification.progression,
+        4,
+        [ItemGroup.KEY],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.YELLOW_KEY,
+        0,
+        ItemClassification.progression,
+        3,
+        [ItemGroup.KEY],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.ENGAGEMENT_RING,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.OLD_COMPASS,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.INCENSE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.UNDYING_BLOSSOM,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.OLD_PHOTOGRAPH,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.SLUDGE_FILLED_URN,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.TOKEN_OF_DEATH,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.RUSTY_GARDEN_TROWEL,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.CAPTAINS_LOG,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.GIANT_ARROWHEAD,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.MALFORMED_SEED,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.CORRUPTED_ANTLER,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.MAGICAL_FOREST_HORN,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.ANCIENT_CROWN,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.GRUNTS_OLD_MASK,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.ANCIENT_DOOR_SCALE_MODEL,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.MODERN_DOOR_SCALE_MODEL,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.RUSTY_BELLTOWER_KEY,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.SURVEILLANCE_DEVICE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.SHINY_MEDALLION,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.INK_COVERED_TEDDY_BEAR,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.DEATHS_CONTRACT,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.MAKESHIFT_SOUL_KEY,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.MYSTERIOUS_LOCKET,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SHINY_THING],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.RED_ANCIENT_TABLET_OF_KNOWLEDGE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.TABLET],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.YELLOW_ANCIENT_TABLET_OF_KNOWLEDGE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.TABLET],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.GREEN_ANCIENT_TABLET_OF_KNOWLEDGE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.TABLET],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.CYAN_ANCIENT_TABLET_OF_KNOWLEDGE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.TABLET],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.BLUE_ANCIENT_TABLET_OF_KNOWLEDGE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.TABLET],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.PURPLE_ANCIENT_TABLET_OF_KNOWLEDGE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.TABLET],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_BOMB_EXIT,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_CEMETERY_SEWER,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_GUARDIAN_OF_THE_DOOR_ACCESS,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_CEMETERY_SHORTCUT_TO_EAST_TREE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_CEMETERY_EAST_TREE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_CATACOMBS_TOWER,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_CEMETERY_EXIT_TO_ESTATE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_CATACOMBS_EXIT,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_HOOKSHOT_SILENT_SERVANT,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_SAILOR_TURNCAM_UPPER,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_SAILOR_TURNCAM_LOWER,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_SAILOR_GREATSWORD_GATE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_LOCKSTONE_EAST_START_SHORTCUT,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_LOCKSTONE_ENTRANCE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_LOCKSTONE_EAST_LOWER,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_LOCKSTONE_UPPER_SHORTCUT,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_LOCKSTONE_DUAL_LASER_PUZZLE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_LOCKSTONE_TRACKING_BEAM_PUZZLE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_LOCKSTONE_VERTICAL_LASER_PUZZLE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_LOCKSTONE_NORTH_PUZZLE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_LOCKSTONE_SHRINE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_LOCKSTONE_HOOKSHOT_PUZZLE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_LOCKSTONE_UPPER_PUZZLE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_LOCKSTONE_UPPER_DUAL_LASER_PUZZLE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_WATCHTOWERS_BEFORE_ICE_ARENA,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_WATCHTOWERS_AFTER_ICE_SKATING,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_WATCHTOWERS_AFTER_BOOMERS,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_RUINS_SETTLEMENT_GATE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_RUINS_UPPER_DUNGEON_ENTRANCE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_RUINS_LADDER_LEFT_OF_LORD_OF_DOORS_ARENA,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_RUINS_ENTRANCE_LADDER_SHORTCUT,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_RUINS_MAIN_GATE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_DUNGEON_ENTRANCE_RIGHT_GATE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_DUNGEON_ENTRANCE_LEFT_GATE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_DUNGEON_ABOVE_RIGHTMOST_CROW,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_FORTRESS_BOMB,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_FORTRESS_MAIN_GATE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_FORTRESS_CENTRAL_SHORTCUT,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_FORTRESS_STATUE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_FORTRESS_WATCHTOWER_LOWER,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_FORTRESS_BRIDGE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_FORTRESS_PRE_MAIN_GATE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_FORTRESS_WATCHTOWER_UPPER,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_FORTRESS_NORTH_WEST,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_ESTATE_ELEVATOR_LEFT,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_ESTATE_ELEVATOR_RIGHT,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_GARDEN_OF_LOVE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_GARDEN_OF_LIFE_END,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_GARDEN_OF_PEACE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_GARDEN_OF_JOY,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_GARDEN_OF_LOVE_TURNCAM,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_GARDEN_OF_LIFE_LANTERNS,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_ESTATE_UNDERGROUND_URN_SHED,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_MANOR_BIG_POT_ARENA,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LEVER_MANOR_BOOKSHELF_SHORTCUT,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LEVER],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.GROVE_OF_SPIRITS_DOOR,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.DOOR],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.LOST_CEMETERY_DOOR,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.DOOR],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.STRANDED_SAILOR_DOOR,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.DOOR],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.CASTLE_LOCKSTONE_DOOR,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.DOOR],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.CAMP_OF_THE_FREE_CROWS_DOOR,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.DOOR],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.OLD_WATCHTOWERS_DOOR,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.DOOR],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.BETTYS_LAIR_DOOR,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.DOOR],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.OVERGROWN_RUINS_DOOR,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.DOOR],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.MUSHROOM_DUNGEON_DOOR,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.DOOR],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.FLOODED_FORTRESS_DOOR,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.DOOR],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.THRONE_OF_THE_FROG_KING_DOOR,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.DOOR],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.ESTATE_OF_THE_URN_WITCH_DOOR,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.DOOR],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.CERAMIC_MANOR_DOOR,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.DOOR],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.INNER_FURNACE_DOOR,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.DOOR],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.THE_URN_WITCHS_LABORATORY_DOOR,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.DOOR],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.GIANT_SOUL_OF_THE_URN_WITCH,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.GIANT_SOUL],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.GIANT_SOUL_OF_THE_FROG_KING,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.GIANT_SOUL],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.GIANT_SOUL_OF_BETTY,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.GIANT_SOUL],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.CROW_MANOR_AFTER_TORCH_PUZZLE,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LOST_CROW],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.CROW_MANOR_IMP_LOFT,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LOST_CROW],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.CROW_MANOR_LIBRARY,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LOST_CROW],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.CROW_MANOR_BEDROOM,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LOST_CROW],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.CROW_DUNGEON_HALL,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LOST_CROW],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.CROW_DUNGEON_WATER_ARENA,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LOST_CROW],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.CROW_DUNGEON_COBWEB,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LOST_CROW],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.CROW_DUNGEON_RIGHTMOST,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LOST_CROW],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.CROW_LOCKSTONE_EAST,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LOST_CROW],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.CROW_LOCKSTONE_WEST,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LOST_CROW],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.CROW_LOCKSTONE_WEST_LOCKED,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LOST_CROW],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.CROW_LOCKSTONE_SOUTH_WEST,
+        0,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.LOST_CROW],
+    ),
 ]
 
-item_name_to_id: Dict[str, int] = {
-    data.name.value: data.item_id for data in item_table
-}
+item_name_to_id: Dict[str, int] = {data.name.value: data.item_id for data in item_table}
 
 filler_items: List[str] = [
     data.name.value
@@ -315,5 +1066,3 @@ def items_for_group(group: ItemGroup) -> List[str]:
 item_name_groups: Dict[str, Set[str]] = {}
 for group in ItemGroup:
     item_name_groups[group.value] = items_for_group(group)
-
-
