@@ -1943,11 +1943,11 @@ location_table: List[DeathsDoorLocationData] = [
 ]
 
 
-def locations_for_group(group: LocationGroup) -> List[str]:
-    location_names = []
+def locations_for_group(group: LocationGroup) -> Set[str]:
+    location_names : Set[str] = set()
     for data in location_table:
         if group in data.location_groups:
-            location_names.append(data.name.value)
+            location_names.add(data.name.value)
     return location_names
 
 

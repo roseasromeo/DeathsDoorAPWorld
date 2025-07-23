@@ -34,7 +34,7 @@ from .entrances import deathsdoor_entrances
 from .rules import Has, set_location_rules, can_complete_game
 from worlds.AutoWorld import World, WebWorld
 from BaseClasses import Region, Location, Item, ItemClassification, Tutorial
-from .tracker import tracker_world
+# from .tracker import tracker_world
 from .json_generator import generate_rule_json
 
 deathsdoor_version = 1
@@ -72,7 +72,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
     game = "Death's Door"  # name of the game/world
     web = DeathsDoorWeb()
     options_dataclass = DeathsDoorOptions  # options the player can set
-    options: DeathsDoorOptions  # typing hints for option results
+    options: DeathsDoorOptions  # type: ignore # typing hints for option results
     topology_present = True  # show path to required location checks in spoiler
     origin_region_name = "Hall of Doors"
 
@@ -82,7 +82,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
     location_name_groups = location_name_groups
 
     #  UT Integration
-    tracker_world: ClassVar[dict[str, Any]] = tracker_world
+    # tracker_world: ClassVar[dict[str, Any]] = tracker_world
     ut_can_gen_without_yaml: ClassVar[bool] = True
     glitches_item_name: ClassVar[str] = E.OOL.value
 

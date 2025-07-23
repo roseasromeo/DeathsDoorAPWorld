@@ -433,7 +433,7 @@ pot_table: List[DeathsDoorEventLocationData] = [
     ),
 ]
 
-pot_specific_rules = dict[DeathsDoorEventLocationName, Rule["DeathsDoorWorld"]] = {
+pot_specific_rules : dict[DeathsDoorEventLocationName, Rule["DeathsDoorWorld"]] = {
     DeathsDoorEventLocationName.POT_CATACOMBS_ROOM_2: Has(I.FIRE),
     DeathsDoorEventLocationName.POT_BOMB_SILENT_SERVANT: Has(I.BOMB),
     DeathsDoorEventLocationName.POT_MANOR_IMP_LOFT: Has(I.FIRE),  ##TODO: Check?
@@ -459,36 +459,34 @@ deaths_door_event_rules: dict[
     )
     | Has(I.RUSTY_BELLTOWER_KEY),
     DeathsDoorEventLocationName.GREY_CROW_BOSS: HasAll(
-        [
             I.GIANT_SOUL_OF_BETTY,
             I.GIANT_SOUL_OF_THE_FROG_KING,
             I.GIANT_SOUL_OF_THE_URN_WITCH,
-        ]
     ),
     DeathsDoorEventLocationName.ACTIVATED_FURNACE_BURNERS: Has(I.FIRE),
     DeathsDoorEventLocationName.ACTIVATED_FURNACE_BURNERS: HasAll(
-        [I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT]
+        I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT
     ),
     DeathsDoorEventLocationName.WATCHTOWER_ENTRANCE_TORCH: HasAll(
-        [I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT]
+        I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT
     ),
     DeathsDoorEventLocationName.WATCHTOWER_JAMMING_START_TORCH: HasAll(
-        [I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT]
+        I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT
     ),
     DeathsDoorEventLocationName.WATCHTOWER_BOXES_TORCH: HasAll(
-        [I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT]
+        I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT
     ),
     DeathsDoorEventLocationName.WATCHTOWER_FIRST_POT_TORCH: HasAll(
-        [I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT]
+        I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT
     ),
     DeathsDoorEventLocationName.WATCHTOWER_BOOMERS_TORCH_1: HasAll(
-        [I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT]
+        I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT
     ),
     DeathsDoorEventLocationName.WATCHTOWER_BOOMERS_TORCH_2: HasAll(
-        [I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT]
+        I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT
     ),
     DeathsDoorEventLocationName.MUSHROOM_DUNGEON_MAIN_GATE: HasAll(
-        [I.MAGICAL_FOREST_HORN, DeathsDoorEventName.ACCESS_TO_DAY]
+        I.MAGICAL_FOREST_HORN, DeathsDoorEventName.ACCESS_TO_DAY
     ),
     DeathsDoorEventLocationName.RESCUE_GRUNT: Has(I.BOMB),
 }
@@ -497,7 +495,7 @@ deaths_door_event_rules: dict[
 event_location_table = event_location_table + pot_table
 for pot in pot_table:
     rule = Has(I.LIFE_SEED, 50)  ## TODO: Make a yaml setting
-    if pot.name in pot_specific_rules.keys:
+    if pot.name in pot_specific_rules.keys():
         rule = rule & pot_specific_rules[pot.name]
     deaths_door_event_rules[pot.name] = rule
 

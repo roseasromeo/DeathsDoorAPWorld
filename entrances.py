@@ -15,6 +15,7 @@ class DeathsDoorEntrance(NamedTuple):
     ending_region: R
     rule: Rule | None
 
+
 ##TODO Change main region to door connections to require Door (instead of Scene transition)
 
 deathsdoor_entrances: List[DeathsDoorEntrance] = [
@@ -113,7 +114,7 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.LOST_CEMETERY_CENTRAL,
         R.LOST_CEMETERY_RIGHT_ARENA,
-        HasAny([I.LEVER_GUARDIAN_OF_THE_DOOR_ACCESS, I.LEVER_CATACOMBS_TOWER]),
+        HasAny(I.LEVER_GUARDIAN_OF_THE_DOOR_ACCESS, I.LEVER_CATACOMBS_TOWER),
     ),
     DeathsDoorEntrance(
         R.LOST_CEMETERY_EXIT_TO_STRANDED_SAILOR,
@@ -145,7 +146,7 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.LOST_CEMETERY_RIGHT_ARENA,
         R.LOST_CEMETERY_EAST_TREE_BRIDGE,
-        HasAll([I.LEVER_CEMETERY_EAST_TREE, I.LEVER_CEMETERY_SHORTCUT_TO_EAST_TREE]),
+        HasAll(I.LEVER_CEMETERY_EAST_TREE, I.LEVER_CEMETERY_SHORTCUT_TO_EAST_TREE),
     ),
     DeathsDoorEntrance(
         R.LOST_CEMETERY_SUMMIT, R.LOST_CEMETERY_EAST_TREE_BRIDGE, Has(I.FIRE)
@@ -153,7 +154,7 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.LOST_CEMETERY_CENTRAL,
         R.LOST_CEMETERY_CATACOMBS_ROOM_1,
-        HasAny([I.FIRE, I.LEVER_CATACOMBS_EXIT]),
+        HasAny(I.FIRE, I.LEVER_CATACOMBS_EXIT),
     ),
     # Entrances in Crypt
     DeathsDoorEntrance(R.CRYPT_EXIT_TO_LOST_CEMETERY, R.CRYPT_MAIN_ROOM, None),
@@ -161,12 +162,12 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.CRYPT_MAIN_ROOM,
         R.CRYPT_EXIT_TO_ESTATE_OF_THE_URN_WITCH,
-        HasAll([I.LEVER_ESTATE_ELEVATOR_LEFT, I.LEVER_ESTATE_ELEVATOR_RIGHT]),
+        HasAll(I.LEVER_ESTATE_ELEVATOR_LEFT, I.LEVER_ESTATE_ELEVATOR_RIGHT),
     ),
     DeathsDoorEntrance(
         R.CRYPT_EXIT_TO_ESTATE_OF_THE_URN_WITCH,
         R.CRYPT_MAIN_ROOM,
-        HasAll([I.LEVER_ESTATE_ELEVATOR_LEFT, I.LEVER_ESTATE_ELEVATOR_RIGHT]),
+        HasAll(I.LEVER_ESTATE_ELEVATOR_LEFT, I.LEVER_ESTATE_ELEVATOR_RIGHT),
     ),  ##TODO Check this connection is valid! (Not in base randomizer I think)
     # Entrances in Estate of the Urn Witch
     DeathsDoorEntrance(
@@ -184,12 +185,12 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.ESTATE_OF_THE_URN_WITCH_NORTH,
         R.ESTATE_OF_THE_URN_WITCH_SOUTH,
-        HasAll([I.LEVER_GARDEN_OF_JOY, I.LEVER_GARDEN_OF_PEACE, I.BOMB]),
+        HasAll(I.LEVER_GARDEN_OF_JOY, I.LEVER_GARDEN_OF_PEACE, I.BOMB),
     ),
     DeathsDoorEntrance(
         R.ESTATE_OF_THE_URN_WITCH_SOUTH,
         R.ESTATE_OF_THE_URN_WITCH_NORTH,
-        HasAll([I.LEVER_GARDEN_OF_JOY, I.LEVER_GARDEN_OF_PEACE, I.BOMB]),
+        HasAll(I.LEVER_GARDEN_OF_JOY, I.LEVER_GARDEN_OF_PEACE, I.BOMB),
     ),
     DeathsDoorEntrance(
         R.ESTATE_OF_THE_URN_WITCH_EXIT_TO_CERAMIC_MANOR,
@@ -204,12 +205,12 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.ESTATE_OF_THE_URN_WITCH_SOUTH,
         R.ESTATE_OF_THE_URN_WITCH_URN_SHED,
-        HasAny([I.HOOKSHOT, I.LEVER_ESTATE_UNDERGROUND_URN_SHED]),
+        HasAny(I.HOOKSHOT, I.LEVER_ESTATE_UNDERGROUND_URN_SHED),
     ),
     DeathsDoorEntrance(
         R.ESTATE_OF_THE_URN_WITCH_NORTH,
         R.ESTATE_OF_THE_URN_WITCH_GARDEN_OF_LIFE_END,
-        HasAny([I.LEVER_GARDEN_OF_LIFE_LANTERNS, I.LEVER_GARDEN_OF_LIFE_END]),
+        HasAny(I.LEVER_GARDEN_OF_LIFE_LANTERNS, I.LEVER_GARDEN_OF_LIFE_END),
     ),
     # Entrances in Ceramic Manor
     DeathsDoorEntrance(
@@ -292,7 +293,7 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.INNER_FURNACE_ENTRANCE,
         R.INNER_FURNACE_POST_BURNER_1,
-        HasAll([E.ACTIVATED_FURNACE_BURNERS, I.FIRE]),
+        HasAll(E.ACTIVATED_FURNACE_BURNERS, I.FIRE),
     ),
     DeathsDoorEntrance(
         R.INNER_FURNACE_POST_BURNER_2, R.INNER_FURNACE_POST_BURNER_1, None
@@ -300,17 +301,17 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.INNER_FURNACE_POST_BURNER_1,
         R.INNER_FURNACE_POST_BURNER_2,
-        HasAll([E.ACTIVATED_FURNACE_BURNERS, I.FIRE]),
+        HasAll(E.ACTIVATED_FURNACE_BURNERS, I.FIRE),
     ),
     DeathsDoorEntrance(
         R.INNER_FURNACE_POST_BURNER_2,
         R.INNER_FURNACE_POST_BURNER_3,
-        HasAll([E.ACTIVATED_FURNACE_BURNERS, I.FIRE]),
+        HasAll(E.ACTIVATED_FURNACE_BURNERS, I.FIRE),
     ),
     DeathsDoorEntrance(
         R.INNER_FURNACE_POST_BURNER_3,
         R.INNER_FURNACE_POST_BURNER_4,
-        HasAll([E.ACTIVATED_FURNACE_BURNERS, I.FIRE]),
+        HasAll(E.ACTIVATED_FURNACE_BURNERS, I.FIRE),
     ),
     DeathsDoorEntrance(
         R.INNER_FURNACE_POST_BURNER_5, R.INNER_FURNACE_POST_BURNER_4, None
@@ -318,17 +319,17 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.INNER_FURNACE_POST_BURNER_4,
         R.INNER_FURNACE_POST_BURNER_5,
-        HasAll([E.ACTIVATED_FURNACE_BURNERS, I.FIRE]),
+        HasAll(E.ACTIVATED_FURNACE_BURNERS, I.FIRE),
     ),
     DeathsDoorEntrance(
         R.INNER_FURNACE_POST_BURNER_5,
         R.INNER_FURNACE_POST_BURNER_6,
-        HasAll([E.ACTIVATED_FURNACE_BURNERS, I.FIRE]),
+        HasAll(E.ACTIVATED_FURNACE_BURNERS, I.FIRE),
     ),
     DeathsDoorEntrance(
         R.INNER_FURNACE_POST_BURNER_6,
         R.INNER_FURNACE_POST_BURNER_7,
-        HasAll([E.ACTIVATED_FURNACE_BURNERS, I.FIRE]),
+        HasAll(E.ACTIVATED_FURNACE_BURNERS, I.FIRE),
     ),
     DeathsDoorEntrance(
         R.INNER_FURNACE_POST_BURNER_8, R.INNER_FURNACE_POST_BURNER_7, None
@@ -336,7 +337,7 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.INNER_FURNACE_POST_BURNER_7,
         R.INNER_FURNACE_POST_BURNER_8,
-        HasAll([E.ACTIVATED_FURNACE_BURNERS, I.FIRE]),
+        HasAll(E.ACTIVATED_FURNACE_BURNERS, I.FIRE),
     ),
     DeathsDoorEntrance(
         R.INNER_FURNACE_POST_BURNER_9, R.INNER_FURNACE_POST_BURNER_8, None
@@ -344,7 +345,7 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.INNER_FURNACE_POST_BURNER_8,
         R.INNER_FURNACE_POST_BURNER_9,
-        HasAll([E.ACTIVATED_FURNACE_BURNERS, I.FIRE]),
+        HasAll(E.ACTIVATED_FURNACE_BURNERS, I.FIRE),
     ),
     DeathsDoorEntrance(
         R.INNER_FURNACE_EXIT_TO_URN_WITCHS_LABORATORY,
@@ -395,7 +396,7 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.STRANDED_SAILOR_JEFFERSON,
         R.STRANDED_SAILOR_JEFFERSON_QUEST_START,
-        HasAll([E.ACCESS_TO_NIGHT, I.INK_COVERED_TEDDY_BEAR]),
+        HasAll(E.ACCESS_TO_NIGHT, I.INK_COVERED_TEDDY_BEAR),
     ),  ##TODO: Jefferson's quest/pathing is not implemented yet
     DeathsDoorEntrance(R.STRANDED_SAILOR, R.STRANDED_SAILOR_UPPER, Has(I.BOMB)),
     DeathsDoorEntrance(
@@ -442,13 +443,13 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_CENTRAL,
         R.CASTLE_LOCKSTONE_EAST_UPPER,
-        HasAny([I.HOOKSHOT, I.LEVER_LOCKSTONE_UPPER_SHORTCUT]),
+        HasAny(I.HOOKSHOT, I.LEVER_LOCKSTONE_UPPER_SHORTCUT),
     ),
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_EAST_UPPER,
         R.CASTLE_LOCKSTONE_EAST_UPPER_KEYED_DOOR,
         HasAll(
-            [I.HOOKSHOT, I.LEVER_LOCKSTONE_UPPER_PUZZLE]
+            I.HOOKSHOT, I.LEVER_LOCKSTONE_UPPER_PUZZLE
         ),  ##TODO: base rando notes that lever can be skipped?
     ),
     DeathsDoorEntrance(
@@ -484,7 +485,7 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
         R.CASTLE_LOCKSTONE_EAST_UPPER_KEYED_DOOR,
         R.CASTLE_LOCKSTONE_LORD_THEODOOR_ROOM,
         Has(I.PINK_KEY, 5)
-        & HasAll([I.HOOKSHOT, I.LEVER_LOCKSTONE_UPPER_DUAL_LASER_PUZZLE]),
+        & HasAll(I.HOOKSHOT, I.LEVER_LOCKSTONE_UPPER_DUAL_LASER_PUZZLE),
     ),
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_CENTRAL,
@@ -506,12 +507,12 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_CENTRAL,
         R.CASTLE_LOCKSTONE_LORD_OPENGATE,
-        HasAll([I.FIRE, I.HOOKSHOT, I.LEVER_LOCKSTONE_HOOKSHOT_PUZZLE]),
+        HasAll(I.FIRE, I.HOOKSHOT, I.LEVER_LOCKSTONE_HOOKSHOT_PUZZLE),
     ),
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_EAST_UPPER_KEYED_DOOR,
         R.CASTLE_LOCKSTONE_LORD_DEADBOLT,
-        HasAll([I.FIRE, I.HOOKSHOT]),
+        HasAll(I.FIRE, I.HOOKSHOT),
     ),
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_LORD_THEODOOR_ROOM,
@@ -609,7 +610,7 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.OLD_WATCHTOWERS_BARB_ELEVATOR,
         R.OLD_WATCHTOWERS_JAMMING_START,
-        HasAll([I.HOOKSHOT, I.LEVER_WATCHTOWERS_AFTER_BOOMERS]),
+        HasAll(I.HOOKSHOT, I.LEVER_WATCHTOWERS_AFTER_BOOMERS),
     ),
     DeathsDoorEntrance(
         R.OLD_WATCHTOWERS_JAMMING_START,
@@ -619,7 +620,7 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.OLD_WATCHTOWERS_JAMMING_START,
         R.OLD_WATCHTOWERS_BARB_ELEVATOR,
-        HasAll([I.HOOKSHOT, I.LEVER_WATCHTOWERS_AFTER_BOOMERS]),
+        HasAll(I.HOOKSHOT, I.LEVER_WATCHTOWERS_AFTER_BOOMERS),
     ),
     DeathsDoorEntrance(
         R.OLD_WATCHTOWERS_FIRST_POT_AREA,
@@ -641,7 +642,7 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
         # over the gate from the ledge around the top of the elevator.
         R.OLD_WATCHTOWERS_BARB_ELEVATOR,
         R.OLD_WATCHTOWERS_ICE_SKATING_START,
-        HasAll([I.HOOKSHOT, I.LEVER_WATCHTOWERS_BEFORE_ICE_ARENA]),
+        HasAll(I.HOOKSHOT, I.LEVER_WATCHTOWERS_BEFORE_ICE_ARENA),
     ),
     DeathsDoorEntrance(
         R.OLD_WATCHTOWERS_HEADLESS_LORD_OF_DOORS,
@@ -774,7 +775,7 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.MUSHROOM_DUNGEON_MAIN_HALL,
         R.MUSHROOM_DUNGEON_LOBBY,
-        HasAny([I.LEVER_DUNGEON_ENTRANCE_LEFT_GATE, I.LEVER_DUNGEON_ENTRANCE_RIGHT_GATE]),
+        HasAny(I.LEVER_DUNGEON_ENTRANCE_LEFT_GATE, I.LEVER_DUNGEON_ENTRANCE_RIGHT_GATE),
     ),
     DeathsDoorEntrance(
         R.MUSHROOM_DUNGEON_LOBBY,
@@ -824,12 +825,12 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.MUSHROOM_DUNGEON_LOBBY,
         R.MUSHROOM_DUNGEON_MAIN_HALL,
-        HasAny([I.LEVER_DUNGEON_ENTRANCE_LEFT_GATE, I.LEVER_DUNGEON_ENTRANCE_RIGHT_GATE]),
+        HasAny(I.LEVER_DUNGEON_ENTRANCE_LEFT_GATE, I.LEVER_DUNGEON_ENTRANCE_RIGHT_GATE),
     ),
     DeathsDoorEntrance(
         R.OVERGROWN_RUINS_FOREST_SETTLEMENT,
         R.MUSHROOM_DUNGEON_MAIN_HALL,
-        HasAny([I.LEVER_RUINS_UPPER_DUNGEON_ENTRANCE]),
+        HasAny(I.LEVER_RUINS_UPPER_DUNGEON_ENTRANCE),
     ),
     DeathsDoorEntrance(
         R.OVERGROWN_RUINS_OUTSIDE_MAIN_DUNGEON_GATE,
@@ -895,17 +896,17 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.FLOODED_FORTRESS_FROG_KING_STATUE,
         R.FLOODED_FORTRESS_FROG_KING_ENCOUNTER,
-        HasAll([I.LEVER_FORTRESS_STATUE, I.LEVER_FORTRESS_PRE_MAIN_GATE]),
+        HasAll(I.LEVER_FORTRESS_STATUE, I.LEVER_FORTRESS_PRE_MAIN_GATE),
     ),
     DeathsDoorEntrance(
         R.FLOODED_FORTRESS_FROG_KING_ENCOUNTER,
         R.FLOODED_FORTRESS_INSIDE_MAIN_GATE,
-        Has(I.LEVER_FORTRESS_MAIN_GATE) & HasAny([I.BOMB, I.HOOKSHOT]),
+        Has(I.LEVER_FORTRESS_MAIN_GATE) & HasAny(I.BOMB, I.HOOKSHOT),
     ),
     DeathsDoorEntrance(
         R.FLOODED_FORTRESS_INSIDE_MAIN_GATE,
         R.FLOODED_FORTRESS_U_TURN,
-        HasAll([I.BOMB, I.LEVER_FORTRESS_CENTRAL_SHORTCUT]),
+        HasAll(I.BOMB, I.LEVER_FORTRESS_CENTRAL_SHORTCUT),
     ),
     DeathsDoorEntrance(
         R.FLOODED_FORTRESS_U_TURN,
@@ -927,7 +928,6 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
         R.FLOODED_FORTRESS_EXIT_TO_THRONE_OF_THE_FROG_KING,
         None,
     ),
-
     # Entrances in Throne of the Frog King
     DeathsDoorEntrance(
         R.THRONE_OF_THE_FROG_KING_EXIT_TO_FLOODED_FORTRESS,
