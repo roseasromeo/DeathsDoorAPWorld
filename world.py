@@ -27,11 +27,11 @@ from .events import (
     DeathsDoorEventName as E,
     DeathsDoorEventLocationName as EL,
     event_location_table,
-    set_event_rules,
 )
+from .event_rules import set_event_rules
 from .regions import DeathsDoorRegionName as R
 from .entrances import deathsdoor_entrances
-from .rules import Has, set_location_rules, can_complete_game
+from .rules import Has, set_location_rules
 from worlds.AutoWorld import World, WebWorld
 from BaseClasses import Region, Location, Item, ItemClassification, Tutorial
 # from .tracker import tracker_world
@@ -74,7 +74,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
     options_dataclass = DeathsDoorOptions  # options the player can set
     options: DeathsDoorOptions  # type: ignore # typing hints for option results
     topology_present = True  # show path to required location checks in spoiler
-    origin_region_name = "Hall of Doors"
+    origin_region_name = R.HALL_OF_DOORS_LOBBY
 
     item_name_to_id = item_name_to_id
     location_name_to_id = location_name_to_id
@@ -115,8 +115,6 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                 if opt is not None:
                     # You can also set .value directly but that won't work if you have OptionSets
                     setattr(self.options, key, opt.from_any(value))
-
-    ### Consider: having events for each playground construction
 
     def create_regions(self) -> None:
         for deathsdoor_region in R:
@@ -185,6 +183,11 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         self.multiworld.itempool += deathsdoor_items
 
     def set_rules(self) -> None:
+        from Utils import visualize_regions
+        state = self.multiworld.get_all_state(False)
+        state.update_reachable_regions(self.player)
+        visualize_regions(self.get_region(R.HALL_OF_DOORS_LOBBY), "DeathsDoor.puml", show_entrance_names=True,
+                      regions_to_highlight=state.reachable_regions[self.player])
         set_location_rules(self)
         set_event_rules(self)
 
@@ -199,7 +202,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         # A dictionary returned from this method gets set as the slot_data and will be sent to the client after connecting.
         # The options dataclass has a method to return a `Dict[str, Any]` of each option name provided and the relevant
         # option's value.
-        slot_data = self.options.as_dict()
+        slot_data = self.options.as_dict("start_day_or_night")
         slot_data["APWorldVersion"] = deathsdoor_version
         return slot_data
 

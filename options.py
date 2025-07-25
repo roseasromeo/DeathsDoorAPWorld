@@ -22,6 +22,7 @@ class StartDayOrNight(Choice):
 @dataclass
 class DeathsDoorOptions(PerGameCommonOptions):
     start_inventory_from_pool: StartInventoryPool
+    start_day_or_night: StartDayOrNight
 
 
 deathsdoor_options_presets: Dict[str, Dict[str, Any]] = {}

@@ -1,26 +1,7 @@
 from enum import Enum
-from typing import TYPE_CHECKING, List, NamedTuple
+from typing import List, NamedTuple
+
 from .regions import DeathsDoorRegionName as R
-from .rules import Has, HasAll, can_complete_game
-from .items import DeathsDoorItemName as I
-from .options import StartDayOrNight
-
-try:
-    from rule_builder import (
-        Rule,
-        True_,
-        OptionFilter,
-    )
-except ModuleNotFoundError:
-    from .rule_builder import (
-        Rule,
-        True_,
-        OptionFilter,
-    )
-
-if TYPE_CHECKING:
-    from . import DeathsDoorWorld
-
 
 class DeathsDoorEventName(str, Enum):
     VICTORY = "Goal Complete"
@@ -111,7 +92,7 @@ class DeathsDoorEventLocationData(NamedTuple):
 
 event_location_table: List[DeathsDoorEventLocationData] = [
     DeathsDoorEventLocationData(
-        DeathsDoorEventLocationName.VICTORY, R.GOAL, DeathsDoorEventName.VICTORY
+        DeathsDoorEventLocationName.VICTORY, R.HALL_OF_DOORS_LOBBY, DeathsDoorEventName.VICTORY
     ),
     DeathsDoorEventLocationData(
         DeathsDoorEventLocationName.LOST_CEMETERY_OPENED_EXIT_TO_SAILOR,
@@ -433,81 +414,4 @@ pot_table: List[DeathsDoorEventLocationData] = [
     ),
 ]
 
-pot_specific_rules : dict[DeathsDoorEventLocationName, Rule["DeathsDoorWorld"]] = {
-    DeathsDoorEventLocationName.POT_CATACOMBS_ROOM_2: Has(I.FIRE),
-    DeathsDoorEventLocationName.POT_BOMB_SILENT_SERVANT: Has(I.BOMB),
-    DeathsDoorEventLocationName.POT_MANOR_IMP_LOFT: Has(I.FIRE),  ##TODO: Check?
-    DeathsDoorEventLocationName.POT_HOOKSHOT_SILENT_SERVANT: Has(
-        I.LEVER_HOOKSHOT_SILENT_SERVANT
-    ),
-    DeathsDoorEventLocationName.POT_LOCKSTONE_WEST_KEYED_CROW: Has(I.PINK_KEY, 5),
-    DeathsDoorEventLocationName.POT_FORTRESS_MAIN_GATE: Has(I.BOMB),
-}
-
-
-deaths_door_event_rules: dict[
-    DeathsDoorEventLocationName, Rule["DeathsDoorWorld"] | None
-] = {
-    DeathsDoorEventLocationName.VICTORY: can_complete_game,
-    DeathsDoorEventLocationName.LOST_CEMETERY_OPENED_EXIT_TO_SAILOR: Has(I.FIRE),
-    DeathsDoorEventLocationName.ACCESS_TO_NIGHT: True_(
-        options=[OptionFilter(StartDayOrNight, 1)]
-    )
-    | Has(I.RUSTY_BELLTOWER_KEY),
-    DeathsDoorEventLocationName.ACCESS_TO_DAY: True_(
-        options=[OptionFilter(StartDayOrNight, 0)]
-    )
-    | Has(I.RUSTY_BELLTOWER_KEY),
-    DeathsDoorEventLocationName.GREY_CROW_BOSS: HasAll(
-            I.GIANT_SOUL_OF_BETTY,
-            I.GIANT_SOUL_OF_THE_FROG_KING,
-            I.GIANT_SOUL_OF_THE_URN_WITCH,
-    ),
-    DeathsDoorEventLocationName.ACTIVATED_FURNACE_BURNERS: Has(I.FIRE),
-    DeathsDoorEventLocationName.ACTIVATED_FURNACE_BURNERS: HasAll(
-        I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT
-    ),
-    DeathsDoorEventLocationName.WATCHTOWER_ENTRANCE_TORCH: HasAll(
-        I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT
-    ),
-    DeathsDoorEventLocationName.WATCHTOWER_JAMMING_START_TORCH: HasAll(
-        I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT
-    ),
-    DeathsDoorEventLocationName.WATCHTOWER_BOXES_TORCH: HasAll(
-        I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT
-    ),
-    DeathsDoorEventLocationName.WATCHTOWER_FIRST_POT_TORCH: HasAll(
-        I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT
-    ),
-    DeathsDoorEventLocationName.WATCHTOWER_BOOMERS_TORCH_1: HasAll(
-        I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT
-    ),
-    DeathsDoorEventLocationName.WATCHTOWER_BOOMERS_TORCH_2: HasAll(
-        I.FIRE, DeathsDoorEventName.ACCESS_TO_NIGHT
-    ),
-    DeathsDoorEventLocationName.MUSHROOM_DUNGEON_MAIN_GATE: HasAll(
-        I.MAGICAL_FOREST_HORN, DeathsDoorEventName.ACCESS_TO_DAY
-    ),
-    DeathsDoorEventLocationName.RESCUE_GRUNT: Has(I.BOMB),
-}
-
-# Add in pots to existing tables to be able to use the same infrastructure
 event_location_table = event_location_table + pot_table
-for pot in pot_table:
-    rule = Has(I.LIFE_SEED, 50)  ## TODO: Make a yaml setting
-    if pot.name in pot_specific_rules.keys():
-        rule = rule & pot_specific_rules[pot.name]
-    deaths_door_event_rules[pot.name] = rule
-
-
-def set_event_rules(world: "DeathsDoorWorld") -> None:
-    multiworld = world.multiworld
-    player = world.player
-
-    for event_location_data in event_location_table:
-        rule = deaths_door_event_rules[event_location_data.name]
-        if rule is not None:
-            event_location = multiworld.get_location(
-                event_location_data.name.value, player
-            )
-            world.set_rule(event_location, rule)

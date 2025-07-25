@@ -4,7 +4,7 @@ try:
     from rule_builder import Rule, False_
 except ModuleNotFoundError:
     from .rule_builder import Rule, False_
-from .rules import Has, HasAny, HasAll, CanReachRegion
+from .rule_builder_overrides import Has, HasAny, HasAll, CanReachRegion
 from .items import DeathsDoorItemName as I
 from .regions import DeathsDoorRegionName as R
 from .events import DeathsDoorEventName as E
@@ -19,10 +19,6 @@ class DeathsDoorEntrance(NamedTuple):
 ##TODO Change main region to door connections to require Door (instead of Scene transition)
 
 deathsdoor_entrances: List[DeathsDoorEntrance] = [
-    DeathsDoorEntrance(
-        R.HALL_OF_DOORS, R.GOAL, None
-    ),  # TODO Set up goal properly, right now just here for the ability to run things
-    DeathsDoorEntrance(R.HALL_OF_DOORS, R.HALL_OF_DOORS_LOBBY, None),
     # Doors in Hall of Doors
     DeathsDoorEntrance(
         R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_GROVE_OF_SPIRITS, Has(I.GROVE_OF_SPIRITS_DOOR)
@@ -77,6 +73,93 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_BETTYS_LAIR, Has(I.BETTYS_LAIR_DOOR)
     ),
+    # Door Check regions
+    DeathsDoorEntrance(
+        R.DOOR_TO_GROVE_OF_SPIRITS, R.DOOR_CHECK_FOR_GROVE_OF_SPIRITS, None
+    ),
+    DeathsDoorEntrance(
+        R.GROVE_OF_SPIRITS_DOOR, R.DOOR_CHECK_FOR_GROVE_OF_SPIRITS, None
+    ),  # Right now, this would be immpossible to do. TODO: CHECK if possible in glitch settings?
+    DeathsDoorEntrance(R.DOOR_TO_LOST_CEMETERY, R.DOOR_CHECK_FOR_LOST_CEMETERY, None),
+    DeathsDoorEntrance(R.LOST_CEMETERY_CENTRAL, R.DOOR_CHECK_FOR_LOST_CEMETERY, None),
+    DeathsDoorEntrance(
+        R.DOOR_TO_ESTATE_OF_THE_URN_WITCH,
+        R.DOOR_CHECK_FOR_ESTATE_OF_THE_URN_WITCH,
+        None,
+    ),
+    DeathsDoorEntrance(
+        R.ESTATE_OF_THE_URN_WITCH_SOUTH,
+        R.DOOR_CHECK_FOR_ESTATE_OF_THE_URN_WITCH,
+        None,
+    ),
+    DeathsDoorEntrance(R.DOOR_TO_CERAMIC_MANOR, R.DOOR_CHECK_FOR_CERAMIC_MANOR, None),
+    DeathsDoorEntrance(
+        R.CERAMIC_MANOR_MAIN_LOBBY, R.DOOR_CHECK_FOR_CERAMIC_MANOR, None
+    ),
+    DeathsDoorEntrance(R.DOOR_TO_INNER_FURNACE, R.DOOR_CHECK_FOR_INNER_FURNACE, None),
+    DeathsDoorEntrance(R.INNER_FURNACE_ENTRANCE, R.DOOR_CHECK_FOR_INNER_FURNACE, None),
+    DeathsDoorEntrance(
+        R.DOOR_TO_URN_WITCHS_LABORATORY,
+        R.DOOR_CHECK_FOR_URN_WITCHS_LABORATORY,
+        None,
+    ),
+    DeathsDoorEntrance(
+        R.URN_WITCHS_LABORATORY,
+        R.DOOR_CHECK_FOR_URN_WITCHS_LABORATORY,
+        None,
+    ),
+    DeathsDoorEntrance(
+        R.DOOR_TO_OVERGROWN_RUINS, R.DOOR_CHECK_FOR_OVERGROWN_RUINS, None
+    ),
+    DeathsDoorEntrance(
+        R.OVERGROWN_RUINS_OUTSIDE_MAIN_DUNGEON_GATE,
+        R.DOOR_CHECK_FOR_OVERGROWN_RUINS,
+        None,
+    ),
+    DeathsDoorEntrance(
+        R.DOOR_TO_MUSHROOM_DUNGEON, R.DOOR_CHECK_FOR_MUSHROOM_DUNGEON, None
+    ),
+    DeathsDoorEntrance(
+        R.MUSHROOM_DUNGEON_LOBBY, R.DOOR_CHECK_FOR_MUSHROOM_DUNGEON, None
+    ),
+    DeathsDoorEntrance(
+        R.DOOR_TO_FLOODED_FORTRESS, R.DOOR_CHECK_FOR_FLOODED_FORTRESS, None
+    ),
+    DeathsDoorEntrance(
+        R.FLOODED_FORTRESS_FROG_KING_ENCOUNTER, R.DOOR_CHECK_FOR_FLOODED_FORTRESS, None
+    ),
+    DeathsDoorEntrance(
+        R.DOOR_TO_THRONE_OF_THE_FROG_KING,
+        R.DOOR_CHECK_FOR_THRONE_OF_THE_FROG_KING,
+        None,
+    ),
+    DeathsDoorEntrance(
+        R.THRONE_OF_THE_FROG_KING, R.DOOR_CHECK_FOR_THRONE_OF_THE_FROG_KING, None
+    ),
+    DeathsDoorEntrance(
+        R.DOOR_TO_STRANDED_SAILOR, R.DOOR_CHECK_FOR_STRANDED_SAILOR, None
+    ),
+    DeathsDoorEntrance(R.STRANDED_SAILOR, R.DOOR_CHECK_FOR_STRANDED_SAILOR, None),
+    DeathsDoorEntrance(
+        R.DOOR_TO_CASTLE_LOCKSTONE, R.DOOR_CHECK_FOR_CASTLE_LOCKSTONE, None
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_CENTRAL, R.DOOR_CHECK_FOR_CASTLE_LOCKSTONE, None
+    ),
+    DeathsDoorEntrance(
+        R.DOOR_TO_CAMP_OF_THE_FREE_CROWS, R.DOOR_CHECK_FOR_CAMP_OF_THE_FREE_CROWS, None
+    ),
+    DeathsDoorEntrance(
+        R.CAMP_OF_THE_FREE_CROWS_VILLAGE, R.DOOR_CHECK_FOR_CAMP_OF_THE_FREE_CROWS, None
+    ),
+    DeathsDoorEntrance(
+        R.DOOR_TO_OLD_WATCHTOWERS, R.DOOR_CHECK_FOR_OLD_WATCHTOWERS, None
+    ),
+    DeathsDoorEntrance(
+        R.OLD_WATCHTOWERS_ENTRANCE, R.DOOR_CHECK_FOR_OLD_WATCHTOWERS, None
+    ),
+    DeathsDoorEntrance(R.DOOR_TO_BETTYS_LAIR, R.DOOR_CHECK_FOR_BETTYS_LAIR, None),
+    DeathsDoorEntrance(R.BETTYS_LAIR, R.DOOR_CHECK_FOR_BETTYS_LAIR, None),
     # Access from Avarices
     DeathsDoorEntrance(R.FIRE_AVARICE, R.POST_FIRE_AVARICE, Has(I.FIRE)),
     DeathsDoorEntrance(
@@ -88,6 +171,14 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.POST_HOOKSHOT_AVARICE, R.HALL_OF_DOORS_LOBBY, Has(I.HOOKSHOT)
     ),  # This entrance is probably unneccessary
+    DeathsDoorEntrance(
+        R.HALL_OF_DOORS_LOBBY, R.POST_BOMB_AVARICE, HasAll(I.BOMB, I.LEVER_BOMB_EXIT)
+    ),
+    DeathsDoorEntrance(R.BOMB_AVARICE, R.POST_BOMB_AVARICE, Has(I.BOMB)),
+    DeathsDoorEntrance(R.POST_BOMB_AVARICE, R.BOMB_AVARICE, Has(I.BOMB)),
+    DeathsDoorEntrance(
+        R.POST_BOMB_AVARICE, R.HALL_OF_DOORS_LOBBY, HasAll(I.BOMB, I.LEVER_BOMB_EXIT)
+    ),  # This entrance is probably unneccessary
     # Entrances in Grove of Spirits
     DeathsDoorEntrance(R.GROVE_OF_SPIRITS_DOOR, R.GROVE_OF_SPIRITS, None),
     DeathsDoorEntrance(
@@ -95,16 +186,30 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     ),
     # Entrances in Lost Cemetery
     DeathsDoorEntrance(
-        R.LOST_CEMETERY_EXIT_TO_GROVE_OF_SPIRITS, R.LOST_CEMETERY_DOOR, None
+        R.LOST_CEMETERY_EXIT_TO_GROVE_OF_SPIRITS,
+        R.LOST_CEMETERY_NEAR_GROVE_OF_SPIRITS_DOOR,
+        None,
     ),
+    DeathsDoorEntrance(
+        R.LOST_CEMETERY_NEAR_GROVE_OF_SPIRITS_DOOR,
+        R.LOST_CEMETERY_EXIT_TO_GROVE_OF_SPIRITS,
+        None,
+    ),  ##TODO: Figure out what region the hookshot route connects to
+    DeathsDoorEntrance(
+        R.LOST_CEMETERY_NEAR_GROVE_OF_SPIRITS_DOOR, R.LOST_CEMETERY_CENTRAL, None
+    ),  ## TODO: Check to see if reversable
     DeathsDoorEntrance(R.LOST_CEMETERY_DOOR, R.LOST_CEMETERY_CENTRAL, None),
-    DeathsDoorEntrance(R.LOST_CEMETERY_CENTRAL, R.LOST_CEMETERY_DOOR, None),
+    DeathsDoorEntrance(
+        R.LOST_CEMETERY_CENTRAL, R.LOST_CEMETERY_DOOR, Has(I.LOST_CEMETERY_DOOR)
+    ),
     DeathsDoorEntrance(
         R.LOST_CEMETERY_STEADHONE, R.LOST_CEMETERY_CENTRAL, Has(I.LEVER_CATACOMBS_TOWER)
     ),
     DeathsDoorEntrance(R.LOST_CEMETERY_RIGHT_ARENA, R.LOST_CEMETERY_CENTRAL, None),
     DeathsDoorEntrance(
-        R.LOST_CEMETERY_DOOR, R.LOST_CEMETERY_RIGHT_ARENA, Has(I.HOOKSHOT)
+        R.LOST_CEMETERY_NEAR_GROVE_OF_SPIRITS_DOOR,
+        R.LOST_CEMETERY_RIGHT_ARENA,
+        Has(I.HOOKSHOT),
     ),
     DeathsDoorEntrance(
         R.LOST_CEMETERY_EXIT_TO_OVERGROWN_RUINS,
@@ -118,10 +223,35 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     ),
     DeathsDoorEntrance(
         R.LOST_CEMETERY_EXIT_TO_STRANDED_SAILOR,
+        R.LOST_CEMETERY_NEAR_EXIT_TO_STRANDED_SAILOR,
+        None,
+    ),
+    DeathsDoorEntrance(
+        R.LOST_CEMETERY_NEAR_EXIT_TO_STRANDED_SAILOR,
+        R.LOST_CEMETERY_EXIT_TO_STRANDED_SAILOR,
+        None,
+    ),
+    DeathsDoorEntrance(
+        R.LOST_CEMETERY_NEAR_EXIT_TO_STRANDED_SAILOR,
         R.LOST_CEMETERY_STEADHONE,
         Has(E.LOST_CEMETERY_OPENED_EXIT_TO_SAILOR),
     ),
+    DeathsDoorEntrance(
+        R.LOST_CEMETERY_STEADHONE,
+        R.LOST_CEMETERY_NEAR_EXIT_TO_STRANDED_SAILOR,
+        Has(E.LOST_CEMETERY_OPENED_EXIT_TO_SAILOR),
+    ),  ## TODO: this event seems not possible from the stranded sailor side, but maybe a glitch makes it possible
     DeathsDoorEntrance(R.LOST_CEMETERY_BELLTOWER, R.LOST_CEMETERY_STEADHONE, None),
+    DeathsDoorEntrance(R.LOST_CEMETERY_EXIT_TO_CRYPT, R.LOST_CEMETERY_BELLTOWER, None),
+    DeathsDoorEntrance(
+        R.LOST_CEMETERY_SUMMIT, R.LOST_CEMETERY_BELLTOWER, Has(I.PINK_KEY, 5)
+    ),
+    DeathsDoorEntrance(
+        R.LOST_CEMETERY_STEADHONE,
+        R.LOST_CEMETERY_BELLTOWER,
+        Has(I.LEVER_CEMETERY_EXIT_TO_ESTATE),
+    ),
+    DeathsDoorEntrance(R.LOST_CEMETERY_BELLTOWER, R.LOST_CEMETERY_EXIT_TO_CRYPT, None),
     DeathsDoorEntrance(
         R.LOST_CEMETERY_SUMMIT, R.LOST_CEMETERY_STEADHONE, Has(I.LEVER_CEMETERY_SEWER)
     ),
@@ -175,9 +305,11 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     ),
     DeathsDoorEntrance(
         R.ESTATE_OF_THE_URN_WITCH_SOUTH, R.ESTATE_OF_THE_URN_WITCH_EXIT_TO_CRYPT, None
-    ),
+    ),  ###TODO : CHECK THAT THIS CONNECTION IS POSSIBLE
     DeathsDoorEntrance(
-        R.ESTATE_OF_THE_URN_WITCH_SOUTH, R.ESTATE_OF_THE_URN_WITCH_DOOR, None
+        R.ESTATE_OF_THE_URN_WITCH_SOUTH,
+        R.ESTATE_OF_THE_URN_WITCH_DOOR,
+        Has(I.ESTATE_OF_THE_URN_WITCH_DOOR),
     ),
     DeathsDoorEntrance(
         R.ESTATE_OF_THE_URN_WITCH_DOOR, R.ESTATE_OF_THE_URN_WITCH_SOUTH, None
@@ -219,7 +351,9 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
         None,
     ),
     DeathsDoorEntrance(R.CERAMIC_MANOR_DOOR, R.CERAMIC_MANOR_MAIN_LOBBY, None),
-    DeathsDoorEntrance(R.CERAMIC_MANOR_MAIN_LOBBY, R.CERAMIC_MANOR_DOOR, None),
+    DeathsDoorEntrance(
+        R.CERAMIC_MANOR_MAIN_LOBBY, R.CERAMIC_MANOR_DOOR, Has(I.CERAMIC_MANOR_DOOR)
+    ),
     DeathsDoorEntrance(
         R.CERAMIC_MANOR_MAIN_LOBBY,
         R.CERAMIC_MANOR_EXIT_TO_ESTATE_OF_THE_URN_WITCH,
@@ -284,7 +418,9 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
         None,
     ),
     DeathsDoorEntrance(R.INNER_FURNACE_DOOR, R.INNER_FURNACE_ENTRANCE, None),
-    DeathsDoorEntrance(R.INNER_FURNACE_ENTRANCE, R.INNER_FURNACE_DOOR, None),
+    DeathsDoorEntrance(
+        R.INNER_FURNACE_ENTRANCE, R.INNER_FURNACE_DOOR, Has(I.INNER_FURNACE_DOOR)
+    ),
     DeathsDoorEntrance(R.INNER_FURNACE_POST_BURNER_1, R.INNER_FURNACE_ENTRANCE, None),
     DeathsDoorEntrance(R.INNER_FURNACE_POST_BURNER_2, R.INNER_FURNACE_ENTRANCE, None),
     DeathsDoorEntrance(R.INNER_FURNACE_POST_BURNER_3, R.INNER_FURNACE_ENTRANCE, None),
@@ -360,13 +496,18 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     # Entrances in Urn Witch's Laboratory
     DeathsDoorEntrance(R.URN_WITCHS_LABORATORY_DOOR, R.URN_WITCHS_LABORATORY, None),
     DeathsDoorEntrance(
-        R.URN_WITCHS_LABORATORY_EXIT_TO_INNER_FURNACE,
+        R.URN_WITCHS_LABORATORY,
         R.URN_WITCHS_LABORATORY_DOOR,
+        Has(I.THE_URN_WITCHS_LABORATORY_DOOR),
+    ),
+    DeathsDoorEntrance(
+        R.URN_WITCHS_LABORATORY,
+        R.URN_WITCHS_LABORATORY_EXIT_TO_INNER_FURNACE,
         None,
     ),
     DeathsDoorEntrance(
-        R.URN_WITCHS_LABORATORY_DOOR,
         R.URN_WITCHS_LABORATORY_EXIT_TO_INNER_FURNACE,
+        R.URN_WITCHS_LABORATORY,
         None,
     ),
     # Entrances in Stranded Sailor Caves
@@ -390,7 +531,9 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
         R.STRANDED_SAILOR, R.STRANDED_SAILOR_EXIT_TO_STRANDED_SAILOR_CAVES, None
     ),
     DeathsDoorEntrance(R.STRANDED_SAILOR_DOOR, R.STRANDED_SAILOR, None),
-    DeathsDoorEntrance(R.STRANDED_SAILOR, R.STRANDED_SAILOR_DOOR, None),
+    DeathsDoorEntrance(
+        R.STRANDED_SAILOR, R.STRANDED_SAILOR_DOOR, Has(I.STRANDED_SAILOR_DOOR)
+    ),
     DeathsDoorEntrance(R.STRANDED_SAILOR_UPPER, R.STRANDED_SAILOR, Has(I.BOMB)),
     DeathsDoorEntrance(R.STRANDED_SAILOR, R.STRANDED_SAILOR_JEFFERSON, None),
     DeathsDoorEntrance(
@@ -420,7 +563,11 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
         Has(I.LEVER_LOCKSTONE_ENTRANCE),
     ),
     DeathsDoorEntrance(R.CASTLE_LOCKSTONE_DOOR, R.CASTLE_LOCKSTONE_CENTRAL, None),
-    DeathsDoorEntrance(R.CASTLE_LOCKSTONE_CENTRAL, R.CASTLE_LOCKSTONE_DOOR, None),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_CENTRAL,
+        R.CASTLE_LOCKSTONE_DOOR,
+        Has(I.CASTLE_LOCKSTONE_DOOR),
+    ),
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_SOUTHWEST_CROW, R.CASTLE_LOCKSTONE_ENTRANCE, None
     ),
@@ -471,16 +618,18 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
         R.CASTLE_LOCKSTONE_CENTRAL, R.CASTLE_LOCKSTONE_JAILED_SEED, Has(I.HOOKSHOT)
     ),
     DeathsDoorEntrance(
-        R.CASTLE_LOCKSTONE_EXIT_TO_ROOF, R.CASTLE_LOCKSTONE_CENTRAL, None
+        R.CASTLE_LOCKSTONE_ROOF, R.CASTLE_LOCKSTONE_CENTRAL, None
     ),  # Fall down the elevator
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_CENTRAL,
-        R.CASTLE_LOCKSTONE_EXIT_TO_ROOF,
+        R.CASTLE_LOCKSTONE_ROOF,
         CanReachRegion(R.CASTLE_LOCKSTONE_LORD_DEADBOLT)
         & CanReachRegion(R.CASTLE_LOCKSTONE_LORD_LOCKSTONE)
         & CanReachRegion(R.CASTLE_LOCKSTONE_LORD_THEODOOR)
         & CanReachRegion(R.CASTLE_LOCKSTONE_LORD_OPENGATE),
     ),  # Can summon elevator ##TODO: See if lord lamps can be turned into events instead!
+    DeathsDoorEntrance(R.CASTLE_LOCKSTONE_EXIT_TO_CAMP, R.CASTLE_LOCKSTONE_ROOF, None),
+    DeathsDoorEntrance(R.CASTLE_LOCKSTONE_ROOF, R.CASTLE_LOCKSTONE_EXIT_TO_CAMP, None),
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_EAST_UPPER_KEYED_DOOR,
         R.CASTLE_LOCKSTONE_LORD_THEODOOR_ROOM,
@@ -499,9 +648,6 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
         ),
     ),
     DeathsDoorEntrance(
-        R.CASTLE_LOCKSTONE_CENTRAL, R.CASTLE_LOCKSTONE_JAILED_SEED, Has(I.HOOKSHOT)
-    ),
-    DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_CENTRAL, R.CASTLE_LOCKSTONE_LORD_LOCKSTONE, Has(I.FIRE)
     ),
     DeathsDoorEntrance(
@@ -518,6 +664,19 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
         R.CASTLE_LOCKSTONE_LORD_THEODOOR_ROOM,
         R.CASTLE_LOCKSTONE_LORD_THEODOOR,
         Has(I.FIRE),
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_LORD_THEODOOR_ROOM,
+        R.CASTLE_LOCKSTONE_EAST_CROW,
+        None,
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_EAST,
+        R.CASTLE_LOCKSTONE_EAST_CROW,
+        HasAll(
+            I.LEVER_LOCKSTONE_VERTICAL_LASER_PUZZLE,
+            I.LEVER_LOCKSTONE_TRACKING_BEAM_PUZZLE,
+        ),
     ),
     # Entrances in Camp of the Free Crows
     DeathsDoorEntrance(
@@ -549,7 +708,9 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
         R.CAMP_OF_THE_FREE_CROWS_DOOR, R.CAMP_OF_THE_FREE_CROWS_VILLAGE, None
     ),
     DeathsDoorEntrance(
-        R.CAMP_OF_THE_FREE_CROWS_VILLAGE, R.CAMP_OF_THE_FREE_CROWS_DOOR, None
+        R.CAMP_OF_THE_FREE_CROWS_VILLAGE,
+        R.CAMP_OF_THE_FREE_CROWS_DOOR,
+        Has(I.CAMP_OF_THE_FREE_CROWS_DOOR),
     ),
     DeathsDoorEntrance(
         R.CAMP_OF_THE_FREE_CROWS_CAMP_BRIDGE,
@@ -595,7 +756,7 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.OLD_WATCHTOWERS_ENTRANCE,
         R.OLD_WATCHTOWERS_DOOR,
-        None,
+        Has(I.OLD_WATCHTOWERS_DOOR),
     ),
     DeathsDoorEntrance(
         R.OLD_WATCHTOWERS_JAMMING_START,
@@ -702,17 +863,22 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     # Entrances in Betty's Lair
     DeathsDoorEntrance(
         R.BETTYS_LAIR_DOOR,
-        R.BETTYS_LAIR_EXIT_TO_OLD_WATCHTOWERS,
-        None,
-    ),
-    DeathsDoorEntrance(
-        R.BETTYS_LAIR_EXIT_TO_OLD_WATCHTOWERS,
-        R.BETTYS_LAIR_DOOR,
-        None,
-    ),
-    DeathsDoorEntrance(
-        R.BETTYS_LAIR_DOOR,
         R.BETTYS_LAIR,
+        None,
+    ),
+    DeathsDoorEntrance(
+        R.BETTYS_LAIR,
+        R.BETTYS_LAIR_DOOR,
+        Has(I.BETTYS_LAIR_DOOR),
+    ),
+    DeathsDoorEntrance(
+        R.BETTYS_LAIR_EXIT_TO_OLD_WATCHTOWERS,
+        R.BETTYS_LAIR,
+        None,
+    ),
+    DeathsDoorEntrance(
+        R.BETTYS_LAIR,
+        R.BETTYS_LAIR_EXIT_TO_OLD_WATCHTOWERS,
         None,
     ),
     # Entrances in Overgrown Ruins
@@ -722,6 +888,11 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
         None,
     ),
     DeathsDoorEntrance(
+        R.OVERGROWN_RUINS_OUTSIDE_FRONT_GATE,
+        R.OVERGROWN_RUINS_EXIT_TO_LOST_CEMETERY,
+        None,
+    ),
+    DeathsDoorEntrance(
         R.OVERGROWN_RUINS_OUTSIDE_MAIN_DUNGEON_GATE,
         R.OVERGROWN_RUINS_OUTSIDE_FRONT_GATE,
         Has(I.LEVER_RUINS_MAIN_GATE),
@@ -739,7 +910,7 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.OVERGROWN_RUINS_OUTSIDE_MAIN_DUNGEON_GATE,
         R.OVERGROWN_RUINS_DOOR,
-        None,
+        Has(I.OVERGROWN_RUINS_DOOR),
     ),
     DeathsDoorEntrance(
         R.OVERGROWN_RUINS_FOREST_SETTLEMENT,
@@ -766,6 +937,11 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
         R.MUSHROOM_DUNGEON_DOOR,
         R.MUSHROOM_DUNGEON_LOBBY,
         None,
+    ),
+    DeathsDoorEntrance(
+        R.MUSHROOM_DUNGEON_LOBBY,
+        R.MUSHROOM_DUNGEON_DOOR,
+        Has(I.MUSHROOM_DUNGEON_DOOR),
     ),
     DeathsDoorEntrance(
         R.OVERGROWN_RUINS_OUTSIDE_MAIN_DUNGEON_GATE,
@@ -848,6 +1024,17 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
         Has(I.GREEN_KEY, 4),
     ),
     DeathsDoorEntrance(
+        R.MUSHROOM_DUNGEON_BIG_DOOR,
+        R.MUSHROOM_DUNGEON_ANCIENT_DOOR,
+        HasAll(
+            E.ACCESS_TO_DAY,
+            I.CROW_DUNGEON_COBWEB,
+            I.CROW_DUNGEON_HALL,
+            I.CROW_DUNGEON_RIGHTMOST,
+            I.CROW_DUNGEON_WATER_ARENA,
+        ),
+    ),
+    DeathsDoorEntrance(
         R.MUSHROOM_DUNGEON_MAIN_HALL,
         R.MUSHROOM_DUNGEON_RIGHTMOST_CROW,
         Has(I.GREEN_KEY, 4),
@@ -857,6 +1044,12 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
         R.MUSHROOM_DUNGEON_RIGHTMOST_CROW,
         Has(I.LEVER_DUNGEON_ABOVE_RIGHTMOST_CROW),
     ),
+    DeathsDoorEntrance(
+        R.OVERGROWN_RUINS_FOREST_SETTLEMENT,
+        R.MUSHROOM_DUNGEON_THUNDER_HAMMER,
+        Has(I.LEVER_RUINS_UPPER_DUNGEON_ENTRANCE),
+    ),  # TODO: This is a scene transition
+    # TODO: In ER, this would provide new access to Mushroom Dungeon, and would need to be connected to the dungeon. Omitting for now
     # Entrances in Flooded Fortress
     DeathsDoorEntrance(
         R.FLOODED_FORTRESS_EXIT_TO_MUSHROOM_DUNGEON,
@@ -891,7 +1084,7 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.FLOODED_FORTRESS_FROG_KING_ENCOUNTER,
         R.FLOODED_FORTRESS_DOOR,
-        None,
+        Has(I.FLOODED_FORTRESS_DOOR),
     ),
     DeathsDoorEntrance(
         R.FLOODED_FORTRESS_FROG_KING_STATUE,
@@ -947,7 +1140,7 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.THRONE_OF_THE_FROG_KING,
         R.THRONE_OF_THE_FROG_KING_DOOR,
-        None,
+        Has(I.THRONE_OF_THE_FROG_KING_DOOR),
     ),
     #########################
     ### SCENE TRANSITIONS ### (Separated for Entrance Rando purposes)
@@ -1028,7 +1221,7 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     DeathsDoorEntrance(R.DOOR_TO_OLD_WATCHTOWERS, R.OLD_WATCHTOWERS_DOOR, None),
     DeathsDoorEntrance(R.OLD_WATCHTOWERS_DOOR, R.DOOR_TO_OLD_WATCHTOWERS, None),
     DeathsDoorEntrance(R.DOOR_TO_BETTYS_LAIR, R.BETTYS_LAIR_DOOR, None),
-    DeathsDoorEntrance(R.DOOR_TO_BETTYS_LAIR, R.BETTYS_LAIR_DOOR, None),
+    DeathsDoorEntrance(R.BETTYS_LAIR_DOOR, R.DOOR_TO_BETTYS_LAIR, None),
     DeathsDoorEntrance(
         R.GROVE_OF_SPIRITS_EXIT_TO_LOST_CEMETERY,
         R.LOST_CEMETERY_EXIT_TO_GROVE_OF_SPIRITS,
@@ -1039,6 +1232,16 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
         R.GROVE_OF_SPIRITS_EXIT_TO_LOST_CEMETERY,
         None,
     ),  ## The backwards transition here is not meaningful for now because you can't get back to the exit from the main part of Lost Cemetery, but would be meaningful in decoupled entrance rando
+    DeathsDoorEntrance(
+        R.LOST_CEMETERY_EXIT_TO_CRYPT,
+        R.CRYPT_EXIT_TO_LOST_CEMETERY,
+        None,
+    ),
+    DeathsDoorEntrance(
+        R.CRYPT_EXIT_TO_LOST_CEMETERY,
+        R.LOST_CEMETERY_EXIT_TO_CRYPT,
+        None,
+    ),
     DeathsDoorEntrance(
         R.LOST_CEMETERY_EXIT_TO_OVERGROWN_RUINS,
         R.OVERGROWN_RUINS_EXIT_TO_LOST_CEMETERY,
@@ -1130,13 +1333,13 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
         None,
     ),
     DeathsDoorEntrance(
-        R.CASTLE_LOCKSTONE_EXIT_TO_ROOF,
+        R.CASTLE_LOCKSTONE_EXIT_TO_CAMP,
         R.CAMP_OF_THE_FREE_CROWS_EXIT_TO_CASTLE_LOCKSTONE,
         None,
     ),
     DeathsDoorEntrance(
         R.CAMP_OF_THE_FREE_CROWS_EXIT_TO_CASTLE_LOCKSTONE,
-        R.CASTLE_LOCKSTONE_EXIT_TO_ROOF,
+        R.CASTLE_LOCKSTONE_EXIT_TO_CAMP,
         None,
     ),
     DeathsDoorEntrance(
@@ -1159,16 +1362,16 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
         R.OLD_WATCHTOWERS_EXIT_TO_BETTYS_LAIR,
         None,
     ),
-    DeathsDoorEntrance(
-        R.OVERGROWN_RUINS_EXIT_TO_MUSHROOM_DUNGEON_MAIN,
-        R.MUSHROOM_DUNGEON_EXIT_TO_OVERGROWN_RUINS_MAIN,
-        None,
-    ),
-    DeathsDoorEntrance(
-        R.MUSHROOM_DUNGEON_EXIT_TO_OVERGROWN_RUINS_MAIN,
-        R.OVERGROWN_RUINS_EXIT_TO_MUSHROOM_DUNGEON_MAIN,
-        None,
-    ),
+    # DeathsDoorEntrance(
+    #     R.OVERGROWN_RUINS_EXIT_TO_MUSHROOM_DUNGEON_MAIN,
+    #     R.MUSHROOM_DUNGEON_EXIT_TO_OVERGROWN_RUINS_MAIN,
+    #     None,
+    # ),
+    # DeathsDoorEntrance(
+    #     R.MUSHROOM_DUNGEON_EXIT_TO_OVERGROWN_RUINS_MAIN,
+    #     R.OVERGROWN_RUINS_EXIT_TO_MUSHROOM_DUNGEON_MAIN,
+    #     None,
+    # ),
     DeathsDoorEntrance(
         R.MUSHROOM_DUNGEON_EXIT_TO_FLOODED_FORTRESS,
         R.FLOODED_FORTRESS_EXIT_TO_MUSHROOM_DUNGEON,
@@ -1195,5 +1398,8 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     ),  # No return journey (I think)
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_ANCIENT_DOOR, R.HOOKSHOT_AVARICE, None
+    ),  # No return journey (I think)
+    DeathsDoorEntrance(
+        R.MUSHROOM_DUNGEON_ANCIENT_DOOR, R.BOMB_AVARICE, None
     ),  # No return journey (I think)
 ]
