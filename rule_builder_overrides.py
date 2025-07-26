@@ -31,6 +31,7 @@ except ModuleNotFoundError:
         Rule,
     )
 
+
 if TYPE_CHECKING:
     from . import DeathsDoorWorld
 

@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict, Any, List
+from typing import Any
 
 from Options import (
     Choice,
@@ -25,8 +25,8 @@ class DeathsDoorOptions(PerGameCommonOptions):
     start_day_or_night: StartDayOrNight
 
 
-deathsdoor_options_presets: Dict[str, Dict[str, Any]] = {}
+deathsdoor_options_presets: dict[str, dict[str, Any]] = {}
 
-deathsdoor_option_groups: List[OptionGroup] = [
+deathsdoor_option_groups: list[OptionGroup] = [
     OptionGroup("Logic Options", [StartDayOrNight])
 ]

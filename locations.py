@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Dict, NamedTuple, Set, List
+from typing import NamedTuple
 
 from .regions import DeathsDoorRegionName as R
 
@@ -331,10 +331,10 @@ class DeathsDoorLocationData(NamedTuple):
     name: DeathsDoorLocationName
     location_id: int
     region: R
-    location_groups: List[LocationGroup]
+    location_groups: list[LocationGroup]
 
 
-location_table: List[DeathsDoorLocationData] = [
+location_table: list[DeathsDoorLocationData] = [
     # Spells and their upgrades
     DeathsDoorLocationData(
         DeathsDoorLocationName.FIRE_AVARICE, 1, R.FIRE_AVARICE, [LocationGroup.SPELL]
@@ -1949,19 +1949,19 @@ location_table: List[DeathsDoorLocationData] = [
 ]
 
 
-def locations_for_group(group: LocationGroup) -> Set[str]:
-    location_names: Set[str] = set()
+def locations_for_group(group: LocationGroup) -> set[str]:
+    location_names: set[str] = set()
     for data in location_table:
         if group in data.location_groups:
             location_names.add(data.name.value)
     return location_names
 
 
-location_name_to_id: Dict[str, int] = {
+location_name_to_id: dict[str, int] = {
     data.name.value: data.location_id for data in location_table
 }
 
-location_name_groups: Dict[str, Set[str]] = {}
+location_name_groups: dict[str, set[str]] = {}
 for loc_data in location_table:
     loc_group_name = loc_data.name.value.split(" - ", 1)[0]
     location_name_groups.setdefault(loc_group_name, set()).add(loc_data.name.value)
