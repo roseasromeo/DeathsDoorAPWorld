@@ -99,7 +99,7 @@ class CanReachRegion(RBCanReachRegion, game="Death's Door"):
         super().__init__(region_name.value, options=options)
 
 @dataclasses.dataclass()
-class IsJeffersonNotPresent(Rule["DeathsDoorWorld"], game="Death's Door"):
+class NoJefferson(Rule["DeathsDoorWorld"], game="Death's Door"):
     def _instantiate(self, world: "DeathsDoorWorld") -> Rule.Resolved:
         return self.Resolved(player=world.player)
     
@@ -110,14 +110,23 @@ class IsJeffersonNotPresent(Rule["DeathsDoorWorld"], game="Death's Door"):
 @dataclasses.dataclass()
 class CanJeffersonTraverse(Rule["DeathsDoorWorld"], game="Death's Door"):
     def _instantiate(self, world: "DeathsDoorWorld") -> Rule.Resolved:
-        return self.Resolved(world=world, player=world.player)
+        return self.Resolved(world, player=world.player)
     
     class Resolved(Rule.Resolved):
         world: "DeathsDoorWorld"
         
         def _evaluate(self, state: CollectionState) -> bool:
+            jefferson_start_region_str = R.STRANDED_SAILOR_JEFFERSON_QUEST_START.value
+            jefferson_start_region = self.world.get_region(jefferson_start_region_str)
+            if not state.can_reach_region(jefferson_start_region_str, self.player):
+                return False
             temp_state = state.copy()
             setattr(temp_state, jefferson_present_attr, True)
+            temp_state.stale[self.player] = True
+            temp_state.reachable_regions[self.player] = set()
+            temp_state.reachable_regions[self.player].add(jefferson_start_region)
+            temp_state.blocked_connections[self.player] = set()
+            temp_state.blocked_connections[self.player].update(jefferson_start_region.exits)
             temp_state.update_reachable_regions(self.player)
             return temp_state.can_reach_region(R.FLOODED_FORTRESS_ENTRANCE, self.player)
         
