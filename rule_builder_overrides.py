@@ -8,8 +8,6 @@ from .regions import DeathsDoorRegionName as R
 
 try:
     from rule_builder import (
-        Rule,
-        True_,
         OptionFilter,
         Has as RBHas,
         HasAll as RBHasAll,
@@ -20,8 +18,6 @@ try:
     )
 except ModuleNotFoundError:
     from .rule_builder import (
-        Rule,
-        True_,
         OptionFilter,
         Has as RBHas,
         HasAll as RBHasAll,

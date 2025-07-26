@@ -51,13 +51,17 @@ class DeathsDoorRegionName(str, Enum):
 
     # Lost Cemetery Regions
     LOST_CEMETERY_EXIT_TO_GROVE_OF_SPIRITS = "Lost Cemetery Exit to Grove of Spirits"
-    LOST_CEMETERY_NEAR_GROVE_OF_SPIRITS_DOOR = "Lost Cemetery Near Grove of Spirits Door"
+    LOST_CEMETERY_NEAR_GROVE_OF_SPIRITS_DOOR = (
+        "Lost Cemetery Near Grove of Spirits Door"
+    )
     LOST_CEMETERY_DOOR = "Lost Cemetery Door"
     LOST_CEMETERY_CENTRAL = "Lost Cemetery Central"
     LOST_CEMETERY_STEADHONE = "Lost Cemetery Steadhone"
     LOST_CEMETERY_RIGHT_ARENA = "Lost Cemetery Right Arena"
     LOST_CEMETERY_EXIT_TO_OVERGROWN_RUINS = "Lost Cemetery Exit to Overgrown Ruins"
-    LOST_CEMETERY_NEAR_EXIT_TO_STRANDED_SAILOR = "Lost Cemetery Near Exit to Stranded Sailor"
+    LOST_CEMETERY_NEAR_EXIT_TO_STRANDED_SAILOR = (
+        "Lost Cemetery Near Exit to Stranded Sailor"
+    )
     LOST_CEMETERY_EXIT_TO_STRANDED_SAILOR = "Lost Cemetery Exit to Stranded Sailor"
     LOST_CEMETERY_EXIT_TO_CRYPT = "Lost Cemetery Exit to Crypt"
     LOST_CEMETERY_BELLTOWER = "Lost Cemetery Belltower"
@@ -135,7 +139,9 @@ class DeathsDoorRegionName(str, Enum):
     OVERGROWN_RUINS_DOOR = "Overgrown Ruins Door"
     OVERGROWN_RUINS_EXIT_TO_LOST_CEMETERY = "Overgrown Ruins Exit to Lost Cemetery"
     OVERGROWN_RUINS_OUTSIDE_FRONT_GATE = "Overgrown Ruins Outside Front Gate"
-    OVERGROWN_RUINS_OUTSIDE_MAIN_DUNGEON_GATE = "Overgrown Ruins Outside Main Dungeon Gate"
+    OVERGROWN_RUINS_OUTSIDE_MAIN_DUNGEON_GATE = (
+        "Overgrown Ruins Outside Main Dungeon Gate"
+    )
     OVERGROWN_RUINS_FOREST_SETTLEMENT = "Overgrown Ruins Forest Settlement"
     # OVERGROWN_RUINS_EXIT_TO_MUSHROOM_DUNGEON_MAIN = "Overgrown Ruins Exit to Mushroom Dungeon Main" ## TODO: right now, not handling all the different entrances to mushroom dungeon
 
@@ -148,12 +154,16 @@ class DeathsDoorRegionName(str, Enum):
     MUSHROOM_DUNGEON_LOBBY = "Mushroom Dungeon Lobby"
     MUSHROOM_DUNGEON_BIG_DOOR = "Mushroom Dungeon Big Door"
     MUSHROOM_DUNGEON_WATER_ARENA = "Mushroom Dungeon Water Arena"
-    MUSHROOM_DUNGEON_EXIT_TO_FLOODED_FORTRESS = "Mushroom Dungeon Exit to Flooded Fortress"
+    MUSHROOM_DUNGEON_EXIT_TO_FLOODED_FORTRESS = (
+        "Mushroom Dungeon Exit to Flooded Fortress"
+    )
     MUSHROOM_DUNGEON_THUNDER_HAMMER = "Mushroom Dungeon Thunder Hammer Drop In"
 
     # Flooded Fortress Regions
     FLOODED_FORTRESS_DOOR = "Flooded Fortress Door"
-    FLOODED_FORTRESS_EXIT_TO_MUSHROOM_DUNGEON = "Flooded Fortress Exit to Mushroom Dungeon"
+    FLOODED_FORTRESS_EXIT_TO_MUSHROOM_DUNGEON = (
+        "Flooded Fortress Exit to Mushroom Dungeon"
+    )
     FLOODED_FORTRESS_ENTRANCE = "Flooded Fortress Entrance"
     FLOODED_FORTRESS_WATCHTOWER_LOWER = "Flooded Fortress Watchtower Lower"
     FLOODED_FORTRESS_FROG_KING_STATUE = "Flooded Fortress Frog King Statue"
@@ -163,12 +173,16 @@ class DeathsDoorRegionName(str, Enum):
     FLOODED_FORTRESS_BREAKABLE_BRIDGES = "Flooded Fortress Breakable Bridges"
     FLOODED_FORTRESS_BRIDGE = "Flooded Fortress Bridge"
     FLOODED_FORTRESS_EXIT = "Flooded Fortress Exit"
-    FLOODED_FORTRESS_EXIT_TO_THRONE_OF_THE_FROG_KING = "Flooded Fortress Exit to Throne of the Frog King"
+    FLOODED_FORTRESS_EXIT_TO_THRONE_OF_THE_FROG_KING = (
+        "Flooded Fortress Exit to Throne of the Frog King"
+    )
 
     # Throne of the Frog King Regions
     THRONE_OF_THE_FROG_KING = "Throne of the Frog King"
     THRONE_OF_THE_FROG_KING_DOOR = "Throne of the Frog King Door"
-    THRONE_OF_THE_FROG_KING_EXIT_TO_FLOODED_FORTRESS = "Throne of the Frog King Exit to Flooded Fortress"
+    THRONE_OF_THE_FROG_KING_EXIT_TO_FLOODED_FORTRESS = (
+        "Throne of the Frog King Exit to Flooded Fortress"
+    )
 
     # Stranded Sailor Regions
     STRANDED_SAILOR = "Stranded Sailor"
@@ -234,7 +248,9 @@ class DeathsDoorRegionName(str, Enum):
 
     # Old Watchtowers Regions
     OLD_WATCHTOWERS_DOOR = "Old Watchtowers Door"
-    OLD_WATCHTOWERS_EXIT_TO_CAMP_OF_THE_FREE_CROWS = "Old Watchtowers Exit to Camp of the Free Crows"
+    OLD_WATCHTOWERS_EXIT_TO_CAMP_OF_THE_FREE_CROWS = (
+        "Old Watchtowers Exit to Camp of the Free Crows"
+    )
     OLD_WATCHTOWERS_ENTRANCE = "Old Watchtowers Entrance"
     OLD_WATCHTOWERS_JAMMING_START = "Old Watchtowers Jamming Start"
     OLD_WATCHTOWERS_FIRST_POT_AREA = "Old Watchtowers First Pot Area"
@@ -246,7 +262,6 @@ class DeathsDoorRegionName(str, Enum):
     OLD_WATCHTOWERS_CAVE_ENTRANCE = "Old Watchtowers Cave Entrance"
     OLD_WATCHTOWERS_BOOMERS = "Old Watchtowers Boomers"
     OLD_WATCHTOWERS_EXIT_TO_BETTYS_LAIR = "Old Watchtowers Exit to Betty's Lair"
-
 
     # Betty's Lair Regions
     BETTYS_LAIR = "Betty's Lair"

@@ -179,7 +179,7 @@ item_table: List[DeathsDoorItemData] = [
     DeathsDoorItemData(
         DeathsDoorItemName.ROGUE_DAGGERS,
         5,
-        ItemClassification.progression,
+        ItemClassification.useful,
         1,
         [ItemGroup.WEAPON],
     ),
@@ -213,9 +213,7 @@ item_table: List[DeathsDoorItemData] = [
     DeathsDoorItemData(
         DeathsDoorItemName.LIFE_SEED, 11, ItemClassification.progression, 50, []
     ),
-    DeathsDoorItemData(
-        DeathsDoorItemName.SOULS, 12, ItemClassification.filler, 0, []
-    ),
+    DeathsDoorItemData(DeathsDoorItemName.SOULS, 12, ItemClassification.filler, 0, []),
     DeathsDoorItemData(
         DeathsDoorItemName.PINK_KEY,
         13,

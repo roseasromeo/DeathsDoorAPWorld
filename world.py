@@ -34,6 +34,7 @@ from .entrances import deathsdoor_entrances
 from .rules import Has, set_location_rules
 from worlds.AutoWorld import World, WebWorld
 from BaseClasses import Region, Location, Item, ItemClassification, Tutorial
+
 # from .tracker import tracker_world
 from .json_generator import generate_rule_json
 
@@ -183,11 +184,6 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         self.multiworld.itempool += deathsdoor_items
 
     def set_rules(self) -> None:
-        from Utils import visualize_regions
-        state = self.multiworld.get_all_state(False)
-        state.update_reachable_regions(self.player)
-        visualize_regions(self.get_region(R.HALL_OF_DOORS_LOBBY), "DeathsDoor.puml", show_entrance_names=True,
-                      regions_to_highlight=state.reachable_regions[self.player])
         set_location_rules(self)
         set_event_rules(self)
 
@@ -197,8 +193,6 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         # generate_rule_json()
 
     def fill_slot_data(self) -> Dict[str, Any]:
-        # In order for our game client to handle the generated seed correctly we need to know what the user selected
-        # for whether they should have access to Freeplay immediately.
         # A dictionary returned from this method gets set as the slot_data and will be sent to the client after connecting.
         # The options dataclass has a method to return a `Dict[str, Any]` of each option name provided and the relevant
         # option's value.
