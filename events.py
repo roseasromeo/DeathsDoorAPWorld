@@ -3,6 +3,7 @@ from typing import List, NamedTuple
 
 from .regions import DeathsDoorRegionName as R
 
+
 class DeathsDoorEventName(str, Enum):
     VICTORY = "Goal Complete"
     LOST_CEMETERY_OPENED_EXIT_TO_SAILOR = "Lost Cemetery Opened Exit to Sailor"

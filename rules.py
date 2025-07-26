@@ -1,7 +1,6 @@
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 from typing_extensions import override
 
-from .options import StartInventoryPool
 from .items import ItemGroup as IG, DeathsDoorItemName as I
 from .locations import location_table, DeathsDoorLocationName as L
 from .events import DeathsDoorEventName as E
@@ -119,14 +118,11 @@ deaths_door_location_rules: dict[L, Rule["DeathsDoorWorld"] | None] = {
 
 
 def set_location_rules(world: "DeathsDoorWorld") -> None:
-    multiworld = world.multiworld
-    player = world.player
-
     for location_data in location_table:
         if location_data.name in deaths_door_location_rules.keys():
             rule = deaths_door_location_rules[location_data.name]
         else:
             rule = None
         if rule is not None:
-            location = multiworld.get_location(location_data.name.value, player)
+            location = world.get_location(location_data.name.value)
             world.set_rule(location, rule)
