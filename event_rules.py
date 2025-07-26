@@ -21,9 +21,7 @@ if TYPE_CHECKING:
     from . import DeathsDoorWorld
 
 
-
-
-pot_specific_rules : dict[EL, Rule["DeathsDoorWorld"]] = {
+pot_specific_rules: dict[EL, Rule["DeathsDoorWorld"]] = {
     EL.POT_CATACOMBS_ROOM_2: Has(I.FIRE),
     EL.POT_BOMB_SILENT_SERVANT: Has(I.BOMB),
     EL.POT_MANOR_IMP_LOFT: Has(I.FIRE),  ##TODO: Check?
@@ -53,8 +51,8 @@ deaths_door_event_rules: dict[
             I.GIANT_SOUL_OF_THE_FROG_KING,
             I.GIANT_SOUL_OF_THE_URN_WITCH,
     ),
-    EL.ACTIVATED_FURNACE_BURNERS: Has(I.FIRE),
-    EL.ACTIVATED_FURNACE_BURNERS: HasAll(
+    EL.ACTIVATED_FURNACE_BURNERS: Has(I.FIRE)
+    | HasAll(
         I.FIRE, E.ACCESS_TO_NIGHT
     ),
     EL.WATCHTOWER_ENTRANCE_TORCH: HasAll(
@@ -83,23 +81,20 @@ deaths_door_event_rules: dict[
 
 # Add in pots to existing tables to be able to use the same infrastructure
 for pot in pot_table:
-    rule = Has(I.LIFE_SEED, 50)  ## TODO: Make a yaml setting
+    pot_rule = Has(I.LIFE_SEED, 50)  ## TODO: Make a yaml setting
     if pot.name in pot_specific_rules.keys():
-        rule = rule & pot_specific_rules[pot.name]
-    deaths_door_event_rules[pot.name] = rule
+        pot_rule = pot_rule & pot_specific_rules[pot.name]
+    deaths_door_event_rules[pot.name] = pot_rule
 
 
 def set_event_rules(world: "DeathsDoorWorld") -> None:
-    multiworld = world.multiworld
-    player = world.player
-
     for event_location_data in event_location_table:
         if event_location_data.name in deaths_door_event_rules.keys():
             rule = deaths_door_event_rules[event_location_data.name]
         else:
             rule = None
         if rule is not None:
-            event_location = multiworld.get_location(
-                event_location_data.name.value, player
+            event_location = world.get_location(
+                event_location_data.name.value
             )
             world.set_rule(event_location, rule)

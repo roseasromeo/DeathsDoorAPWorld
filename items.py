@@ -1,6 +1,6 @@
 from enum import Enum
 
-from typing import NamedTuple, Dict, List, Set
+from typing import NamedTuple
 from BaseClasses import ItemClassification
 
 
@@ -156,10 +156,10 @@ class DeathsDoorItemData(NamedTuple):
     item_id: int
     classification: ItemClassification
     base_quantity_in_item_pool: int
-    item_groups: List[ItemGroup]
+    item_groups: list[ItemGroup]
 
 
-item_table: List[DeathsDoorItemData] = [
+item_table: list[DeathsDoorItemData] = [
     DeathsDoorItemData(
         DeathsDoorItemName.FIRE, 1, ItemClassification.progression, 2, [ItemGroup.SPELL]
     ),
@@ -1044,9 +1044,9 @@ item_table: List[DeathsDoorItemData] = [
     ),
 ]
 
-item_name_to_id: Dict[str, int] = {data.name.value: data.item_id for data in item_table}
+item_name_to_id: dict[str, int] = {data.name.value: data.item_id for data in item_table}
 
-filler_items: List[str] = [
+filler_items: list[str] = [
     data.name.value
     for data in item_table
     if data.classification == ItemClassification.filler
@@ -1055,7 +1055,7 @@ filler_items: List[str] = [
 
 # Items can be grouped using their names to allow easy checking if any item
 # from that group has been collected. Group names can also be used for !hint
-def items_for_group(group: ItemGroup) -> Set[str]:
+def items_for_group(group: ItemGroup) -> set[str]:
     item_names = set()
     for data in item_table:
         if group in data.item_groups:
@@ -1063,6 +1063,6 @@ def items_for_group(group: ItemGroup) -> Set[str]:
     return item_names
 
 
-item_name_groups: Dict[str, Set[str]] = {}
+item_name_groups: dict[str, set[str]] = {}
 for group in ItemGroup:
     item_name_groups[group.value] = items_for_group(group)

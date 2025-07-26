@@ -1,4 +1,4 @@
-from typing import ClassVar, Dict, Any, List
+from typing import ClassVar, Any
 from typing_extensions import override
 
 from Options import Option
@@ -72,7 +72,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
     game = "Death's Door"  # name of the game/world
     web = DeathsDoorWeb()
     options_dataclass = DeathsDoorOptions  # options the player can set
-    options: DeathsDoorOptions  # type: ignore # typing hints for option results
+    options: DeathsDoorOptions  # typing hints for option results
     topology_present = True  # show path to required location checks in spoiler
     origin_region_name = R.HALL_OF_DOORS_LOBBY
 
@@ -87,7 +87,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
     glitches_item_name: ClassVar[str] = E.OOL.value
 
     @staticmethod
-    def interpret_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
+    def interpret_slot_data(slot_data: dict[str, Any]) -> dict[str, Any]:
 
         # Adapted from ClassicSpeed's SADX implementation of this feature
         if (
@@ -102,7 +102,6 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             )
         return slot_data
 
-    @override
     def generate_early(self) -> None:
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
         if re_gen_passthrough and self.game in re_gen_passthrough:
@@ -122,15 +121,15 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             self.multiworld.regions.append(region)
 
         for location_data in location_table:
-            region = self.multiworld.get_region(location_data.region.value, self.player)
+            region = self.get_region(location_data.region.value)
             location = DeathsDoorLocation(
                 self.player, location_data.name.value, location_data.location_id, region
             )
             region.locations.append(location)
 
         for event_location_data in event_location_table:
-            region = self.multiworld.get_region(
-                event_location_data.region.value, self.player
+            region = self.get_region(
+                event_location_data.region.value
             )
             event_location = DeathsDoorLocation(
                 self.player, event_location_data.name.value, None, region
@@ -151,7 +150,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
 
     def create_item(self, name: str) -> DeathsDoorItem:
         # if the name provided is an event, create it as an event
-        if name in [member.value for member in E]:
+        if name in E:
             return DeathsDoorItem(
                 name, ItemClassification.progression, None, self.player
             )
@@ -163,15 +162,14 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         )
 
     def create_items(self) -> None:
-        deathsdoor_items: List[DeathsDoorItem] = []
-        items_to_create: Dict[str, int] = {
+        deathsdoor_items: list[DeathsDoorItem] = []
+        items_to_create: dict[str, int] = {
             data.name.value: data.base_quantity_in_item_pool for data in item_table
         }
 
         for item, quantity in items_to_create.items():
-            for i in range(0, quantity):
-                deathsdoor_item: DeathsDoorItem = self.create_item(item)
-                deathsdoor_items.append(deathsdoor_item)
+            for i in range(quantity):
+                deathsdoor_items.append(self.create_item(item))
 
         junk = len(self.multiworld.get_unfilled_locations(self.player)) - len(
             deathsdoor_items
@@ -183,11 +181,13 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         self.multiworld.itempool += deathsdoor_items
 
     def set_rules(self) -> None:
+        # todo: remove or comment this out before distributing the apworld
         from Utils import visualize_regions
         state = self.multiworld.get_all_state(False)
         state.update_reachable_regions(self.player)
         visualize_regions(self.get_region(R.HALL_OF_DOORS_LOBBY), "DeathsDoor.puml", show_entrance_names=True,
-                      regions_to_highlight=state.reachable_regions[self.player])
+                          regions_to_highlight=state.reachable_regions[self.player])
+
         set_location_rules(self)
         set_event_rules(self)
 
@@ -196,7 +196,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
 
         # generate_rule_json()
 
-    def fill_slot_data(self) -> Dict[str, Any]:
+    def fill_slot_data(self) -> dict[str, Any]:
         # In order for our game client to handle the generated seed correctly we need to know what the user selected
         # for whether they should have access to Freeplay immediately.
         # A dictionary returned from this method gets set as the slot_data and will be sent to the client after connecting.

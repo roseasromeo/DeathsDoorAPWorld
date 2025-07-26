@@ -31,6 +31,7 @@ except ModuleNotFoundError:
         CanReachRegion as RBCanReachRegion,
     )
 
+
 # Override Has, etc. to take DeathsDoorItemName enum instead of string
 @dataclasses.dataclass
 class Has(RBHas, game="Death's Door"):
@@ -75,6 +76,7 @@ class HasGroup(RBHasGroup, game="Death's Door"):
     ) -> None:
         super().__init__(item_name_group.value, count=count, options=options)
 
+
 @dataclasses.dataclass
 class CanReachLocation(RBCanReachLocation, game="Death's Door"):
 
@@ -83,6 +85,7 @@ class CanReachLocation(RBCanReachLocation, game="Death's Door"):
         self, location_name: L, options: "Iterable[OptionFilter[Any]]" = ()
     ) -> None:
         super().__init__(location_name.value, options=options)
+
 
 @dataclasses.dataclass
 class CanReachRegion(RBCanReachRegion, game="Death's Door"):
