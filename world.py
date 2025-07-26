@@ -87,6 +87,9 @@ class DeathsDoorWorld(RuleWorldMixin, World):
     ut_can_gen_without_yaml: ClassVar[bool] = True
     glitches_item_name: ClassVar[str] = E.OOL.value
 
+    # rule_builder
+    rule_caching_enabled = False
+
     @staticmethod
     def interpret_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
 
