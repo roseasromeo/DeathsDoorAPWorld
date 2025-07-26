@@ -1,5 +1,8 @@
 import dataclasses
-from typing import Any, Iterable, override
+from typing import TYPE_CHECKING, Any, Iterable
+from typing_extensions import override
+
+from BaseClasses import CollectionState
 
 from .items import ItemGroup as IG, DeathsDoorItemName as I
 from .locations import DeathsDoorLocationName as L
