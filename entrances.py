@@ -1,19 +1,21 @@
-from typing import List, NamedTuple
+from typing import TYPE_CHECKING, List, NamedTuple
 
 try:
     from rule_builder import Rule, False_
 except ModuleNotFoundError:
     from .rule_builder import Rule, False_
-from .rule_builder_overrides import Has, HasAny, HasAll, CanReachRegion
+from .rule_builder_overrides import Has, HasAny, HasAll, CanReachRegion, IsJeffersonNotPresent
 from .items import DeathsDoorItemName as I
 from .regions import DeathsDoorRegionName as R
 from .events import DeathsDoorEventName as E
 
+if TYPE_CHECKING:
+    from . import DeathsDoorWorld
 
 class DeathsDoorEntrance(NamedTuple):
     starting_region: R
     ending_region: R
-    rule: Rule | None
+    rule: Rule["DeathsDoorWorld"] | None
 
 
 ##TODO Change main region to door connections to require Door (instead of Scene transition)
@@ -21,57 +23,57 @@ class DeathsDoorEntrance(NamedTuple):
 deathsdoor_entrances: List[DeathsDoorEntrance] = [
     # Doors in Hall of Doors
     DeathsDoorEntrance(
-        R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_GROVE_OF_SPIRITS, Has(I.GROVE_OF_SPIRITS_DOOR)
+        R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_GROVE_OF_SPIRITS, Has(I.GROVE_OF_SPIRITS_DOOR) & IsJeffersonNotPresent()
     ),
     DeathsDoorEntrance(
-        R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_LOST_CEMETERY, Has(I.LOST_CEMETERY_DOOR)
+        R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_LOST_CEMETERY, Has(I.LOST_CEMETERY_DOOR) & IsJeffersonNotPresent()
     ),
     DeathsDoorEntrance(
         R.HALL_OF_DOORS_LOBBY,
         R.DOOR_TO_ESTATE_OF_THE_URN_WITCH,
-        Has(I.ESTATE_OF_THE_URN_WITCH_DOOR),
+        Has(I.ESTATE_OF_THE_URN_WITCH_DOOR) & IsJeffersonNotPresent(),
     ),
     DeathsDoorEntrance(
-        R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_CERAMIC_MANOR, Has(I.CERAMIC_MANOR_DOOR)
+        R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_CERAMIC_MANOR, Has(I.CERAMIC_MANOR_DOOR) & IsJeffersonNotPresent()
     ),
     DeathsDoorEntrance(
-        R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_INNER_FURNACE, Has(I.INNER_FURNACE_DOOR)
+        R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_INNER_FURNACE, Has(I.INNER_FURNACE_DOOR) & IsJeffersonNotPresent()
     ),
     DeathsDoorEntrance(
         R.HALL_OF_DOORS_LOBBY,
         R.DOOR_TO_URN_WITCHS_LABORATORY,
-        Has(I.THE_URN_WITCHS_LABORATORY_DOOR),
+        Has(I.THE_URN_WITCHS_LABORATORY_DOOR) & IsJeffersonNotPresent(),
     ),
     DeathsDoorEntrance(
-        R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_OVERGROWN_RUINS, Has(I.OVERGROWN_RUINS_DOOR)
+        R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_OVERGROWN_RUINS, Has(I.OVERGROWN_RUINS_DOOR) & IsJeffersonNotPresent()
     ),
     DeathsDoorEntrance(
-        R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_MUSHROOM_DUNGEON, Has(I.MUSHROOM_DUNGEON_DOOR)
+        R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_MUSHROOM_DUNGEON, Has(I.MUSHROOM_DUNGEON_DOOR) & IsJeffersonNotPresent()
     ),
     DeathsDoorEntrance(
-        R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_FLOODED_FORTRESS, Has(I.FLOODED_FORTRESS_DOOR)
+        R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_FLOODED_FORTRESS, Has(I.FLOODED_FORTRESS_DOOR) & IsJeffersonNotPresent()
     ),
     DeathsDoorEntrance(
         R.HALL_OF_DOORS_LOBBY,
         R.DOOR_TO_THRONE_OF_THE_FROG_KING,
-        Has(I.THRONE_OF_THE_FROG_KING_DOOR),
+        Has(I.THRONE_OF_THE_FROG_KING_DOOR) & IsJeffersonNotPresent(),
     ),
     DeathsDoorEntrance(
-        R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_STRANDED_SAILOR, Has(I.STRANDED_SAILOR_DOOR)
+        R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_STRANDED_SAILOR, Has(I.STRANDED_SAILOR_DOOR) & IsJeffersonNotPresent()
     ),
     DeathsDoorEntrance(
-        R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_CASTLE_LOCKSTONE, Has(I.CASTLE_LOCKSTONE_DOOR)
+        R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_CASTLE_LOCKSTONE, Has(I.CASTLE_LOCKSTONE_DOOR) & IsJeffersonNotPresent()
     ),
     DeathsDoorEntrance(
         R.HALL_OF_DOORS_LOBBY,
         R.DOOR_TO_CAMP_OF_THE_FREE_CROWS,
-        Has(I.CAMP_OF_THE_FREE_CROWS_DOOR),
+        Has(I.CAMP_OF_THE_FREE_CROWS_DOOR) & IsJeffersonNotPresent(),
     ),
     DeathsDoorEntrance(
-        R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_OLD_WATCHTOWERS, Has(I.OLD_WATCHTOWERS_DOOR)
+        R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_OLD_WATCHTOWERS, Has(I.OLD_WATCHTOWERS_DOOR) & IsJeffersonNotPresent()
     ),
     DeathsDoorEntrance(
-        R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_BETTYS_LAIR, Has(I.BETTYS_LAIR_DOOR)
+        R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_BETTYS_LAIR, Has(I.BETTYS_LAIR_DOOR) & IsJeffersonNotPresent()
     ),
     # Door Check regions
     DeathsDoorEntrance(
@@ -1394,12 +1396,12 @@ deathsdoor_entrances: List[DeathsDoorEntrance] = [
     ),
     # Ancient Doors
     DeathsDoorEntrance(
-        R.CERAMIC_MANOR_ANCIENT_DOOR, R.FIRE_AVARICE, None
+        R.CERAMIC_MANOR_ANCIENT_DOOR, R.FIRE_AVARICE, IsJeffersonNotPresent(),
     ),  # No return journey (I think)
     DeathsDoorEntrance(
-        R.CASTLE_LOCKSTONE_ANCIENT_DOOR, R.HOOKSHOT_AVARICE, None
+        R.CASTLE_LOCKSTONE_ANCIENT_DOOR, R.HOOKSHOT_AVARICE, IsJeffersonNotPresent(),
     ),  # No return journey (I think)
     DeathsDoorEntrance(
-        R.MUSHROOM_DUNGEON_ANCIENT_DOOR, R.BOMB_AVARICE, None
+        R.MUSHROOM_DUNGEON_ANCIENT_DOOR, R.BOMB_AVARICE, IsJeffersonNotPresent(),
     ),  # No return journey (I think)
 ]

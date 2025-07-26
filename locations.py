@@ -1324,12 +1324,12 @@ location_table: List[DeathsDoorLocationData] = [
         [LocationGroup.SOUL_ORB],
     ),
     # Tablets
-    # DeathsDoorLocationData(
-    #     DeathsDoorLocationName.RED_ANCIENT_TABLET_OF_KNOWLEDGE,
-    #     166,
-    #     R.FLOODED_FORTRESS_ENTRANCE,
-    #     [LocationGroup.TABLET],
-    # ), ##### TODO: JEFFERSON IS NOT IMPLEMENTED
+    DeathsDoorLocationData(
+        DeathsDoorLocationName.RED_ANCIENT_TABLET_OF_KNOWLEDGE,
+        166,
+        R.FLOODED_FORTRESS_ENTRANCE,
+        [LocationGroup.TABLET],
+    ), ##### TODO: JEFFERSON IS NOT FULLY TESTED
     DeathsDoorLocationData(
         DeathsDoorLocationName.YELLOW_ANCIENT_TABLET_OF_KNOWLEDGE,
         167,
