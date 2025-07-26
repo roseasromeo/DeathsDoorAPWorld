@@ -1,4 +1,4 @@
-from typing import Any, Dict, List
+from typing import Any
 
 try:
     from rule_builder import True_
@@ -11,7 +11,7 @@ import json
 
 
 def generate_rule_json():
-    entrance_json_accumulator: List[Dict[str, Any]] = list()
+    entrance_json_accumulator: list[dict[str, Any]] = list()
 
     for entrance in deathsdoor_entrances:
         rule_dict = dict()
@@ -26,7 +26,7 @@ def generate_rule_json():
     with open("EntranceRules.json", "w") as f:
         json.dump(entrance_json_accumulator, f)
 
-    location_json_accumulator: List[Dict[str, Any]] = list()
+    location_json_accumulator: list[dict[str, Any]] = list()
 
     for location_data in location_table:
         rule = deaths_door_location_rules[location_data.name]

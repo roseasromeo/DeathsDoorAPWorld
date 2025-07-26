@@ -2,6 +2,9 @@ from enum import Enum
 
 
 class DeathsDoorRegionName(str, Enum):
+    def __str__(self) -> str:
+        return self.value
+
     # Hall of Doors Regions
     HALL_OF_DOORS_LOBBY = "Hall of Doors Lobby"
     DOOR_TO_GROVE_OF_SPIRITS = "Door to Grove of Spirits"

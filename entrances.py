@@ -1,4 +1,4 @@
-from typing import List, NamedTuple
+from typing import NamedTuple
 
 try:
     from rule_builder import Rule, False_
@@ -16,9 +16,9 @@ class DeathsDoorEntrance(NamedTuple):
     rule: Rule | None
 
 
-##TODO Change main region to door connections to require Door (instead of Scene transition)
+# TODO Change main region to door connections to require Door (instead of Scene transition)
 
-deathsdoor_entrances: List[DeathsDoorEntrance] = [
+deathsdoor_entrances: list[DeathsDoorEntrance] = [
     # Doors in Hall of Doors
     DeathsDoorEntrance(
         R.HALL_OF_DOORS_LOBBY, R.DOOR_TO_GROVE_OF_SPIRITS, Has(I.GROVE_OF_SPIRITS_DOOR)
