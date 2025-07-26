@@ -49,10 +49,7 @@ deaths_door_event_rules: dict[EL, Rule["DeathsDoorWorld"] | None] = {
         I.GIANT_SOUL_OF_THE_FROG_KING,
         I.GIANT_SOUL_OF_THE_URN_WITCH,
     ),
-    EL.ACTIVATED_FURNACE_BURNERS: Has(I.FIRE)
-    | HasAll(
-        I.FIRE, E.ACCESS_TO_NIGHT
-    ),
+    EL.ACTIVATED_FURNACE_BURNERS: Has(I.FIRE),
     EL.WATCHTOWER_ENTRANCE_TORCH: HasAll(
         I.FIRE, E.ACCESS_TO_NIGHT
     ),
@@ -88,11 +85,11 @@ for pot in pot_table:
 def set_event_rules(world: "DeathsDoorWorld") -> None:
     for event_location_data in event_location_table:
         if event_location_data.name in deaths_door_event_rules.keys():
-            rule = deaths_door_event_rules[event_location_data.name]
+            event_rule = deaths_door_event_rules[event_location_data.name]
         else:
-            rule = None
-        if rule is not None:
+            event_rule = None
+        if event_rule is not None:
             event_location = world.get_location(
                 event_location_data.name.value
             )
-            world.set_rule(event_location, rule)
+            world.set_rule(event_location, event_rule)
