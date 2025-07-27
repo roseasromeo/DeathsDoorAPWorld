@@ -214,7 +214,7 @@ item_table: list[DeathsDoorItemData] = [
         DeathsDoorItemName.MAGIC_SHARD, 10, ItemClassification.useful, 8, []
     ),
     DeathsDoorItemData(
-        DeathsDoorItemName.LIFE_SEED, 11, ItemClassification.progression, 50, []
+        DeathsDoorItemName.LIFE_SEED, 11, ItemClassification.progression_skip_balancing, 50, []
     ),
     DeathsDoorItemData(DeathsDoorItemName.SOULS, 12, ItemClassification.filler, 0, []),
     DeathsDoorItemData(
@@ -409,42 +409,42 @@ item_table: list[DeathsDoorItemData] = [
     DeathsDoorItemData(
         DeathsDoorItemName.RED_ANCIENT_TABLET_OF_KNOWLEDGE,
         40,
-        ItemClassification.progression,
+        ItemClassification.progression_skip_balancing,
         1,
         [ItemGroup.TABLET],
     ),
     DeathsDoorItemData(
         DeathsDoorItemName.YELLOW_ANCIENT_TABLET_OF_KNOWLEDGE,
         41,
-        ItemClassification.progression,
+        ItemClassification.progression_skip_balancing,
         1,
         [ItemGroup.TABLET],
     ),
     DeathsDoorItemData(
         DeathsDoorItemName.GREEN_ANCIENT_TABLET_OF_KNOWLEDGE,
         42,
-        ItemClassification.progression,
+        ItemClassification.progression_skip_balancing,
         1,
         [ItemGroup.TABLET],
     ),
     DeathsDoorItemData(
         DeathsDoorItemName.CYAN_ANCIENT_TABLET_OF_KNOWLEDGE,
         43,
-        ItemClassification.progression,
+        ItemClassification.progression_skip_balancing,
         1,
         [ItemGroup.TABLET],
     ),
     DeathsDoorItemData(
         DeathsDoorItemName.BLUE_ANCIENT_TABLET_OF_KNOWLEDGE,
         44,
-        ItemClassification.progression,
+        ItemClassification.progression_skip_balancing,
         1,
         [ItemGroup.TABLET],
     ),
     DeathsDoorItemData(
         DeathsDoorItemName.PURPLE_ANCIENT_TABLET_OF_KNOWLEDGE,
         45,
-        ItemClassification.progression,
+        ItemClassification.progression_skip_balancing,
         1,
         [ItemGroup.TABLET],
     ),
@@ -1046,12 +1046,6 @@ item_table: list[DeathsDoorItemData] = [
 ]
 
 item_name_to_id: dict[str, int] = {data.name.value: data.item_id for data in item_table}
-
-filler_items: list[str] = [
-    data.name.value
-    for data in item_table
-    if data.classification == ItemClassification.filler
-]
 
 
 # Items can be grouped using their names to allow easy checking if any item

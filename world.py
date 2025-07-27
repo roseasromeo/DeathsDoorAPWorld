@@ -16,7 +16,7 @@ from .items import (
     item_name_to_id,
     item_table,
     item_name_groups,
-    DeathsDoorItemName as I,
+    ItemGroup as IG,
 )
 from .locations import (
     location_name_to_id,
@@ -25,7 +25,6 @@ from .locations import (
 )
 from .events import (
     DeathsDoorEventName as E,
-    DeathsDoorEventLocationName as EL,
     event_location_table,
 )
 from .event_rules import set_event_rules
@@ -161,9 +160,14 @@ class DeathsDoorWorld(RuleWorldMixin, World):
 
         # otherwise, look up the item data
         item_data = next(data for data in item_table if data.name.value == name)
-        return DeathsDoorItem(
-            name, item_data.classification, self.item_name_to_id[name], self.player
-        )
+        if True and IG.TABLET in item_data.item_groups: # This True is here so we can eventually have a tablet goal
+            return DeathsDoorItem(
+                name, ItemClassification.filler, self.item_name_to_id[name], self.player
+            )
+        else:
+            return DeathsDoorItem(
+                name, item_data.classification, self.item_name_to_id[name], self.player
+            )
 
     def create_items(self) -> None:
         deathsdoor_items: list[DeathsDoorItem] = []
