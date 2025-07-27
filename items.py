@@ -17,6 +17,9 @@ class ItemGroup(str, Enum):
 
 
 class DeathsDoorItemName(str, Enum):
+    def __str__(self) -> str:
+        return self.value
+    
     FIRE = "Fire"
     BOMB = "Bomb"
     HOOKSHOT = "Hookshot"

@@ -30,7 +30,7 @@ from .events import (
 )
 from .event_rules import set_event_rules
 from .regions import DeathsDoorRegionName as R
-from .entrances import deathsdoor_entrances
+from .entrances.entrances import deathsdoor_entrances
 from .rules import Has, set_location_rules
 from worlds.AutoWorld import World, WebWorld
 from BaseClasses import Region, Location, Item, ItemClassification, Tutorial
@@ -55,16 +55,16 @@ class DeathsDoorWeb(WebWorld):
     option_groups = deathsdoor_option_groups
     options_presets = deathsdoor_options_presets
 
-    # tutorials = [
-    #     Tutorial(
-    #         tutorial_name="Multiworld Setup Guide",
-    #         description="A guide to setting up the Death's Door Randomizer for Archipelago multiworld games.",
-    #         language="English",
-    #         file_name="setup_en.md",
-    #         link="setup/en",
-    #         authors=[""]
-    #     )
-    # ]
+    tutorials = [
+        Tutorial(
+            tutorial_name="Multiworld Setup Guide",
+            description="A guide to setting up the Death's Door Randomizer for Archipelago multiworld games.",
+            language="English",
+            file_name="setup_en.md",
+            link="setup/en",
+            authors=[""]
+        )
+    ]
 
 
 class DeathsDoorWorld(RuleWorldMixin, World):

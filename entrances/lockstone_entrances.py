@@ -1,0 +1,141 @@
+from .entrance_class import DeathsDoorEntrance
+from ..rule_builder_overrides import Has, HasAny, HasAll, CanReachRegion
+from ..items import DeathsDoorItemName as I
+from ..regions import DeathsDoorRegionName as R
+from ..events import DeathsDoorEventName as E
+
+lockstone_entrances: list[DeathsDoorEntrance] = [
+    # Entrances in Castle Lockstone
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_EXIT_TO_STRANDED_SAILOR, R.CASTLE_LOCKSTONE_ENTRANCE, None
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_ENTRANCE, R.CASTLE_LOCKSTONE_EXIT_TO_STRANDED_SAILOR, None
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_CENTRAL,
+        R.CASTLE_LOCKSTONE_ENTRANCE,
+        Has(I.LEVER_LOCKSTONE_ENTRANCE),
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_ENTRANCE,
+        R.CASTLE_LOCKSTONE_CENTRAL,
+        Has(I.LEVER_LOCKSTONE_ENTRANCE),
+    ),
+    DeathsDoorEntrance(R.CASTLE_LOCKSTONE_DOOR, R.CASTLE_LOCKSTONE_CENTRAL, None),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_CENTRAL,
+        R.CASTLE_LOCKSTONE_DOOR,
+        Has(I.CASTLE_LOCKSTONE_DOOR),
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_SOUTHWEST_CROW, R.CASTLE_LOCKSTONE_ENTRANCE, None
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_CENTRAL,
+        R.CASTLE_LOCKSTONE_SOUTHWEST_CROW,
+        Has(I.LEVER_LOCKSTONE_DUAL_LASER_PUZZLE),
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_CENTRAL, R.CASTLE_LOCKSTONE_SOUTHWEST_UPPER, Has(I.HOOKSHOT)
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_LORD_OPENGATE, R.CASTLE_LOCKSTONE_SOUTHWEST_CROW, None
+    ),  # TODO: See if this connection should require Fire (implicit with current connection)
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_CENTRAL,
+        R.CASTLE_LOCKSTONE_EAST,
+        Has(I.LEVER_LOCKSTONE_EAST_LOWER),
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_CENTRAL,
+        R.CASTLE_LOCKSTONE_EAST_UPPER,
+        HasAny(I.HOOKSHOT, I.LEVER_LOCKSTONE_UPPER_SHORTCUT),
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_EAST_UPPER,
+        R.CASTLE_LOCKSTONE_EAST_UPPER_KEYED_DOOR,
+        HasAll(
+            I.HOOKSHOT, I.LEVER_LOCKSTONE_UPPER_PUZZLE
+        ),  ##TODO: base rando notes that lever can be skipped?
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_LIBRARY,
+        R.CASTLE_LOCKSTONE_ENTRANCE,
+        Has(I.LEVER_LOCKSTONE_EAST_START_SHORTCUT),
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_ENTRANCE,
+        R.CASTLE_LOCKSTONE_LIBRARY,
+        Has(I.LEVER_LOCKSTONE_EAST_START_SHORTCUT),
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_LORD_DEADBOLT,  ## TODO: Check if this connection needs Fire, because Deadbolt region has it built in (might need to split lamp from region)
+        R.CASTLE_LOCKSTONE_LIBRARY,
+        None,
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_CENTRAL, R.CASTLE_LOCKSTONE_JAILED_SEED, Has(I.HOOKSHOT)
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_ROOF, R.CASTLE_LOCKSTONE_CENTRAL, None
+    ),  # Fall down the elevator
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_CENTRAL,
+        R.CASTLE_LOCKSTONE_ROOF,
+        CanReachRegion(R.CASTLE_LOCKSTONE_LORD_DEADBOLT)
+        & CanReachRegion(R.CASTLE_LOCKSTONE_LORD_LOCKSTONE)
+        & CanReachRegion(R.CASTLE_LOCKSTONE_LORD_THEODOOR)
+        & CanReachRegion(R.CASTLE_LOCKSTONE_LORD_OPENGATE),
+    ),  # Can summon elevator ##TODO: See if lord lamps can be turned into events instead!
+    DeathsDoorEntrance(R.CASTLE_LOCKSTONE_EXIT_TO_CAMP, R.CASTLE_LOCKSTONE_ROOF, None),
+    DeathsDoorEntrance(R.CASTLE_LOCKSTONE_ROOF, R.CASTLE_LOCKSTONE_EXIT_TO_CAMP, None),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_EAST_UPPER_KEYED_DOOR,
+        R.CASTLE_LOCKSTONE_LORD_THEODOOR_ROOM,
+        Has(I.PINK_KEY, 5)
+        & HasAll(I.HOOKSHOT, I.LEVER_LOCKSTONE_UPPER_DUAL_LASER_PUZZLE),
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_CENTRAL,
+        R.CASTLE_LOCKSTONE_ANCIENT_DOOR,
+        HasAll(
+            E.ACCESS_TO_DAY,
+            I.CROW_LOCKSTONE_EAST,
+            I.CROW_LOCKSTONE_WEST,
+            I.CROW_LOCKSTONE_SOUTH_WEST,
+            I.CROW_LOCKSTONE_WEST_LOCKED,
+        ),
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_CENTRAL, R.CASTLE_LOCKSTONE_LORD_LOCKSTONE, Has(I.FIRE)
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_CENTRAL,
+        R.CASTLE_LOCKSTONE_LORD_OPENGATE,
+        HasAll(I.FIRE, I.HOOKSHOT, I.LEVER_LOCKSTONE_HOOKSHOT_PUZZLE),
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_EAST_UPPER_KEYED_DOOR,
+        R.CASTLE_LOCKSTONE_LORD_DEADBOLT,
+        HasAll(I.FIRE, I.HOOKSHOT),
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_LORD_THEODOOR_ROOM,
+        R.CASTLE_LOCKSTONE_LORD_THEODOOR,
+        Has(I.FIRE),
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_LORD_THEODOOR_ROOM,
+        R.CASTLE_LOCKSTONE_EAST_CROW,
+        None,
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_EAST,
+        R.CASTLE_LOCKSTONE_EAST_CROW,
+        HasAll(
+            I.LEVER_LOCKSTONE_VERTICAL_LASER_PUZZLE,
+            I.LEVER_LOCKSTONE_TRACKING_BEAM_PUZZLE,
+        ),
+    ),
+]

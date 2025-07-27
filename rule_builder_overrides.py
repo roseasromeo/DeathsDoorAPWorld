@@ -1,5 +1,8 @@
 import dataclasses
-from typing import Any, Iterable, override
+from typing import TYPE_CHECKING, Any, Iterable
+from typing_extensions import override
+
+from BaseClasses import CollectionState
 
 from .items import ItemGroup as IG, DeathsDoorItemName as I
 from .locations import DeathsDoorLocationName as L
@@ -15,6 +18,7 @@ try:
         HasGroup as RBHasGroup,
         CanReachLocation as RBCanReachLocation,
         CanReachRegion as RBCanReachRegion,
+        Rule,
     )
 except ModuleNotFoundError:
     from .rule_builder import (
@@ -25,11 +29,15 @@ except ModuleNotFoundError:
         HasGroup as RBHasGroup,
         CanReachLocation as RBCanReachLocation,
         CanReachRegion as RBCanReachRegion,
+        Rule,
     )
+
+if TYPE_CHECKING:
+    from . import DeathsDoorWorld
 
 
 # Override Has, etc. to take DeathsDoorItemName enum instead of string
-@dataclasses.dataclass
+@dataclasses.dataclass()
 class Has(RBHas, game="Death's Door"):
 
     @override
@@ -63,7 +71,7 @@ class HasAll(RBHasAll, game="Death's Door"):
         )
 
 
-@dataclasses.dataclass
+@dataclasses.dataclass()
 class HasGroup(RBHasGroup, game="Death's Door"):
 
     @override
@@ -73,7 +81,7 @@ class HasGroup(RBHasGroup, game="Death's Door"):
         super().__init__(item_name_group.value, count=count, options=options)
 
 
-@dataclasses.dataclass
+@dataclasses.dataclass()
 class CanReachLocation(RBCanReachLocation, game="Death's Door"):
 
     @override
@@ -83,7 +91,7 @@ class CanReachLocation(RBCanReachLocation, game="Death's Door"):
         super().__init__(location_name.value, options=options)
 
 
-@dataclasses.dataclass
+@dataclasses.dataclass()
 class CanReachRegion(RBCanReachRegion, game="Death's Door"):
 
     @override
@@ -91,3 +99,13 @@ class CanReachRegion(RBCanReachRegion, game="Death's Door"):
         self, region_name: R, options: "Iterable[OptionFilter[Any]]" = ()
     ) -> None:
         super().__init__(region_name.value, options=options)
+
+jefferson_present_attr = "jefferson_present"
+@dataclasses.dataclass()
+class NoJefferson(Rule["DeathsDoorWorld"], game="Death's Door"):
+    def _instantiate(self, world: "DeathsDoorWorld") -> Rule.Resolved:
+        return self.Resolved(player=world.player)
+    
+    class Resolved(Rule.Resolved):
+        def _evaluate(self, state: CollectionState) -> bool:
+            return not getattr(state, jefferson_present_attr, False)
