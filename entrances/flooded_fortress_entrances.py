@@ -1,0 +1,79 @@
+from .entrance_class import DeathsDoorEntrance
+from ..rule_builder_overrides import Has, HasAny, HasAll
+from ..items import DeathsDoorItemName as I
+from ..regions import DeathsDoorRegionName as R
+from ..events import DeathsDoorEventName as E
+
+flooded_fortress_entrances: list[DeathsDoorEntrance] = [
+    # Entrances in Flooded Fortress
+    DeathsDoorEntrance(
+        R.FLOODED_FORTRESS_EXIT_TO_MUSHROOM_DUNGEON,
+        R.FLOODED_FORTRESS_ENTRANCE,
+        None,
+    ),
+    DeathsDoorEntrance(
+        R.FLOODED_FORTRESS_ENTRANCE,
+        R.FLOODED_FORTRESS_EXIT_TO_MUSHROOM_DUNGEON,
+        None,
+    ),
+    DeathsDoorEntrance(
+        R.FLOODED_FORTRESS_ENTRANCE,
+        R.FLOODED_FORTRESS_WATCHTOWER_LOWER,
+        Has(I.LEVER_FORTRESS_WATCHTOWER_LOWER),
+    ),
+    DeathsDoorEntrance(
+        R.FLOODED_FORTRESS_ENTRANCE,
+        R.FLOODED_FORTRESS_FROG_KING_STATUE,
+        None,
+    ),
+    DeathsDoorEntrance(
+        R.FLOODED_FORTRESS_FROG_KING_ENCOUNTER,
+        R.FLOODED_FORTRESS_FROG_KING_STATUE,
+        None,
+    ),
+    DeathsDoorEntrance(
+        R.FLOODED_FORTRESS_DOOR,
+        R.FLOODED_FORTRESS_FROG_KING_ENCOUNTER,
+        None,
+    ),
+    DeathsDoorEntrance(
+        R.FLOODED_FORTRESS_FROG_KING_ENCOUNTER,
+        R.FLOODED_FORTRESS_DOOR,
+        Has(I.FLOODED_FORTRESS_DOOR),
+    ),
+    DeathsDoorEntrance(
+        R.FLOODED_FORTRESS_FROG_KING_STATUE,
+        R.FLOODED_FORTRESS_FROG_KING_ENCOUNTER,
+        HasAll(I.LEVER_FORTRESS_STATUE, I.LEVER_FORTRESS_PRE_MAIN_GATE),
+    ),
+    DeathsDoorEntrance(
+        R.FLOODED_FORTRESS_FROG_KING_ENCOUNTER,
+        R.FLOODED_FORTRESS_INSIDE_MAIN_GATE,
+        Has(I.LEVER_FORTRESS_MAIN_GATE) & HasAny(I.BOMB, I.HOOKSHOT),
+    ),
+    DeathsDoorEntrance(
+        R.FLOODED_FORTRESS_INSIDE_MAIN_GATE,
+        R.FLOODED_FORTRESS_U_TURN,
+        HasAll(I.BOMB, I.LEVER_FORTRESS_CENTRAL_SHORTCUT),
+    ),
+    DeathsDoorEntrance(
+        R.FLOODED_FORTRESS_U_TURN,
+        R.FLOODED_FORTRESS_BREAKABLE_BRIDGES,
+        Has(I.BOMB),
+    ),
+    DeathsDoorEntrance(
+        R.FLOODED_FORTRESS_BREAKABLE_BRIDGES,
+        R.FLOODED_FORTRESS_BRIDGE,
+        Has(I.LEVER_FORTRESS_BRIDGE),
+    ),
+    DeathsDoorEntrance(
+        R.FLOODED_FORTRESS_BRIDGE,
+        R.FLOODED_FORTRESS_EXIT,
+        Has(I.LEVER_FORTRESS_NORTH_WEST),
+    ),
+    DeathsDoorEntrance(
+        R.FLOODED_FORTRESS_EXIT,
+        R.FLOODED_FORTRESS_EXIT_TO_THRONE_OF_THE_FROG_KING,
+        None,
+    ),
+]

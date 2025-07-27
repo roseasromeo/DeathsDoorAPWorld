@@ -4,7 +4,7 @@ try:
     from rule_builder import True_
 except ModuleNotFoundError:
     from .rule_builder import True_
-from .entrances import deathsdoor_entrances
+from .entrances.entrances import deathsdoor_entrances
 from .locations import location_table
 from .rules import deaths_door_location_rules
 import json

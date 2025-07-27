@@ -1,5 +1,6 @@
 import dataclasses
-from typing import TYPE_CHECKING, Any, Iterable, override
+from typing import TYPE_CHECKING, Any, Iterable
+from typing_extensions import override
 
 from BaseClasses import CollectionState
 
@@ -29,15 +30,15 @@ except ModuleNotFoundError:
         CanReachLocation as RBCanReachLocation,
         CanReachRegion as RBCanReachRegion,
         Rule,
+        Rule,
     )
-
 
 if TYPE_CHECKING:
     from . import DeathsDoorWorld
 
-jefferson_present_attr = "jefferson_present"
 
 # Override Has, etc. to take DeathsDoorItemName enum instead of string
+@dataclasses.dataclass()
 @dataclasses.dataclass()
 class Has(RBHas, game="Death's Door"):
 
@@ -73,6 +74,7 @@ class HasAll(RBHasAll, game="Death's Door"):
 
 
 @dataclasses.dataclass()
+@dataclasses.dataclass()
 class HasGroup(RBHasGroup, game="Death's Door"):
 
     @override
@@ -99,6 +101,7 @@ class CanReachRegion(RBCanReachRegion, game="Death's Door"):
     ) -> None:
         super().__init__(region_name.value, options=options)
 
+jefferson_present_attr = "jefferson_present"
 @dataclasses.dataclass()
 class NoJefferson(Rule["DeathsDoorWorld"], game="Death's Door"):
     def _instantiate(self, world: "DeathsDoorWorld") -> Rule.Resolved:
@@ -107,6 +110,7 @@ class NoJefferson(Rule["DeathsDoorWorld"], game="Death's Door"):
     class Resolved(Rule.Resolved):
         def _evaluate(self, state: CollectionState) -> bool:
             return not getattr(state, jefferson_present_attr, False)
+
         
 @dataclasses.dataclass()
 class CanJeffersonTraverse(Rule["DeathsDoorWorld"], game="Death's Door"):

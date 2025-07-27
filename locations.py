@@ -20,6 +20,9 @@ class LocationGroup(Enum):
 
 
 class DeathsDoorLocationName(str, Enum):
+    def __str__(self) -> str:
+        return self.value
+    
     # Spells and their upgrades
     FIRE_AVARICE = "Fire Avarice"
     BOMB_AVARICE = "Bomb Avarice"
@@ -1962,9 +1965,9 @@ location_name_to_id: dict[str, int] = {
 }
 
 location_name_groups: dict[str, set[str]] = {}
-for loc_data in location_table:
-    loc_group_name = loc_data.name.value.split(" - ", 1)[0]
-    location_name_groups.setdefault(loc_group_name, set()).add(loc_data.name.value)
+# for loc_data in location_table:
+#     loc_group_name = loc_data.name.value.split(" - ", 1)[0]
+#     location_name_groups.setdefault(loc_group_name, set()).add(loc_data.name.value)
 
 for group in LocationGroup:
     location_name_groups[group.name] = locations_for_group(group)
