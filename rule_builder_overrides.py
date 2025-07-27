@@ -41,7 +41,6 @@ if TYPE_CHECKING:
 
 # Override Has, etc. to take DeathsDoorItemName enum instead of string
 @dataclasses.dataclass()
-@dataclasses.dataclass()
 class Has(RBHas, game="Death's Door"):
 
     @override
@@ -75,7 +74,6 @@ class HasAll(RBHasAll, game="Death's Door"):
         )
 
 
-@dataclasses.dataclass()
 @dataclasses.dataclass()
 class HasGroup(RBHasGroup, game="Death's Door"):
 
