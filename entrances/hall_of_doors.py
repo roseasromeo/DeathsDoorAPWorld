@@ -1,16 +1,7 @@
-from typing import TYPE_CHECKING
-
-
-if TYPE_CHECKING:
-    from .entrances import DeathsDoorEntrance
-try:
-    from rule_builder import Rule, False_
-except ModuleNotFoundError:
-    from ..rule_builder import Rule, False_
-from ..rule_builder_overrides import Has, HasAny, HasAll, CanReachRegion, NoJefferson
+from .entrance_class import DeathsDoorEntrance
+from ..rule_builder_overrides import Has, HasAll, NoJefferson
 from ..items import DeathsDoorItemName as I
 from ..regions import DeathsDoorRegionName as R
-from ..events import DeathsDoorEventName as E
 
 hall_of_doors_entrances: list[DeathsDoorEntrance] = [
 # Doors in Hall of Doors
@@ -89,4 +80,23 @@ hall_of_doors_entrances: list[DeathsDoorEntrance] = [
         R.DOOR_TO_BETTYS_LAIR,
         Has(I.BETTYS_LAIR_DOOR) & NoJefferson(),
     ),
+     # Access from Avarices
+    DeathsDoorEntrance(R.FIRE_AVARICE, R.POST_FIRE_AVARICE, Has(I.FIRE)),
+    DeathsDoorEntrance(
+        R.POST_FIRE_AVARICE, R.HALL_OF_DOORS_LOBBY, Has(I.FIRE)
+    ),  # This entrance is probably unneccessary
+    DeathsDoorEntrance(R.HOOKSHOT_AVARICE, R.POST_HOOKSHOT_AVARICE, Has(I.HOOKSHOT)),
+    DeathsDoorEntrance(R.POST_HOOKSHOT_AVARICE, R.HOOKSHOT_AVARICE, Has(I.HOOKSHOT)),
+    DeathsDoorEntrance(R.HALL_OF_DOORS_LOBBY, R.POST_HOOKSHOT_AVARICE, Has(I.HOOKSHOT)),
+    DeathsDoorEntrance(
+        R.POST_HOOKSHOT_AVARICE, R.HALL_OF_DOORS_LOBBY, Has(I.HOOKSHOT)
+    ),  # This entrance is probably unneccessary
+    DeathsDoorEntrance(
+        R.HALL_OF_DOORS_LOBBY, R.POST_BOMB_AVARICE, HasAll(I.BOMB, I.LEVER_BOMB_EXIT)
+    ),
+    DeathsDoorEntrance(R.BOMB_AVARICE, R.POST_BOMB_AVARICE, Has(I.BOMB)),
+    DeathsDoorEntrance(R.POST_BOMB_AVARICE, R.BOMB_AVARICE, Has(I.BOMB)),
+    DeathsDoorEntrance(
+        R.POST_BOMB_AVARICE, R.HALL_OF_DOORS_LOBBY, HasAll(I.BOMB, I.LEVER_BOMB_EXIT)
+    ),  # This entrance is probably unneccessary
 ]

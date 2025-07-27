@@ -1,14 +1,10 @@
-
-from typing import TYPE_CHECKING
-
-
-if TYPE_CHECKING:
-    from .entrances import DeathsDoorEntrance
-
+from .entrance_class import DeathsDoorEntrance
 from ..rule_builder_overrides import Has, NoJefferson
 from ..items import DeathsDoorItemName as I
 from ..regions import DeathsDoorRegionName as R
-from ..events import DeathsDoorEventName as E
+
+# TODO Change main region to door connections to require Door (instead of Scene transition)
+
 
 scene_transition_entrances: list[DeathsDoorEntrance] = [
     #########################
