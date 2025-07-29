@@ -17,6 +17,7 @@ from .items import (
     item_table,
     item_name_groups,
     ItemGroup as IG,
+    DeathsDoorItemName as I,
 )
 from .locations import (
     location_name_to_id,
@@ -187,6 +188,29 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         ]
 
         self.multiworld.itempool += deathsdoor_items
+
+        early_important_item_candidates: list[I] = [
+            I.CERAMIC_MANOR_DOOR,
+            I.INNER_FURNACE_DOOR,
+            I.LOST_CEMETERY_DOOR,
+            I.GROVE_OF_SPIRITS_DOOR,
+            I.OLD_WATCHTOWERS_DOOR,
+            I.OVERGROWN_RUINS_DOOR,
+            I.STRANDED_SAILOR_DOOR,
+            I.CASTLE_LOCKSTONE_DOOR,
+            I.FLOODED_FORTRESS_DOOR,
+            I.MUSHROOM_DUNGEON_DOOR,
+            I.CAMP_OF_THE_FREE_CROWS_DOOR,
+            I.ESTATE_OF_THE_URN_WITCH_DOOR,
+            I.HOOKSHOT,
+            I.BOMB,
+            I.FIRE,
+        ]
+        important_item = self.random.choice(early_important_item_candidates)
+        if self.options.early_important_item.option_early:
+            self.multiworld.early_items[self.player][important_item.value] = 1
+        elif self.options.early_important_item.option_local_early:
+            self.multiworld.local_early_items[self.player][important_item.value] = 1
 
     def set_rules(self) -> None:
         set_location_rules(self)
