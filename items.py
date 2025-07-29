@@ -19,7 +19,7 @@ class ItemGroup(str, Enum):
 class DeathsDoorItemName(str, Enum):
     def __str__(self) -> str:
         return self.value
-    
+
     FIRE = "Fire"
     BOMB = "Bomb"
     HOOKSHOT = "Hookshot"
@@ -164,59 +164,89 @@ class DeathsDoorItemData(NamedTuple):
 
 item_table: list[DeathsDoorItemData] = [
     DeathsDoorItemData(
-        DeathsDoorItemName.FIRE, 1, ItemClassification.progression, 2, [ItemGroup.SPELL]
+        DeathsDoorItemName.LIFE_SEED,
+        1,
+        ItemClassification.progression_skip_balancing,
+        50,
+        [],
     ),
     DeathsDoorItemData(
-        DeathsDoorItemName.BOMB, 2, ItemClassification.progression, 2, [ItemGroup.SPELL]
+        DeathsDoorItemName.FIRE,
+        2,
+        ItemClassification.progression,
+        2,
+        [ItemGroup.SPELL],
     ),
     DeathsDoorItemData(
-        DeathsDoorItemName.HOOKSHOT,
+        DeathsDoorItemName.BOMB,
         3,
         ItemClassification.progression,
         2,
         [ItemGroup.SPELL],
     ),
     DeathsDoorItemData(
-        DeathsDoorItemName.BOW, 4, ItemClassification.progression, 1, [ItemGroup.SPELL]
+        DeathsDoorItemName.HOOKSHOT,
+        4,
+        ItemClassification.progression,
+        2,
+        [ItemGroup.SPELL],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.BOW,
+        5,
+        ItemClassification.progression,
+        1,
+        [ItemGroup.SPELL],
     ),
     DeathsDoorItemData(
         DeathsDoorItemName.ROGUE_DAGGERS,
-        5,
-        ItemClassification.useful,
-        1,
-        [ItemGroup.WEAPON],
-    ),
-    DeathsDoorItemData(
-        DeathsDoorItemName.DISCARDED_UMBRELLA,
         6,
         ItemClassification.useful,
         1,
         [ItemGroup.WEAPON],
     ),
     DeathsDoorItemData(
-        DeathsDoorItemName.REAPERS_GREATSWORD,
+        DeathsDoorItemName.DISCARDED_UMBRELLA,
         7,
         ItemClassification.useful,
         1,
         [ItemGroup.WEAPON],
     ),
     DeathsDoorItemData(
-        DeathsDoorItemName.THUNDER_HAMMER,
+        DeathsDoorItemName.REAPERS_GREATSWORD,
         8,
         ItemClassification.useful,
         1,
         [ItemGroup.WEAPON],
     ),
     DeathsDoorItemData(
-        DeathsDoorItemName.VITALITY_SHARD, 9, ItemClassification.useful, 8, []
+        DeathsDoorItemName.THUNDER_HAMMER,
+        9,
+        ItemClassification.useful,
+        1,
+        [ItemGroup.WEAPON],
     ),
     DeathsDoorItemData(
-        DeathsDoorItemName.MAGIC_SHARD, 10, ItemClassification.useful, 8, []
+        DeathsDoorItemName.VITALITY_SHARD,
+        10,
+        ItemClassification.useful,
+        8,
+        [],
     ),
     DeathsDoorItemData(
-        DeathsDoorItemName.LIFE_SEED, 11, ItemClassification.progression_skip_balancing, 50, []
+        DeathsDoorItemName.MAGIC_SHARD,
+        11,
+        ItemClassification.useful,
+        8,
+        [],
     ),
-    DeathsDoorItemData(DeathsDoorItemName.SOULS, 12, ItemClassification.filler, 0, []),
+    DeathsDoorItemData(
+        DeathsDoorItemName.SOULS,
+        12,
+        ItemClassification.filler,
+        0,
+        [],
+    ),
     DeathsDoorItemData(
         DeathsDoorItemName.PINK_KEY,
         13,
@@ -1044,6 +1074,7 @@ item_table: list[DeathsDoorItemData] = [
         [ItemGroup.LOST_CROW],
     ),
 ]
+
 
 item_name_to_id: dict[str, int] = {data.name.value: data.item_id for data in item_table}
 
