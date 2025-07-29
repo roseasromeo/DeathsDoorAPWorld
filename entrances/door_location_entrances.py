@@ -5,10 +5,13 @@ door_location_entrances: list[DeathsDoorEntrance] = [
     # Door Check regions
     DeathsDoorEntrance(
         R.DOOR_TO_GROVE_OF_SPIRITS, R.DOOR_CHECK_FOR_GROVE_OF_SPIRITS, None
-    ),
+    ), ## not needed for now (see Hall of Doors Lobby connection below)
     DeathsDoorEntrance(
         R.GROVE_OF_SPIRITS_DOOR, R.DOOR_CHECK_FOR_GROVE_OF_SPIRITS, None
-    ),  # Right now, this would be impossible to do outside of Entrance Rando. TODO: CHECK if possible in glitch settings?
+    ),  # Right now, this would be impossible to do outside of Entrance Rando. TODO: CHECK if possible in glitch settings? But also, not needed because Hall of Doors Lobby connection below
+    DeathsDoorEntrance(
+        R.HALL_OF_DOORS_LOBBY, R.DOOR_CHECK_FOR_GROVE_OF_SPIRITS, None
+    ), ## Grants on first cutscene
     DeathsDoorEntrance(R.DOOR_TO_LOST_CEMETERY, R.DOOR_CHECK_FOR_LOST_CEMETERY, None),
     DeathsDoorEntrance(R.LOST_CEMETERY_CENTRAL, R.DOOR_CHECK_FOR_LOST_CEMETERY, None),
     DeathsDoorEntrance(

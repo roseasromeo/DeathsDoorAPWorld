@@ -104,7 +104,7 @@ class CanReachRegion(RBCanReachRegion, game="Death's Door"):
 jefferson_present_attr = "jefferson_present"
 @dataclasses.dataclass()
 class NoJefferson(Rule["DeathsDoorWorld"], game="Death's Door"):
-    def _instantiate(self, world: "DeathsDoorWorld") -> Rule.Resolved:
+    def _instantiate(self, world: "DeathsDoorWorld") -> "Resolved":
         return self.Resolved(player=world.player)
     
     class Resolved(Rule.Resolved):
@@ -114,12 +114,10 @@ class NoJefferson(Rule["DeathsDoorWorld"], game="Death's Door"):
         
 @dataclasses.dataclass()
 class CanJeffersonTraverse(Rule["DeathsDoorWorld"], game="Death's Door"):
-    def _instantiate(self, world: "DeathsDoorWorld") -> Rule.Resolved:
-        return self.Resolved(world, player=world.player)
+    def _instantiate(self, world: "DeathsDoorWorld") -> "Resolved":
+        return self.Resolved(player=world.player)
     
     class Resolved(Rule.Resolved):
-        world: "DeathsDoorWorld"
-        
         def _evaluate(self, state: CollectionState) -> bool:
             ## Copy state method
             # jefferson_start_region_str = R.STRANDED_SAILOR_JEFFERSON_QUEST_START.value
@@ -139,11 +137,11 @@ class CanJeffersonTraverse(Rule["DeathsDoorWorld"], game="Death's Door"):
             jefferson_start_region_str = R.STRANDED_SAILOR_JEFFERSON_QUEST_START.value
             if not state.can_reach_region(jefferson_start_region_str, self.player):
                 return False
-            jefferson_start_region = self.world.get_region(jefferson_start_region_str)
-            jefferson_end_region = self.world.get_region(R.FLOODED_FORTRESS_ENTRANCE.value)
+            jefferson_start_region = state.multiworld.get_region(jefferson_start_region_str, self.player)
+            jefferson_end_region = state.multiworld.get_region(R.FLOODED_FORTRESS_ENTRANCE.value, self.player)
             temp_state = CollectionState(state.multiworld)
             temp_state.prog_items = state.prog_items
-            temp_state.advancements = state.advancements
+            temp_state.advancements = state.advancements # grabbing events, etc. because need lamps and switchs to be set
             setattr(temp_state, jefferson_present_attr, True)
             return can_traverse_path_with_jefferson(temp_state, jefferson_start_region, jefferson_end_region)
             

@@ -1,3 +1,8 @@
+try:
+    from rule_builder import False_
+except ModuleNotFoundError:
+    from ..rule_builder import False_
+
 from .entrance_class import DeathsDoorEntrance
 from ..rule_builder_overrides import Has, HasAny, HasAll
 from ..items import DeathsDoorItemName as I
@@ -9,8 +14,8 @@ estate_entrances: list[DeathsDoorEntrance] = [
         R.ESTATE_OF_THE_URN_WITCH_EXIT_TO_CRYPT, R.ESTATE_OF_THE_URN_WITCH_SOUTH, None
     ),
     DeathsDoorEntrance(
-        R.ESTATE_OF_THE_URN_WITCH_SOUTH, R.ESTATE_OF_THE_URN_WITCH_EXIT_TO_CRYPT, None
-    ),  ###TODO : CHECK THAT THIS CONNECTION IS POSSIBLE
+        R.ESTATE_OF_THE_URN_WITCH_SOUTH, R.ESTATE_OF_THE_URN_WITCH_EXIT_TO_CRYPT, False_()
+    ),  # Not possible in vanilla
     DeathsDoorEntrance(
         R.ESTATE_OF_THE_URN_WITCH_SOUTH,
         R.ESTATE_OF_THE_URN_WITCH_DOOR,

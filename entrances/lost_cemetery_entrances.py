@@ -15,10 +15,15 @@ lost_cemetery_entrances: list[DeathsDoorEntrance] = [
         R.LOST_CEMETERY_NEAR_GROVE_OF_SPIRITS_DOOR,
         R.LOST_CEMETERY_EXIT_TO_GROVE_OF_SPIRITS,
         None,
-    ),  ##TODO: Figure out what region the hookshot route connects to
+    ),
+    DeathsDoorEntrance(
+        R.LOST_CEMETERY_NEAR_GROVE_OF_SPIRITS_DOOR,
+        R.LOST_CEMETERY_RIGHT_ARENA,
+        None,
+    ),
     DeathsDoorEntrance(
         R.LOST_CEMETERY_NEAR_GROVE_OF_SPIRITS_DOOR, R.LOST_CEMETERY_CENTRAL, None
-    ),  ## TODO: Check to see if reversable
+    ),  ## TODO: Check to see if reversable (probably not?)
     DeathsDoorEntrance(R.LOST_CEMETERY_DOOR, R.LOST_CEMETERY_CENTRAL, None),
     DeathsDoorEntrance(
         R.LOST_CEMETERY_CENTRAL, R.LOST_CEMETERY_DOOR, Has(I.LOST_CEMETERY_DOOR)

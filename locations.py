@@ -686,7 +686,7 @@ location_table: list[DeathsDoorLocationData] = [
     DeathsDoorLocationData(
         DeathsDoorLocationName.SEED_BETWEEN_CEMETERY_AND_SAILOR,
         59,
-        R.LOST_CEMETERY_CATACOMBS_ROOM_1,
+        R.STRANDED_SAILOR_CAVES,
         [LocationGroup.SEED],
     ),
     DeathsDoorLocationData(
