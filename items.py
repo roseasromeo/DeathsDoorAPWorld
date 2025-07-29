@@ -194,7 +194,7 @@ item_table: list[DeathsDoorItemData] = [
     DeathsDoorItemData(
         DeathsDoorItemName.BOW,
         5,
-        ItemClassification.progression,
+        ItemClassification.useful,
         1,
         [ItemGroup.SPELL],
     ),
