@@ -1,14 +1,15 @@
 from typing import Any
 
+import json
+
 try:
     from rule_builder import True_
 except ModuleNotFoundError:
     from .rule_builder import True_
 from .entrances.entrances import deathsdoor_entrances
 from .locations import location_table
+from .items import item_table
 from .rules import deaths_door_location_rules
-import json
-
 
 def generate_rule_json():
     entrance_json_accumulator: list[dict[str, Any]] = list()
@@ -42,3 +43,25 @@ def generate_rule_json():
 
     with open("LocationRules.json", "w") as f:
         json.dump(location_json_accumulator, f)
+
+def generate_items_json():
+    items_accumulator : list[dict[str, Any]] = list()
+    for item in item_table:
+        item_dict = dict()
+        item_dict["apItemId"] = item.item_id
+        item_dict["itemChangerName"] = item.mod_string
+        items_accumulator.append(item_dict)
+    
+    with open("Items.json", "w") as f:
+        json.dump(items_accumulator, f)
+
+def generate_locations_json():
+    locations_accumulator : list[dict[str, Any]] = list()
+    for location in location_table:
+        location_dict = dict()
+        location_dict["apLocationId"] = location.location_id
+        location_dict["itemChangerName"] = location.mod_string
+        locations_accumulator.append(location_dict)
+    
+    with open("Locations.json", "w") as f:
+        json.dump(locations_accumulator, f)

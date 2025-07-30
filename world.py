@@ -16,6 +16,7 @@ from .items import (
     item_name_to_id,
     item_table,
     item_name_groups,
+    ItemGroup as IG,
     DeathsDoorItemName as I,
 )
 from .locations import (
@@ -25,7 +26,6 @@ from .locations import (
 )
 from .events import (
     DeathsDoorEventName as E,
-    DeathsDoorEventLocationName as EL,
     event_location_table,
 )
 from .event_rules import set_event_rules
@@ -36,7 +36,7 @@ from worlds.AutoWorld import World, WebWorld
 from BaseClasses import Region, Location, Item, ItemClassification, Tutorial
 
 # from .tracker import tracker_world
-from .json_generator import generate_rule_json
+from .json_generator import generate_rule_json, generate_items_json, generate_locations_json
 
 deathsdoor_version = 1
 
@@ -161,9 +161,14 @@ class DeathsDoorWorld(RuleWorldMixin, World):
 
         # otherwise, look up the item data
         item_data = next(data for data in item_table if data.name.value == name)
-        return DeathsDoorItem(
-            name, item_data.classification, self.item_name_to_id[name], self.player
-        )
+        if True and IG.TABLET in item_data.item_groups: # This True is here so we can eventually have a tablet goal
+            return DeathsDoorItem(
+                name, ItemClassification.filler, self.item_name_to_id[name], self.player
+            )
+        else:
+            return DeathsDoorItem(
+                name, item_data.classification, self.item_name_to_id[name], self.player
+            )
 
     def create_items(self) -> None:
         deathsdoor_items: list[DeathsDoorItem] = []
@@ -184,6 +189,29 @@ class DeathsDoorWorld(RuleWorldMixin, World):
 
         self.multiworld.itempool += deathsdoor_items
 
+        early_important_item_candidates: list[I] = [
+            I.CERAMIC_MANOR_DOOR,
+            I.INNER_FURNACE_DOOR,
+            I.LOST_CEMETERY_DOOR,
+            I.GROVE_OF_SPIRITS_DOOR,
+            I.OLD_WATCHTOWERS_DOOR,
+            I.OVERGROWN_RUINS_DOOR,
+            I.STRANDED_SAILOR_DOOR,
+            I.CASTLE_LOCKSTONE_DOOR,
+            I.FLOODED_FORTRESS_DOOR,
+            I.MUSHROOM_DUNGEON_DOOR,
+            I.CAMP_OF_THE_FREE_CROWS_DOOR,
+            I.ESTATE_OF_THE_URN_WITCH_DOOR,
+            I.HOOKSHOT,
+            I.BOMB,
+            I.FIRE,
+        ]
+        important_item = self.random.choice(early_important_item_candidates)
+        if self.options.early_important_item.option_early:
+            self.multiworld.early_items[self.player][important_item.value] = 1
+        elif self.options.early_important_item.option_local_early:
+            self.multiworld.local_early_items[self.player][important_item.value] = 1
+
     def set_rules(self) -> None:
         set_location_rules(self)
         set_event_rules(self)
@@ -192,6 +220,8 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         self.register_dependencies()
 
         # generate_rule_json()
+        # generate_items_json()
+        # generate_locations_json()
 
     def fill_slot_data(self) -> dict[str, Any]:
         # In order for our game client to handle the generated seed correctly we need to know what the user selected

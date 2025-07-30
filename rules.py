@@ -18,7 +18,7 @@ except ModuleNotFoundError:
         True_,
         OptionFilter,
     )
-from .rule_builder_overrides import Has, HasAny, HasAll, HasGroup, CanReachRegion
+from .rule_builder_overrides import CanJeffersonTraverse, Has, HasAny, HasAll, HasGroup, CanReachRegion
 
 if TYPE_CHECKING:
     from . import DeathsDoorWorld
@@ -114,6 +114,7 @@ deaths_door_location_rules: dict[L, Rule["DeathsDoorWorld"] | None] = {
     L.KEY_DUNGEON_RIGHT: Has(I.FIRE),
     L.CROW_DUNGEON_COBWEB: Has(I.FIRE),
     L.CROW_LOCKSTONE_WEST_LOCKED: Has(I.PINK_KEY, 5),
+    L.RED_ANCIENT_TABLET_OF_KNOWLEDGE : HasAll(E.ACCESS_TO_NIGHT, I.HOOKSHOT) & CanJeffersonTraverse(),
 }
 
 
