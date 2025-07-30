@@ -36,7 +36,7 @@ from worlds.AutoWorld import World, WebWorld
 from BaseClasses import Region, Location, Item, ItemClassification, Tutorial
 
 # from .tracker import tracker_world
-from .json_generator import generate_rule_json
+from .json_generator import generate_rule_json, generate_items_json, generate_locations_json
 
 deathsdoor_version = 1
 
@@ -220,6 +220,8 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         self.register_dependencies()
 
         # generate_rule_json()
+        # generate_items_json()
+        # generate_locations_json()
 
     def fill_slot_data(self) -> dict[str, Any]:
         # In order for our game client to handle the generated seed correctly we need to know what the user selected
