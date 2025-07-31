@@ -1026,7 +1026,7 @@ location_table: list[DeathsDoorLocationData] = [
         DeathsDoorLocationName.SEED_ESTATE_ENTRANCE,
         "Seed-Estate Entrance",
         135,
-        R.ESTATE_OF_THE_URN_WITCH_SOUTH,  ##TODO: CHECK IF THERE SHOULD BE A NEW REGION BEFORE SOUTH
+        R.ESTATE_OF_THE_URN_WITCH_ENTRANCE,
         [LocationGroup.SEED],
     ),
     DeathsDoorLocationData(

@@ -33,4 +33,7 @@ stranded_sailor_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.STRANDED_SAILOR_UPPER, R.STRANDED_SAILOR_EXIT_TO_CASTLE_LOCKSTONE, None
     ),
+    DeathsDoorEntrance(
+        R.STRANDED_SAILOR_EXIT_TO_CASTLE_LOCKSTONE, R.STRANDED_SAILOR_UPPER, None
+    ),
 ]

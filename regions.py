@@ -80,6 +80,7 @@ class DeathsDoorRegionName(str, Enum):
     # Estate of Urn Witch Regions
     ESTATE_OF_THE_URN_WITCH_DOOR = "Estate of the Urn Witch Door"
     ESTATE_OF_THE_URN_WITCH_EXIT_TO_CRYPT = "Estate of the Urn Witch Exit to Crypt"
+    ESTATE_OF_THE_URN_WITCH_ENTRANCE = "Estate of the Urn Witch Entrance"
     ESTATE_OF_THE_URN_WITCH_SOUTH = "Estate of the Urn Witch South"
     ESTATE_OF_THE_URN_WITCH_NORTH = "Estate of the Urn Witch North"
     ESTATE_OF_THE_URN_WITCH_URN_SHED = "Estate of the Urn Witch Urn Shed"
