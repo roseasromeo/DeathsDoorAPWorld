@@ -11,10 +11,16 @@ from ..regions import DeathsDoorRegionName as R
 estate_entrances: list[DeathsDoorEntrance] = [
     # Entrances in Estate of the Urn Witch
     DeathsDoorEntrance(
-        R.ESTATE_OF_THE_URN_WITCH_EXIT_TO_CRYPT, R.ESTATE_OF_THE_URN_WITCH_SOUTH, None
+        R.ESTATE_OF_THE_URN_WITCH_EXIT_TO_CRYPT, R.ESTATE_OF_THE_URN_WITCH_ENTRANCE, None
     ),
     DeathsDoorEntrance(
-        R.ESTATE_OF_THE_URN_WITCH_SOUTH, R.ESTATE_OF_THE_URN_WITCH_EXIT_TO_CRYPT, False_()
+        R.ESTATE_OF_THE_URN_WITCH_ENTRANCE, R.ESTATE_OF_THE_URN_WITCH_EXIT_TO_CRYPT, None
+    ),
+    DeathsDoorEntrance(
+        R.ESTATE_OF_THE_URN_WITCH_ENTRANCE, R.ESTATE_OF_THE_URN_WITCH_SOUTH, None
+    ),
+    DeathsDoorEntrance(
+        R.ESTATE_OF_THE_URN_WITCH_SOUTH, R.ESTATE_OF_THE_URN_WITCH_ENTRANCE, False_()
     ),  # Not possible in vanilla
     DeathsDoorEntrance(
         R.ESTATE_OF_THE_URN_WITCH_SOUTH,

@@ -41,7 +41,7 @@ ceramic_manor_entrances: list[DeathsDoorEntrance] = [
             I.CROW_MANOR_AFTER_TORCH_PUZZLE,
             I.CROW_MANOR_BEDROOM,
             I.CROW_MANOR_IMP_LOFT,
-            I.CROW_MANOR_IMP_LOFT,
+            I.CROW_MANOR_LIBRARY,
         ),
     ),
     DeathsDoorEntrance(
