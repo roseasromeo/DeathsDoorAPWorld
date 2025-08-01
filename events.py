@@ -102,12 +102,12 @@ event_location_table: List[DeathsDoorEventLocationData] = [
     ),
     DeathsDoorEventLocationData(
         DeathsDoorEventLocationName.ACCESS_TO_NIGHT,
-        R.LOST_CEMETERY_BELLTOWER,
+        R.HALL_OF_DOORS_LOBBY,
         DeathsDoorEventName.ACCESS_TO_NIGHT,
     ),
     DeathsDoorEventLocationData(
         DeathsDoorEventLocationName.ACCESS_TO_DAY,
-        R.LOST_CEMETERY_BELLTOWER,
+        R.HALL_OF_DOORS_LOBBY,
         DeathsDoorEventName.ACCESS_TO_DAY,
     ),
     DeathsDoorEventLocationData(
