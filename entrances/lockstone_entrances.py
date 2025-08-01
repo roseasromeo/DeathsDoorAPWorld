@@ -82,6 +82,7 @@ lockstone_entrances: list[DeathsDoorEntrance] = [
     ),  # Fall down the elevator
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_CENTRAL,
+        R.CASTLE_LOCKSTONE_ROOF,
         HasAll(
             E.CASTLE_LOCKSTONE_LORD_THEODOOR,
             E.CASTLE_LOCKSTONE_LORD_DEADBOLT,
