@@ -216,7 +216,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         set_location_rules(self)
         set_event_rules(self)
 
-        self.set_completion_rule(Has(E.VICTORY))
+        self.set_completion_rule(Has(E.LORD_OF_DOORS))
         self.register_dependencies()
 
         # generate_rule_json()

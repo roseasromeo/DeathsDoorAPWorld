@@ -223,18 +223,15 @@ class DeathsDoorRegionName(str, Enum):
     CASTLE_LOCKSTONE_EAST_UPPER = "Castle Lockstone East Upper"
     CASTLE_LOCKSTONE_EAST_UPPER_KEYED_DOOR = "Castle Lockstone East Upper Keyed Door"
     CASTLE_LOCKSTONE_JAILED_SEED = "Castle Lockstone Jailed Seed"
-    CASTLE_LOCKSTONE_LORD_THEODOOR_ROOM = (
-        "Castle Lockstone Lord Theodoor Room"  # Called Lamp in base rando
-    )
     CASTLE_LOCKSTONE_LIBRARY = "Castle Lockstone Library"
     CASTLE_LOCKSTONE_ROOF = "Castle Lockstone Roof"
     CASTLE_LOCKSTONE_EXIT_TO_CAMP = (
         "Castle Lockstone Exit to Camp of the Free Crows (via Roof)"
     )
-    CASTLE_LOCKSTONE_LORD_LOCKSTONE = "Castle Lockstone Lord Lockstone Light Lamp"
-    CASTLE_LOCKSTONE_LORD_OPENGATE = "Castle Lockstone Lord Opengate Light Lamp"
-    CASTLE_LOCKSTONE_LORD_DEADBOLT = "Castle Lockstone Lord Deadbolt Light Lamp"
-    CASTLE_LOCKSTONE_LORD_THEODOOR = "Castle Lockstone Lord Theodoor Light Lamp"
+    CASTLE_LOCKSTONE_LORD_LOCKSTONE = "Castle Lockstone Lord Lockstone's Grave"
+    CASTLE_LOCKSTONE_LORD_OPENGATE = "Castle Lockstone Lord Opengate's Grave"
+    CASTLE_LOCKSTONE_LORD_DEADBOLT = "Castle Lockstone Lord Deadbolt's Grave"
+    CASTLE_LOCKSTONE_LORD_THEODOOR = "Castle Lockstone Lord Theodoor's Grave"
     CASTLE_LOCKSTONE_EAST_CROW = "Castle Lockstone East Crow"
 
     # Camp of the Free Crows Regions

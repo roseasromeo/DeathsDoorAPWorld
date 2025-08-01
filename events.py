@@ -5,34 +5,42 @@ from .regions import DeathsDoorRegionName as R
 
 
 class DeathsDoorEventName(str, Enum):
-    VICTORY = "Goal Complete"
-    LOST_CEMETERY_OPENED_EXIT_TO_SAILOR = "Lost Cemetery Opened Exit to Sailor"
+    LORD_OF_DOORS = "Defeat the Lord of Doors"
+    LOST_CEMETERY_OPENED_EXIT_TO_SAILOR = "Lost Cemetery - Light Lamp to Open Exit to Stranded Sailor Caves"
     ACCESS_TO_NIGHT = "Access to Night"
     ACCESS_TO_DAY = "Access to Day"
-    GREY_CROW_BOSS = "Can Defeat Grey Crow Boss"
-    ACTIVATED_FURNACE_BURNERS = "Can Activate First Furnace Burner"
-    LIT_WATCHTOWER_TORCH = "Can Light a Watchtower Burner"
+    GREY_CROW_BOSS = "Lost Cemetery - Defeat Grey Crow Boss"
+    ACTIVATED_FURNACE_BURNERS = "Inner Furnace - Light First Furnace Burner"
+    LIT_WATCHTOWER_TORCH = "Old Watchtowers - Light a Torch"
     MUSHROOM_DUNGEON_MAIN_GATE = "Can Open the Mushroom Dungeon Main Gate"
-    RESCUE_GRUNT = "Can Rescue Grunt"
-    PLANTED_SEED = "Can Plant a Seed"
+    RESCUE_GRUNT = "Mushroom Dungeon - Rescue Grunt"
+    CASTLE_LOCKSTONE_LORD_LOCKSTONE = "Castle Lockstone - Light Lord Lockstone Lamp"
+    CASTLE_LOCKSTONE_LORD_OPENGATE = "Castle Lockstone - Light Lord Opengate Lamp"
+    CASTLE_LOCKSTONE_LORD_DEADBOLT = "Castle Lockstone - Light Lord Deadbolt Lamp"
+    CASTLE_LOCKSTONE_LORD_THEODOOR = "Castle Lockstone - Light Lord Theodoor Lamp"
+    PLANTED_SEED = "Plant a Seed"
     OOL = "Out of Logic Item"  # For Universal Tracker
 
 
 class DeathsDoorEventLocationName(str, Enum):
-    VICTORY = "Defeat the Lord of Doors"
-    LOST_CEMETERY_OPENED_EXIT_TO_SAILOR = "Lost Cemetery Lamp Switch Exit to Sailor"
+    LORD_OF_DOORS = "Lord of Doors"
+    LOST_CEMETERY_OPENED_EXIT_TO_SAILOR = "Lost Cemetery - Lamp for Exit to Stranded Sailor"
     ACCESS_TO_NIGHT = "Access to Night"
     ACCESS_TO_DAY = "Access to Day"
-    GREY_CROW_BOSS = "Grey Crow Boss"
-    ACTIVATED_FURNACE_BURNERS = "First Furnace Burner"
-    WATCHTOWER_ENTRANCE_TORCH = "Watchtower Entrance Torch"
-    WATCHTOWER_JAMMING_START_TORCH = "Watchtower Jamming Start Torch"
-    WATCHTOWER_BOXES_TORCH = "Watchtower Boxes Torch"
-    WATCHTOWER_FIRST_POT_TORCH = "Watchtower First Pot Area Torch"
-    WATCHTOWER_BOOMERS_TORCH_1 = "Watchtower Boomers Torch 1"
-    WATCHTOWER_BOOMERS_TORCH_2 = "Watchtower Boomers Torch 2"
-    MUSHROOM_DUNGEON_MAIN_GATE = "Mushroom Dungeon Main Gate"
-    RESCUE_GRUNT = "Mushroom Dungeon Grunt Rescue"
+    GREY_CROW_BOSS = "Lost Cemetery - Grey Crow Boss"
+    ACTIVATED_FURNACE_BURNERS = "Inner Furnace - First Furnace Burner"
+    WATCHTOWER_ENTRANCE_TORCH = "Old Watchtowers - Entrance Torch"
+    WATCHTOWER_JAMMING_START_TORCH = "Old Watchtowers - Jamming Start Torch"
+    WATCHTOWER_BOXES_TORCH = "Old Watchtowers - Boxes Torch"
+    WATCHTOWER_FIRST_POT_TORCH = "Old Watchtowers - First Pot Area Torch"
+    WATCHTOWER_BOOMERS_TORCH_1 = "Old Watchtowers - Boomers Torch 1"
+    WATCHTOWER_BOOMERS_TORCH_2 = "Old Watchtowers - Boomers Torch 2"
+    MUSHROOM_DUNGEON_MAIN_GATE = "Mushroom Dungeon - Main Gate"
+    RESCUE_GRUNT = "Mushroom Dungeon - Grunt"
+    CASTLE_LOCKSTONE_LORD_LOCKSTONE = "Castle Lockstone - Lord Lockstone Lamp"
+    CASTLE_LOCKSTONE_LORD_OPENGATE = "Castle Lockstone - Lord Opengate Lamp"
+    CASTLE_LOCKSTONE_LORD_DEADBOLT = "Castle Lockstone - Lord Deadbolt Lamp"
+    CASTLE_LOCKSTONE_LORD_THEODOOR = "Castle Lockstone - Lord Theodoor Lamp"
     POT_OUTSIDE_CATACOMBS_EXIT = "Pot-Outside_Catacombs_Exit"
     POT_CATACOMBS_ROOM_2 = "Pot-Catacombs_Room_2"
     POT_CEMETERY_RIGHT_ARENA = "Pot-Cemetery_Right_Arena"
@@ -93,7 +101,7 @@ class DeathsDoorEventLocationData(NamedTuple):
 
 event_location_table: List[DeathsDoorEventLocationData] = [
     DeathsDoorEventLocationData(
-        DeathsDoorEventLocationName.VICTORY, R.HALL_OF_DOORS_LOBBY, DeathsDoorEventName.VICTORY
+        DeathsDoorEventLocationName.LORD_OF_DOORS, R.HALL_OF_DOORS_LOBBY, DeathsDoorEventName.LORD_OF_DOORS
     ),
     DeathsDoorEventLocationData(
         DeathsDoorEventLocationName.LOST_CEMETERY_OPENED_EXIT_TO_SAILOR,
@@ -160,6 +168,10 @@ event_location_table: List[DeathsDoorEventLocationData] = [
         R.MUSHROOM_DUNGEON_LOBBY,
         DeathsDoorEventName.RESCUE_GRUNT,
     ),
+    DeathsDoorEventLocationData(DeathsDoorEventLocationName.CASTLE_LOCKSTONE_LORD_LOCKSTONE, R.CASTLE_LOCKSTONE_LORD_LOCKSTONE, DeathsDoorEventName.CASTLE_LOCKSTONE_LORD_LOCKSTONE),
+    DeathsDoorEventLocationData(DeathsDoorEventLocationName.CASTLE_LOCKSTONE_LORD_OPENGATE, R.CASTLE_LOCKSTONE_LORD_OPENGATE, DeathsDoorEventName.CASTLE_LOCKSTONE_LORD_OPENGATE),
+    DeathsDoorEventLocationData(DeathsDoorEventLocationName.CASTLE_LOCKSTONE_LORD_DEADBOLT, R.CASTLE_LOCKSTONE_LORD_DEADBOLT, DeathsDoorEventName.CASTLE_LOCKSTONE_LORD_DEADBOLT),
+    DeathsDoorEventLocationData(DeathsDoorEventLocationName.CASTLE_LOCKSTONE_LORD_THEODOOR, R.CASTLE_LOCKSTONE_LORD_THEODOOR, DeathsDoorEventName.CASTLE_LOCKSTONE_LORD_THEODOOR),
 ]
 
 pot_table: List[DeathsDoorEventLocationData] = [
