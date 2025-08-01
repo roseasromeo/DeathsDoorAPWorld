@@ -39,7 +39,7 @@ pot_specific_rules: dict[EL, Rule["DeathsDoorWorld"]] = {
 
 
 deaths_door_event_rules: dict[EL, Rule["DeathsDoorWorld"] | None] = {
-    EL.VICTORY: CanReachLocation(L.RUSTY_BELLTOWER_KEY),  # TODO: Goals
+    EL.LORD_OF_DOORS: CanReachLocation(L.RUSTY_BELLTOWER_KEY),  # TODO: Goals
     EL.LOST_CEMETERY_OPENED_EXIT_TO_SAILOR: Has(I.FIRE),
     EL.ACCESS_TO_NIGHT: True_(options=[OptionFilter(StartDayOrNight, 1)])
     | (Has(I.RUSTY_BELLTOWER_KEY) & CanReachRegion(R.LOST_CEMETERY_BELLTOWER)),
@@ -73,6 +73,10 @@ deaths_door_event_rules: dict[EL, Rule["DeathsDoorWorld"] | None] = {
         I.MAGICAL_FOREST_HORN, E.ACCESS_TO_DAY
     ),
     EL.RESCUE_GRUNT: Has(I.BOMB),
+    EL.CASTLE_LOCKSTONE_LORD_LOCKSTONE: Has(I.FIRE),
+    EL.CASTLE_LOCKSTONE_LORD_OPENGATE: Has(I.FIRE),
+    EL.CASTLE_LOCKSTONE_LORD_DEADBOLT: Has(I.FIRE),
+    EL.CASTLE_LOCKSTONE_LORD_THEODOOR: Has(I.FIRE),
 }
 
 # Add in pots to existing tables to be able to use the same infrastructure

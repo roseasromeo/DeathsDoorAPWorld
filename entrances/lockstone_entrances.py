@@ -41,7 +41,7 @@ lockstone_entrances: list[DeathsDoorEntrance] = [
     ),
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_LORD_OPENGATE, R.CASTLE_LOCKSTONE_SOUTHWEST_CROW, None
-    ),  # TODO: See if this connection should require Fire (implicit with current connection)
+    ),
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_CENTRAL,
         R.CASTLE_LOCKSTONE_EAST,
@@ -70,7 +70,7 @@ lockstone_entrances: list[DeathsDoorEntrance] = [
         Has(I.LEVER_LOCKSTONE_EAST_START_SHORTCUT),
     ),
     DeathsDoorEntrance(
-        R.CASTLE_LOCKSTONE_LORD_DEADBOLT,  ## TODO: Check if this connection needs Fire, because Deadbolt region has it built in (might need to split lamp from region)
+        R.CASTLE_LOCKSTONE_LORD_DEADBOLT,
         R.CASTLE_LOCKSTONE_LIBRARY,
         None,
     ),
@@ -82,17 +82,18 @@ lockstone_entrances: list[DeathsDoorEntrance] = [
     ),  # Fall down the elevator
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_CENTRAL,
-        R.CASTLE_LOCKSTONE_ROOF,
-        CanReachRegion(R.CASTLE_LOCKSTONE_LORD_DEADBOLT)
-        & CanReachRegion(R.CASTLE_LOCKSTONE_LORD_LOCKSTONE)
-        & CanReachRegion(R.CASTLE_LOCKSTONE_LORD_THEODOOR)
-        & CanReachRegion(R.CASTLE_LOCKSTONE_LORD_OPENGATE),
-    ),  # Can summon elevator ##TODO: See if lord lamps can be turned into events instead!
+        HasAll(
+            E.CASTLE_LOCKSTONE_LORD_THEODOOR,
+            E.CASTLE_LOCKSTONE_LORD_DEADBOLT,
+            E.CASTLE_LOCKSTONE_LORD_LOCKSTONE,
+            E.CASTLE_LOCKSTONE_LORD_OPENGATE,
+        ),
+    ),  # Can summon elevator
     DeathsDoorEntrance(R.CASTLE_LOCKSTONE_EXIT_TO_CAMP, R.CASTLE_LOCKSTONE_ROOF, None),
     DeathsDoorEntrance(R.CASTLE_LOCKSTONE_ROOF, R.CASTLE_LOCKSTONE_EXIT_TO_CAMP, None),
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_EAST_UPPER_KEYED_DOOR,
-        R.CASTLE_LOCKSTONE_LORD_THEODOOR_ROOM,
+        R.CASTLE_LOCKSTONE_LORD_THEODOOR,
         Has(I.PINK_KEY, 5)
         & HasAll(I.HOOKSHOT, I.LEVER_LOCKSTONE_UPPER_DUAL_LASER_PUZZLE),
     ),
@@ -108,25 +109,20 @@ lockstone_entrances: list[DeathsDoorEntrance] = [
         ),
     ),
     DeathsDoorEntrance(
-        R.CASTLE_LOCKSTONE_CENTRAL, R.CASTLE_LOCKSTONE_LORD_LOCKSTONE, Has(I.FIRE)
+        R.CASTLE_LOCKSTONE_CENTRAL, R.CASTLE_LOCKSTONE_LORD_LOCKSTONE, None
     ),
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_CENTRAL,
         R.CASTLE_LOCKSTONE_LORD_OPENGATE,
-        HasAll(I.FIRE, I.HOOKSHOT, I.LEVER_LOCKSTONE_HOOKSHOT_PUZZLE),
+        HasAll(I.HOOKSHOT, I.LEVER_LOCKSTONE_HOOKSHOT_PUZZLE),
     ),
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_EAST_UPPER_KEYED_DOOR,
         R.CASTLE_LOCKSTONE_LORD_DEADBOLT,
-        HasAll(I.FIRE, I.HOOKSHOT),
+        Has(I.HOOKSHOT),
     ),
     DeathsDoorEntrance(
-        R.CASTLE_LOCKSTONE_LORD_THEODOOR_ROOM,
         R.CASTLE_LOCKSTONE_LORD_THEODOOR,
-        Has(I.FIRE),
-    ),
-    DeathsDoorEntrance(
-        R.CASTLE_LOCKSTONE_LORD_THEODOOR_ROOM,
         R.CASTLE_LOCKSTONE_EAST_CROW,
         None,
     ),
