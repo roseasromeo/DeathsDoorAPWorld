@@ -33,7 +33,7 @@ from .regions import DeathsDoorRegionName as R
 from .entrances.entrances import deathsdoor_entrances
 from .rules import Has, set_location_rules
 from worlds.AutoWorld import World, WebWorld
-from BaseClasses import Region, Location, Item, ItemClassification, Tutorial
+from BaseClasses import MultiWorld, Region, Location, Item, ItemClassification, Tutorial
 
 # from .tracker import tracker_world
 from .json_generator import generate_rule_json, generate_items_json, generate_locations_json
@@ -235,3 +235,39 @@ class DeathsDoorWorld(RuleWorldMixin, World):
 
     def get_filler_item_name(self) -> str:
         return "100 Souls"
+
+    @classmethod
+    def stage_fill_hook(cls,
+                        multiworld: MultiWorld,
+                        progitempool: list[Item],
+                        usefulitempool: list[Item],
+                        filleritempool: list[Item],
+                        fill_locations: list[Location],
+                        ) -> None:
+        # This function was borrowed from Mysteryem's implementation of Lego Star Wars Complete Saga
+        # https://github.com/Mysteryem/Archipelago-TCS/blob/v1.0.1/lego_star_wars_tcs/__init__.py#L1298-L1334
+        game_player_ids = set(multiworld.get_game_players(cls.game))
+        game_minimal_player_ids = {player for player in game_player_ids
+                                   if multiworld.worlds[player].options.accessibility == "minimal"}
+
+        def sort_func(item: Item):
+            if item.player in game_player_ids and item.name == I.LIFE_SEED.value:
+                if item.player in game_minimal_player_ids:
+                    # For minimal players, place Life Seeds first. This helps prevent fill from dumping logically relevant
+                    # items into unreachable locations and reducing the number of reachable locations to fewer than the
+                    # number of items remaining to be placed.
+                    #
+                    # Forcing Life Seeds first has the unfortunately sideeffect of priority fill picking Life Seeds first,
+                    # but that will just have to be put up with in order to generate well. Maybe a small buffer of
+                    # non-Life Seed items could be placed first so that the items in the buffer end up on priority
+                    # locations.
+                    return 1
+                else:
+                    # For non-minimal players, place Life Seeds last. This strategy helps prevent fill from filling most/all
+                    # reachable locations with the macguffins that are only required for the one check.
+                    return -1
+            else:
+                # Python sorting is stable, so this will leave everything else in its original order.
+                return 0
+
+        progitempool.sort(key=sort_func)
