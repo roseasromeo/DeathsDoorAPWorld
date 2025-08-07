@@ -171,6 +171,7 @@ class DeathsDoorRegionName(str, Enum):
     FLOODED_FORTRESS_ENTRANCE = "Flooded Fortress Entrance"
     FLOODED_FORTRESS_WATCHTOWER_LOWER = "Flooded Fortress Watchtower Lower"
     FLOODED_FORTRESS_FROG_KING_STATUE = "Flooded Fortress Frog King Statue"
+    FLOODED_FORTRESS_PRE_MAIN_GATE = "Flooded Fortress Pre-Main Gate"
     FLOODED_FORTRESS_FROG_KING_ENCOUNTER = "Flooded Fortress Frog King Encounter"
     FLOODED_FORTRESS_INSIDE_MAIN_GATE = "Flooded Fortress Inside Main Gate"
     FLOODED_FORTRESS_U_TURN = "Flooded Fortress U Turn"
