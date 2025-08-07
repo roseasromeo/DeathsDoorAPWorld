@@ -40,7 +40,7 @@ lockstone_entrances: list[DeathsDoorEntrance] = [
         R.CASTLE_LOCKSTONE_CENTRAL, R.CASTLE_LOCKSTONE_SOUTHWEST_UPPER, Has(I.HOOKSHOT)
     ),
     DeathsDoorEntrance(
-        R.CASTLE_LOCKSTONE_LORD_OPENGATE, R.CASTLE_LOCKSTONE_SOUTHWEST_CROW, None
+        R.CASTLE_LOCKSTONE_LORD_OPENGATE, R.CASTLE_LOCKSTONE_SOUTHWEST_CROW, Has(I.FIRE)
     ),
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_CENTRAL,
@@ -72,7 +72,7 @@ lockstone_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_LORD_DEADBOLT,
         R.CASTLE_LOCKSTONE_LIBRARY,
-        None,
+        Has(I.FIRE),
     ),
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_CENTRAL, R.CASTLE_LOCKSTONE_JAILED_SEED, Has(I.HOOKSHOT)
