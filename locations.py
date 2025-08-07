@@ -1943,7 +1943,7 @@ location_table: list[DeathsDoorLocationData] = [
         DeathsDoorLocationName.LEVER_FORTRESS_PRE_MAIN_GATE,
         "Lever-Fortress Pre-Main Gate",
         941,
-        R.FLOODED_FORTRESS_FROG_KING_ENCOUNTER,  ##TODO Need new region to account for Fortress_Frog_King_Statue + Fortress_Statue optio Levern
+        R.FLOODED_FORTRESS_PRE_MAIN_GATE,
         [LocationGroup.LEVER],
     ),
     DeathsDoorLocationData(

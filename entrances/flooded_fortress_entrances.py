@@ -28,6 +28,11 @@ flooded_fortress_entrances: list[DeathsDoorEntrance] = [
     ),
     DeathsDoorEntrance(
         R.FLOODED_FORTRESS_FROG_KING_ENCOUNTER,
+        R.FLOODED_FORTRESS_PRE_MAIN_GATE,
+        None,
+    ),
+    DeathsDoorEntrance(
+        R.FLOODED_FORTRESS_PRE_MAIN_GATE,
         R.FLOODED_FORTRESS_FROG_KING_STATUE,
         None,
     ),
@@ -43,8 +48,13 @@ flooded_fortress_entrances: list[DeathsDoorEntrance] = [
     ),
     DeathsDoorEntrance(
         R.FLOODED_FORTRESS_FROG_KING_STATUE,
+        R.FLOODED_FORTRESS_PRE_MAIN_GATE,
+        HasAll(I.LEVER_FORTRESS_STATUE),
+    ),
+    DeathsDoorEntrance(
+        R.FLOODED_FORTRESS_PRE_MAIN_GATE,
         R.FLOODED_FORTRESS_FROG_KING_ENCOUNTER,
-        HasAll(I.LEVER_FORTRESS_STATUE, I.LEVER_FORTRESS_PRE_MAIN_GATE),
+        HasAll(I.LEVER_FORTRESS_PRE_MAIN_GATE),
     ),
     DeathsDoorEntrance(
         R.FLOODED_FORTRESS_FROG_KING_ENCOUNTER,
