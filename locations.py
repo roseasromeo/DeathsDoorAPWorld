@@ -123,7 +123,7 @@ class DeathsDoorLocationName(str, Enum):
     )
     SEED_CEMETERY_NEAR_TABLET_GATE = "Lost Cemetery - Near Tablet Gate Life Seed"
     SEED_BETWEEN_CEMETERY_AND_SAILOR = (
-        "Stranded Sailor - Caves Between Cemetery and Sailor Life Seed"
+        "Stranded Sailor Caves - Between Cemetery and Sailor Life Seed"
     )
     SEED_SAILOR_UPPER = "Stranded Sailor - Upper Life Seed"
     SEED_LOCKSTONE_UPPER_EAST = "Castle Lockstone - Upper East Life Seed"
