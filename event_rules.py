@@ -63,10 +63,10 @@ deaths_door_event_rules: dict[EL, Rule["DeathsDoorWorld"] | None] = {
     EL.WATCHTOWER_FIRST_POT_TORCH: HasAll(
         I.FIRE, E.ACCESS_TO_NIGHT
     ),
-    EL.WATCHTOWER_BOOMERS_TORCH_1: HasAll(
+    EL.WATCHTOWER_BOOMERS_TORCH: HasAll(
         I.FIRE, E.ACCESS_TO_NIGHT
     ),
-    EL.WATCHTOWER_BOOMERS_TORCH_2: HasAll(
+    EL.WATCHTOWER_BEFORE_ICE_SKATING_TORCH: HasAll(
         I.FIRE, E.ACCESS_TO_NIGHT
     ),
     EL.MUSHROOM_DUNGEON_MAIN_GATE: HasAll(

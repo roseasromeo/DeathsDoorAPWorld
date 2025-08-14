@@ -33,8 +33,8 @@ class DeathsDoorEventLocationName(str, Enum):
     WATCHTOWER_JAMMING_START_TORCH = "Old Watchtowers - Jamming Start Torch"
     WATCHTOWER_BOXES_TORCH = "Old Watchtowers - Boxes Torch"
     WATCHTOWER_FIRST_POT_TORCH = "Old Watchtowers - First Pot Area Torch"
-    WATCHTOWER_BOOMERS_TORCH_1 = "Old Watchtowers - Boomers Torch 1"
-    WATCHTOWER_BOOMERS_TORCH_2 = "Old Watchtowers - Boomers Torch 2"
+    WATCHTOWER_BOOMERS_TORCH = "Old Watchtowers - Boomers Torch"
+    WATCHTOWER_BEFORE_ICE_SKATING_TORCH = "Old Watchtowers - Before Ice Skating Torch"
     MUSHROOM_DUNGEON_MAIN_GATE = "Mushroom Dungeon - Main Gate"
     RESCUE_GRUNT = "Mushroom Dungeon - Grunt"
     CASTLE_LOCKSTONE_LORD_LOCKSTONE = "Castle Lockstone - Lord Lockstone Lamp"
@@ -149,13 +149,13 @@ event_location_table: List[DeathsDoorEventLocationData] = [
         DeathsDoorEventName.LIT_WATCHTOWER_TORCH,
     ),
     DeathsDoorEventLocationData(
-        DeathsDoorEventLocationName.WATCHTOWER_BOOMERS_TORCH_1,
+        DeathsDoorEventLocationName.WATCHTOWER_BOOMERS_TORCH,
         R.OLD_WATCHTOWERS_BOOMERS,
         DeathsDoorEventName.LIT_WATCHTOWER_TORCH,
     ),
     DeathsDoorEventLocationData(
-        DeathsDoorEventLocationName.WATCHTOWER_BOOMERS_TORCH_2,
-        R.OLD_WATCHTOWERS_BOOMERS,
+        DeathsDoorEventLocationName.WATCHTOWER_BEFORE_ICE_SKATING_TORCH,
+        R.OLD_WATCHTOWERS_ICE_SKATING_START,
         DeathsDoorEventName.LIT_WATCHTOWER_TORCH,
     ),
     DeathsDoorEventLocationData(
