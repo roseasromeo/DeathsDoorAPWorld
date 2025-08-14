@@ -201,6 +201,26 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             data.name.value: data.base_quantity_in_item_pool for data in item_table
         }
 
+        if not self.options.start_weapon.option_sword:
+            starting_weapon: int = 0
+            if self.options.start_weapon.option_random_excluding_umbrella:
+                starting_weapon = self.random.randint(0,3)
+            else:
+                starting_weapon = self.options.start_weapon.value
+            # Default is that Reaper's Sword is not in the pool, and the others are
+            # Mod handles granting the starting weapon
+            if not starting_weapon == 0:
+                items_to_create[I.SWORD.value] = 1
+            if starting_weapon == 1:
+                items_to_create[I.ROGUE_DAGGERS.value] = 0
+            elif starting_weapon == 2:
+                items_to_create[I.THUNDER_HAMMER.value] = 0
+            elif starting_weapon == 3:
+                items_to_create[I.REAPERS_GREATSWORD.value] = 0
+            elif starting_weapon == 4:
+                items_to_create[I.DISCARDED_UMBRELLA.value] = 0
+
+
         for item, quantity in items_to_create.items():
             for i in range(quantity):
                 deathsdoor_items.append(self.create_item(item))
@@ -226,12 +246,10 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         # generate_locations_json()
 
     def fill_slot_data(self) -> dict[str, Any]:
-        # In order for our game client to handle the generated seed correctly we need to know what the user selected
-        # for whether they should have access to Freeplay immediately.
         # A dictionary returned from this method gets set as the slot_data and will be sent to the client after connecting.
         # The options dataclass has a method to return a `Dict[str, Any]` of each option name provided and the relevant
         # option's value.
-        slot_data = self.options.as_dict("start_day_or_night")
+        slot_data = self.options.as_dict("start_day_or_night", "start_weapon")
         slot_data["APWorldVersion"] = deathsdoor_version
         return slot_data
 
