@@ -107,6 +107,31 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         return slot_data
 
     def generate_early(self) -> None:
+        # Add an important item to early or local_early if option is set
+        early_important_item_candidates: list[I] = [
+            I.CERAMIC_MANOR_DOOR,
+            I.INNER_FURNACE_DOOR,
+            I.LOST_CEMETERY_DOOR,
+            I.GROVE_OF_SPIRITS_DOOR,
+            I.OLD_WATCHTOWERS_DOOR,
+            I.OVERGROWN_RUINS_DOOR,
+            I.STRANDED_SAILOR_DOOR,
+            I.CASTLE_LOCKSTONE_DOOR,
+            I.FLOODED_FORTRESS_DOOR,
+            I.MUSHROOM_DUNGEON_DOOR,
+            I.CAMP_OF_THE_FREE_CROWS_DOOR,
+            I.ESTATE_OF_THE_URN_WITCH_DOOR,
+            I.HOOKSHOT,
+            I.BOMB,
+            I.FIRE,
+        ]
+        important_item = self.random.choice(early_important_item_candidates)
+        if self.options.early_important_item.option_early:
+            self.multiworld.early_items[self.player][important_item.value] = 1
+        elif self.options.early_important_item.option_local_early:
+            self.multiworld.local_early_items[self.player][important_item.value] = 1
+        
+        # Universal Tracker slot data handling
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
         if re_gen_passthrough and self.game in re_gen_passthrough:
             # Get the passed through slot data from the real generation
@@ -188,29 +213,6 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         ]
 
         self.multiworld.itempool += deathsdoor_items
-
-        early_important_item_candidates: list[I] = [
-            I.CERAMIC_MANOR_DOOR,
-            I.INNER_FURNACE_DOOR,
-            I.LOST_CEMETERY_DOOR,
-            I.GROVE_OF_SPIRITS_DOOR,
-            I.OLD_WATCHTOWERS_DOOR,
-            I.OVERGROWN_RUINS_DOOR,
-            I.STRANDED_SAILOR_DOOR,
-            I.CASTLE_LOCKSTONE_DOOR,
-            I.FLOODED_FORTRESS_DOOR,
-            I.MUSHROOM_DUNGEON_DOOR,
-            I.CAMP_OF_THE_FREE_CROWS_DOOR,
-            I.ESTATE_OF_THE_URN_WITCH_DOOR,
-            I.HOOKSHOT,
-            I.BOMB,
-            I.FIRE,
-        ]
-        important_item = self.random.choice(early_important_item_candidates)
-        if self.options.early_important_item.option_early:
-            self.multiworld.early_items[self.player][important_item.value] = 1
-        elif self.options.early_important_item.option_local_early:
-            self.multiworld.local_early_items[self.player][important_item.value] = 1
 
     def set_rules(self) -> None:
         set_location_rules(self)
