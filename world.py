@@ -38,7 +38,7 @@ from BaseClasses import MultiWorld, Region, Location, Item, ItemClassification, 
 # from .tracker import tracker_world
 from .json_generator import generate_rule_json, generate_items_json, generate_locations_json
 
-deathsdoor_version = 1
+deathsdoor_version = "0.1.0"
 
 
 class DeathsDoorItem(Item):
@@ -98,8 +98,8 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             "APWorldVersion" in slot_data
             and slot_data["APWorldVersion"] != deathsdoor_version
         ):
-            current_version = f"v{deathsdoor_version // 100}.{(deathsdoor_version // 10) % 10}.{deathsdoor_version % 10}"
-            slot_version = f"v{slot_data['APWorldVersion'] // 100}.{(slot_data['APWorldVersion'] // 10) % 10}.{slot_data['APWorldVersion'] % 10}"
+            current_version = f"{deathsdoor_version}"
+            slot_version = f"v{slot_data['APWorldVersion']}"
 
             raise Exception(
                 f"Death's Door version error: The version of apworld used to generate this world ({slot_version}) does not match the version of your installed apworld ({current_version})."
