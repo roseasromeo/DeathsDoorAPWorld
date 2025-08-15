@@ -177,7 +177,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             )
             self.create_entrance(start_region, end_region, deathsdoor_entrance.rule)
 
-    def create_item(self, name: str) -> DeathsDoorItem:
+    def create_item(self, name: str, useful: bool = False) -> DeathsDoorItem:
         # if the name provided is an event, create it as an event
         if name in E:
             return DeathsDoorItem(
@@ -186,7 +186,13 @@ class DeathsDoorWorld(RuleWorldMixin, World):
 
         # otherwise, look up the item data
         item_data = next(data for data in item_table if data.name.value == name)
-        if True and IG.TABLET in item_data.item_groups: # This True is here so we can eventually have a tablet goal
+        if useful:
+            # Used to create useful versions instead of progression based on option
+            # Standard create_item will still create the progression version
+            return DeathsDoorItem(
+                name, ItemClassification.useful, self.item_name_to_id[name], self.player
+            ) 
+        elif True and IG.TABLET in item_data.item_groups: # This True is here so we can eventually have a tablet goal
             return DeathsDoorItem(
                 name, ItemClassification.filler, self.item_name_to_id[name], self.player
             )
@@ -220,9 +226,15 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             elif starting_weapon == 4:
                 items_to_create[I.DISCARDED_UMBRELLA.value] = 0
 
+        if (self.options.plant_pot_number.value < 50):
+            # Only create up to the number of Life Seeds needed for check as progression
+            items_to_create[I.LIFE_SEED.value] = self.options.plant_pot_number.value
+            # Remainder are useful
+            for _ in range(50 - self.options.plant_pot_number.value):
+                deathsdoor_items.append(self.create_item(I.LIFE_SEED.value, True))
 
         for item, quantity in items_to_create.items():
-            for i in range(quantity):
+            for _ in range(quantity):
                 deathsdoor_items.append(self.create_item(item))
 
         junk = len(self.multiworld.get_unfilled_locations(self.player)) - len(
@@ -249,7 +261,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         # A dictionary returned from this method gets set as the slot_data and will be sent to the client after connecting.
         # The options dataclass has a method to return a `Dict[str, Any]` of each option name provided and the relevant
         # option's value.
-        slot_data = self.options.as_dict("start_day_or_night", "start_weapon")
+        slot_data = self.options.as_dict("start_day_or_night", "start_weapon", "plant_pot_number")
         slot_data["APWorldVersion"] = deathsdoor_version
         return slot_data
 
@@ -271,7 +283,8 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                                    if multiworld.worlds[player].options.accessibility == "minimal"}
 
         def sort_func(item: Item):
-            if item.player in game_player_ids and item.name == I.LIFE_SEED.value:
+            if item.player in game_player_ids and item.name == I.LIFE_SEED.value and ItemClassification.progression in item.classification:
+                # Only sort the progression Life Seeds
                 if item.player in game_minimal_player_ids:
                     # For minimal players, place Life Seeds first. This helps prevent fill from dumping logically relevant
                     # items into unreachable locations and reducing the number of reachable locations to fewer than the
