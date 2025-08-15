@@ -38,7 +38,7 @@ estate_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.ESTATE_OF_THE_URN_WITCH_SOUTH,
         R.ESTATE_OF_THE_URN_WITCH_NORTH,
-        HasAll(I.LEVER_GARDEN_OF_JOY, I.LEVER_GARDEN_OF_PEACE, I.BOMB),
+        HasAll(I.LEVER_GARDEN_OF_JOY, I.LEVER_GARDEN_OF_PEACE),
     ),
     DeathsDoorEntrance(
         R.ESTATE_OF_THE_URN_WITCH_EXIT_TO_CERAMIC_MANOR,
