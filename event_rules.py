@@ -3,7 +3,7 @@ from .rule_builder_overrides import Has, HasAll, CanReachLocation, CanReachRegio
 from .items import DeathsDoorItemName as I
 from .locations import DeathsDoorLocationName as L
 from .regions import DeathsDoorRegionName as R
-from .options import StartDayOrNight, BombBellGlitch
+from .options import StartDayOrNight, BombBellGlitch, OffscreenTargetingTricks
 from .events import (
     DeathsDoorEventLocationName as EL,
     DeathsDoorEventName as E,
@@ -41,7 +41,7 @@ pot_specific_rules: dict[EL, Rule["DeathsDoorWorld"]] = {
 
 deaths_door_event_rules: dict[EL, Rule["DeathsDoorWorld"] | None] = {
     EL.LORD_OF_DOORS: CanReachLocation(L.RUSTY_BELLTOWER_KEY),  # TODO: Goals
-    EL.LOST_CEMETERY_OPENED_EXIT_TO_SAILOR: Has(I.FIRE),
+    EL.LOST_CEMETERY_OPENED_EXIT_TO_SAILOR: Has(I.FIRE) | True_(options=[OptionFilter(OffscreenTargetingTricks, 1)]),
     EL.ACCESS_TO_NIGHT: True_(options=[OptionFilter(StartDayOrNight, 1)])
     | (Has(I.RUSTY_BELLTOWER_KEY) & CanReachRegion(R.LOST_CEMETERY_BELLTOWER)) | CanReachRegion(R.LOST_CEMETERY_SUMMIT, options=[OptionFilter(BombBellGlitch, 1)]),
     EL.ACCESS_TO_DAY: True_(options=[OptionFilter(StartDayOrNight, 0)])

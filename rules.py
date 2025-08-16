@@ -6,6 +6,7 @@ from .items import ItemGroup as IG, DeathsDoorItemName as I
 from .locations import location_table, DeathsDoorLocationName as L
 from .events import DeathsDoorEventName as E
 from .regions import DeathsDoorRegionName as R
+from .options import OffscreenTargetingTricks
 
 try:
     from rule_builder import (
@@ -19,11 +20,19 @@ except ModuleNotFoundError:
         True_,
         OptionFilter,
     )
-from .rule_builder_overrides import CanJeffersonTraverse, Has, HasAny, HasAll, HasGroup, CanReachRegion
+from .rule_builder_overrides import (
+    CanJeffersonTraverse,
+    Has,
+    HasAny,
+    HasAll,
+    HasGroup,
+    CanReachRegion,
+)
 
 if TYPE_CHECKING:
     from . import DeathsDoorWorld
     from BaseClasses import CollectionState
+
 
 # option related
 @dataclasses.dataclass()
@@ -35,10 +44,13 @@ class HasEnoughLifeSeeds(Rule["DeathsDoorWorld"], game="Death's Door"):
         life_seeds_required: int
 
         def _evaluate(self, state: "CollectionState") -> bool:
-            return state.has(I.LIFE_SEED.value, self.player, count=self.life_seeds_required)
+            return state.has(
+                I.LIFE_SEED.value, self.player, count=self.life_seeds_required
+            )
 
         def item_dependencies(self) -> dict[str, set[int]]:
             return {I.LIFE_SEED.value: {id(self)}}
+
 
 @dataclasses.dataclass()
 class HasPlantedEnoughLifeSeeds(Rule["DeathsDoorWorld"], game="Death's Door"):
@@ -49,10 +61,13 @@ class HasPlantedEnoughLifeSeeds(Rule["DeathsDoorWorld"], game="Death's Door"):
         planted_seeds_required: int
 
         def _evaluate(self, state: "CollectionState") -> bool:
-            return state.has(E.PLANTED_SEED.value, self.player, count=self.planted_seeds_required)
+            return state.has(
+                E.PLANTED_SEED.value, self.player, count=self.planted_seeds_required
+            )
 
         def item_dependencies(self) -> dict[str, set[int]]:
             return {E.PLANTED_SEED.value: {id(self)}}
+
 
 deaths_door_location_rules: dict[L, Rule["DeathsDoorWorld"] | None] = {
     L.FIRE_SILENT_SERVANT: Has(I.FIRE),
@@ -73,7 +88,8 @@ deaths_door_location_rules: dict[L, Rule["DeathsDoorWorld"] | None] = {
     L.TOKEN_OF_DEATH: Has(I.HOOKSHOT),
     L.MALFORMED_SEED: Has(I.HOOKSHOT),
     L.CORRUPTED_ANTLER: Has(I.BOMB) & Has(I.GREEN_KEY, 4),
-    L.GRUNTS_OLD_MASK : Has(E.RESCUE_GRUNT) & CanReachRegion(R.THRONE_OF_THE_FROG_KING), ##TODO: FIX THIS
+    L.GRUNTS_OLD_MASK: Has(E.RESCUE_GRUNT)
+    & CanReachRegion(R.THRONE_OF_THE_FROG_KING),  ##TODO: FIX THIS
     L.ANCIENT_DOOR_SCALE_MODEL: Has(I.FIRE),
     L.MODERN_DOOR_SCALE_MODEL: Has(I.HOOKSHOT),
     L.RUSTY_BELLTOWER_KEY: HasAll(E.GREY_CROW_BOSS, I.HOOKSHOT),
@@ -92,9 +108,8 @@ deaths_door_location_rules: dict[L, Rule["DeathsDoorWorld"] | None] = {
     L.SEED_WATCHTOWERS_ARCHER_PLATFORM: Has(I.HOOKSHOT),
     L.SOUL_ORB_DUNGEON_COBWEB: Has(I.FIRE),
     L.SOUL_ORB_DUNGEON_LOWER_ENTRANCE: Has(I.BOMB),
-    L.SOUL_ORB_RUINS_LOWER_BOMB_WALL: Has(
-        I.BOMB
-    ),  ## from base rando : or a somewhat precise offscreen arrow on a bomb flower
+    L.SOUL_ORB_RUINS_LOWER_BOMB_WALL: Has(I.BOMB)
+    | True_(options=[OptionFilter(OffscreenTargetingTricks, 1)]),
     L.SOUL_ORB_RUINS_LORD_OF_DOORS_ARENA_HOOKSHOT: Has(I.HOOKSHOT),
     L.SOUL_ORB_RUINS_ABOVE_ENTRANCE_GATE: Has(I.HOOKSHOT),
     L.SOUL_ORB_RUINS_LOWER_HOOKSHOT: Has(I.HOOKSHOT),
@@ -116,7 +131,13 @@ deaths_door_location_rules: dict[L, Rule["DeathsDoorWorld"] | None] = {
     L.RUINS_OWL: Has(E.ACCESS_TO_NIGHT),
     L.GREEN_ANCIENT_TABLET_OF_KNOWLEDGE: HasPlantedEnoughLifeSeeds(),
     L.ESTATE_OWL: Has(E.ACCESS_TO_NIGHT),
-    L.CYAN_ANCIENT_TABLET_OF_KNOWLEDGE : Has(E.ACCESS_TO_NIGHT) & CanReachRegion(R.LOST_CEMETERY_CENTRAL) & CanReachRegion(R.LOST_CEMETERY_STEADHONE) & CanReachRegion(R.LOST_CEMETERY_BELLTOWER) & CanReachRegion(R.LOST_CEMETERY_SUMMIT), ###TODO Consider changing these to events? ##TODO: FIX THIS
+    L.CYAN_ANCIENT_TABLET_OF_KNOWLEDGE: Has(E.ACCESS_TO_NIGHT)
+    & CanReachRegion(R.LOST_CEMETERY_CENTRAL)
+    & CanReachRegion(R.LOST_CEMETERY_STEADHONE)
+    & CanReachRegion(R.LOST_CEMETERY_BELLTOWER)
+    & CanReachRegion(
+        R.LOST_CEMETERY_SUMMIT
+    ),  ###TODO Consider changing these to events? ##TODO: FIX THIS
     L.PURPLE_ANCIENT_TABLET_OF_KNOWLEDGE: HasAll(
         E.ACCESS_TO_NIGHT, I.MYSTERIOUS_LOCKET
     ),
@@ -139,7 +160,8 @@ deaths_door_location_rules: dict[L, Rule["DeathsDoorWorld"] | None] = {
     L.KEY_DUNGEON_RIGHT: Has(I.FIRE),
     L.CROW_DUNGEON_COBWEB: Has(I.FIRE),
     L.CROW_LOCKSTONE_WEST_LOCKED: Has(I.PINK_KEY, 5),
-    L.RED_ANCIENT_TABLET_OF_KNOWLEDGE : HasAll(E.ACCESS_TO_NIGHT, I.HOOKSHOT) & CanJeffersonTraverse(),
+    L.RED_ANCIENT_TABLET_OF_KNOWLEDGE: HasAll(E.ACCESS_TO_NIGHT, I.HOOKSHOT)
+    & CanJeffersonTraverse(),
 }
 
 

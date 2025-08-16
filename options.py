@@ -96,6 +96,15 @@ class BombBellGlitch(Toggle):
     internal_name = "bomb_bell_glitch"
     display_name = "Bomb Bell Glitch"
 
+class OffscreenTargetingTricks(Toggle):
+    """Puts three tricks in which you must target an enemy or switch from offscreen in logic.
+        - Open the switch between Lost Cemetery and Stranded Sailor caves using an Arrow through a fire source instead of Fire
+        - Open a bomb wall in Overgrown Ruins lower by hitting an offscreen bomb flower with an arrow
+        - Open the path backwards from Flooded Fortress Frog King Statue back to the entrance by hitting a switch offscreen"""
+    
+    internal_name = "offscreen_targeting_tricks"
+    display_name = "Offscreen Targeting Tricks"
+
 @dataclass
 class DeathsDoorOptions(PerGameCommonOptions):
     start_inventory_from_pool: StartInventoryPool
@@ -107,12 +116,14 @@ class DeathsDoorOptions(PerGameCommonOptions):
     extra_magic_shards: ExtraMagicShards
     extra_vitality_shards: ExtraVitalityShards
     gate_rolls_glitch: GateRollsGlitch
+    bomb_bell_glitch: BombBellGlitch
+    offscreen_targeting_tricks: OffscreenTargetingTricks
 
 
 deathsdoor_options_presets: dict[str, dict[str, Any]] = {}
 
 deathsdoor_option_groups: list[OptionGroup] = [
-    OptionGroup("Logic Options", [StartDayOrNight, PlantedPotsRequired, EarlyImportantItem, GateRollsGlitch]),
+    OptionGroup("Logic Options", [StartDayOrNight, PlantedPotsRequired, EarlyImportantItem, GateRollsGlitch, BombBellGlitch, OffscreenTargetingTricks]),
     OptionGroup("Itempool Modification Options", [ExtraLifeSeeds, ExtraMagicShards, ExtraVitalityShards]),
     OptionGroup("Customization Options", [StartWeapon])
 ]
