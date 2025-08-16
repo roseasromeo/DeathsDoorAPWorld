@@ -90,6 +90,11 @@ class GateRollsGlitch(Toggle):
     internal_name = "gate_rolls_glitch"
     display_name = "Gate Rolls Glitch"
 
+class BombBellGlitch(Toggle):
+    """Puts bombing the Rusty Belltower's bell from a railing in logic to toggle Day/Night. Also, known as "Early Night"."""
+
+    internal_name = "bomb_bell_glitch"
+    display_name = "Bomb Bell Glitch"
 
 @dataclass
 class DeathsDoorOptions(PerGameCommonOptions):

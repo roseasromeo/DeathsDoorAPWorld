@@ -3,7 +3,7 @@ from .rule_builder_overrides import Has, HasAll, CanReachLocation, CanReachRegio
 from .items import DeathsDoorItemName as I
 from .locations import DeathsDoorLocationName as L
 from .regions import DeathsDoorRegionName as R
-from .options import StartDayOrNight
+from .options import StartDayOrNight, BombBellGlitch
 from .events import (
     DeathsDoorEventLocationName as EL,
     DeathsDoorEventName as E,
@@ -43,9 +43,9 @@ deaths_door_event_rules: dict[EL, Rule["DeathsDoorWorld"] | None] = {
     EL.LORD_OF_DOORS: CanReachLocation(L.RUSTY_BELLTOWER_KEY),  # TODO: Goals
     EL.LOST_CEMETERY_OPENED_EXIT_TO_SAILOR: Has(I.FIRE),
     EL.ACCESS_TO_NIGHT: True_(options=[OptionFilter(StartDayOrNight, 1)])
-    | (Has(I.RUSTY_BELLTOWER_KEY) & CanReachRegion(R.LOST_CEMETERY_BELLTOWER)),
+    | (Has(I.RUSTY_BELLTOWER_KEY) & CanReachRegion(R.LOST_CEMETERY_BELLTOWER)) | CanReachRegion(R.LOST_CEMETERY_SUMMIT, options=[OptionFilter(BombBellGlitch, 1)]),
     EL.ACCESS_TO_DAY: True_(options=[OptionFilter(StartDayOrNight, 0)])
-    | (Has(I.RUSTY_BELLTOWER_KEY) & CanReachRegion(R.LOST_CEMETERY_BELLTOWER)),
+    | (Has(I.RUSTY_BELLTOWER_KEY) & CanReachRegion(R.LOST_CEMETERY_BELLTOWER)) | CanReachRegion(R.LOST_CEMETERY_SUMMIT, options=[OptionFilter(BombBellGlitch, 1)]),
     EL.GREY_CROW_BOSS: HasAll(
         I.GIANT_SOUL_OF_BETTY,
         I.GIANT_SOUL_OF_THE_FROG_KING,
