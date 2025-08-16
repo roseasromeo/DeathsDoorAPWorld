@@ -112,10 +112,22 @@ class GeometryExploits(Toggle):
         - Rolling onto the wall from the upper right platform in Lockstone East Upper after making it go up to get into East Upper Keyed Door without the lever
         - When coming from the Old Watchtowers Barb Elevator, the lever to Ice Skating Start can be skipped by hooking over the gate from the ledge around the top of the elevator
         - In Overgrown Ruins, access the Soul Orb in Lower that requires Hookshot by rolling onto the wall above and falling down. Standalone randomizer notes that this roll may require Haste (rolling state) >=2.
-        - In Overgrown Ruins, access the Soul Orb in the Lord of Doors Hookshot arena by ???. Standalone randomizer is missing a description of this one."""
+        - In Overgrown Ruins, access the Soul Orb in the Lord of Doors Hookshot arena by ???. Standalone randomizer is missing a description of this one, but best guess it is the same as the above."""
     
     internal_name = "geometry_exploits"
     display_name = "Geometry Exploits"
+
+class RollBuffers(Toggle):
+    """Puts roll buffers in logic, where you roll in mid-air after a heavy attack. Three of these tricks can be performed with any weapon but the hammer. Two are doable only with Rogue Daggers. This option will cause all weapons besides the hammer to be marked as progression.
+        - Hall of Doors - Surveillance Device: Heavy to the right and roll down-right from behind the bin near the Discarded Umbrella check
+        - Hall of Doors - Bomb Secret Soul Orb: Same as above
+        - Hall of Doors - Hookshot Secret Soul Orb: Up-right heavy and roll from above the Lord of Doors poster by the staircase near the Bomb Avarice Chest (Rogue Daggers only)
+        - Hall of Doors - Modern Door Scale Model: Same as above (Rogue Daggers only)
+        - Castle Lockstone - West Locked Crow: Heavy out of the ledge above the gate then immediately roll back"""
+
+    internal_name = "roll_buffers"
+    display_name = "Roll Buffers"
+
 @dataclass
 class DeathsDoorOptions(PerGameCommonOptions):
     start_inventory_from_pool: StartInventoryPool
@@ -130,11 +142,12 @@ class DeathsDoorOptions(PerGameCommonOptions):
     bomb_bell_glitch: BombBellGlitch
     offscreen_targeting_tricks: OffscreenTargetingTricks
     geometry_exploits: GeometryExploits
+    roll_buffers: RollBuffers
 
 deathsdoor_options_presets: dict[str, dict[str, Any]] = {}
 
 deathsdoor_option_groups: list[OptionGroup] = [
-    OptionGroup("Logic Options", [StartDayOrNight, PlantedPotsRequired, EarlyImportantItem, GateRollsGlitch, BombBellGlitch, OffscreenTargetingTricks, GeometryExploits]),
+    OptionGroup("Logic Options", [StartDayOrNight, PlantedPotsRequired, EarlyImportantItem, GateRollsGlitch, BombBellGlitch, OffscreenTargetingTricks, GeometryExploits, RollBuffers]),
     OptionGroup("Itempool Modification Options", [ExtraLifeSeeds, ExtraMagicShards, ExtraVitalityShards]),
     OptionGroup("Customization Options", [StartWeapon])
 ]

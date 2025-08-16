@@ -191,7 +191,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             # Standard create_item will still create the progression version
             return DeathsDoorItem(
                 name, ItemClassification.useful, self.item_name_to_id[name], self.player
-            ) 
+            )
         elif True and IG.TABLET in item_data.item_groups: # This True is here so we can eventually have a tablet goal
             return DeathsDoorItem(
                 name, ItemClassification.filler, self.item_name_to_id[name], self.player
@@ -225,6 +225,14 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                 items_to_create[I.REAPERS_GREATSWORD.value] = 0
             elif starting_weapon == 4:
                 items_to_create[I.DISCARDED_UMBRELLA.value] = 0
+        
+        if self.options.roll_buffers.value == 0:
+            # If roll_buffers is not on, convert the weapons back to being useful
+            # Done so to ensure that any weapons used in rules are created by create_item as useful if we aren't directly responsible for creating it
+            for weapon_name in [I.SWORD.value, I.ROGUE_DAGGERS.value, I.REAPERS_GREATSWORD, I.DISCARDED_UMBRELLA]:
+                if items_to_create[weapon_name] == 1:
+                    items_to_create[weapon_name] = 0
+                    deathsdoor_items.append(self.create_item(weapon_name, True))
 
         if (self.options.plant_pot_number.value < 50):
             # Only create up to the number of Life Seeds needed for check as progression
