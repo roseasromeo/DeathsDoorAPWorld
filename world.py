@@ -232,6 +232,18 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             # Remainder are useful
             for _ in range(50 - self.options.plant_pot_number.value):
                 deathsdoor_items.append(self.create_item(I.LIFE_SEED.value, True))
+        
+        # Create extra life seeds
+        for _ in range(self.options.extra_life_seeds.value):
+            deathsdoor_items.append(self.create_item(I.LIFE_SEED.value, True))
+
+        # Create extra magic shards
+        for _ in range(self.options.extra_magic_shards.value):
+            deathsdoor_items.append(self.create_item(I.MAGIC_SHARD.value))
+        
+        # Create extra vitality shards
+        for _ in range(self.options.extra_vitality_shards.value):
+            deathsdoor_items.append(self.create_item(I.VITALITY_SHARD.value))
 
         for item, quantity in items_to_create.items():
             for _ in range(quantity):

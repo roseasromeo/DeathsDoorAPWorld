@@ -30,6 +30,33 @@ class EarlyImportantItem(Choice):
     option_random_placement = 2
     default = option_early
 
+class ExtraLifeSeeds(Range):
+    """Add extra life seeds to the item pool. Extra life seeds will be marked as useful. Extra items will replace 100 Souls items."""
+
+    internal_name = "extra_life_seeds"
+    display_name = "Extra Life Seeds"
+    range_start = 0
+    range_end = 20
+    default = 0
+
+class ExtraMagicShards(Range):
+    """Add extra magic shards to the item pool. Extra magic shards can allow magic to go over the vanilla maximum of 6. Extra items will replace 100 Souls items."""
+
+    internal_name = "extra_magic_shards"
+    display_name = "Extra Magic Shards"
+    range_start = 0
+    range_end = 8
+    default = 0
+
+class ExtraVitalityShards(Range):
+    """Add extra vitality shards to the item pool. Extra health shards can allow health to go over the vanilla maximum of 6. These life seeds will replace 100 Souls items."""
+
+    internal_name = "extra_magic_shards"
+    display_name = "Extra Magic Shards"
+    range_start = 0
+    range_end = 8
+    default = 0
+
 class StartWeapon(Choice):
     """Choose which weapon you would like to start with (others will be shuffled into the itempool as useful items). Note: Umbrella is a much worse weapon than the other 4. Choose at your own risk."""
 
@@ -59,11 +86,15 @@ class DeathsDoorOptions(PerGameCommonOptions):
     early_important_item: EarlyImportantItem
     start_weapon: StartWeapon
     plant_pot_number: PlantedPotsRequired
+    extra_life_seeds: ExtraLifeSeeds
+    extra_magic_shards: ExtraMagicShards
+    extra_vitality_shards: ExtraVitalityShards
 
 
 deathsdoor_options_presets: dict[str, dict[str, Any]] = {}
 
 deathsdoor_option_groups: list[OptionGroup] = [
     OptionGroup("Logic Options", [StartDayOrNight, PlantedPotsRequired, EarlyImportantItem]),
+    OptionGroup("Itempool Modification Options", [ExtraLifeSeeds, ExtraMagicShards, ExtraVitalityShards]),
     OptionGroup("Customization Options", [StartWeapon])
 ]
