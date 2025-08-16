@@ -9,6 +9,7 @@ except ModuleNotFoundError:
     from .rule_builder import RuleWorldMixin
 from .options import (
     DeathsDoorOptions,
+    StartWeapon,
     deathsdoor_options_presets,
     deathsdoor_option_groups,
 )
@@ -201,15 +202,15 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             data.name.value: data.base_quantity_in_item_pool for data in item_table
         }
 
-        if not self.options.start_weapon.option_sword:
+        if self.options.start_weapon != StartWeapon.option_sword:
             starting_weapon: int = 0
-            if self.options.start_weapon.option_random_excluding_umbrella:
+            if self.options.start_weapon == StartWeapon.option_random_excluding_umbrella:
                 starting_weapon = self.random.randint(0,3)
             else:
                 starting_weapon = self.options.start_weapon.value
             # Default is that Reaper's Sword is not in the pool, and the others are
             # Mod handles granting the starting weapon
-            if not starting_weapon == 0:
+            if starting_weapon != 0:
                 items_to_create[I.SWORD.value] = 1
             if starting_weapon == 1:
                 items_to_create[I.ROGUE_DAGGERS.value] = 0
@@ -219,7 +220,6 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                 items_to_create[I.REAPERS_GREATSWORD.value] = 0
             elif starting_weapon == 4:
                 items_to_create[I.DISCARDED_UMBRELLA.value] = 0
-
 
         for item, quantity in items_to_create.items():
             for i in range(quantity):
