@@ -1,3 +1,4 @@
+import dataclasses
 from typing import TYPE_CHECKING
 from typing_extensions import override
 
@@ -22,12 +23,36 @@ from .rule_builder_overrides import CanJeffersonTraverse, Has, HasAny, HasAll, H
 
 if TYPE_CHECKING:
     from . import DeathsDoorWorld
-
-# Key items
-
+    from BaseClasses import CollectionState
 
 # option related
+@dataclasses.dataclass()
+class HasEnoughLifeSeeds(Rule["DeathsDoorWorld"], game="Death's Door"):
+    def _instantiate(self, world: "DeathsDoorWorld") -> "Resolved":
+        return self.Resolved(world.options.plant_pot_number.value, player=world.player)
 
+    class Resolved(Rule.Resolved):
+        life_seeds_required: int
+
+        def _evaluate(self, state: "CollectionState") -> bool:
+            return state.has(I.LIFE_SEED.value, self.player, count=self.life_seeds_required)
+
+        def item_dependencies(self) -> dict[str, set[int]]:
+            return {I.LIFE_SEED.value: {id(self)}}
+
+@dataclasses.dataclass()
+class HasPlantedEnoughLifeSeeds(Rule["DeathsDoorWorld"], game="Death's Door"):
+    def _instantiate(self, world: "DeathsDoorWorld") -> "Resolved":
+        return self.Resolved(world.options.plant_pot_number.value, player=world.player)
+
+    class Resolved(Rule.Resolved):
+        planted_seeds_required: int
+
+        def _evaluate(self, state: "CollectionState") -> bool:
+            return state.has(E.PLANTED_SEED.value, self.player, count=self.planted_seeds_required)
+
+        def item_dependencies(self) -> dict[str, set[int]]:
+            return {E.PLANTED_SEED.value: {id(self)}}
 
 deaths_door_location_rules: dict[L, Rule["DeathsDoorWorld"] | None] = {
     L.FIRE_SILENT_SERVANT: Has(I.FIRE),
@@ -89,7 +114,7 @@ deaths_door_location_rules: dict[L, Rule["DeathsDoorWorld"] | None] = {
     L.SOUL_ORB_FIRE_SECRET: Has(I.FIRE),
     L.YELLOW_ANCIENT_TABLET_OF_KNOWLEDGE: Has(E.ACCESS_TO_NIGHT),
     L.RUINS_OWL: Has(E.ACCESS_TO_NIGHT),
-    L.GREEN_ANCIENT_TABLET_OF_KNOWLEDGE: Has(E.PLANTED_SEED, 50),  ### TODO: yaml option
+    L.GREEN_ANCIENT_TABLET_OF_KNOWLEDGE: HasPlantedEnoughLifeSeeds(),
     L.ESTATE_OWL: Has(E.ACCESS_TO_NIGHT),
     L.CYAN_ANCIENT_TABLET_OF_KNOWLEDGE : Has(E.ACCESS_TO_NIGHT) & CanReachRegion(R.LOST_CEMETERY_CENTRAL) & CanReachRegion(R.LOST_CEMETERY_STEADHONE) & CanReachRegion(R.LOST_CEMETERY_BELLTOWER) & CanReachRegion(R.LOST_CEMETERY_SUMMIT), ###TODO Consider changing these to events? ##TODO: FIX THIS
     L.PURPLE_ANCIENT_TABLET_OF_KNOWLEDGE: HasAll(

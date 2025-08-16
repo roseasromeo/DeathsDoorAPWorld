@@ -6,7 +6,7 @@ from Options import (
     StartInventoryPool,
     PerGameCommonOptions,
     OptionGroup,
-    Toggle,
+    Range,
 )
 
 
@@ -43,6 +43,14 @@ class StartWeapon(Choice):
     option_random_excluding_umbrella = 5
     default = option_sword
 
+class PlantedPotsRequired(Range):
+    """Number of planted pots required for Green Tablet location. Also, adjusts the number of Life Seeds marked as Progression. Vanilla value is 50."""
+
+    internal_name = "plant_pot_number"
+    display_name = "Number of Planted Pots Required for Green Tablet"
+    range_start = 1
+    range_end = 50
+    default = 25
 
 @dataclass
 class DeathsDoorOptions(PerGameCommonOptions):
@@ -50,11 +58,12 @@ class DeathsDoorOptions(PerGameCommonOptions):
     start_day_or_night: StartDayOrNight
     early_important_item: EarlyImportantItem
     start_weapon: StartWeapon
+    plant_pot_number: PlantedPotsRequired
 
 
 deathsdoor_options_presets: dict[str, dict[str, Any]] = {}
 
 deathsdoor_option_groups: list[OptionGroup] = [
-    OptionGroup("Logic Options", [StartDayOrNight, EarlyImportantItem]),
+    OptionGroup("Logic Options", [StartDayOrNight, PlantedPotsRequired, EarlyImportantItem]),
     OptionGroup("Customization Options", [StartWeapon])
 ]

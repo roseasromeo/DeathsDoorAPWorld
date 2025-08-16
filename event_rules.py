@@ -10,6 +10,7 @@ from .events import (
     event_location_table,
     pot_table,
 )
+from .rules import HasEnoughLifeSeeds
 
 try:
     from rule_builder import (
@@ -81,7 +82,7 @@ deaths_door_event_rules: dict[EL, Rule["DeathsDoorWorld"] | None] = {
 
 # Add in pots to existing tables to be able to use the same infrastructure
 for pot in pot_table:
-    pot_rule = Has(I.LIFE_SEED, 50)  ## TODO: Make a yaml setting
+    pot_rule = HasEnoughLifeSeeds()
     if pot.name in pot_specific_rules.keys():
         pot_rule = pot_rule & pot_specific_rules[pot.name]
     deaths_door_event_rules[pot.name] = pot_rule
