@@ -6,6 +6,7 @@ from Options import (
     StartInventoryPool,
     PerGameCommonOptions,
     OptionGroup,
+    Toggle,
     Range,
 )
 
@@ -79,6 +80,17 @@ class PlantedPotsRequired(Range):
     range_end = 50
     default = 25
 
+class GateRollsGlitch(Toggle):
+    """Puts rolling through the "gate" in 4 locations (listed below) in logic.
+        - Estate entrance to Crypt through metal gate
+        - Mushroom Dungeon Lobby to Overgrown Ruins through vines
+        - Mushroom Dungeon Ancient Door to Lobby through a metal gate and a cobweb
+        - Ceramic Manor Lobby to the Manor exit to Estate through breakable-pot door"""
+    
+    internal_name = "gate_rolls_glitch"
+    display_name = "Gate Rolls Glitch"
+
+
 @dataclass
 class DeathsDoorOptions(PerGameCommonOptions):
     start_inventory_from_pool: StartInventoryPool
@@ -89,12 +101,13 @@ class DeathsDoorOptions(PerGameCommonOptions):
     extra_life_seeds: ExtraLifeSeeds
     extra_magic_shards: ExtraMagicShards
     extra_vitality_shards: ExtraVitalityShards
+    gate_rolls_glitch: GateRollsGlitch
 
 
 deathsdoor_options_presets: dict[str, dict[str, Any]] = {}
 
 deathsdoor_option_groups: list[OptionGroup] = [
-    OptionGroup("Logic Options", [StartDayOrNight, PlantedPotsRequired, EarlyImportantItem]),
+    OptionGroup("Logic Options", [StartDayOrNight, PlantedPotsRequired, EarlyImportantItem, GateRollsGlitch]),
     OptionGroup("Itempool Modification Options", [ExtraLifeSeeds, ExtraMagicShards, ExtraVitalityShards]),
     OptionGroup("Customization Options", [StartWeapon])
 ]

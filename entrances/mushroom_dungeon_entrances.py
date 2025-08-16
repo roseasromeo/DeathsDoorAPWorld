@@ -1,8 +1,13 @@
 from .entrance_class import DeathsDoorEntrance
 from ..rule_builder_overrides import Has, HasAny, HasAll
+try:
+    from rule_builder import True_, OptionFilter
+except ModuleNotFoundError:
+    from ..rule_builder import True_, OptionFilter
 from ..items import DeathsDoorItemName as I
 from ..regions import DeathsDoorRegionName as R
 from ..events import DeathsDoorEventName as E
+from ..options import GateRollsGlitch
 
 mushroom_dungeon_entrances: list[DeathsDoorEntrance] = [
     # Entrances in Mushroom Dungeon
@@ -22,6 +27,11 @@ mushroom_dungeon_entrances: list[DeathsDoorEntrance] = [
         Has(E.MUSHROOM_DUNGEON_MAIN_GATE),
     ),
     DeathsDoorEntrance(
+        R.MUSHROOM_DUNGEON_LOBBY,
+        R.OVERGROWN_RUINS_OUTSIDE_MAIN_DUNGEON_GATE,
+        True_(options=[OptionFilter(GateRollsGlitch, 1)]),
+    ),
+    DeathsDoorEntrance(
         R.MUSHROOM_DUNGEON_MAIN_HALL,
         R.MUSHROOM_DUNGEON_LOBBY,
         HasAny(I.LEVER_DUNGEON_ENTRANCE_LEFT_GATE, I.LEVER_DUNGEON_ENTRANCE_RIGHT_GATE),
@@ -30,6 +40,11 @@ mushroom_dungeon_entrances: list[DeathsDoorEntrance] = [
         R.MUSHROOM_DUNGEON_LOBBY,
         R.MUSHROOM_DUNGEON_BIG_DOOR,
         Has(I.FIRE),
+    ),
+    DeathsDoorEntrance(
+        R.MUSHROOM_DUNGEON_BIG_DOOR,
+        R.MUSHROOM_DUNGEON_LOBBY,
+        True_(options=[OptionFilter(GateRollsGlitch, 1)])
     ),
     DeathsDoorEntrance(
         R.MUSHROOM_DUNGEON_MAIN_HALL,

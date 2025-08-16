@@ -1,7 +1,18 @@
 from .entrance_class import DeathsDoorEntrance
 from ..rule_builder_overrides import HasAll
+try:
+    from rule_builder import (
+        True_,
+        OptionFilter,
+    )
+except ModuleNotFoundError:
+    from ..rule_builder import (
+        True_,
+        OptionFilter,
+    )
 from ..items import DeathsDoorItemName as I
 from ..regions import DeathsDoorRegionName as R
+from ..options import GateRollsGlitch
 
 crypt_entrances: list[DeathsDoorEntrance] = [
     # Entrances in Crypt
@@ -15,6 +26,6 @@ crypt_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.CRYPT_EXIT_TO_ESTATE_OF_THE_URN_WITCH,
         R.CRYPT_MAIN_ROOM,
-        HasAll(I.LEVER_ESTATE_ELEVATOR_LEFT, I.LEVER_ESTATE_ELEVATOR_RIGHT),
-    ),  ##TODO Check this connection is valid! (Not in base randomizer I think)
+        HasAll(I.LEVER_ESTATE_ELEVATOR_LEFT, I.LEVER_ESTATE_ELEVATOR_RIGHT) | True_(options=[OptionFilter(GateRollsGlitch, 1)]),
+    ), 
 ]
