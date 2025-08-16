@@ -6,7 +6,7 @@ from .items import ItemGroup as IG, DeathsDoorItemName as I
 from .locations import location_table, DeathsDoorLocationName as L
 from .events import DeathsDoorEventName as E
 from .regions import DeathsDoorRegionName as R
-from .options import OffscreenTargetingTricks
+from .options import OffscreenTargetingTricks, GeometryExploits
 
 try:
     from rule_builder import (
@@ -110,9 +110,9 @@ deaths_door_location_rules: dict[L, Rule["DeathsDoorWorld"] | None] = {
     L.SOUL_ORB_DUNGEON_LOWER_ENTRANCE: Has(I.BOMB),
     L.SOUL_ORB_RUINS_LOWER_BOMB_WALL: Has(I.BOMB)
     | True_(options=[OptionFilter(OffscreenTargetingTricks, 1)]),
-    L.SOUL_ORB_RUINS_LORD_OF_DOORS_ARENA_HOOKSHOT: Has(I.HOOKSHOT),
+    L.SOUL_ORB_RUINS_LORD_OF_DOORS_ARENA_HOOKSHOT: Has(I.HOOKSHOT) | True_(options=[OptionFilter(GeometryExploits, 1)]),
     L.SOUL_ORB_RUINS_ABOVE_ENTRANCE_GATE: Has(I.HOOKSHOT),
-    L.SOUL_ORB_RUINS_LOWER_HOOKSHOT: Has(I.HOOKSHOT),
+    L.SOUL_ORB_RUINS_LOWER_HOOKSHOT: Has(I.HOOKSHOT) | True_(options=[OptionFilter(GeometryExploits, 1)]),
     L.SEED_FORTRESS_WATCHTOWER: Has(I.LEVER_FORTRESS_WATCHTOWER_UPPER),
     L.SEED_FORTRESS_BRIDGE: HasAny(I.BOMB, I.HOOKSHOT),
     L.SOUL_ORB_FORTRESS_BOMB: Has(I.BOMB),

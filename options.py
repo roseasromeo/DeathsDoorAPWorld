@@ -105,6 +105,17 @@ class OffscreenTargetingTricks(Toggle):
     internal_name = "offscreen_targeting_tricks"
     display_name = "Offscreen Targeting Tricks"
 
+class GeometryExploits(Toggle):
+    """A series of exploits where you roll on unintended surfaces.
+        - Rolling across the walls near the ladder immediately outside the exit from Lost Cemetery to Stranded Sailor Caves to navigate around the switch on the Lost Cemetery side
+        - Rolling behind the grate in Castle Lockstone East Upper down to East
+        - Rolling onto the wall from the upper right platform in Lockstone East Upper after making it go up to get into East Upper Keyed Door without the lever
+        - When coming from the Old Watchtowers Barb Elevator, the lever to Ice Skating Start can be skipped by hooking over the gate from the ledge around the top of the elevator
+        - In Overgrown Ruins, access the Soul Orb in Lower that requires Hookshot by rolling onto the wall above and falling down. Standalone randomizer notes that this roll may require Haste (rolling state) >=2.
+        - In Overgrown Ruins, access the Soul Orb in the Lord of Doors Hookshot arena by ???. Standalone randomizer is missing a description of this one."""
+    
+    internal_name = "geometry_exploits"
+    display_name = "Geometry Exploits"
 @dataclass
 class DeathsDoorOptions(PerGameCommonOptions):
     start_inventory_from_pool: StartInventoryPool
@@ -118,12 +129,12 @@ class DeathsDoorOptions(PerGameCommonOptions):
     gate_rolls_glitch: GateRollsGlitch
     bomb_bell_glitch: BombBellGlitch
     offscreen_targeting_tricks: OffscreenTargetingTricks
-
+    geometry_exploits: GeometryExploits
 
 deathsdoor_options_presets: dict[str, dict[str, Any]] = {}
 
 deathsdoor_option_groups: list[OptionGroup] = [
-    OptionGroup("Logic Options", [StartDayOrNight, PlantedPotsRequired, EarlyImportantItem, GateRollsGlitch, BombBellGlitch, OffscreenTargetingTricks]),
+    OptionGroup("Logic Options", [StartDayOrNight, PlantedPotsRequired, EarlyImportantItem, GateRollsGlitch, BombBellGlitch, OffscreenTargetingTricks, GeometryExploits]),
     OptionGroup("Itempool Modification Options", [ExtraLifeSeeds, ExtraMagicShards, ExtraVitalityShards]),
     OptionGroup("Customization Options", [StartWeapon])
 ]

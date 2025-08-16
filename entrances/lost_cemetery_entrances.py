@@ -1,8 +1,13 @@
 from .entrance_class import DeathsDoorEntrance
 from ..rule_builder_overrides import Has, HasAny, HasAll
+try:
+    from rule_builder import True_, OptionFilter
+except ModuleNotFoundError:
+    from ..rule_builder import True_, OptionFilter
 from ..items import DeathsDoorItemName as I
 from ..regions import DeathsDoorRegionName as R
 from ..events import DeathsDoorEventName as E
+from ..options import GeometryExploits
 
 lost_cemetery_entrances: list[DeathsDoorEntrance] = [
     # Entrances in Lost Cemetery
@@ -18,7 +23,7 @@ lost_cemetery_entrances: list[DeathsDoorEntrance] = [
     ),
     DeathsDoorEntrance(
         R.LOST_CEMETERY_NEAR_GROVE_OF_SPIRITS_DOOR, R.LOST_CEMETERY_CENTRAL, None
-    ),  ## TODO: Check to see if reversable (probably not?)
+    ),
     DeathsDoorEntrance(R.LOST_CEMETERY_DOOR, R.LOST_CEMETERY_CENTRAL, None),
     DeathsDoorEntrance(
         R.LOST_CEMETERY_CENTRAL, R.LOST_CEMETERY_DOOR, Has(I.LOST_CEMETERY_DOOR)
@@ -70,8 +75,8 @@ lost_cemetery_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.LOST_CEMETERY_STEADHONE,
         R.LOST_CEMETERY_NEAR_EXIT_TO_STRANDED_SAILOR,
-        Has(E.LOST_CEMETERY_OPENED_EXIT_TO_SAILOR),
-    ),  ## TODO: this event seems not possible from the stranded sailor side, but maybe a glitch makes it possible
+        Has(E.LOST_CEMETERY_OPENED_EXIT_TO_SAILOR) | True_(options=[OptionFilter(GeometryExploits,1)]),
+    ),
     DeathsDoorEntrance(R.LOST_CEMETERY_BELLTOWER, R.LOST_CEMETERY_STEADHONE, None),
     DeathsDoorEntrance(R.LOST_CEMETERY_EXIT_TO_CRYPT, R.LOST_CEMETERY_BELLTOWER, None),
     DeathsDoorEntrance(
