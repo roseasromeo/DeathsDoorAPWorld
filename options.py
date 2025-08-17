@@ -81,7 +81,7 @@ class PlantedPotsRequired(Range):
     default = 25
 
 class GateRollsGlitch(Toggle):
-    """Puts rolling through the "gate" in 4 locations (listed below) in logic.
+    """Adds in logic rolling through the "gate" in 4 locations (listed below).
         - Estate entrance to Crypt through metal gate
         - Mushroom Dungeon Lobby to Overgrown Ruins through vines
         - Mushroom Dungeon Ancient Door to Lobby through a metal gate and a cobweb
@@ -91,13 +91,13 @@ class GateRollsGlitch(Toggle):
     display_name = "Gate Rolls Glitch"
 
 class BombBellGlitch(Toggle):
-    """Puts bombing the Rusty Belltower's bell from a railing in logic to toggle Day/Night. Also, known as "Early Night"."""
+    """Adds in logic bombing the Rusty Belltower's bell from a railing to toggle Day/Night. Also, known as "Early Night"."""
 
     internal_name = "bomb_bell_glitch"
     display_name = "Bomb Bell Glitch"
 
 class OffscreenTargetingTricks(Toggle):
-    """Puts three tricks in which you must target an enemy or switch from offscreen in logic.
+    """Add in logic three tricks in which you must target an enemy or switch from offscreen.
         - Open the switch between Lost Cemetery and Stranded Sailor caves using an Arrow through a fire source instead of Fire
         - Open a bomb wall in Overgrown Ruins lower by hitting an offscreen bomb flower with an arrow
         - Open the path backwards from Flooded Fortress Frog King Statue back to the entrance by hitting a switch offscreen"""
@@ -106,7 +106,7 @@ class OffscreenTargetingTricks(Toggle):
     display_name = "Offscreen Targeting Tricks"
 
 class GeometryExploits(Toggle):
-    """A series of exploits where you roll on unintended surfaces.
+    """Adds in logic a series of exploits where you roll on unintended surfaces.
         - Rolling across the walls near the ladder immediately outside the exit from Lost Cemetery to Stranded Sailor Caves to navigate around the switch on the Lost Cemetery side
         - Rolling behind the grate in Castle Lockstone East Upper down to East
         - Rolling onto the wall from the upper right platform in Lockstone East Upper after making it go up to get into East Upper Keyed Door without the lever
@@ -118,7 +118,7 @@ class GeometryExploits(Toggle):
     display_name = "Geometry Exploits"
 
 class RollBuffers(Toggle):
-    """Puts roll buffers in logic, where you roll in mid-air after a heavy attack. Three of these tricks can be performed with any weapon but the hammer. Two are doable only with Rogue Daggers. This option will cause all weapons besides the hammer to be marked as progression.
+    """Adds in logic roll buffers, where you roll in mid-air after a heavy attack. Three of these tricks can be performed with any weapon but the hammer. Two are doable only with Rogue Daggers. This option will cause all weapons besides the hammer to be marked as progression.
         - Hall of Doors - Surveillance Device: Heavy to the right and roll down-right from behind the bin near the Discarded Umbrella check
         - Hall of Doors - Bomb Secret Soul Orb: Same as above
         - Hall of Doors - Hookshot Secret Soul Orb: Up-right heavy and roll from above the Lord of Doors poster by the staircase near the Bomb Avarice Chest (Rogue Daggers only)
