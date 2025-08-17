@@ -16,7 +16,7 @@ class ItemGroup(str, Enum):
     LOST_CROW = "Lost Crow"
     LIFE_SEED = "Life Seed"
     SOUL_ORB = "Soul Orb"
-    SHARD = "Shard"
+    SHRINE = "Shrine"
 
 
 class DeathsDoorItemName(str, Enum):
@@ -274,7 +274,7 @@ item_table: list[DeathsDoorItemData] = [
         400,
         ItemClassification.useful,
         8,
-        [ItemGroup.SHARD],
+        [ItemGroup.SHRINE],
     ),
     DeathsDoorItemData(
         DeathsDoorItemName.MAGIC_SHARD,
@@ -282,7 +282,7 @@ item_table: list[DeathsDoorItemData] = [
         450,
         ItemClassification.useful,
         8,
-        [ItemGroup.SHARD],
+        [ItemGroup.SHRINE],
     ),
     DeathsDoorItemData(
         DeathsDoorItemName.SOULS,
