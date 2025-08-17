@@ -7,6 +7,7 @@ except ModuleNotFoundError:
 from ..items import DeathsDoorItemName as I
 from ..regions import DeathsDoorRegionName as R
 from ..options import OffscreenTargetingTricks
+from ..events import DeathsDoorEventName as E
 
 flooded_fortress_entrances: list[DeathsDoorEntrance] = [
     # Entrances in Flooded Fortress
@@ -33,7 +34,7 @@ flooded_fortress_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.FLOODED_FORTRESS_FROG_KING_STATUE,
         R.FLOODED_FORTRESS_ENTRANCE,
-        True_(options=[OptionFilter(OffscreenTargetingTricks, 1)]),
+        True_(options=[OptionFilter(OffscreenTargetingTricks, 1)]) | Has(E.OOL),
     ),
     DeathsDoorEntrance(
         R.FLOODED_FORTRESS_FROG_KING_ENCOUNTER,

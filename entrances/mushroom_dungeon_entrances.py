@@ -29,7 +29,7 @@ mushroom_dungeon_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.MUSHROOM_DUNGEON_LOBBY,
         R.OVERGROWN_RUINS_OUTSIDE_MAIN_DUNGEON_GATE,
-        True_(options=[OptionFilter(GateRollsGlitch, 1)]),
+        True_(options=[OptionFilter(GateRollsGlitch, 1)]) | Has(E.OOL),
     ),
     DeathsDoorEntrance(
         R.MUSHROOM_DUNGEON_MAIN_HALL,
@@ -44,7 +44,7 @@ mushroom_dungeon_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.MUSHROOM_DUNGEON_BIG_DOOR,
         R.MUSHROOM_DUNGEON_LOBBY,
-        True_(options=[OptionFilter(GateRollsGlitch, 1)])
+        True_(options=[OptionFilter(GateRollsGlitch, 1)]) | Has(E.OOL)
     ),
     DeathsDoorEntrance(
         R.MUSHROOM_DUNGEON_MAIN_HALL,

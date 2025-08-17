@@ -75,7 +75,7 @@ lost_cemetery_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.LOST_CEMETERY_STEADHONE,
         R.LOST_CEMETERY_NEAR_EXIT_TO_STRANDED_SAILOR,
-        Has(E.LOST_CEMETERY_OPENED_EXIT_TO_SAILOR) | True_(options=[OptionFilter(GeometryExploits,1)]),
+        Has(E.LOST_CEMETERY_OPENED_EXIT_TO_SAILOR) | True_(options=[OptionFilter(GeometryExploits,1)]) | Has(E.OOL),
     ),
     DeathsDoorEntrance(R.LOST_CEMETERY_BELLTOWER, R.LOST_CEMETERY_STEADHONE, None),
     DeathsDoorEntrance(R.LOST_CEMETERY_EXIT_TO_CRYPT, R.LOST_CEMETERY_BELLTOWER, None),

@@ -1,5 +1,5 @@
 from .entrance_class import DeathsDoorEntrance
-from ..rule_builder_overrides import HasAll
+from ..rule_builder_overrides import HasAll, Has
 try:
     from rule_builder import (
         True_,
@@ -13,6 +13,7 @@ except ModuleNotFoundError:
 from ..items import DeathsDoorItemName as I
 from ..regions import DeathsDoorRegionName as R
 from ..options import GateRollsGlitch
+from ..events import DeathsDoorEventName as E
 
 crypt_entrances: list[DeathsDoorEntrance] = [
     # Entrances in Crypt
@@ -26,6 +27,6 @@ crypt_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.CRYPT_EXIT_TO_ESTATE_OF_THE_URN_WITCH,
         R.CRYPT_MAIN_ROOM,
-        HasAll(I.LEVER_ESTATE_ELEVATOR_LEFT, I.LEVER_ESTATE_ELEVATOR_RIGHT) | True_(options=[OptionFilter(GateRollsGlitch, 1)]),
+        HasAll(I.LEVER_ESTATE_ELEVATOR_LEFT, I.LEVER_ESTATE_ELEVATOR_RIGHT) | True_(options=[OptionFilter(GateRollsGlitch, 1)]) | Has(E.OOL),
     ), 
 ]

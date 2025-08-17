@@ -60,14 +60,14 @@ lockstone_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_EAST_UPPER,
         R.CASTLE_LOCKSTONE_EAST,
-        True_(options=[OptionFilter(GeometryExploits,1)])
+        True_(options=[OptionFilter(GeometryExploits,1)]) | Has(E.OOL)
     ),
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_EAST_UPPER,
         R.CASTLE_LOCKSTONE_EAST_UPPER_KEYED_DOOR,
         HasAll(
             I.HOOKSHOT, I.LEVER_LOCKSTONE_UPPER_PUZZLE
-        ) | True_(options=[OptionFilter(GeometryExploits, 1)]),
+        ) | True_(options=[OptionFilter(GeometryExploits, 1)]) | Has(E.OOL),
     ),
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_LIBRARY,
