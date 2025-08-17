@@ -44,6 +44,6 @@ We talk about the development of this in the Death's Door thread in the `future-
 
 ## Acknowledgements
 
-A huge amount of credit for the original logic, options, and structure of what is randomized goes to [dpinela](https://github.com/dpinela) for their work on the [Multiworld Randomizer](https://github.com/dpinela/DeathsDoor.Randomizer).
+A huge amount of credit for the original logic, options, and structure of what is randomized goes to [dpinela](https://github.com/dpinela) for their work on the [Multiworld Randomizer](https://github.com/dpinela/DeathsDoor.Randomizer). Many of the glitch option descriptions are pulled from their comments.
 
 This apworld's logic structures rely on [rule_builder](https://github.com/ArchipelagoMW/Archipelago/pull/5048) by DrTChops. This apworld would have taken dramatically longer to build without it.
