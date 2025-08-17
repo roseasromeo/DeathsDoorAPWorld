@@ -14,6 +14,9 @@ class ItemGroup(str, Enum):
     LEVER = "Lever"
     DOOR = "Door"
     LOST_CROW = "Lost Crow"
+    LIFE_SEED = "Life Seed"
+    SOUL_ORB = "Soul Orb"
+    SHARD = "Shard"
 
 
 class DeathsDoorItemName(str, Enum):
@@ -191,7 +194,7 @@ item_table: list[DeathsDoorItemData] = [
         100,
         ItemClassification.progression_skip_balancing,
         50,
-        [],
+        [ItemGroup.LIFE_SEED],
     ),
     DeathsDoorItemData(
         DeathsDoorItemName.FIRE,
@@ -271,7 +274,7 @@ item_table: list[DeathsDoorItemData] = [
         400,
         ItemClassification.useful,
         8,
-        [],
+        [ItemGroup.SHARD],
     ),
     DeathsDoorItemData(
         DeathsDoorItemName.MAGIC_SHARD,
@@ -279,7 +282,7 @@ item_table: list[DeathsDoorItemData] = [
         450,
         ItemClassification.useful,
         8,
-        [],
+        [ItemGroup.SHARD],
     ),
     DeathsDoorItemData(
         DeathsDoorItemName.SOULS,
@@ -287,7 +290,7 @@ item_table: list[DeathsDoorItemData] = [
         500,
         ItemClassification.filler,
         0,
-        [],
+        [ItemGroup.SOUL_ORB],
     ),
     DeathsDoorItemData(
         DeathsDoorItemName.PINK_KEY,
