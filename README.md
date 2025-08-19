@@ -57,7 +57,7 @@ Start by installing the apworld (Steps 2-4 in [Instructions](#instructions)). Op
         - Rolling behind the grate in Castle Lockstone East Upper down to East
         - Rolling onto the wall from the upper right platform in Lockstone East Upper after making it go up to get into East Upper Keyed Door without the lever
         - When coming from the Old Watchtowers Barb Elevator, the lever to Ice Skating Start can be skipped by hooking over the gate from the ledge around the top of the elevator
-        - In Overgrown Ruins, access the Soul Orb in Lower that requires Hookshot by rolling onto the wall above and falling down. Standalone randomizer notes that this roll may require Haste (rolling state) >=2.
+        - In Overgrown Ruins, access the Soul Orb in Lower that requires Hookshot by rolling onto the wall above and falling down. Standalone randomizer notes that this roll may require Haste (rolling stat) >=2.
         - In Overgrown Ruins, access the Soul Orb in the Lord of Doors Hookshot arena by ???. Standalone randomizer is missing a description of this one, but best guess it is the same as the above.
 - Roll Buffers
     - Adds in logic roll buffers, where you roll in mid-air after a heavy attack. Three of these tricks can be performed with any weapon but the hammer. Two are doable only with Rogue Daggers. This option will cause all weapons besides the hammer to be marked as progression.
