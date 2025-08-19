@@ -1950,7 +1950,7 @@ location_table: list[DeathsDoorLocationData] = [
         DeathsDoorLocationName.LEVER_FORTRESS_WATCHTOWER_UPPER,
         "Lever-Fortress Watchtower Upper",
         942,
-        R.FLOODED_FORTRESS_ENTRANCE,
+        R.FLOODED_FORTRESS_WATCHTOWER_LOWER,
         [LocationGroup.LEVER],
     ),
     DeathsDoorLocationData(
