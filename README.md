@@ -66,3 +66,14 @@ Start by installing the apworld (Steps 2-4 in [Instructions](#instructions)). Op
         - Hall of Doors - Hookshot Secret Soul Orb: Up-right heavy and roll from above the Lord of Doors poster by the staircase near the Bomb Avarice Chest (Rogue Daggers only)
         - Hall of Doors - Modern Door Scale Model: Same as above (Rogue Daggers only)
         - Castle Lockstone - West Locked Crow: Heavy out of the ledge above the gate then immediately roll back
+
+## Contributing
+
+If you're interested in helping out, join the discussion in the [Archipelago Discord server](https://discord.com/invite/8Z65BR2).
+We talk about the development of this in the Death's Door thread in the `future-game-design` forum!
+
+## Acknowledgements
+
+A huge amount of credit for the original logic, options, and structure of what is randomized goes to [dpinela](https://github.com/dpinela) for their work on the [Multiworld Randomizer](https://github.com/dpinela/DeathsDoor.Randomizer). Many of the glitch option descriptions are pulled from their comments.
+
+This apworld's logic structures rely on [rule_builder](https://github.com/ArchipelagoMW/Archipelago/pull/5048) by DrTChops. This apworld would have taken dramatically longer to build without it.
