@@ -3,13 +3,14 @@ from .rule_builder_overrides import Has, HasAll, CanReachLocation, CanReachRegio
 from .items import DeathsDoorItemName as I
 from .locations import DeathsDoorLocationName as L
 from .regions import DeathsDoorRegionName as R
-from .options import StartDayOrNight
+from .options import StartDayOrNight, BombBellGlitch, OffscreenTargetingTricks
 from .events import (
     DeathsDoorEventLocationName as EL,
     DeathsDoorEventName as E,
     event_location_table,
     pot_table,
 )
+from .rules import HasEnoughLifeSeeds
 
 try:
     from rule_builder import (
@@ -40,11 +41,11 @@ pot_specific_rules: dict[EL, Rule["DeathsDoorWorld"]] = {
 
 deaths_door_event_rules: dict[EL, Rule["DeathsDoorWorld"] | None] = {
     EL.LORD_OF_DOORS: CanReachLocation(L.RUSTY_BELLTOWER_KEY),  # TODO: Goals
-    EL.LOST_CEMETERY_OPENED_EXIT_TO_SAILOR: Has(I.FIRE),
+    EL.LOST_CEMETERY_OPENED_EXIT_TO_SAILOR: Has(I.FIRE) | True_(options=[OptionFilter(OffscreenTargetingTricks, 1)]) | Has(E.OOL),
     EL.ACCESS_TO_NIGHT: True_(options=[OptionFilter(StartDayOrNight, 1)])
-    | (Has(I.RUSTY_BELLTOWER_KEY) & CanReachRegion(R.LOST_CEMETERY_BELLTOWER)),
+    | (Has(I.RUSTY_BELLTOWER_KEY) & CanReachRegion(R.LOST_CEMETERY_BELLTOWER)) | CanReachRegion(R.LOST_CEMETERY_SUMMIT, options=[OptionFilter(BombBellGlitch, 1)]),
     EL.ACCESS_TO_DAY: True_(options=[OptionFilter(StartDayOrNight, 0)])
-    | (Has(I.RUSTY_BELLTOWER_KEY) & CanReachRegion(R.LOST_CEMETERY_BELLTOWER)),
+    | (Has(I.RUSTY_BELLTOWER_KEY) & CanReachRegion(R.LOST_CEMETERY_BELLTOWER)) | CanReachRegion(R.LOST_CEMETERY_SUMMIT) & (True_(options=[OptionFilter(BombBellGlitch, 1)]) | Has(E.OOL)),
     EL.GREY_CROW_BOSS: HasAll(
         I.GIANT_SOUL_OF_BETTY,
         I.GIANT_SOUL_OF_THE_FROG_KING,
@@ -81,7 +82,7 @@ deaths_door_event_rules: dict[EL, Rule["DeathsDoorWorld"] | None] = {
 
 # Add in pots to existing tables to be able to use the same infrastructure
 for pot in pot_table:
-    pot_rule = Has(I.LIFE_SEED, 50)  ## TODO: Make a yaml setting
+    pot_rule = HasEnoughLifeSeeds()
     if pot.name in pot_specific_rules.keys():
         pot_rule = pot_rule & pot_specific_rules[pot.name]
     deaths_door_event_rules[pot.name] = pot_rule

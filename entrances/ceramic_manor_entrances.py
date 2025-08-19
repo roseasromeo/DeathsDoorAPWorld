@@ -1,12 +1,13 @@
 try:
-    from rule_builder import False_
+    from rule_builder import True_, OptionFilter
 except ModuleNotFoundError:
-    from ..rule_builder import False_
+    from ..rule_builder import True_, OptionFilter
 from .entrance_class import DeathsDoorEntrance
 from ..rule_builder_overrides import Has, HasAll
 from ..items import DeathsDoorItemName as I
 from ..regions import DeathsDoorRegionName as R
 from ..events import DeathsDoorEventName as E
+from ..options import GateRollsGlitch
 
 ceramic_manor_entrances: list[DeathsDoorEntrance] = [
     # Entrances in Ceramic Manor
@@ -22,8 +23,8 @@ ceramic_manor_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.CERAMIC_MANOR_MAIN_LOBBY,
         R.CERAMIC_MANOR_EXIT_TO_ESTATE_OF_THE_URN_WITCH,
-        False_(),
-    ),  ## TODO Glitch logic
+        True_(options=[OptionFilter(GateRollsGlitch, 1)]) | Has(E.OOL),
+    ),
     DeathsDoorEntrance(
         R.CERAMIC_MANOR_MAIN_LOBBY,
         R.CERAMIC_MANOR_LEFT,
@@ -49,5 +50,5 @@ ceramic_manor_entrances: list[DeathsDoorEntrance] = [
         R.CERAMIC_MANOR_EXIT_TO_FURNACE_OBSERVATION_ROOMS,
         Has(I.YELLOW_KEY, 3) & Has(I.FIRE),
     ),
-    ## TODO: Check if can return from furnace observation rooms without it being opened, not in base rando
+    ## TODO: Check if can return from furnace observation rooms without it being opened, not in base rando. Follow-up: Not without being able to use keys from the other side
 ]

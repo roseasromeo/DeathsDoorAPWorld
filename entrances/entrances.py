@@ -8,7 +8,7 @@ from .estate_entrances import estate_entrances
 from .flooded_fortress_entrances import flooded_fortress_entrances
 from .furnace_observation_entrances import furnace_observation_entrances
 from .grove_entrances import grove_entrances
-from .hall_of_doors import hall_of_doors_entrances
+from .hall_of_doors_entrances import hall_of_doors_entrances
 from .inner_furnace_entrances import inner_furnace_entrances
 from .lockstone_entrances import lockstone_entrances
 from .lost_cemetery_entrances import lost_cemetery_entrances
