@@ -1,5 +1,5 @@
 from typing import TYPE_CHECKING
-from .rule_builder_overrides import Has, HasAll, CanReachLocation, CanReachRegion
+from .rule_builder_overrides import Has, HasAll, CanReachRegion
 from .items import DeathsDoorItemName as I
 from .locations import DeathsDoorLocationName as L
 from .regions import DeathsDoorRegionName as R
@@ -39,7 +39,7 @@ pot_specific_rules: dict[EL, Rule["DeathsDoorWorld"]] = {
 
 
 deaths_door_event_rules: dict[EL, Rule["DeathsDoorWorld"] | None] = {
-    EL.LORD_OF_DOORS: CanReachLocation(L.RUSTY_BELLTOWER_KEY),  # TODO: Goals
+    EL.LORD_OF_DOORS: HasAll(E.GREY_CROW_BOSS, I.HOOKSHOT),  # TODO: Goals
     EL.LOST_CEMETERY_OPENED_EXIT_TO_SAILOR: Has(I.FIRE),
     EL.ACCESS_TO_NIGHT: True_(options=[OptionFilter(StartDayOrNight, 1)])
     | (Has(I.RUSTY_BELLTOWER_KEY) & CanReachRegion(R.LOST_CEMETERY_BELLTOWER)),
