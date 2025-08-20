@@ -7,6 +7,7 @@ from Options import (
     PerGameCommonOptions,
     OptionGroup,
     Toggle,
+    OptionSet,
 )
 
 
@@ -18,10 +19,12 @@ class StartDayOrNight(Choice):
     option_day = 0
     option_night = 1
 
+
 class EarlyImportantItem(Choice):
     """Choose whether one random important item will be placed early in the multiworld ("early"), early and in your world ("local early"), or be allowed to be randomly placed ("random placement").
     If random placement, generation is more likely to fail.
-    Important items are all non-boss doors, Hookshot, Bomb, and Fire since these unlock access to more early game checks."""
+    Important items are all non-boss doors, Hookshot, Bomb, and Fire since these unlock access to more early game checks.
+    """
 
     internal_name = "early_important_item"
     display_name = "Early Important Item"
@@ -29,6 +32,7 @@ class EarlyImportantItem(Choice):
     option_local_early = 1
     option_random_placement = 2
     default = option_early
+
 
 class StartWeapon(Choice):
     """Choose which weapon you would like to start with (others will be shuffled into the itempool as useful items). Note: Umbrella is a much worse weapon than the other 4. Choose at your own risk."""
@@ -44,17 +48,62 @@ class StartWeapon(Choice):
     default = option_sword
 
 
+class UnrandomizedPools(OptionSet):
+    """Allows sets of location-item pairs (pools) to be removed from randomization. Valid keys are:
+    - Spell
+    - Weapon
+    - Giant Soul
+    - Shrine
+    - Shiny Thing
+    - Life Seed
+    - Soul Orb
+    - Tablet
+    - Lever
+    - Door
+    - Key
+    - Lost Crow
+    
+    If you remove Weapons from randomization, your starting weapon will be forced to be the Reaper's Sword (default weapon).
+    If you remove Shiny Things from randomization, Rusty Belltower Key will still be added to the pool for day/night access.
+    If you combine this option with plando not from pool, you are very likely to encounter generation errors.
+    The fewer pools randomized, the more likely you are to encounter generation errors."""
+
+    internal_name = "unrandomized_pools"
+    display_name = "Unrandomized Pools"
+
+    valid_keys = frozenset(
+        {
+            "Spell",
+            "Weapon",
+            "Giant Soul",
+            "Shrine",
+            "Shiny Thing",
+            "Life Seed",
+            "Soul Orb",
+            "Tablet",
+            "Lever",
+            "Door",
+            "Key",
+            "Lost Crow",
+        }
+    )
+    default = frozenset({})
+
+
 @dataclass
 class DeathsDoorOptions(PerGameCommonOptions):
     start_inventory_from_pool: StartInventoryPool
     start_day_or_night: StartDayOrNight
     early_important_item: EarlyImportantItem
     start_weapon: StartWeapon
+    unrandomized_pools: UnrandomizedPools
 
 
 deathsdoor_options_presets: dict[str, dict[str, Any]] = {}
 
 deathsdoor_option_groups: list[OptionGroup] = [
-    OptionGroup("Logic Options", [StartDayOrNight, EarlyImportantItem]),
-    OptionGroup("Customization Options", [StartWeapon])
+    OptionGroup(
+        "Logic Options", [StartDayOrNight, EarlyImportantItem, UnrandomizedPools]
+    ),
+    OptionGroup("Customization Options", [StartWeapon]),
 ]

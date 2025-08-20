@@ -1,5 +1,7 @@
 from typing import ClassVar, Any
 from typing_extensions import override
+from vanilla_pools import vanilla_location_lookup
+from logging import warning
 
 from Options import Option
 
@@ -11,6 +13,7 @@ from .options import (
     DeathsDoorOptions,
     deathsdoor_options_presets,
     deathsdoor_option_groups,
+    StartWeapon,
 )
 from .items import (
     item_name_to_id,
@@ -36,7 +39,11 @@ from worlds.AutoWorld import World, WebWorld
 from BaseClasses import MultiWorld, Region, Location, Item, ItemClassification, Tutorial
 
 # from .tracker import tracker_world
-from .json_generator import generate_rule_json, generate_items_json, generate_locations_json
+from .json_generator import (
+    generate_rule_json,
+    generate_items_json,
+    generate_locations_json,
+)
 
 deathsdoor_version = "0.1.0"
 
@@ -62,7 +69,7 @@ class DeathsDoorWeb(WebWorld):
             language="English",
             file_name="setup_en.md",
             link="setup/en",
-            authors=[""]
+            authors=[""],
         )
     ]
 
@@ -130,7 +137,20 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             self.multiworld.early_items[self.player][important_item.value] = 1
         elif self.options.early_important_item.option_local_early:
             self.multiworld.local_early_items[self.player][important_item.value] = 1
-        
+
+
+        # warn for all the incompatible options
+        if "Weapon" in self.options.unrandomized_pools.value:
+            if self.options.start_weapon != StartWeapon.option_sword:
+                warning(
+                    "If Weapons are not randomized, start weapon will be forced to be sword."
+                )
+                self.options.start_weapon = StartWeapon.option_sword
+        if "Shiny Thing" in self.options.unrandomized_pools.value:
+            warning("Rusty Belltower Key will still be added to the pool so that the player has access to day/night")
+            if "Soul Orb" in self.options.unrandomized_pools.value:
+                warning("Without Soul Orbs, there is no space to put the Rusty Belltower Key, so a random item will be added to the player's start inventory")
+
         # Universal Tracker slot data handling
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
         if re_gen_passthrough and self.game in re_gen_passthrough:
@@ -151,15 +171,61 @@ class DeathsDoorWorld(RuleWorldMixin, World):
 
         for location_data in location_table:
             region = self.get_region(location_data.region.value)
-            location = DeathsDoorLocation(
-                self.player, location_data.name.value, location_data.location_id, region
+            current_location_group_names = set(
+                location_group.value for location_group in location_data.location_groups
             )
-            region.locations.append(location)
+
+            # Make all locations that have not been specifically chosen in unrandomized_pools
+            # If we somehow end up with items in two location groups, only omit them from randomization if all of their groups have been selected for unrandomized
+            if (
+                len(
+                    self.options.unrandomized_pools.value.intersection(
+                        current_location_group_names
+                    )
+                )
+                == 0
+            ):
+                location = DeathsDoorLocation(
+                    self.player,
+                    location_data.name.value,
+                    location_data.location_id,
+                    region,
+                )
+                region.locations.append(location)
+            elif (
+                "Life Seed" in self.options.unrandomized_pools.value
+                and "Life Seed" in current_location_group_names
+            ):
+                # To avoid having to list all the life seeds individually
+                location = DeathsDoorLocation(
+                    self.player,
+                    location_data.name.value,
+                    None,
+                    region,
+                )
+                region.locations.append(location)
+                location.place_locked_item(
+                    self.create_event(I.LIFE_SEED.value)
+                )
+            else:
+                # Create an event with the vanilla item name as needed
+                if location_data.name in vanilla_location_lookup.keys():
+                    location = DeathsDoorLocation(
+                        self.player,
+                        location_data.name.value,
+                        None,
+                        region,
+                    )
+                    region.locations.append(location)
+                    location.place_locked_item(
+                        self.create_event(
+                            vanilla_location_lookup[location_data.name].value
+                        )
+                    )
+            # Skip all other pools/locations selected as unrandomized (ex. non-progression)
 
         for event_location_data in event_location_table:
-            region = self.get_region(
-                event_location_data.region.value
-            )
+            region = self.get_region(event_location_data.region.value)
             event_location = DeathsDoorLocation(
                 self.player, event_location_data.name.value, None, region
             )
@@ -186,7 +252,9 @@ class DeathsDoorWorld(RuleWorldMixin, World):
 
         # otherwise, look up the item data
         item_data = next(data for data in item_table if data.name.value == name)
-        if True and IG.TABLET in item_data.item_groups: # This True is here so we can eventually have a tablet goal
+        if (
+            True and IG.TABLET in item_data.item_groups
+        ):  # This True is here so we can eventually have a tablet goal
             return DeathsDoorItem(
                 name, ItemClassification.filler, self.item_name_to_id[name], self.player
             )
@@ -195,16 +263,24 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                 name, item_data.classification, self.item_name_to_id[name], self.player
             )
 
+    def create_event(self, name: str) -> DeathsDoorItem:
+        # for creating event versions of items for non-randomized pools
+        return DeathsDoorItem(name, ItemClassification.progression, None, self.player)
+
     def create_items(self) -> None:
         deathsdoor_items: list[DeathsDoorItem] = []
         items_to_create: dict[str, int] = {
-            data.name.value: data.base_quantity_in_item_pool for data in item_table
+            data.name.value: data.base_quantity_in_item_pool
+            for data in item_table
+            if len(self.options.unrandomized_pools.value.intersection(
+                set(data.item_groups)) == 0
+            )  ## filter out unrandomized pools
         }
 
         if not self.options.start_weapon.option_sword:
             starting_weapon: int = 0
             if self.options.start_weapon.option_random_excluding_umbrella:
-                starting_weapon = self.random.randint(0,3)
+                starting_weapon = self.random.randint(0, 3)
             else:
                 starting_weapon = self.options.start_weapon.value
             # Default is that Reaper's Sword is not in the pool, and the others are
@@ -220,10 +296,18 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             elif starting_weapon == 4:
                 items_to_create[I.DISCARDED_UMBRELLA.value] = 0
 
-
         for item, quantity in items_to_create.items():
             for i in range(quantity):
                 deathsdoor_items.append(self.create_item(item))
+        if "Shiny Thing" in self.options.unrandomized_pools.value:
+            # Still add the Rusty Belltower Key to pool so it is accessible for night
+            deathsdoor_items.append(self.create_item(I.RUSTY_BELLTOWER_KEY.value))
+            if "Soul Orb" in self.options.unrandomized_pools.value:
+                # randomly choose an item to precollect, since there won't be space
+                # for the Belltower key
+                item: DeathsDoorItem = self.random.choice(deathsdoor_items)
+                self.push_precollected(item)
+                deathsdoor_items.remove(item)
 
         junk = len(self.multiworld.get_unfilled_locations(self.player)) - len(
             deathsdoor_items
@@ -257,18 +341,22 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         return "100 Souls"
 
     @classmethod
-    def stage_fill_hook(cls,
-                        multiworld: MultiWorld,
-                        progitempool: list[Item],
-                        usefulitempool: list[Item],
-                        filleritempool: list[Item],
-                        fill_locations: list[Location],
-                        ) -> None:
+    def stage_fill_hook(
+        cls,
+        multiworld: MultiWorld,
+        progitempool: list[Item],
+        usefulitempool: list[Item],
+        filleritempool: list[Item],
+        fill_locations: list[Location],
+    ) -> None:
         # This function was borrowed from Mysteryem's implementation of Lego Star Wars Complete Saga
         # https://github.com/Mysteryem/Archipelago-TCS/blob/v1.0.1/lego_star_wars_tcs/__init__.py#L1298-L1334
         game_player_ids = set(multiworld.get_game_players(cls.game))
-        game_minimal_player_ids = {player for player in game_player_ids
-                                   if multiworld.worlds[player].options.accessibility == "minimal"}
+        game_minimal_player_ids = {
+            player
+            for player in game_player_ids
+            if multiworld.worlds[player].options.accessibility == "minimal"
+        }
 
         def sort_func(item: Item):
             if item.player in game_player_ids and item.name == I.LIFE_SEED.value:
