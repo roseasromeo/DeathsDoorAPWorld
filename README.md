@@ -36,3 +36,44 @@ Start by installing the apworld (Steps 2-4 in [Instructions](#instructions)). Op
 - Starting Weapon
     - Choose which weapon you would like to start with (others will be shuffled into the itempool as useful items).
     - Note: Umbrella is a much worse weapon than the other 4. Choose at your own risk.
+- Planted Pots Required
+    - Choose how many planted seeds are required to unlock the Green Tablet door in the Estate of the Urn Witch Family Tomb. Vanilla is 50, defaults to 25. Adjusts the number of Life Seeds that are marked as progression. If you are having generation failures due to FillError, consider lowering this number.
+- Gate Rolls Glitch
+    - Adds the option in logic of rolling through gates.
+        - Estate entrance to Crypt through metal gate
+        - Mushroom Dungeon Lobby to Overgrown Ruins through vines
+        - Mushroom Dungeon Ancient Door to Lobby through a metal gate and a cobweb
+        - Ceramic Manor Lobby to the Manor exit to Estate through breakable-pot door
+- Bomb Bell Glitch
+    - Add the option in logic of shooting the Rusty Belltower Bomb from a railing to trigger the Day/Night switch.
+- Offscreen Targeting Tricks
+    - Add in logic three tricks in which you must target an enemy or switch from offscreen.
+        - Open the switch between Lost Cemetery and Stranded Sailor caves using an Arrow through a fire source instead of Fire
+        - Open a bomb wall in Overgrown Ruins lower by hitting an offscreen bomb flower with an arrow
+        - Open the path backwards from Flooded Fortress Frog King Statue back to the entrance by hitting a switch offscreen
+- Geometry Exploits
+    - Adds in logic a series of exploits where you roll on unintended surfaces.
+        - Rolling across the walls near the ladder immediately outside the exit from Lost Cemetery to Stranded Sailor Caves to navigate around the switch on the Lost Cemetery side
+        - Rolling behind the grate in Castle Lockstone East Upper down to East
+        - Rolling onto the wall from the upper right platform in Lockstone East Upper after making it go up to get into East Upper Keyed Door without the lever
+        - When coming from the Old Watchtowers Barb Elevator, the lever to Ice Skating Start can be skipped by hooking over the gate from the ledge around the top of the elevator
+        - In Overgrown Ruins, access the Soul Orb in Lower that requires Hookshot by rolling onto the wall above and falling down. Standalone randomizer notes that this roll may require Haste (rolling stat) >=2.
+        - In Overgrown Ruins, access the Soul Orb in the Lord of Doors Hookshot arena by ???. Standalone randomizer is missing a description of this one, but best guess it is the same as the above.
+- Roll Buffers
+    - Adds in logic roll buffers, where you roll in mid-air after a heavy attack. Three of these tricks can be performed with any weapon but the hammer. Two are doable only with Rogue Daggers. This option will cause all weapons besides the hammer to be marked as progression.
+        - Hall of Doors - Surveillance Device: Heavy to the right and roll down-right from behind the bin near the Discarded Umbrella check
+        - Hall of Doors - Bomb Secret Soul Orb: Same as above
+        - Hall of Doors - Hookshot Secret Soul Orb: Up-right heavy and roll from above the Lord of Doors poster by the staircase near the Bomb Avarice Chest (Rogue Daggers only)
+        - Hall of Doors - Modern Door Scale Model: Same as above (Rogue Daggers only)
+        - Castle Lockstone - West Locked Crow: Heavy out of the ledge above the gate then immediately roll back
+
+## Contributing
+
+If you're interested in helping out, join the discussion in the [Archipelago Discord server](https://discord.com/invite/8Z65BR2).
+We talk about the development of this in the Death's Door thread in the `future-game-design` forum!
+
+## Acknowledgements
+
+A huge amount of credit for the original logic, options, and structure of what is randomized goes to [dpinela](https://github.com/dpinela) for their work on the [Multiworld Randomizer](https://github.com/dpinela/DeathsDoor.Randomizer). Many of the glitch option descriptions are pulled from their comments.
+
+This apworld's logic structures rely on [rule_builder](https://github.com/ArchipelagoMW/Archipelago/pull/5048) by DrTChops. This apworld would have taken dramatically longer to build without it.

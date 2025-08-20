@@ -1,8 +1,13 @@
 from .entrance_class import DeathsDoorEntrance
 from ..rule_builder_overrides import Has, HasAny, HasAll, CanReachRegion
+try:
+    from rule_builder import True_, OptionFilter
+except ModuleNotFoundError:
+    from ..rule_builder import True_, OptionFilter
 from ..items import DeathsDoorItemName as I
 from ..regions import DeathsDoorRegionName as R
 from ..events import DeathsDoorEventName as E
+from ..options import GeometryExploits
 
 lockstone_entrances: list[DeathsDoorEntrance] = [
     # Entrances in Castle Lockstone
@@ -54,10 +59,15 @@ lockstone_entrances: list[DeathsDoorEntrance] = [
     ),
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_EAST_UPPER,
+        R.CASTLE_LOCKSTONE_EAST,
+        True_(options=[OptionFilter(GeometryExploits,1)]) | Has(E.OOL)
+    ),
+    DeathsDoorEntrance(
+        R.CASTLE_LOCKSTONE_EAST_UPPER,
         R.CASTLE_LOCKSTONE_EAST_UPPER_KEYED_DOOR,
         HasAll(
             I.HOOKSHOT, I.LEVER_LOCKSTONE_UPPER_PUZZLE
-        ),  ##TODO: base rando notes that lever can be skipped?
+        ) | True_(options=[OptionFilter(GeometryExploits, 1)]) | Has(E.OOL),
     ),
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_LIBRARY,

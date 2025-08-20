@@ -11,6 +11,7 @@ except ModuleNotFoundError:
     from .rule_builder import RuleWorldMixin
 from .options import (
     DeathsDoorOptions,
+    StartWeapon,
     deathsdoor_options_presets,
     deathsdoor_option_groups,
     StartWeapon,
@@ -243,7 +244,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             )
             self.create_entrance(start_region, end_region, deathsdoor_entrance.rule)
 
-    def create_item(self, name: str) -> DeathsDoorItem:
+    def create_item(self, name: str, useful: bool = False) -> DeathsDoorItem:
         # if the name provided is an event, create it as an event
         if name in E:
             return DeathsDoorItem(
@@ -252,7 +253,13 @@ class DeathsDoorWorld(RuleWorldMixin, World):
 
         # otherwise, look up the item data
         item_data = next(data for data in item_table if data.name.value == name)
-        if (
+        if useful:
+            # Used to create useful versions instead of progression based on option
+            # Standard create_item will still create the progression version
+            return DeathsDoorItem(
+                name, ItemClassification.useful, self.item_name_to_id[name], self.player
+            )
+        elif (
             True and IG.TABLET in item_data.item_groups
         ):  # This True is here so we can eventually have a tablet goal
             return DeathsDoorItem(
@@ -277,15 +284,15 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             )  ## filter out unrandomized pools
         }
 
-        if not self.options.start_weapon.option_sword:
+        if self.options.start_weapon != StartWeapon.option_sword:
             starting_weapon: int = 0
-            if self.options.start_weapon.option_random_excluding_umbrella:
+            if self.options.start_weapon == StartWeapon.option_random_excluding_umbrella:
                 starting_weapon = self.random.randint(0, 3)
             else:
                 starting_weapon = self.options.start_weapon.value
             # Default is that Reaper's Sword is not in the pool, and the others are
             # Mod handles granting the starting weapon
-            if not starting_weapon == 0:
+            if starting_weapon != 0:
                 items_to_create[I.SWORD.value] = 1
             if starting_weapon == 1:
                 items_to_create[I.ROGUE_DAGGERS.value] = 0
@@ -295,9 +302,36 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                 items_to_create[I.REAPERS_GREATSWORD.value] = 0
             elif starting_weapon == 4:
                 items_to_create[I.DISCARDED_UMBRELLA.value] = 0
+        
+        if self.options.roll_buffers.value == 0:
+            # If roll_buffers is not on, convert the weapons back to being useful
+            # Done so to ensure that any weapons used in rules are created by create_item as useful if we aren't directly responsible for creating it
+            for weapon_name in [I.SWORD.value, I.ROGUE_DAGGERS.value, I.REAPERS_GREATSWORD, I.DISCARDED_UMBRELLA]:
+                if items_to_create[weapon_name] == 1:
+                    items_to_create[weapon_name] = 0
+                    deathsdoor_items.append(self.create_item(weapon_name, True))
 
+        if (self.options.plant_pot_number.value < 50):
+            # Only create up to the number of Life Seeds needed for check as progression
+            items_to_create[I.LIFE_SEED.value] = self.options.plant_pot_number.value
+            # Remainder are useful
+            for _ in range(50 - self.options.plant_pot_number.value):
+                deathsdoor_items.append(self.create_item(I.LIFE_SEED.value, True))
+        
+        # Create extra life seeds
+        for _ in range(self.options.extra_life_seeds.value):
+            deathsdoor_items.append(self.create_item(I.LIFE_SEED.value, True))
+
+        # Create extra magic shards
+        for _ in range(self.options.extra_magic_shards.value):
+            deathsdoor_items.append(self.create_item(I.MAGIC_SHARD.value))
+        
+        # Create extra vitality shards
+        for _ in range(self.options.extra_vitality_shards.value):
+            deathsdoor_items.append(self.create_item(I.VITALITY_SHARD.value))
+            
         for item, quantity in items_to_create.items():
-            for i in range(quantity):
+            for _ in range(quantity):
                 deathsdoor_items.append(self.create_item(item))
         if "Shiny Thing" in self.options.unrandomized_pools.value:
             # Still add the Rusty Belltower Key to pool so it is accessible for night
@@ -333,7 +367,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         # A dictionary returned from this method gets set as the slot_data and will be sent to the client after connecting.
         # The options dataclass has a method to return a `Dict[str, Any]` of each option name provided and the relevant
         # option's value.
-        slot_data = self.options.as_dict("start_day_or_night", "start_weapon")
+        slot_data = self.options.as_dict("start_day_or_night", "start_weapon", "plant_pot_number")
         slot_data["APWorldVersion"] = deathsdoor_version
         return slot_data
 
@@ -359,7 +393,8 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         }
 
         def sort_func(item: Item):
-            if item.player in game_player_ids and item.name == I.LIFE_SEED.value:
+            if item.player in game_player_ids and item.name == I.LIFE_SEED.value and ItemClassification.progression in item.classification:
+                # Only sort the progression Life Seeds
                 if item.player in game_minimal_player_ids:
                     # For minimal players, place Life Seeds first. This helps prevent fill from dumping logically relevant
                     # items into unreachable locations and reducing the number of reachable locations to fewer than the

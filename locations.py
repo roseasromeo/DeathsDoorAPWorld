@@ -17,6 +17,8 @@ class LocationGroup(Enum):
     DOOR = "Door"
     KEY = "Key"
     LOST_CROW = "Lost Crow"
+    NIGHT = "Night"
+    AVARICE = "Avarice"
 
 
 class DeathsDoorLocationName(str, Enum):
@@ -27,7 +29,7 @@ class DeathsDoorLocationName(str, Enum):
     FIRE_AVARICE = "Hall of Doors - Fire Avarice (Ceramic Manor Ancient Door)"
     BOMB_AVARICE = "Hall of Doors - Bomb Avarice (Mushroom Dungeon Ancient Door)"
     HOOKSHOT_AVARICE = (
-        "Hall of Doors - Hookshot Avarice (Mushroom Dungeon Ancient Door)"
+        "Hall of Doors - Hookshot Avarice (Castle Lockstone Ancient Door)"
     )
     FIRE_SILENT_SERVANT = "Lost Cemetery - Crypt Fire Silent Servant"
     BOMB_SILENT_SERVANT = "Lost Cemetery - East Tree Bridge Bomb Silent Servant"
@@ -431,21 +433,21 @@ location_table: list[DeathsDoorLocationData] = [
         "Fire Avarice",
         200,
         R.FIRE_AVARICE,
-        [LocationGroup.SPELL],
+        [LocationGroup.SPELL, LocationGroup.AVARICE],
     ),
     DeathsDoorLocationData(
         DeathsDoorLocationName.BOMB_AVARICE,
         "Bomb Avarice",
         210,
         R.BOMB_AVARICE,
-        [LocationGroup.SPELL],
+        [LocationGroup.SPELL, LocationGroup.AVARICE],
     ),
     DeathsDoorLocationData(
         DeathsDoorLocationName.HOOKSHOT_AVARICE,
         "Hookshot Avarice",
         220,
         R.HOOKSHOT_AVARICE,
-        [LocationGroup.SPELL],
+        [LocationGroup.SPELL, LocationGroup.AVARICE],
     ),
     DeathsDoorLocationData(
         DeathsDoorLocationName.FIRE_SILENT_SERVANT,
@@ -806,7 +808,7 @@ location_table: list[DeathsDoorLocationData] = [
         "Mysterious Locket",
         723,
         R.OLD_WATCHTOWERS_CAVE_ENTRANCE,
-        [LocationGroup.SHINY_THING],
+        [LocationGroup.SHINY_THING, LocationGroup.NIGHT],
     ),
     # Seeds
     DeathsDoorLocationData(
@@ -1593,14 +1595,14 @@ location_table: list[DeathsDoorLocationData] = [
         "Red Ancient Tablet of Knowledge",
         800,
         R.FLOODED_FORTRESS_ENTRANCE,
-        [LocationGroup.TABLET],
-    ),  ##### TODO: JEFFERSON IS NOT FULLY TESTED
+        [LocationGroup.TABLET, LocationGroup.NIGHT],
+    ),
     DeathsDoorLocationData(
         DeathsDoorLocationName.YELLOW_ANCIENT_TABLET_OF_KNOWLEDGE,
         "Yellow Ancient Tablet of Knowledge",
         801,
         R.OVERGROWN_RUINS_OUTSIDE_FRONT_GATE,
-        [LocationGroup.TABLET],
+        [LocationGroup.TABLET, LocationGroup.NIGHT],
     ),
     DeathsDoorLocationData(
         DeathsDoorLocationName.GREEN_ANCIENT_TABLET_OF_KNOWLEDGE,
@@ -1614,42 +1616,42 @@ location_table: list[DeathsDoorLocationData] = [
         "Cyan Ancient Tablet of Knowledge",
         803,
         R.LOST_CEMETERY_RIGHT_ARENA,
-        [LocationGroup.TABLET],
+        [LocationGroup.TABLET, LocationGroup.NIGHT],
     ),
     DeathsDoorLocationData(
         DeathsDoorLocationName.BLUE_ANCIENT_TABLET_OF_KNOWLEDGE,
         "Blue Ancient Tablet of Knowledge",
         804,
-        R.OLD_WATCHTOWERS_FIRST_POT_AREA,  ##TODO CHECK THIS REGION
-        [LocationGroup.TABLET],
+        R.OLD_WATCHTOWERS_FIRST_POT_AREA
+        [LocationGroup.TABLET, LocationGroup.NIGHT],
     ),
     DeathsDoorLocationData(
         DeathsDoorLocationName.PURPLE_ANCIENT_TABLET_OF_KNOWLEDGE,
         "Purple Ancient Tablet of Knowledge",
         805,
         R.LOST_CEMETERY_STEADHONE,
-        [LocationGroup.TABLET],
+        [LocationGroup.TABLET, LocationGroup.NIGHT],
     ),
     DeathsDoorLocationData(
         DeathsDoorLocationName.ESTATE_OWL,
         "Estate Owl",
         806,
         R.ESTATE_OF_THE_URN_WITCH_GARDEN_OF_LIFE_END,
-        [LocationGroup.TABLET],
+        [LocationGroup.TABLET, LocationGroup.NIGHT],
     ),
     DeathsDoorLocationData(
         DeathsDoorLocationName.RUINS_OWL,
         "Ruins Owl",
         807,
         R.OVERGROWN_RUINS_FOREST_SETTLEMENT,
-        [LocationGroup.TABLET],
+        [LocationGroup.TABLET, LocationGroup.NIGHT],
     ),
     DeathsDoorLocationData(
         DeathsDoorLocationName.WATCHTOWERS_OWL,
         "Watchtowers Owl",
         808,
         R.OLD_WATCHTOWERS_ICE_SKATING_END,
-        [LocationGroup.TABLET],
+        [LocationGroup.TABLET, LocationGroup.NIGHT],
     ),
     # Levers
     DeathsDoorLocationData(
@@ -1950,7 +1952,7 @@ location_table: list[DeathsDoorLocationData] = [
         DeathsDoorLocationName.LEVER_FORTRESS_WATCHTOWER_UPPER,
         "Lever-Fortress Watchtower Upper",
         942,
-        R.FLOODED_FORTRESS_ENTRANCE,
+        R.FLOODED_FORTRESS_WATCHTOWER_LOWER,
         [LocationGroup.LEVER],
     ),
     DeathsDoorLocationData(

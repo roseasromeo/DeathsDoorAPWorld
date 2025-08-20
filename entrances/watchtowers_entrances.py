@@ -1,7 +1,13 @@
 from .entrance_class import DeathsDoorEntrance
 from ..rule_builder_overrides import Has, HasAll
+try:
+    from rule_builder import True_, OptionFilter
+except ModuleNotFoundError:
+    from ..rule_builder import True_, OptionFilter
 from ..items import DeathsDoorItemName as I
 from ..regions import DeathsDoorRegionName as R
+from ..events import DeathsDoorEventName as E
+from ..options import GeometryExploits
 
 watchtower_entrances: list[DeathsDoorEntrance] = [
     # Entrances in Old Watchtowers
@@ -66,11 +72,9 @@ watchtower_entrances: list[DeathsDoorEntrance] = [
         Has(I.HOOKSHOT),
     ),
     DeathsDoorEntrance(
-        # From base rando: When coming from the Barb elevator, the lever can be skipped by hooking
-        # over the gate from the ledge around the top of the elevator.
         R.OLD_WATCHTOWERS_BARB_ELEVATOR,
         R.OLD_WATCHTOWERS_ICE_SKATING_START,
-        HasAll(I.HOOKSHOT, I.LEVER_WATCHTOWERS_BEFORE_ICE_ARENA),
+        HasAll(I.HOOKSHOT, I.LEVER_WATCHTOWERS_BEFORE_ICE_ARENA) | Has(I.HOOKSHOT) & (True_(options=[OptionFilter(GeometryExploits, 1)]) | Has(E.OOL)),
     ),
     DeathsDoorEntrance(
         R.OLD_WATCHTOWERS_HEADLESS_LORD_OF_DOORS,
