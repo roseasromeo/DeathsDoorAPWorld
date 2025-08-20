@@ -35,7 +35,7 @@ class EarlyImportantItem(Choice):
     default = option_early
 
 class ExtraLifeSeeds(Range):
-    """Add extra life seeds to the item pool. Extra life seeds will be marked as useful. Extra items will replace 100 Souls items."""
+    """Add extra life seeds to the item pool. Extra life seeds will be marked as useful. Extra items will replace 100 Souls items. Maximum is 20."""
 
     internal_name = "extra_life_seeds"
     display_name = "Extra Life Seeds"
@@ -44,7 +44,7 @@ class ExtraLifeSeeds(Range):
     default = 0
 
 class ExtraMagicShards(Range):
-    """Add extra magic shards to the item pool. Extra magic shards can allow magic to go over the vanilla maximum of 6. Extra items will replace 100 Souls items."""
+    """Add extra magic shards to the item pool. Extra magic shards can allow magic to go over the vanilla maximum of 6. Extra items will replace 100 Souls items. Maximum is 8 (2 extra magic pips)."""
 
     internal_name = "extra_magic_shards"
     display_name = "Extra Magic Shards"
@@ -53,7 +53,7 @@ class ExtraMagicShards(Range):
     default = 0
 
 class ExtraVitalityShards(Range):
-    """Add extra vitality shards to the item pool. Extra health shards can allow health to go over the vanilla maximum of 6. These life seeds will replace 100 Souls items."""
+    """Add extra vitality shards to the item pool. Extra health shards can allow health to go over the vanilla maximum of 6. These life seeds will replace 100 Souls items. Maximum is 8 (2 extra vitality pips)."""
 
     internal_name = "extra_magic_shards"
     display_name = "Extra Magic Shards"
@@ -63,7 +63,7 @@ class ExtraVitalityShards(Range):
 
 
 class StartWeapon(Choice):
-    """Choose which weapon you would like to start with (others will be shuffled into the itempool as useful items). Note: Umbrella is a much worse weapon than the other 4. Choose at your own risk."""
+    """Choose which weapon you would like to start with (others will be shuffled into the itempool as useful items). Note: Umbrella is a much worse weapon than the other 4. Choose at your own risk. Defaults to sword (Reaper's Sword, the vanilla starting weapon)."""
 
     internal_name = "start_weapon"
     display_name = "Starting Weapon"
@@ -75,8 +75,26 @@ class StartWeapon(Choice):
     option_random_excluding_umbrella = 5
     default = option_sword
 
+class SoulMultiplier(Range):
+    """Set multiplier for all souls received during game (from enemies and from received Soul Orbs). Must be an integer. Constrained from 1x (vanilla) to 10x. Defaults to 2x."""
+    
+    internal_name = "soul_multiplier"
+    display_name = "Soul Multiplier"
+    range_start = 1
+    range_end = 10
+    default = 2
+
+class StartingSouls(Range):
+    """Amount of souls to start the game with. Useful for starting purchases. Vanilla and default is 0. Maximum is 17,200 (buy all stats at the beginning of the game)."""
+
+    internal_name = "starting_souls"
+    display_name = "Starting Souls"
+    range_start = 0
+    range_end = 17200
+    default = 0
+
 class PlantedPotsRequired(Range):
-    """Number of planted pots required for Green Tablet location. Also, adjusts the number of Life Seeds marked as Progression. Vanilla value is 50."""
+    """Number of planted pots required for Green Tablet location. Also, adjusts the number of Life Seeds marked as Progression. Vanilla value is 50. Minimum is 1. Defaults to 25."""
 
     internal_name = "plant_pot_number"
     display_name = "Number of Planted Pots Required for Green Tablet"
@@ -180,6 +198,8 @@ class DeathsDoorOptions(PerGameCommonOptions):
     start_day_or_night: StartDayOrNight
     early_important_item: EarlyImportantItem
     start_weapon: StartWeapon
+    soul_multiplier: SoulMultiplier
+    starting_souls: StartingSouls
     plant_pot_number: PlantedPotsRequired
     extra_life_seeds: ExtraLifeSeeds
     extra_magic_shards: ExtraMagicShards
@@ -197,5 +217,5 @@ deathsdoor_options_presets: dict[str, dict[str, Any]] = {}
 deathsdoor_option_groups: list[OptionGroup] = [
     OptionGroup("Logic Options", [StartDayOrNight, PlantedPotsRequired, EarlyImportantItem, GateRollsGlitch, BombBellGlitch, OffscreenTargetingTricks, GeometryExploits, RollBuffers]),
     OptionGroup("Itempool Modification Options", [ExtraLifeSeeds, ExtraMagicShards, ExtraVitalityShards, UnrandomizedPools]),
-    OptionGroup("Customization Options", [StartWeapon])
+    OptionGroup("Customization Options", [StartWeapon, SoulMultiplier, StartingSouls])
 ]
