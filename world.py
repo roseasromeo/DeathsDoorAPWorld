@@ -1,6 +1,5 @@
 from typing import ClassVar, Any
 from typing_extensions import override
-from vanilla_pools import vanilla_location_lookup
 from logging import warning
 
 from Options import Option
@@ -16,6 +15,7 @@ from .options import (
     deathsdoor_option_groups,
     StartWeapon,
 )
+from .vanilla_pools import vanilla_location_lookup
 from .items import (
     item_name_to_id,
     item_table,
@@ -139,18 +139,33 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         elif self.options.early_important_item.option_local_early:
             self.multiworld.local_early_items[self.player][important_item.value] = 1
 
-
         # warn for all the incompatible options
         if "Weapon" in self.options.unrandomized_pools.value:
             if self.options.start_weapon != StartWeapon.option_sword:
                 warning(
                     "If Weapons are not randomized, start weapon will be forced to be sword."
                 )
-                self.options.start_weapon = StartWeapon.option_sword
+                self.options.start_weapon.value = StartWeapon.option_sword
         if "Shiny Thing" in self.options.unrandomized_pools.value:
-            warning("Rusty Belltower Key will still be added to the pool so that the player has access to day/night")
+            warning(
+                "If Shiny Things are not randomized, Rusty Belltower Key will still be added to the pool so that the player has access to day/night"
+            )
             if "Soul Orb" in self.options.unrandomized_pools.value:
-                warning("Without Soul Orbs, there is no space to put the Rusty Belltower Key, so a random item will be added to the player's start inventory")
+                warning(
+                    "Without Soul Orbs and Shiny Things, there is no location to put the Rusty Belltower Key, so a random item will be added to the player's start inventory"
+                )
+        if "Soul Orb" in self.options.unrandomized_pools.value:
+            if (
+                self.options.extra_life_seeds.value > 0
+                or self.options.extra_magic_shards.value > 0
+                or self.options.extra_vitality_shards > 0
+            ):
+                warning(
+                    "If Soul Orbs are not randomized, no extra items can be safely added to the seed. Extra Life Seeds, Extra Magic Shards, and Extra Vitality Shards will be set to 0."
+                )
+                self.options.extra_life_seeds.value = 0
+                self.options.extra_magic_shards.value = 0
+                self.options.extra_vitality_shards.value = 0
 
         # Universal Tracker slot data handling
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
@@ -205,9 +220,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                     region,
                 )
                 region.locations.append(location)
-                location.place_locked_item(
-                    self.create_event(I.LIFE_SEED.value)
-                )
+                location.place_locked_item(self.create_event(I.LIFE_SEED.value))
             else:
                 # Create an event with the vanilla item name as needed
                 if location_data.name in vanilla_location_lookup.keys():
@@ -279,14 +292,21 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         items_to_create: dict[str, int] = {
             data.name.value: data.base_quantity_in_item_pool
             for data in item_table
-            if len(self.options.unrandomized_pools.value.intersection(
-                set(data.item_groups)) == 0
-            )  ## filter out unrandomized pools
+            if len(
+                self.options.unrandomized_pools.value.intersection(
+                    set(data.item_groups)
+                )
+            )
+            == 0  ## filter out unrandomized pools
         }
 
         if self.options.start_weapon != StartWeapon.option_sword:
+            # If Weapon unrandomized, start_weapon forced to be option_sword
             starting_weapon: int = 0
-            if self.options.start_weapon == StartWeapon.option_random_excluding_umbrella:
+            if (
+                self.options.start_weapon
+                == StartWeapon.option_random_excluding_umbrella
+            ):
                 starting_weapon = self.random.randint(0, 3)
             else:
                 starting_weapon = self.options.start_weapon.value
@@ -302,22 +322,30 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                 items_to_create[I.REAPERS_GREATSWORD.value] = 0
             elif starting_weapon == 4:
                 items_to_create[I.DISCARDED_UMBRELLA.value] = 0
-        
+
         if self.options.roll_buffers.value == 0:
             # If roll_buffers is not on, convert the weapons back to being useful
-            # Done so to ensure that any weapons used in rules are created by create_item as useful if we aren't directly responsible for creating it
-            for weapon_name in [I.SWORD.value, I.ROGUE_DAGGERS.value, I.REAPERS_GREATSWORD, I.DISCARDED_UMBRELLA]:
-                if items_to_create[weapon_name] == 1:
+            # Done so to ensure that any weapons used in rules are created by create_item as progression if we aren't directly responsible for creating it
+            for weapon_name in [
+                I.SWORD.value,
+                I.ROGUE_DAGGERS.value,
+                I.REAPERS_GREATSWORD,
+                I.DISCARDED_UMBRELLA,
+            ]:
+                if weapon_name in items_to_create.keys() and items_to_create[weapon_name] == 1:
                     items_to_create[weapon_name] = 0
                     deathsdoor_items.append(self.create_item(weapon_name, True))
 
-        if (self.options.plant_pot_number.value < 50):
+        if (
+            self.options.plant_pot_number.value < 50
+        ) and "Life Seed" not in self.options.unrandomized_pools.value:
+            # Only add life seeds to the pool if they are randomized
             # Only create up to the number of Life Seeds needed for check as progression
             items_to_create[I.LIFE_SEED.value] = self.options.plant_pot_number.value
             # Remainder are useful
             for _ in range(50 - self.options.plant_pot_number.value):
                 deathsdoor_items.append(self.create_item(I.LIFE_SEED.value, True))
-        
+
         # Create extra life seeds
         for _ in range(self.options.extra_life_seeds.value):
             deathsdoor_items.append(self.create_item(I.LIFE_SEED.value, True))
@@ -325,14 +353,15 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         # Create extra magic shards
         for _ in range(self.options.extra_magic_shards.value):
             deathsdoor_items.append(self.create_item(I.MAGIC_SHARD.value))
-        
+
         # Create extra vitality shards
         for _ in range(self.options.extra_vitality_shards.value):
             deathsdoor_items.append(self.create_item(I.VITALITY_SHARD.value))
-            
+
         for item, quantity in items_to_create.items():
             for _ in range(quantity):
                 deathsdoor_items.append(self.create_item(item))
+
         if "Shiny Thing" in self.options.unrandomized_pools.value:
             # Still add the Rusty Belltower Key to pool so it is accessible for night
             deathsdoor_items.append(self.create_item(I.RUSTY_BELLTOWER_KEY.value))
@@ -367,7 +396,9 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         # A dictionary returned from this method gets set as the slot_data and will be sent to the client after connecting.
         # The options dataclass has a method to return a `Dict[str, Any]` of each option name provided and the relevant
         # option's value.
-        slot_data = self.options.as_dict("start_day_or_night", "start_weapon", "plant_pot_number")
+        slot_data = self.options.as_dict(
+            "start_day_or_night", "start_weapon", "plant_pot_number"
+        )
         slot_data["APWorldVersion"] = deathsdoor_version
         return slot_data
 
@@ -393,7 +424,11 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         }
 
         def sort_func(item: Item):
-            if item.player in game_player_ids and item.name == I.LIFE_SEED.value and ItemClassification.progression in item.classification:
+            if (
+                item.player in game_player_ids
+                and item.name == I.LIFE_SEED.value
+                and ItemClassification.progression in item.classification
+            ):
                 # Only sort the progression Life Seeds
                 if item.player in game_minimal_player_ids:
                     # For minimal players, place Life Seeds first. This helps prevent fill from dumping logically relevant

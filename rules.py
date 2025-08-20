@@ -7,6 +7,7 @@ from .locations import location_table, DeathsDoorLocationName as L
 from .events import DeathsDoorEventName as E
 from .regions import DeathsDoorRegionName as R
 from .options import OffscreenTargetingTricks, GeometryExploits, RollBuffers
+from .vanilla_pools import vanilla_location_lookup
 
 try:
     from rule_builder import (
@@ -91,10 +92,15 @@ deaths_door_location_rules: dict[L, Rule["DeathsDoorWorld"] | None] = {
     L.GRUNTS_OLD_MASK: Has(E.RESCUE_GRUNT)
     & CanReachRegion(R.THRONE_OF_THE_FROG_KING),  ##TODO: FIX THIS
     L.ANCIENT_DOOR_SCALE_MODEL: Has(I.FIRE),
-    L.MODERN_DOOR_SCALE_MODEL: Has(I.HOOKSHOT) | CanReachRegion(R.POST_BOMB_AVARICE) & HasAll(I.ROGUE_DAGGERS, I.BOMB) & (True_(options=[OptionFilter(RollBuffers,1)]) | Has(E.OOL)),
+    L.MODERN_DOOR_SCALE_MODEL: Has(I.HOOKSHOT)
+    | CanReachRegion(R.POST_BOMB_AVARICE)
+    & HasAll(I.ROGUE_DAGGERS, I.BOMB)
+    & (True_(options=[OptionFilter(RollBuffers, 1)]) | Has(E.OOL)),
     L.RUSTY_BELLTOWER_KEY: HasAll(E.GREY_CROW_BOSS, I.HOOKSHOT),
     L.INK_COVERED_TEDDY_BEAR: Has(I.HOOKSHOT),
-    L.SURVEILLANCE_DEVICE: Has(I.BOMB) | HasAny(I.SWORD, I.ROGUE_DAGGERS, I.REAPERS_GREATSWORD, I.DISCARDED_UMBRELLA) & (True_(options=[OptionFilter(RollBuffers, 1)]) | Has(E.OOL)),
+    L.SURVEILLANCE_DEVICE: Has(I.BOMB)
+    | HasAny(I.SWORD, I.ROGUE_DAGGERS, I.REAPERS_GREATSWORD, I.DISCARDED_UMBRELLA)
+    & (True_(options=[OptionFilter(RollBuffers, 1)]) | Has(E.OOL)),
     L.SHINY_MEDALLION: Has(I.BOMB),
     L.MAKESHIFT_SOUL_KEY: Has(I.HOOKSHOT),
     L.MYSTERIOUS_LOCKET: Has(E.ACCESS_TO_NIGHT),
@@ -109,10 +115,15 @@ deaths_door_location_rules: dict[L, Rule["DeathsDoorWorld"] | None] = {
     L.SOUL_ORB_DUNGEON_COBWEB: Has(I.FIRE),
     L.SOUL_ORB_DUNGEON_LOWER_ENTRANCE: Has(I.BOMB),
     L.SOUL_ORB_RUINS_LOWER_BOMB_WALL: Has(I.BOMB)
-    | True_(options=[OptionFilter(OffscreenTargetingTricks, 1)]) | Has(E.OOL),
-    L.SOUL_ORB_RUINS_LORD_OF_DOORS_ARENA_HOOKSHOT: Has(I.HOOKSHOT) | True_(options=[OptionFilter(GeometryExploits, 1)]) | Has(E.OOL),
+    | True_(options=[OptionFilter(OffscreenTargetingTricks, 1)])
+    | Has(E.OOL),
+    L.SOUL_ORB_RUINS_LORD_OF_DOORS_ARENA_HOOKSHOT: Has(I.HOOKSHOT)
+    | True_(options=[OptionFilter(GeometryExploits, 1)])
+    | Has(E.OOL),
     L.SOUL_ORB_RUINS_ABOVE_ENTRANCE_GATE: Has(I.HOOKSHOT),
-    L.SOUL_ORB_RUINS_LOWER_HOOKSHOT: Has(I.HOOKSHOT) | True_(options=[OptionFilter(GeometryExploits, 1)]) | Has(E.OOL),
+    L.SOUL_ORB_RUINS_LOWER_HOOKSHOT: Has(I.HOOKSHOT)
+    | True_(options=[OptionFilter(GeometryExploits, 1)])
+    | Has(E.OOL),
     L.SEED_FORTRESS_WATCHTOWER: Has(I.LEVER_FORTRESS_WATCHTOWER_UPPER),
     L.SEED_FORTRESS_BRIDGE: HasAny(I.BOMB, I.HOOKSHOT),
     L.SOUL_ORB_FORTRESS_BOMB: Has(I.BOMB),
@@ -124,8 +135,12 @@ deaths_door_location_rules: dict[L, Rule["DeathsDoorWorld"] | None] = {
     L.SOUL_ORB_GARDEN_OF_PEACE: Has(I.BOMB),
     L.SOUL_ORB_FURNACE_LANTERN_CHAIN: Has(I.FIRE),
     L.SOUL_ORB_SMALL_ROOM: Has(I.FIRE),
-    L.SOUL_ORB_HOOKSHOT_SECRET: Has(I.HOOKSHOT) | CanReachRegion(R.POST_BOMB_AVARICE, options=[OptionFilter(RollBuffers,1)]) & HasAll(I.ROGUE_DAGGERS, I.BOMB),
-    L.SOUL_ORB_BOMB_SECRET: Has(I.BOMB) | HasAny(I.SWORD, I.ROGUE_DAGGERS, I.REAPERS_GREATSWORD, I.DISCARDED_UMBRELLA) & (True_(options=[OptionFilter(RollBuffers, 1)]) | Has(E.OOL)), 
+    L.SOUL_ORB_HOOKSHOT_SECRET: Has(I.HOOKSHOT)
+    | CanReachRegion(R.POST_BOMB_AVARICE, options=[OptionFilter(RollBuffers, 1)])
+    & HasAll(I.ROGUE_DAGGERS, I.BOMB),
+    L.SOUL_ORB_BOMB_SECRET: Has(I.BOMB)
+    | HasAny(I.SWORD, I.ROGUE_DAGGERS, I.REAPERS_GREATSWORD, I.DISCARDED_UMBRELLA)
+    & (True_(options=[OptionFilter(RollBuffers, 1)]) | Has(E.OOL)),
     L.SOUL_ORB_FIRE_SECRET: Has(I.FIRE),
     L.YELLOW_ANCIENT_TABLET_OF_KNOWLEDGE: Has(E.ACCESS_TO_NIGHT),
     L.RUINS_OWL: Has(E.ACCESS_TO_NIGHT),
@@ -159,7 +174,9 @@ deaths_door_location_rules: dict[L, Rule["DeathsDoorWorld"] | None] = {
     L.KEY_DUNGEON_NEAR_WATER_ARENA: Has(I.FIRE),
     L.KEY_DUNGEON_RIGHT: Has(I.FIRE),
     L.CROW_DUNGEON_COBWEB: Has(I.FIRE),
-    L.CROW_LOCKSTONE_WEST_LOCKED: Has(I.PINK_KEY, 5) | HasAny(I.SWORD, I.ROGUE_DAGGERS, I.REAPERS_GREATSWORD, I.DISCARDED_UMBRELLA) & (True_(options=[OptionFilter(RollBuffers, 1)]) | Has(E.OOL)),
+    L.CROW_LOCKSTONE_WEST_LOCKED: Has(I.PINK_KEY, 5)
+    | HasAny(I.SWORD, I.ROGUE_DAGGERS, I.REAPERS_GREATSWORD, I.DISCARDED_UMBRELLA)
+    & (True_(options=[OptionFilter(RollBuffers, 1)]) | Has(E.OOL)),
     L.RED_ANCIENT_TABLET_OF_KNOWLEDGE: HasAll(E.ACCESS_TO_NIGHT, I.HOOKSHOT)
     & CanJeffersonTraverse(),
 }
@@ -167,10 +184,21 @@ deaths_door_location_rules: dict[L, Rule["DeathsDoorWorld"] | None] = {
 
 def set_location_rules(world: "DeathsDoorWorld") -> None:
     for location_data in location_table:
-        if location_data.name in deaths_door_location_rules.keys():
-            rule = deaths_door_location_rules[location_data.name]
-        else:
-            rule = None
-        if rule is not None:
-            location = world.get_location(location_data.name.value)
-            world.set_rule(location, rule)
+        current_location_group_names = set(
+            location_group.value for location_group in location_data.location_groups
+        )
+        if (
+            len(
+                world.options.unrandomized_pools.value.intersection(
+                    current_location_group_names
+                )
+            )
+            == 0
+        ) or location_data.name in vanilla_location_lookup.keys():
+            if location_data.name in deaths_door_location_rules.keys():
+                rule = deaths_door_location_rules[location_data.name]
+            else:
+                rule = None
+            if rule is not None:
+                location = world.get_location(location_data.name.value)
+                world.set_rule(location, rule)

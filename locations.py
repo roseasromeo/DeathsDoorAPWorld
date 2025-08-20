@@ -1622,7 +1622,7 @@ location_table: list[DeathsDoorLocationData] = [
         DeathsDoorLocationName.BLUE_ANCIENT_TABLET_OF_KNOWLEDGE,
         "Blue Ancient Tablet of Knowledge",
         804,
-        R.OLD_WATCHTOWERS_FIRST_POT_AREA
+        R.OLD_WATCHTOWERS_FIRST_POT_AREA,
         [LocationGroup.TABLET, LocationGroup.NIGHT],
     ),
     DeathsDoorLocationData(

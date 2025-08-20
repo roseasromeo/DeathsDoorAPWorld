@@ -144,9 +144,10 @@ class UnrandomizedPools(OptionSet):
     - Tablet
     - Lever
     - Door
-    - Key
     - Lost Crow
     
+    Keys must be randomized because their vanilla locations can cause a softlock in rando.
+
     If you remove Weapons from randomization, your starting weapon will be forced to be the Reaper's Sword (default weapon).
     If you remove Shiny Things from randomization, Rusty Belltower Key will still be added to the pool for day/night access.
     If you combine this option with plando not from pool, you are very likely to encounter generation errors.
@@ -167,7 +168,6 @@ class UnrandomizedPools(OptionSet):
             "Tablet",
             "Lever",
             "Door",
-            "Key",
             "Lost Crow",
         }
     )
