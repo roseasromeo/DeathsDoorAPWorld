@@ -19,6 +19,7 @@ class DeathsDoorEventName(str, Enum):
     CASTLE_LOCKSTONE_LORD_DEADBOLT = "Castle Lockstone - Light Lord Deadbolt Lamp"
     CASTLE_LOCKSTONE_LORD_THEODOOR = "Castle Lockstone - Light Lord Theodoor Lamp"
     PLANTED_SEED = "Plant a Seed"
+    PINK_TABLET_PIECE = "Pink Tablet Segment" # Only if tablets unrandomized
     OOL = "Out of Logic Item"  # For Universal Tracker
 
 

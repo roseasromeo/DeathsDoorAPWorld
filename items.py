@@ -14,6 +14,9 @@ class ItemGroup(str, Enum):
     LEVER = "Lever"
     DOOR = "Door"
     LOST_CROW = "Lost Crow"
+    LIFE_SEED = "Life Seed"
+    SOUL_ORB = "Soul Orb"
+    SHRINE = "Shrine"
 
 
 class DeathsDoorItemName(str, Enum):
@@ -66,6 +69,7 @@ class DeathsDoorItemName(str, Enum):
     CYAN_ANCIENT_TABLET_OF_KNOWLEDGE = "Cyan Ancient Tablet of Knowledge"
     BLUE_ANCIENT_TABLET_OF_KNOWLEDGE = "Blue Ancient Tablet of Knowledge"
     PURPLE_ANCIENT_TABLET_OF_KNOWLEDGE = "Purple Ancient Tablet of Knowledge"
+    PINK_ANCIENT_TABLET_OF_KNOWLEDGE = "Pink Ancient Tablet of Knowledge"
     LEVER_BOMB_EXIT = "Hall of Doors - Bomb Exit Lever"
     LEVER_CEMETERY_SEWER = "Lost Cemetery - Sewer Lever"
     LEVER_GUARDIAN_OF_THE_DOOR_ACCESS = (
@@ -191,7 +195,7 @@ item_table: list[DeathsDoorItemData] = [
         100,
         ItemClassification.progression_skip_balancing,
         50,
-        [],
+        [ItemGroup.LIFE_SEED],
     ),
     DeathsDoorItemData(
         DeathsDoorItemName.FIRE,
@@ -271,7 +275,7 @@ item_table: list[DeathsDoorItemData] = [
         400,
         ItemClassification.useful,
         8,
-        [],
+        [ItemGroup.SHRINE],
     ),
     DeathsDoorItemData(
         DeathsDoorItemName.MAGIC_SHARD,
@@ -279,7 +283,7 @@ item_table: list[DeathsDoorItemData] = [
         450,
         ItemClassification.useful,
         8,
-        [],
+        [ItemGroup.SHRINE],
     ),
     DeathsDoorItemData(
         DeathsDoorItemName.SOULS,
@@ -287,7 +291,7 @@ item_table: list[DeathsDoorItemData] = [
         500,
         ItemClassification.filler,
         0,
-        [],
+        [ItemGroup.SOUL_ORB],
     ),
     DeathsDoorItemData(
         DeathsDoorItemName.PINK_KEY,
@@ -549,6 +553,14 @@ item_table: list[DeathsDoorItemData] = [
         DeathsDoorItemName.PURPLE_ANCIENT_TABLET_OF_KNOWLEDGE,
         "Purple Ancient Tablet of Knowledge",
         805,
+        ItemClassification.progression_skip_balancing,
+        1,
+        [ItemGroup.TABLET],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.PINK_ANCIENT_TABLET_OF_KNOWLEDGE,
+        "Pink Ancient Tablet of Knowledge",
+        806,
         ItemClassification.progression_skip_balancing,
         1,
         [ItemGroup.TABLET],
@@ -1117,7 +1129,7 @@ item_table: list[DeathsDoorItemData] = [
         DeathsDoorItemName.GIANT_SOUL_OF_THE_URN_WITCH,
         "Giant Soul of The Urn Witch",
         1200,
-        ItemClassification.progression,
+        ItemClassification.progression_skip_balancing,
         1,
         [ItemGroup.GIANT_SOUL],
     ),
@@ -1125,7 +1137,7 @@ item_table: list[DeathsDoorItemData] = [
         DeathsDoorItemName.GIANT_SOUL_OF_THE_FROG_KING,
         "Giant Soul of The Frog King",
         1201,
-        ItemClassification.progression,
+        ItemClassification.progression_skip_balancing,
         1,
         [ItemGroup.GIANT_SOUL],
     ),
@@ -1133,7 +1145,7 @@ item_table: list[DeathsDoorItemData] = [
         DeathsDoorItemName.GIANT_SOUL_OF_BETTY,
         "Giant Soul of Betty",
         1202,
-        ItemClassification.progression,
+        ItemClassification.progression_skip_balancing,
         1,
         [ItemGroup.GIANT_SOUL],
     ),
