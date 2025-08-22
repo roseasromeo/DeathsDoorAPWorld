@@ -300,6 +300,12 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             == 0  ## filter out unrandomized pools
         }
 
+        if "Weapon" not in self.options.unrandomized_pools.value and self.options.remove_spell_upgrades.value:
+            items_to_create[I.FIRE] = 1
+            items_to_create[I.BOMB] = 1
+            items_to_create[I.HOOKSHOT] = 1
+            items_to_create[I.BOW] = 0
+
         if self.options.start_weapon != StartWeapon.option_sword:
             # If Weapon unrandomized, start_weapon forced to be option_sword
             starting_weapon: int = 0
