@@ -338,7 +338,10 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                 I.REAPERS_GREATSWORD,
                 I.DISCARDED_UMBRELLA,
             ]:
-                if weapon_name in items_to_create.keys() and items_to_create[weapon_name] == 1:
+                if (
+                    weapon_name in items_to_create.keys()
+                    and items_to_create[weapon_name] == 1
+                ):
                     items_to_create[weapon_name] = 0
                     deathsdoor_items.append(self.create_item(weapon_name, True))
 
@@ -374,9 +377,9 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             if "Soul Orb" in self.options.unrandomized_pools.value:
                 # randomly choose an item to precollect, since there won't be space
                 # for the Belltower key
-                item: DeathsDoorItem = self.random.choice(deathsdoor_items)
-                self.push_precollected(item)
-                deathsdoor_items.remove(item)
+                removed_item: DeathsDoorItem = self.random.choice(deathsdoor_items)
+                self.push_precollected(removed_item)
+                deathsdoor_items.remove(removed_item)
 
         junk = len(self.multiworld.get_unfilled_locations(self.player)) - len(
             deathsdoor_items
@@ -403,7 +406,11 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         # The options dataclass has a method to return a `Dict[str, Any]` of each option name provided and the relevant
         # option's value.
         slot_data = self.options.as_dict(
-            "start_day_or_night", "start_weapon", "plant_pot_number"
+            "start_day_or_night",
+            "start_weapon",
+            "plant_pot_number",
+            "soul_multiplier",
+            "starting_souls",
         )
         slot_data["APWorldVersion"] = deathsdoor_version
         return slot_data
