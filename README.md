@@ -34,12 +34,13 @@ Start by installing the apworld (Steps 2-4 in [Instructions](#instructions)). Op
     - If random placement, generation is more likely to fail.
     - Important items are all non-boss doors, Hookshot, Bomb, and Fire since these unlock access to more early game checks.
 - Starting Weapon
-    - Choose which weapon you would like to start with (others will be shuffled into the itempool as useful items).
+    - Choose which weapon you would like to start with (others will be shuffled into the itempool as useful items, or progression if Roll Buffers are on).
     - Note: Umbrella is a much worse weapon than the other 4. Choose at your own risk.
+    - If Weapons are not randomized, your starting weapon will be forced to be the Reaper's Sword.
 - Planted Pots Required
     - Choose how many planted seeds are required to unlock the Green Tablet door in the Estate of the Urn Witch Family Tomb. Vanilla is 50, defaults to 25. Adjusts the number of Life Seeds that are marked as progression. If you are having generation failures due to FillError, consider lowering this number.
 - Extra Life Seeds, Magic Shards, Vitality Shards
-    - Extra of those items (20 max Life Seeds, 8 max each for Shards). Replace 100 Souls items in the pool. Will be set to 0 if Souls are not randomized.
+    - Extra of those items (20 max Life Seeds, 8 max each for Shards). Replace 100 Souls items in the pool. Will be set to 0 if Soul Orbs are not randomized.
 - Remove Spell Upgrades
     - Removes spell upgrades from the pool, so that there is only 1 Fire, 1 Bomb, and 1 Hookshot in the pool (and no upgrade for Arrow)
 - Gate Rolls Glitch
@@ -49,7 +50,7 @@ Start by installing the apworld (Steps 2-4 in [Instructions](#instructions)). Op
         - Mushroom Dungeon Ancient Door to Lobby through a metal gate and a cobweb
         - Ceramic Manor Lobby to the Manor exit to Estate through breakable-pot door
 - Bomb Bell Glitch
-    - Add the option in logic of shooting the Rusty Belltower Bomb from a railing to trigger the Day/Night switch.
+    - Add the option in logic of shooting the Rusty Belltower with a Bomb from a railing to trigger the Day/Night switch.
 - Offscreen Targeting Tricks
     - Add in logic three tricks in which you must target an enemy or switch from offscreen.
         - Open the switch between Lost Cemetery and Stranded Sailor caves using an Arrow through a fire source instead of Fire
@@ -71,7 +72,7 @@ Start by installing the apworld (Steps 2-4 in [Instructions](#instructions)). Op
         - Hall of Doors - Modern Door Scale Model: Same as above (Rogue Daggers only)
         - Castle Lockstone - West Locked Crow: Heavy out of the ledge above the gate then immediately roll back
 - Unrandomized Pools
-    - Remove sets of item-location pairs from being randomized. Warning: removing too many pools (especially 100 Souls) will cause generation errors, especially in small multiworlds. See the template yaml for more details.
+    - Remove sets of item-location pairs from being randomized. Warning: removing too many pools (especially Soul Orbs) will cause generation errors, especially in small multiworlds. See the template yaml for more details.
 
 ## Contributing
 
