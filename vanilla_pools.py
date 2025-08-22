@@ -7,7 +7,7 @@ from .events import DeathsDoorEventName as E
 # Weapon... forces start weapon to be sword?
 # Tablet needs that item except need to handle owls separately
 
-vanilla_location_lookup: dict[L, I | E] = {
+vanilla_location_lookup: dict[L: I | E] = {
     L.RED_ANCIENT_TABLET_OF_KNOWLEDGE: I.RED_ANCIENT_TABLET_OF_KNOWLEDGE,
     L.YELLOW_ANCIENT_TABLET_OF_KNOWLEDGE: I.YELLOW_ANCIENT_TABLET_OF_KNOWLEDGE,
     L.GREEN_ANCIENT_TABLET_OF_KNOWLEDGE: I.GREEN_ANCIENT_TABLET_OF_KNOWLEDGE,

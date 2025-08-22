@@ -1,7 +1,6 @@
 from typing import TYPE_CHECKING
 from .rule_builder_overrides import Has, HasAll, CanReachRegion
 from .items import DeathsDoorItemName as I
-from .locations import DeathsDoorLocationName as L
 from .regions import DeathsDoorRegionName as R
 from .options import StartDayOrNight, BombBellGlitch, OffscreenTargetingTricks
 from .events import (

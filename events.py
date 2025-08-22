@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List, NamedTuple
+from typing import NamedTuple
 
 from .regions import DeathsDoorRegionName as R
 
@@ -100,7 +100,7 @@ class DeathsDoorEventLocationData(NamedTuple):
     event_name: DeathsDoorEventName
 
 
-event_location_table: List[DeathsDoorEventLocationData] = [
+event_location_table: list[DeathsDoorEventLocationData] = [
     DeathsDoorEventLocationData(
         DeathsDoorEventLocationName.LORD_OF_DOORS, R.HALL_OF_DOORS_LOBBY, DeathsDoorEventName.LORD_OF_DOORS
     ),
@@ -175,7 +175,7 @@ event_location_table: List[DeathsDoorEventLocationData] = [
     DeathsDoorEventLocationData(DeathsDoorEventLocationName.CASTLE_LOCKSTONE_LORD_THEODOOR, R.CASTLE_LOCKSTONE_LORD_THEODOOR, DeathsDoorEventName.CASTLE_LOCKSTONE_LORD_THEODOOR),
 ]
 
-pot_table: List[DeathsDoorEventLocationData] = [
+pot_table: list[DeathsDoorEventLocationData] = [
     DeathsDoorEventLocationData(
         DeathsDoorEventLocationName.POT_OUTSIDE_CATACOMBS_EXIT,
         R.LOST_CEMETERY_CENTRAL,

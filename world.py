@@ -1,5 +1,4 @@
 from typing import ClassVar, Any
-from typing_extensions import override
 from logging import warning
 
 from Options import Option
@@ -10,7 +9,6 @@ except ModuleNotFoundError:
     from .rule_builder import RuleWorldMixin
 from .options import (
     DeathsDoorOptions,
-    StartWeapon,
     deathsdoor_options_presets,
     deathsdoor_option_groups,
     StartWeapon,
@@ -76,7 +74,9 @@ class DeathsDoorWeb(WebWorld):
 
 
 class DeathsDoorWorld(RuleWorldMixin, World):
-    """Reaping souls of the dead and punching a clock might get monotonous but it's honest work for a Crow. The job gets lively when your assigned soul is stolen and you must track down a desperate thief to a realm untouched by death - where creatures grow far past their expiry."""
+    """Reaping souls of the dead and punching a clock might get monotonous but it's honest work for a Crow.
+    The job gets lively when your assigned soul is stolen and you must track down a desperate thief to a realm
+    untouched by death - where creatures grow far past their expiry."""
 
     game = "Death's Door"  # name of the game/world
     web = DeathsDoorWeb()
@@ -110,7 +110,8 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             slot_version = f"v{slot_data['APWorldVersion']}"
 
             raise Exception(
-                f"Death's Door version error: The version of apworld used to generate this world ({slot_version}) does not match the version of your installed apworld ({current_version})."
+                f"Death's Door version error: The version of apworld used to generate this world ({slot_version}) "
+                f"does not match the version of your installed apworld ({current_version})."
             )
         return slot_data
 
@@ -143,16 +144,18 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         if "Weapon" in self.options.unrandomized_pools.value:
             if self.options.start_weapon != StartWeapon.option_sword:
                 warning(
-                    "If Weapons are not randomized, start weapon will be forced to be sword."
+                    f"{self.player_name}: If Weapons are not randomized, start weapon will be forced to be sword."
                 )
                 self.options.start_weapon.value = StartWeapon.option_sword
         if "Shiny Thing" in self.options.unrandomized_pools.value:
             warning(
-                "If Shiny Things are not randomized, Rusty Belltower Key will still be added to the pool so that the player has access to day/night"
+                f"{self.player_name}: If Shiny Things are not randomized, Rusty Belltower Key will still be added to "
+                "the pool so that the player has access to day/night"
             )
             if "Soul Orb" in self.options.unrandomized_pools.value:
                 warning(
-                    "Without Soul Orbs and Shiny Things, there is no location to put the Rusty Belltower Key, so a random item will be added to the player's start inventory"
+                    f"{self.player_name}: Without Soul Orbs and Shiny Things, there is no location to put the Rusty "
+                    "Belltower Key, so a random item will be added to the player's start inventory"
                 )
         if "Soul Orb" in self.options.unrandomized_pools.value:
             if (
@@ -161,11 +164,15 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                 or self.options.extra_vitality_shards > 0
             ):
                 warning(
-                    "If Soul Orbs are not randomized, no extra items can be safely added to the seed. Extra Life Seeds, Extra Magic Shards, and Extra Vitality Shards will be set to 0."
+                    f"{self.player_name}: If Soul Orbs are not randomized, no extra items can be safely added to the "
+                    "seed. Extra Life Seeds, Extra Magic Shards, and Extra Vitality Shards will be set to 0."
                 )
                 self.options.extra_life_seeds.value = 0
                 self.options.extra_magic_shards.value = 0
                 self.options.extra_vitality_shards.value = 0
+
+        if self.options.start_weapon == StartWeapon.option_random_excluding_umbrella:
+            self.options.start_weapon.value = self.random.randint(0, 3)
 
         # Universal Tracker slot data handling
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
@@ -297,7 +304,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                     set(data.item_groups)
                 )
             )
-            == 0  ## filter out unrandomized pools
+            == 0  # filter out unrandomized pools
         }
 
         if "Weapon" not in self.options.unrandomized_pools.value and self.options.remove_spell_upgrades.value:
@@ -308,28 +315,19 @@ class DeathsDoorWorld(RuleWorldMixin, World):
 
         if self.options.start_weapon != StartWeapon.option_sword:
             # If Weapon unrandomized, start_weapon forced to be option_sword
-            starting_weapon: int = 0
-            if (
-                self.options.start_weapon
-                == StartWeapon.option_random_excluding_umbrella
-            ):
-                starting_weapon = self.random.randint(0, 3)
-            else:
-                starting_weapon = self.options.start_weapon.value
             # Default is that Reaper's Sword is not in the pool, and the others are
             # Mod handles granting the starting weapon
-            if starting_weapon != 0:
-                items_to_create[I.SWORD.value] = 1
-            if starting_weapon == 1:
+            items_to_create[I.SWORD.value] = 1
+            if self.options.start_weapon == StartWeapon.option_daggers:
                 items_to_create[I.ROGUE_DAGGERS.value] = 0
-            elif starting_weapon == 2:
+            elif self.options.start_weapon == StartWeapon.option_hammer:
                 items_to_create[I.THUNDER_HAMMER.value] = 0
-            elif starting_weapon == 3:
+            elif self.options.start_weapon == StartWeapon.option_greatsword:
                 items_to_create[I.REAPERS_GREATSWORD.value] = 0
-            elif starting_weapon == 4:
+            elif self.options.start_weapon == StartWeapon.option_umbrella:
                 items_to_create[I.DISCARDED_UMBRELLA.value] = 0
 
-        if self.options.roll_buffers.value == 0:
+        if not self.options.roll_buffers:
             # If roll_buffers is not on, convert the weapons back to being useful
             # Done so to ensure that any weapons used in rules are created by create_item as progression if we aren't directly responsible for creating it
             for weapon_name in [
@@ -346,7 +344,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                     deathsdoor_items.append(self.create_item(weapon_name, True))
 
         if (
-            self.options.plant_pot_number.value < 50
+            self.options.plant_pot_number < 50
         ) and "Life Seed" not in self.options.unrandomized_pools.value:
             # Only add life seeds to the pool if they are randomized
             # Only create up to the number of Life Seeds needed for check as progression
@@ -416,7 +414,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         return slot_data
 
     def get_filler_item_name(self) -> str:
-        return "100 Souls"
+        return I.SOULS.value
 
     @classmethod
     def stage_fill_hook(

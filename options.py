@@ -236,7 +236,9 @@ class DeathsDoorOptions(PerGameCommonOptions):
 deathsdoor_options_presets: dict[str, dict[str, Any]] = {}
 
 deathsdoor_option_groups: list[OptionGroup] = [
-    OptionGroup("Logic Options", [StartDayOrNight, PlantedPotsRequired, EarlyImportantItem, GateRollsGlitch, BombBellGlitch, OffscreenTargetingTricks, GeometryExploits, RollBuffers]),
-    OptionGroup("Itempool Modification Options", [ExtraLifeSeeds, ExtraMagicShards, ExtraVitalityShards, RemoveSpellUpgrades, UnrandomizedPools]),
+    OptionGroup("Logic Options", [StartDayOrNight, PlantedPotsRequired, EarlyImportantItem, GateRollsGlitch,
+                                  BombBellGlitch, OffscreenTargetingTricks, GeometryExploits, RollBuffers]),
+    OptionGroup("Itempool Modification Options", [ExtraLifeSeeds, ExtraMagicShards, ExtraVitalityShards,
+                                                  RemoveSpellUpgrades, UnrandomizedPools]),
     OptionGroup("Customization Options", [StartWeapon, SoulMultiplier, StartingSouls])
 ]
