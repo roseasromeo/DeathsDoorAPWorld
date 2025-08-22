@@ -38,6 +38,10 @@ Start by installing the apworld (Steps 2-4 in [Instructions](#instructions)). Op
     - Note: Umbrella is a much worse weapon than the other 4. Choose at your own risk.
 - Planted Pots Required
     - Choose how many planted seeds are required to unlock the Green Tablet door in the Estate of the Urn Witch Family Tomb. Vanilla is 50, defaults to 25. Adjusts the number of Life Seeds that are marked as progression. If you are having generation failures due to FillError, consider lowering this number.
+- Extra Life Seeds, Magic Shards, Vitality Shards
+    - Extra of those items (20 max Life Seeds, 8 max each for Shards). Replace 100 Souls items in the pool. Will be set to 0 if Souls are not randomized.
+- Remove Spell Upgrades
+    - Removes spell upgrades from the pool, so that there is only 1 Fire, 1 Bomb, and 1 Hookshot in the pool (and no upgrade for Arrow)
 - Gate Rolls Glitch
     - Adds the option in logic of rolling through gates.
         - Estate entrance to Crypt through metal gate
@@ -66,6 +70,8 @@ Start by installing the apworld (Steps 2-4 in [Instructions](#instructions)). Op
         - Hall of Doors - Hookshot Secret Soul Orb: Up-right heavy and roll from above the Lord of Doors poster by the staircase near the Bomb Avarice Chest (Rogue Daggers only)
         - Hall of Doors - Modern Door Scale Model: Same as above (Rogue Daggers only)
         - Castle Lockstone - West Locked Crow: Heavy out of the ledge above the gate then immediately roll back
+- Unrandomized Pools
+    - Remove sets of item-location pairs from being randomized. Warning: removing too many pools (especially 100 Souls) will cause generation errors, especially in small multiworlds. See the template yaml for more details.
 
 ## Contributing
 
