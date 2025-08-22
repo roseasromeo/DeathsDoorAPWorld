@@ -61,6 +61,12 @@ class ExtraVitalityShards(Range):
     range_end = 8
     default = 0
 
+class RemoveSpellUpgrades(Toggle):
+    """Remove the spell upgrades from the pool, such that there is only 1 Fire, 1 Bomb, and 1 Hookshot in the pool (and no upgrade for Arrow)."""
+
+    internal_name = "remove_spell_upgrades"
+    display_name = "Remove Spell Upgrades"
+
 
 class StartWeapon(Choice):
     """Choose which weapon you would like to start with (others will be shuffled into the itempool as useful items). Note: Umbrella is a much worse weapon than the other 4. Choose at your own risk."""
@@ -184,6 +190,7 @@ class DeathsDoorOptions(PerGameCommonOptions):
     extra_life_seeds: ExtraLifeSeeds
     extra_magic_shards: ExtraMagicShards
     extra_vitality_shards: ExtraVitalityShards
+    remove_spell_upgrades: RemoveSpellUpgrades
     gate_rolls_glitch: GateRollsGlitch
     bomb_bell_glitch: BombBellGlitch
     offscreen_targeting_tricks: OffscreenTargetingTricks
@@ -196,6 +203,6 @@ deathsdoor_options_presets: dict[str, dict[str, Any]] = {}
 
 deathsdoor_option_groups: list[OptionGroup] = [
     OptionGroup("Logic Options", [StartDayOrNight, PlantedPotsRequired, EarlyImportantItem, GateRollsGlitch, BombBellGlitch, OffscreenTargetingTricks, GeometryExploits, RollBuffers]),
-    OptionGroup("Itempool Modification Options", [ExtraLifeSeeds, ExtraMagicShards, ExtraVitalityShards, UnrandomizedPools]),
+    OptionGroup("Itempool Modification Options", [ExtraLifeSeeds, ExtraMagicShards, ExtraVitalityShards, RemoveSpellUpgrades, UnrandomizedPools]),
     OptionGroup("Customization Options", [StartWeapon])
 ]
