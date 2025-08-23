@@ -37,7 +37,7 @@ class EarlyImportantItem(Choice):
 
 
 class ExtraLifeSeeds(Range):
-    """Add extra life seeds to the item pool, replacing 100 Souls items. Extra life seeds will be marked as useful."""
+    """Add extra life seeds to the item pool, replacing Soul Orb items. Extra life seeds will be marked as useful."""
 
     internal_name = "extra_life_seeds"
     display_name = "Extra Life Seeds"
@@ -47,7 +47,7 @@ class ExtraLifeSeeds(Range):
 
 
 class ExtraMagicShards(Range):
-    """Add extra magic shards to the item pool, replacing 100 Souls items. Extra magic shards can allow your magic to go over the vanilla maximum of 6. Each extra pip of magic requires 4 shards."""
+    """Add extra magic shards to the item pool, replacing Soul Orb items. Extra magic shards can allow your magic to go over the vanilla maximum of 6. Each extra pip of magic requires 4 shards."""
 
     internal_name = "extra_magic_shards"
     display_name = "Extra Magic Shards"
@@ -57,7 +57,7 @@ class ExtraMagicShards(Range):
 
 
 class ExtraVitalityShards(Range):
-    """Add extra vitality shards to the item pool, replacing 100 Souls items. Extra vitality shards can allow your health to go over the vanilla maximum of 6. Each extra pip of health requires 4 shards."""
+    """Add extra vitality shards to the item pool, replacing Soul Orb items. Extra vitality shards can allow your health to go over the vanilla maximum of 6. Each extra pip of health requires 4 shards."""
 
     internal_name = "extra_magic_shards"
     display_name = "Extra Magic Shards"

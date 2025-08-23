@@ -15,7 +15,7 @@ class ItemGroup(str, Enum):
     DOOR = "Door"
     LOST_CROW = "Lost Crow"
     LIFE_SEED = "Life Seed"
-    SOUL_ORB = "Soul Orb"
+    # SOUL_ORB = "Soul Orb"
     SHRINE = "Shrine"
 
 
@@ -35,7 +35,7 @@ class DeathsDoorItemName(str, Enum):
     VITALITY_SHARD = "Vitality Shard"
     MAGIC_SHARD = "Magic Shard"
     LIFE_SEED = "Life Seed"
-    SOULS = "100 Souls"
+    SOULS = "Soul Orb"
     PINK_KEY = "Pink Key"
     GREEN_KEY = "Green Key"
     YELLOW_KEY = "Yellow Key"
@@ -291,7 +291,7 @@ item_table: list[DeathsDoorItemData] = [
         500,
         ItemClassification.filler,
         0,
-        [ItemGroup.SOUL_ORB],
+        [],
     ),
     DeathsDoorItemData(
         DeathsDoorItemName.PINK_KEY,
