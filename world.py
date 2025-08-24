@@ -4,11 +4,12 @@ from logging import warning
 from Options import Option
 
 try:
-    from rule_builder import RuleWorldMixin
+    from rule_builder import RuleWorldMixin, Rule, False_
 except ModuleNotFoundError:
-    from .rule_builder import RuleWorldMixin
+    from .rule_builder import RuleWorldMixin, Rule, False_
 from .options import (
     DeathsDoorOptions,
+    Goal,
     deathsdoor_options_presets,
     deathsdoor_option_groups,
     StartWeapon,
@@ -22,6 +23,7 @@ from .items import (
     DeathsDoorItemName as I,
 )
 from .locations import (
+    DeathsDoorLocationName as L,
     location_name_to_id,
     location_table,
     location_name_groups,
@@ -173,6 +175,12 @@ class DeathsDoorWorld(RuleWorldMixin, World):
 
         if self.options.start_weapon == StartWeapon.option_random_excluding_umbrella:
             self.options.start_weapon.value = self.random.randint(0, 3)
+        
+        if self.options.extra_life_seeds < 0:
+            max_life_seeds_to_remove = 50 - self.options.planted_pots_required.value
+            if max_life_seeds_to_remove < -self.options.extra_life_seeds.value:
+                warning(f"{self.options.extra_life_seeds} is too many Life Seeds to remove based on a planted_pots_required of {self.options.planted_pots_required}. Only {max_life_seeds_to_remove} will be removed instead.")
+                self.options.extra_life_seeds.value = -max_life_seeds_to_remove
 
         # Universal Tracker slot data handling
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
@@ -208,13 +216,33 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                 )
                 == 0
             ):
-                location = DeathsDoorLocation(
-                    self.player,
-                    location_data.name.value,
-                    location_data.location_id,
-                    region,
-                )
-                region.locations.append(location)
+                # Skip locations that are irrelevant on specific goals
+                if (self.options.goal == Goal.option_lord_of_doors or self.options.goal == Goal.option_any) and location_data.name == L.RUSTY_BELLTOWER_KEY:
+                    location = DeathsDoorLocation(
+                        self.player,
+                        location_data.name.value,
+                        None,
+                        region,
+                    )
+                    region.locations.append(location)
+                    location.place_locked_item(self.create_event(E.LORD_OF_DOORS.value))
+                elif (self.options.goal == Goal.option_green_tablet or self.options.goal == Goal.option_any) and location_data.name == L.GREEN_ANCIENT_TABLET_OF_KNOWLEDGE:
+                    location = DeathsDoorLocation(
+                        self.player,
+                        location_data.name.value,
+                        None,
+                        region,
+                    )
+                    region.locations.append(location)
+                    location.place_locked_item(self.create_event(E.LIFE_SEED_DOOR.value))
+                else:
+                    location = DeathsDoorLocation(
+                        self.player,
+                        location_data.name.value,
+                        location_data.location_id,
+                        region,
+                    )
+                    region.locations.append(location)
             elif (
                 "Life Seed" in self.options.unrandomized_pools.value
                 and "Life Seed" in current_location_group_names
@@ -252,7 +280,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             )
             region.locations.append(event_location)
             event_location.place_locked_item(
-                self.create_item(event_location_data.event_name.value)
+                self.create_event(event_location_data.event_name.value)
             )
 
         for deathsdoor_entrance in deathsdoor_entrances:
@@ -280,8 +308,8 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                 name, ItemClassification.useful, self.item_name_to_id[name], self.player
             )
         elif (
-            True and IG.TABLET in item_data.item_groups
-        ):  # This True is here so we can eventually have a tablet goal
+            (self.options.goal == Goal.option_lord_of_doors or self.options.goal == Goal.option_green_tablet) and IG.TABLET in item_data.item_groups
+        ): 
             return DeathsDoorItem(
                 name, ItemClassification.filler, self.item_name_to_id[name], self.player
             )
@@ -344,18 +372,14 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                     deathsdoor_items.append(self.create_item(weapon_name, True))
 
         if (
-            self.options.plant_pot_number < 50
+            self.options.planted_pots_required < 50
         ) and "Life Seed" not in self.options.unrandomized_pools.value:
             # Only add life seeds to the pool if they are randomized
             # Only create up to the number of Life Seeds needed for check as progression
-            items_to_create[I.LIFE_SEED.value] = self.options.plant_pot_number.value
-            # Remainder are useful
-            for _ in range(50 - self.options.plant_pot_number.value):
+            items_to_create[I.LIFE_SEED.value] = self.options.planted_pots_required.value
+            # Remainder are useful, include extra_life_seeds addition/subtraction here
+            for _ in range(50 - self.options.planted_pots_required.value + self.options.extra_life_seeds.value):
                 deathsdoor_items.append(self.create_item(I.LIFE_SEED.value, True))
-
-        # Create extra life seeds
-        for _ in range(self.options.extra_life_seeds.value):
-            deathsdoor_items.append(self.create_item(I.LIFE_SEED.value, True))
 
         # Create extra magic shards
         for _ in range(self.options.extra_magic_shards.value):
@@ -392,7 +416,15 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         set_location_rules(self)
         set_event_rules(self)
 
-        self.set_completion_rule(Has(E.LORD_OF_DOORS))
+        completion_rule: Rule = False_()
+        if (self.options.goal == Goal.option_lord_of_doors or self.options.goal == Goal.option_any):
+            completion_rule = completion_rule | Has(E.LORD_OF_DOORS)
+        if (self.options.goal == Goal.option_true_ending or self.options.goal == Goal.option_any):
+            completion_rule = completion_rule | Has(E.TRUE_ENDING)
+        if (self.options.goal == Goal.option_green_tablet or self.options.goal == Goal.option_any):
+            completion_rule = completion_rule | Has(E.LIFE_SEED_DOOR)
+
+        self.set_completion_rule(completion_rule)
         self.register_dependencies()
 
         # generate_rule_json()
@@ -409,6 +441,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             "plant_pot_number",
             "soul_multiplier",
             "starting_souls",
+            "goal",
         )
         slot_data["APWorldVersion"] = deathsdoor_version
         return slot_data

@@ -6,7 +6,11 @@ from .regions import DeathsDoorRegionName as R
 
 class DeathsDoorEventName(str, Enum):
     LORD_OF_DOORS = "Defeat the Lord of Doors"
-    LOST_CEMETERY_OPENED_EXIT_TO_SAILOR = "Lost Cemetery - Light Lamp to Open Exit to Stranded Sailor Caves"
+    TRUE_ENDING = "Unlock the Door of Truth"
+    LIFE_SEED_DOOR = "Unlock the Door to the Green Ancient Tablet of Knowledge"
+    LOST_CEMETERY_OPENED_EXIT_TO_SAILOR = (
+        "Lost Cemetery - Light Lamp to Open Exit to Stranded Sailor Caves"
+    )
     ACCESS_TO_NIGHT = "Access to Night"
     ACCESS_TO_DAY = "Access to Day"
     GREY_CROW_BOSS = "Lost Cemetery - Defeat Grey Crow Boss"
@@ -19,13 +23,17 @@ class DeathsDoorEventName(str, Enum):
     CASTLE_LOCKSTONE_LORD_DEADBOLT = "Castle Lockstone - Light Lord Deadbolt Lamp"
     CASTLE_LOCKSTONE_LORD_THEODOOR = "Castle Lockstone - Light Lord Theodoor Lamp"
     PLANTED_SEED = "Plant a Seed"
-    PINK_TABLET_PIECE = "Pink Tablet Segment" # Only if tablets unrandomized
+    PINK_TABLET_PIECE = "Pink Tablet Segment"  # Only if tablets unrandomized
     OOL = "Out of Logic Item"  # For Universal Tracker
 
 
 class DeathsDoorEventLocationName(str, Enum):
     LORD_OF_DOORS = "Lord of Doors"
-    LOST_CEMETERY_OPENED_EXIT_TO_SAILOR = "Lost Cemetery - Lamp for Exit to Stranded Sailor"
+    TRUE_ENDING = "Door of Truth"
+    LIFE_SEED_DOOR = "Family Tomb Door"
+    LOST_CEMETERY_OPENED_EXIT_TO_SAILOR = (
+        "Lost Cemetery - Lamp for Exit to Stranded Sailor"
+    )
     ACCESS_TO_NIGHT = "Access to Night"
     ACCESS_TO_DAY = "Access to Day"
     GREY_CROW_BOSS = "Lost Cemetery - Grey Crow Boss"
@@ -101,9 +109,21 @@ class DeathsDoorEventLocationData(NamedTuple):
 
 
 event_location_table: list[DeathsDoorEventLocationData] = [
+    # DeathsDoorEventLocationData(
+    #     DeathsDoorEventLocationName.LORD_OF_DOORS,
+    #     R.HALL_OF_DOORS_LOBBY,
+    #     DeathsDoorEventName.LORD_OF_DOORS,
+    # ),
     DeathsDoorEventLocationData(
-        DeathsDoorEventLocationName.LORD_OF_DOORS, R.HALL_OF_DOORS_LOBBY, DeathsDoorEventName.LORD_OF_DOORS
+        DeathsDoorEventLocationName.TRUE_ENDING,
+        R.CAMP_OF_THE_FREE_CROWS_VILLAGE,
+        DeathsDoorEventName.TRUE_ENDING,
     ),
+    # DeathsDoorEventLocationData(
+    #     DeathsDoorEventLocationName.LIFE_SEED_DOOR,
+    #     R.ESTATE_OF_THE_URN_WITCH_NORTH,
+    #     DeathsDoorEventName.LIFE_SEED_DOOR,
+    # ),
     DeathsDoorEventLocationData(
         DeathsDoorEventLocationName.LOST_CEMETERY_OPENED_EXIT_TO_SAILOR,
         R.LOST_CEMETERY_STEADHONE,
@@ -169,10 +189,26 @@ event_location_table: list[DeathsDoorEventLocationData] = [
         R.MUSHROOM_DUNGEON_LOBBY,
         DeathsDoorEventName.RESCUE_GRUNT,
     ),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.CASTLE_LOCKSTONE_LORD_LOCKSTONE, R.CASTLE_LOCKSTONE_LORD_LOCKSTONE, DeathsDoorEventName.CASTLE_LOCKSTONE_LORD_LOCKSTONE),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.CASTLE_LOCKSTONE_LORD_OPENGATE, R.CASTLE_LOCKSTONE_LORD_OPENGATE, DeathsDoorEventName.CASTLE_LOCKSTONE_LORD_OPENGATE),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.CASTLE_LOCKSTONE_LORD_DEADBOLT, R.CASTLE_LOCKSTONE_LORD_DEADBOLT, DeathsDoorEventName.CASTLE_LOCKSTONE_LORD_DEADBOLT),
-    DeathsDoorEventLocationData(DeathsDoorEventLocationName.CASTLE_LOCKSTONE_LORD_THEODOOR, R.CASTLE_LOCKSTONE_LORD_THEODOOR, DeathsDoorEventName.CASTLE_LOCKSTONE_LORD_THEODOOR),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.CASTLE_LOCKSTONE_LORD_LOCKSTONE,
+        R.CASTLE_LOCKSTONE_LORD_LOCKSTONE,
+        DeathsDoorEventName.CASTLE_LOCKSTONE_LORD_LOCKSTONE,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.CASTLE_LOCKSTONE_LORD_OPENGATE,
+        R.CASTLE_LOCKSTONE_LORD_OPENGATE,
+        DeathsDoorEventName.CASTLE_LOCKSTONE_LORD_OPENGATE,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.CASTLE_LOCKSTONE_LORD_DEADBOLT,
+        R.CASTLE_LOCKSTONE_LORD_DEADBOLT,
+        DeathsDoorEventName.CASTLE_LOCKSTONE_LORD_DEADBOLT,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.CASTLE_LOCKSTONE_LORD_THEODOOR,
+        R.CASTLE_LOCKSTONE_LORD_THEODOOR,
+        DeathsDoorEventName.CASTLE_LOCKSTONE_LORD_THEODOOR,
+    ),
 ]
 
 pot_table: list[DeathsDoorEventLocationData] = [
