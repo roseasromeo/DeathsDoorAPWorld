@@ -39,7 +39,7 @@ if TYPE_CHECKING:
 @dataclasses.dataclass()
 class HasEnoughLifeSeeds(Rule["DeathsDoorWorld"], game="Death's Door"):
     def _instantiate(self, world: "DeathsDoorWorld") -> "Resolved":
-        return self.Resolved(world.options.plant_pot_number.value, player=world.player)
+        return self.Resolved(world.options.planted_pots_required.value, player=world.player)
 
     class Resolved(Rule.Resolved):
         life_seeds_required: int
@@ -56,7 +56,7 @@ class HasEnoughLifeSeeds(Rule["DeathsDoorWorld"], game="Death's Door"):
 @dataclasses.dataclass()
 class HasPlantedEnoughLifeSeeds(Rule["DeathsDoorWorld"], game="Death's Door"):
     def _instantiate(self, world: "DeathsDoorWorld") -> "Resolved":
-        return self.Resolved(world.options.plant_pot_number.value, player=world.player)
+        return self.Resolved(world.options.planted_pots_required.value, player=world.player)
 
     class Resolved(Rule.Resolved):
         planted_seeds_required: int

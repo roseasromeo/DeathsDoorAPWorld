@@ -11,6 +11,20 @@ from Options import (
     OptionSet,
 )
 
+class Goal(Choice):
+    """Choose the goal for this run.
+        - Lord of Doors: Defeat the Lord of Doors. Removes the Rusty Belltower Key location.
+        - True Ending: Receive all 7 Ancient Tablets of Knowledge and go to the door in the Camp of the Free Crows
+        - Green Tablet: Open the door in Family Tomb by planting enough life seeds (determined by planted_pots_required). Removes the Green Tablet location. The amount of extra Life Seeds in the pool is controlled by control_extra_life_seeds.
+        - Any: any of the above goals are valid. Note: on minimal accessibility, not all goals may be possible. Both the Rusty Belltower Key and the Green Tablet locations are removed from randomization.
+    """
+
+    internal_name = "goal"
+    display_name = "Goal"
+    option_lord_of_doors = 0
+    option_true_ending = 1
+    option_green_tablet = 2
+    option_any = 10
 
 class StartDayOrNight(Choice):
     """Choose whether to start during the day or night. You must access the Rusty Belltower Bell to toggle the time of day."""
@@ -36,14 +50,26 @@ class EarlyImportantItem(Choice):
     default = option_early
 
 
-class ExtraLifeSeeds(Range):
-    """Add extra life seeds to the item pool, replacing Soul Orb items. Extra life seeds will be marked as useful."""
+class ControlExtraLifeSeeds(Range):
+    """Add extra life seeds or remove extra life seeds from the item pool, which are interchanged with Soul Orb items. Additional extra life seeds will be marked as useful.
+    
+    When removing life seeds (using a negative number), the number left in the pool will be at minimum the number required by planted_pots_required.
+    """
 
-    internal_name = "extra_life_seeds"
-    display_name = "Extra Life Seeds"
-    range_start = 0
+    internal_name = "control_extra_life_seeds"
+    display_name = "Control Extra Life Seeds"
+    range_start = -49
     range_end = 20
     default = 0
+
+class PlantedPotsRequired(Range):
+    """Number of planted pots required for Green Tablet location. Also adjusts the number of Life Seeds marked as Progression."""
+
+    internal_name = "planted_pots_required"
+    display_name = "Number of Planted Pots Required for Green Tablet"
+    range_start = 1
+    range_end = 50
+    default = 25
 
 
 class ExtraMagicShards(Range):
@@ -105,17 +131,6 @@ class StartingSouls(Range):
     range_start = 0
     range_end = 17200
     default = 0
-
-
-class PlantedPotsRequired(Range):
-    """Number of planted pots required for Green Tablet location. Also adjusts the number of Life Seeds marked as Progression."""
-
-    internal_name = "plant_pot_number"
-    display_name = "Number of Planted Pots Required for Green Tablet"
-    range_start = 1
-    range_end = 50
-    default = 25
-
 
 class GateRollsGlitch(Toggle):
     """Puts rolling through certain "gates" in logic.
@@ -220,8 +235,8 @@ class DeathsDoorOptions(PerGameCommonOptions):
     start_weapon: StartWeapon
     soul_multiplier: SoulMultiplier
     starting_souls: StartingSouls
-    plant_pot_number: PlantedPotsRequired
-    extra_life_seeds: ExtraLifeSeeds
+    planted_pots_required: PlantedPotsRequired
+    extra_life_seeds: ControlExtraLifeSeeds
     extra_magic_shards: ExtraMagicShards
     extra_vitality_shards: ExtraVitalityShards
     remove_spell_upgrades: RemoveSpellUpgrades
@@ -231,14 +246,15 @@ class DeathsDoorOptions(PerGameCommonOptions):
     geometry_exploits: GeometryExploits
     roll_buffers: RollBuffers
     unrandomized_pools: UnrandomizedPools
+    goal: Goal
 
 
 deathsdoor_options_presets: dict[str, dict[str, Any]] = {}
 
 deathsdoor_option_groups: list[OptionGroup] = [
-    OptionGroup("Logic Options", [StartDayOrNight, PlantedPotsRequired, EarlyImportantItem, GateRollsGlitch,
+    OptionGroup("Logic Options", [Goal, StartDayOrNight, PlantedPotsRequired, EarlyImportantItem, GateRollsGlitch,
                                   BombBellGlitch, OffscreenTargetingTricks, GeometryExploits, RollBuffers]),
-    OptionGroup("Itempool Modification Options", [ExtraLifeSeeds, ExtraMagicShards, ExtraVitalityShards,
+    OptionGroup("Itempool Modification Options", [ControlExtraLifeSeeds, ExtraMagicShards, ExtraVitalityShards,
                                                   RemoveSpellUpgrades, UnrandomizedPools]),
     OptionGroup("Customization Options", [StartWeapon, SoulMultiplier, StartingSouls])
 ]
