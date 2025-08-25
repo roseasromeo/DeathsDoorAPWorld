@@ -15,7 +15,7 @@ class Goal(Choice):
     """Choose the goal for this run.
         - Lord of Doors: Defeat the Lord of Doors. Removes the Rusty Belltower Key location.
         - True Ending: Receive all 7 Ancient Tablets of Knowledge and go to the door in the Camp of the Free Crows
-        - Green Tablet: Open the door in Family Tomb by planting enough life seeds (determined by planted_pots_required). Removes the Green Tablet location. The amount of extra Life Seeds in the pool is controlled by control_extra_life_seeds.
+        - Green Tablet: Open the door in Family Tomb by planting enough life seeds (determined by plant_pot_number). Removes the Green Tablet location. The amount of extra Life Seeds in the pool is controlled by extra_life_seeds.
         - Any: any of the above goals are valid. Note: on minimal accessibility, not all goals may be possible. Both the Rusty Belltower Key and the Green Tablet locations are removed from randomization.
     """
 
@@ -50,14 +50,14 @@ class EarlyImportantItem(Choice):
     default = option_early
 
 
-class ControlExtraLifeSeeds(Range):
+class ExtraLifeSeeds(Range):
     """Add extra life seeds or remove extra life seeds from the item pool, which are interchanged with Soul Orb items. Additional extra life seeds will be marked as useful.
     
-    When removing life seeds (using a negative number), the number left in the pool will be at minimum the number required by planted_pots_required.
+    When removing life seeds (using a negative number), the number left in the pool will be at minimum the number required by plant_pot_number.
     """
 
-    internal_name = "control_extra_life_seeds"
-    display_name = "Control Extra Life Seeds"
+    internal_name = "extra_life_seeds"
+    display_name = "Adjust Extra Life Seeds"
     range_start = -49
     range_end = 20
     default = 0
@@ -65,7 +65,7 @@ class ControlExtraLifeSeeds(Range):
 class PlantedPotsRequired(Range):
     """Number of planted pots required for Green Tablet location. Also adjusts the number of Life Seeds marked as Progression."""
 
-    internal_name = "planted_pots_required"
+    internal_name = "plant_pot_number"
     display_name = "Number of Planted Pots Required for Green Tablet"
     range_start = 1
     range_end = 50
@@ -235,8 +235,8 @@ class DeathsDoorOptions(PerGameCommonOptions):
     start_weapon: StartWeapon
     soul_multiplier: SoulMultiplier
     starting_souls: StartingSouls
-    planted_pots_required: PlantedPotsRequired
-    extra_life_seeds: ControlExtraLifeSeeds
+    plant_pot_number: PlantedPotsRequired
+    extra_life_seeds: ExtraLifeSeeds
     extra_magic_shards: ExtraMagicShards
     extra_vitality_shards: ExtraVitalityShards
     remove_spell_upgrades: RemoveSpellUpgrades
@@ -254,7 +254,7 @@ deathsdoor_options_presets: dict[str, dict[str, Any]] = {}
 deathsdoor_option_groups: list[OptionGroup] = [
     OptionGroup("Logic Options", [Goal, StartDayOrNight, PlantedPotsRequired, EarlyImportantItem, GateRollsGlitch,
                                   BombBellGlitch, OffscreenTargetingTricks, GeometryExploits, RollBuffers]),
-    OptionGroup("Itempool Modification Options", [ControlExtraLifeSeeds, ExtraMagicShards, ExtraVitalityShards,
+    OptionGroup("Itempool Modification Options", [ExtraLifeSeeds, ExtraMagicShards, ExtraVitalityShards,
                                                   RemoveSpellUpgrades, UnrandomizedPools]),
     OptionGroup("Customization Options", [StartWeapon, SoulMultiplier, StartingSouls])
 ]
