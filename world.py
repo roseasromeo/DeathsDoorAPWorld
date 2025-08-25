@@ -46,7 +46,7 @@ from .json_generator import (
     generate_locations_json,
 )
 
-deathsdoor_version = "0.2.0"
+deathsdoor_version = "0.2.1"
 
 
 class DeathsDoorItem(Item):
@@ -177,9 +177,9 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             self.options.start_weapon.value = self.random.randint(0, 3)
         
         if self.options.extra_life_seeds < 0:
-            max_life_seeds_to_remove = 50 - self.options.planted_pots_required.value
+            max_life_seeds_to_remove = 50 - self.options.plant_pot_number.value
             if max_life_seeds_to_remove < -self.options.extra_life_seeds.value:
-                warning(f"{self.options.extra_life_seeds} is too many Life Seeds to remove based on a planted_pots_required of {self.options.planted_pots_required}. Only {max_life_seeds_to_remove} will be removed instead.")
+                warning(f"{self.options.extra_life_seeds} is too many Life Seeds to remove based on a plant_pot_number of {self.options.plant_pot_number}. Only {max_life_seeds_to_remove} will be removed instead.")
                 self.options.extra_life_seeds.value = -max_life_seeds_to_remove
 
         # Universal Tracker slot data handling
@@ -372,13 +372,13 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                     deathsdoor_items.append(self.create_item(weapon_name, True))
 
         if (
-            self.options.planted_pots_required < 50
+            self.options.plant_pot_number < 50
         ) and "Life Seed" not in self.options.unrandomized_pools.value:
             # Only add life seeds to the pool if they are randomized
             # Only create up to the number of Life Seeds needed for check as progression
-            items_to_create[I.LIFE_SEED.value] = self.options.planted_pots_required.value
+            items_to_create[I.LIFE_SEED.value] = self.options.plant_pot_number.value
             # Remainder are useful, include extra_life_seeds addition/subtraction here
-            for _ in range(50 - self.options.planted_pots_required.value + self.options.extra_life_seeds.value):
+            for _ in range(50 - self.options.plant_pot_number.value + self.options.extra_life_seeds.value):
                 deathsdoor_items.append(self.create_item(I.LIFE_SEED.value, True))
 
         # Create extra magic shards
@@ -441,7 +441,14 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             "plant_pot_number",
             "soul_multiplier",
             "starting_souls",
+            "unrandomized_pools",
             "goal",
+            "gate_rolls_glitch",
+            "bomb_bell_glitch",
+            "offscreen_targeting_tricks",
+            "geometry_exploits",
+            "roll_buffers",
+            toggles_as_bools=True,
         )
         slot_data["APWorldVersion"] = deathsdoor_version
         return slot_data
