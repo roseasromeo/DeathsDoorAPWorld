@@ -1,6 +1,4 @@
 from .entrance_class import DeathsDoorEntrance
-from ..rule_builder_overrides import Has
-from ..items import DeathsDoorItemName as I
 from ..regions import DeathsDoorRegionName as R
 
 laboratory_entrances: list[DeathsDoorEntrance] = [
@@ -9,7 +7,7 @@ laboratory_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.URN_WITCHS_LABORATORY,
         R.URN_WITCHS_LABORATORY_DOOR,
-        Has(I.THE_URN_WITCHS_LABORATORY_DOOR),
+        None,
     ),
     DeathsDoorEntrance(
         R.URN_WITCHS_LABORATORY,

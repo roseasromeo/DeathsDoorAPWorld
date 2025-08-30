@@ -4,7 +4,7 @@ except ModuleNotFoundError:
     from ..rule_builder import False_
 
 from .entrance_class import DeathsDoorEntrance
-from ..rule_builder_overrides import Has, HasAny, HasAll
+from ..rule_builder_overrides import HasAny, HasAll
 from ..items import DeathsDoorItemName as I
 from ..regions import DeathsDoorRegionName as R
 
@@ -25,7 +25,7 @@ estate_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.ESTATE_OF_THE_URN_WITCH_SOUTH,
         R.ESTATE_OF_THE_URN_WITCH_DOOR,
-        Has(I.ESTATE_OF_THE_URN_WITCH_DOOR),
+        None,
     ),
     DeathsDoorEntrance(
         R.ESTATE_OF_THE_URN_WITCH_DOOR, R.ESTATE_OF_THE_URN_WITCH_SOUTH, None

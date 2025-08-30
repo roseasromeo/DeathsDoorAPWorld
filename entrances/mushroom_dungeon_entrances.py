@@ -19,7 +19,7 @@ mushroom_dungeon_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.MUSHROOM_DUNGEON_LOBBY,
         R.MUSHROOM_DUNGEON_DOOR,
-        Has(I.MUSHROOM_DUNGEON_DOOR),
+        None,
     ),
     DeathsDoorEntrance(
         R.OVERGROWN_RUINS_OUTSIDE_MAIN_DUNGEON_GATE,

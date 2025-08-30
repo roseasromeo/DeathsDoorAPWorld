@@ -1,5 +1,5 @@
 from .entrance_class import DeathsDoorEntrance
-from ..rule_builder_overrides import Has, HasAny, HasAll, CanReachRegion
+from ..rule_builder_overrides import Has, HasAny, HasAll
 try:
     from rule_builder import True_, OptionFilter
 except ModuleNotFoundError:
@@ -31,7 +31,7 @@ lockstone_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_CENTRAL,
         R.CASTLE_LOCKSTONE_DOOR,
-        Has(I.CASTLE_LOCKSTONE_DOOR),
+        None,
     ),
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_SOUTHWEST_CROW, R.CASTLE_LOCKSTONE_ENTRANCE, None

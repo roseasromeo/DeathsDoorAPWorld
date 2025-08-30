@@ -14,7 +14,6 @@ from .lockstone_entrances import lockstone_entrances
 from .lost_cemetery_entrances import lost_cemetery_entrances
 from .mushroom_dungeon_entrances import mushroom_dungeon_entrances
 from .overgrown_ruins_entrances import overgrown_ruins_entrances
-from .scene_transitions import scene_transition_entrances
 from .stranded_sailor_caves_entrances import stranded_sailor_caves_entrances
 from .stranded_sailor_entrances import stranded_sailor_entrances
 from .throne_entrances import throne_entrances
@@ -37,7 +36,6 @@ deathsdoor_entrances: list[DeathsDoorEntrance] = (
     + lost_cemetery_entrances
     + mushroom_dungeon_entrances
     + overgrown_ruins_entrances
-    + scene_transition_entrances
     + stranded_sailor_caves_entrances
     + stranded_sailor_entrances
     + throne_entrances
