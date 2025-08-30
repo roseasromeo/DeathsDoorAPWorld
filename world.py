@@ -518,19 +518,9 @@ class DeathsDoorWorld(RuleWorldMixin, World):
 
             randomize_one_ways(self, coupled)
 
-            i = 0 # attempts to randomize to satisfy Jefferson\
-            max_tries = 100
-            while (i < max_tries):
-                result = randomize_entrances(self, coupled, {0: [0]}) # All of the entrances are in group 0 for now
-                if self.resolve_rule(CanJeffersonTraverse())._evaluate(result.collection_state):
-                    break # If Jefferson can traverse the GER, it works, otherwise retry
-                elif i < max_tries - 1:
-                    i = i + 1
-                    print(i)
-                else:
-                    i = i + 1
-                    print(i)
-                    # raise Exception(f"Entrance Randomization could not find an entrance layout for Jefferson to traverse. Try with less plando.{result.placements}")
+            result = randomize_entrances(self, coupled, {0: [0]}) # All of the entrances are in group 0 for now
+            # if not self.resolve_rule(CanJeffersonTraverse())._evaluate(result.collection_state):
+                # raise Exception(f"Entrance Randomization could not find an entrance layout for Jefferson to traverse. Try with less plando.{result.placements}")
 
             for placement in result.placements:
                 self.entrance_pairings[placement.parent_region.name] = placement.connected_region.name
