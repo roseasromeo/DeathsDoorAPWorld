@@ -12,7 +12,10 @@ from Options import (
     Toggle,
     Range,
     OptionSet,
+    PlandoConnections
 )
+
+from .entrances.scene_transitions import scene_transition_names
 
 class Goal(Choice):
     """Choose the goal for this run.
@@ -260,6 +263,32 @@ class UnrandomizedPools(OptionSet):
     )
     default = frozenset({})
 
+class EntranceRandomization(Choice):
+    """Randomize entrances."""
+
+    internal_name = "entrance_randomization"
+    display_name = "Entrance Randomization"
+    option_off = 0
+    option_coupled = 1
+    option_decoupled = 2
+
+class DeathsDoorPlandoConnections(PlandoConnections):
+    """
+    Generic connection plando. Format is:
+    - entrance: Entrance Name
+      exit: Exit Name
+      direction: Direction
+      percentage: 100
+    Direction must be one of entrance, exit, or both, and defaults to both if omitted.
+    Direction entrance means the entrance leads to the exit. Direction exit means the exit leads to the entrance.
+    If you do not have Decoupled enabled, you do not need the direction line, as it will only use both.
+    Percentage is an integer from 0 to 100 which determines whether that connection will be made. Defaults to 100 if omitted.
+    This option does nothing if Entrance Randomization is disabled."""
+
+    entrances = frozenset(scene_transition_names())
+    exits = frozenset(scene_transition_names())
+
+    duplicate_exits = False
 
 @dataclass
 class DeathsDoorOptions(PerGameCommonOptions):
@@ -283,12 +312,14 @@ class DeathsDoorOptions(PerGameCommonOptions):
     roll_buffers: RollBuffers
     unrandomized_pools: UnrandomizedPools
     goal: Goal
+    entrance_randomization : EntranceRandomization
+    plando_connections: DeathsDoorPlandoConnections
 
 
 deathsdoor_options_presets: dict[str, dict[str, Any]] = {}
 
 deathsdoor_option_groups: list[OptionGroup] = [
-    OptionGroup("Logic Options", [Goal, StartDayOrNight, PlantedPotsRequired, EarlyImportantItem, GateRollsGlitch,
+    OptionGroup("Logic Options", [Goal, EntranceRandomization, StartDayOrNight, PlantedPotsRequired, EarlyImportantItem, GateRollsGlitch,
                                   BombBellGlitch, OffscreenTargetingTricks, GeometryExploits, RollBuffers]),
     OptionGroup("Itempool Modification Options", [ExtraLifeSeeds, ExtraMagicShards, ExtraVitalityShards,
                                                   RemoveSpellUpgrades, UnrandomizedPools, TrapChance, TrapTypeWeights]),

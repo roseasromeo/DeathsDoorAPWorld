@@ -26,7 +26,7 @@ lost_cemetery_entrances: list[DeathsDoorEntrance] = [
     ),
     DeathsDoorEntrance(R.LOST_CEMETERY_DOOR, R.LOST_CEMETERY_CENTRAL, None),
     DeathsDoorEntrance(
-        R.LOST_CEMETERY_CENTRAL, R.LOST_CEMETERY_DOOR, Has(I.LOST_CEMETERY_DOOR)
+        R.LOST_CEMETERY_CENTRAL, R.LOST_CEMETERY_DOOR, None
     ),
     DeathsDoorEntrance(
         R.LOST_CEMETERY_STEADHONE, R.LOST_CEMETERY_CENTRAL, Has(I.LEVER_CATACOMBS_TOWER)

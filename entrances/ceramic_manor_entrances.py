@@ -18,7 +18,7 @@ ceramic_manor_entrances: list[DeathsDoorEntrance] = [
     ),
     DeathsDoorEntrance(R.CERAMIC_MANOR_DOOR, R.CERAMIC_MANOR_MAIN_LOBBY, None),
     DeathsDoorEntrance(
-        R.CERAMIC_MANOR_MAIN_LOBBY, R.CERAMIC_MANOR_DOOR, Has(I.CERAMIC_MANOR_DOOR)
+        R.CERAMIC_MANOR_MAIN_LOBBY, R.CERAMIC_MANOR_DOOR, None
     ),
     DeathsDoorEntrance(
         R.CERAMIC_MANOR_MAIN_LOBBY,

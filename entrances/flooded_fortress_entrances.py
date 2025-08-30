@@ -54,7 +54,7 @@ flooded_fortress_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.FLOODED_FORTRESS_FROG_KING_ENCOUNTER,
         R.FLOODED_FORTRESS_DOOR,
-        Has(I.FLOODED_FORTRESS_DOOR),
+        None,
     ),
     DeathsDoorEntrance(
         R.FLOODED_FORTRESS_FROG_KING_STATUE,

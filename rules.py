@@ -179,7 +179,7 @@ deaths_door_location_rules: dict[L, Rule["DeathsDoorWorld"] | None] = {
     | HasAny(I.SWORD, I.ROGUE_DAGGERS, I.REAPERS_GREATSWORD, I.DISCARDED_UMBRELLA)
     & (True_(options=[OptionFilter(RollBuffers, 1)]) | Has(E.OOL)),
     L.RED_ANCIENT_TABLET_OF_KNOWLEDGE: HasAll(E.ACCESS_TO_NIGHT, I.HOOKSHOT)
-    & CanJeffersonTraverse(),
+    # & CanJeffersonTraverse(),
 }
 
 

@@ -1,5 +1,4 @@
 from .entrance_class import DeathsDoorEntrance
-from ..rule_builder_overrides import Has
 from ..items import DeathsDoorItemName as I
 from ..regions import DeathsDoorRegionName as R
 
@@ -23,6 +22,6 @@ throne_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.THRONE_OF_THE_FROG_KING,
         R.THRONE_OF_THE_FROG_KING_DOOR,
-        Has(I.THRONE_OF_THE_FROG_KING_DOOR),
+        None,
     ),
 ]

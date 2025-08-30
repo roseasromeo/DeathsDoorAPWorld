@@ -33,7 +33,7 @@ overgrown_ruins_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.OVERGROWN_RUINS_OUTSIDE_MAIN_DUNGEON_GATE,
         R.OVERGROWN_RUINS_DOOR,
-        Has(I.OVERGROWN_RUINS_DOOR),
+        None,
     ),
     DeathsDoorEntrance(
         R.OVERGROWN_RUINS_FOREST_SETTLEMENT,

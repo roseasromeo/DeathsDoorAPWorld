@@ -1,7 +1,8 @@
 from typing import ClassVar, Any
 from logging import warning
 
-from Options import Option
+from Options import Option, PlandoConnection
+from entrance_rando import randomize_entrances
 
 try:
     from rule_builder import RuleWorldMixin, Rule, False_
@@ -13,6 +14,7 @@ from .options import (
     deathsdoor_options_presets,
     deathsdoor_option_groups,
     StartWeapon,
+    EntranceRandomization,
 )
 from .vanilla_pools import vanilla_location_lookup
 from .items import (
@@ -35,7 +37,10 @@ from .events import (
 from .event_rules import set_event_rules
 from .regions import DeathsDoorRegionName as R
 from .entrances.entrances import deathsdoor_entrances
+from .entrances.scene_transitions import two_way_scene_transitions, one_way_scene_transitions
+from .entrances.randomize_transitions import connect_plando, create_er_targets_and_exits, randomize_one_ways
 from .rules import Has, set_location_rules
+from .rule_builder_overrides import CanJeffersonTraverse
 from worlds.AutoWorld import World, WebWorld
 from BaseClasses import MultiWorld, Region, Location, Item, ItemClassification, Tutorial
 
@@ -175,11 +180,13 @@ class DeathsDoorWorld(RuleWorldMixin, World):
 
         if self.options.start_weapon == StartWeapon.option_random_excluding_umbrella:
             self.options.start_weapon.value = self.random.randint(0, 3)
-        
+
         if self.options.extra_life_seeds < 0:
             max_life_seeds_to_remove = 50 - self.options.plant_pot_number.value
             if max_life_seeds_to_remove < -self.options.extra_life_seeds.value:
-                warning(f"{self.options.extra_life_seeds} is too many Life Seeds to remove based on a plant_pot_number of {self.options.plant_pot_number}. Only {max_life_seeds_to_remove} will be removed instead.")
+                warning(
+                    f"{self.options.extra_life_seeds} is too many Life Seeds to remove based on a plant_pot_number of {self.options.plant_pot_number}. Only {max_life_seeds_to_remove} will be removed instead."
+                )
                 self.options.extra_life_seeds.value = -max_life_seeds_to_remove
 
         # Universal Tracker slot data handling
@@ -194,6 +201,15 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                 if opt is not None:
                     # You can also set .value directly but that won't work if you have OptionSets
                     setattr(self.options, key, opt.from_any(value))
+            self.options.plando_connections.value.clear()
+            entrance_pairings: dict[str, str] = slot_data["entrance_pairings"]
+            if slot_data["entrance_randomization"] == 1:
+                for entrance, exit in entrance_pairings.items():
+                    self.options.plando_connections.value.append(PlandoConnection(entrance, exit, "both"))
+            elif slot_data["entrance_randomization"] == 2:
+                for entrance, exit in entrance_pairings.items():
+                    self.options.plando_connections.value.append(PlandoConnection(entrance, exit, "entrance"))
+                
 
     def create_regions(self) -> None:
         for deathsdoor_region in R:
@@ -217,7 +233,10 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                 == 0
             ):
                 # Skip locations that are irrelevant on specific goals
-                if (self.options.goal == Goal.option_lord_of_doors or self.options.goal == Goal.option_any) and location_data.name == L.RUSTY_BELLTOWER_KEY:
+                if (
+                    self.options.goal == Goal.option_lord_of_doors
+                    or self.options.goal == Goal.option_any
+                ) and location_data.name == L.RUSTY_BELLTOWER_KEY:
                     location = DeathsDoorLocation(
                         self.player,
                         location_data.name.value,
@@ -226,7 +245,10 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                     )
                     region.locations.append(location)
                     location.place_locked_item(self.create_event(E.LORD_OF_DOORS.value))
-                elif (self.options.goal == Goal.option_green_tablet or self.options.goal == Goal.option_any) and location_data.name == L.GREEN_ANCIENT_TABLET_OF_KNOWLEDGE:
+                elif (
+                    self.options.goal == Goal.option_green_tablet
+                    or self.options.goal == Goal.option_any
+                ) and location_data.name == L.GREEN_ANCIENT_TABLET_OF_KNOWLEDGE:
                     location = DeathsDoorLocation(
                         self.player,
                         location_data.name.value,
@@ -234,7 +256,9 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                         region,
                     )
                     region.locations.append(location)
-                    location.place_locked_item(self.create_event(E.LIFE_SEED_DOOR.value))
+                    location.place_locked_item(
+                        self.create_event(E.LIFE_SEED_DOOR.value)
+                    )
                 else:
                     location = DeathsDoorLocation(
                         self.player,
@@ -292,6 +316,22 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             )
             self.create_entrance(start_region, end_region, deathsdoor_entrance.rule)
 
+        if self.options.entrance_randomization == EntranceRandomization.option_off:
+            # Create vanilla entrance 
+            all_scene_transitions = two_way_scene_transitions + one_way_scene_transitions
+            for scene_transition_pair in all_scene_transitions:
+                for scene_transition in scene_transition_pair:
+                    if scene_transition is not None:
+                        start_region = self.multiworld.get_region(
+                            scene_transition.starting_region.value, self.player
+                        )
+                        end_region = self.multiworld.get_region(
+                            scene_transition.ending_region.value, self.player
+                        )
+                        self.create_entrance(
+                            start_region, end_region, scene_transition.rule
+                        )
+
     def create_item(self, name: str, useful: bool = False) -> DeathsDoorItem:
         # if the name provided is an event, create it as an event
         if name in E:
@@ -308,8 +348,9 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                 name, ItemClassification.useful, self.item_name_to_id[name], self.player
             )
         elif (
-            (self.options.goal == Goal.option_lord_of_doors or self.options.goal == Goal.option_green_tablet) and IG.TABLET in item_data.item_groups
-        ): 
+            self.options.goal == Goal.option_lord_of_doors
+            or self.options.goal == Goal.option_green_tablet
+        ) and IG.TABLET in item_data.item_groups:
             return DeathsDoorItem(
                 name, ItemClassification.filler, self.item_name_to_id[name], self.player
             )
@@ -349,7 +390,10 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                 else:
                     items_to_create[data.name.value] = data.base_quantity_in_item_pool
 
-        if "Weapon" not in self.options.unrandomized_pools.value and self.options.remove_spell_upgrades.value:
+        if (
+            "Weapon" not in self.options.unrandomized_pools.value
+            and self.options.remove_spell_upgrades.value
+        ):
             items_to_create[I.FIRE] = 1
             items_to_create[I.BOMB] = 1
             items_to_create[I.HOOKSHOT] = 1
@@ -392,7 +436,11 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             # Only create up to the number of Life Seeds needed for check as progression
             items_to_create[I.LIFE_SEED.value] = self.options.plant_pot_number.value
             # Remainder are useful, include extra_life_seeds addition/subtraction here
-            for _ in range(50 - self.options.plant_pot_number.value + self.options.extra_life_seeds.value):
+            for _ in range(
+                50
+                - self.options.plant_pot_number.value
+                + self.options.extra_life_seeds.value
+            ):
                 deathsdoor_items.append(self.create_item(I.LIFE_SEED.value, True))
 
         # Create extra magic shards
@@ -435,11 +483,20 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         set_event_rules(self)
 
         completion_rule: Rule = False_()
-        if (self.options.goal == Goal.option_lord_of_doors or self.options.goal == Goal.option_any):
+        if (
+            self.options.goal == Goal.option_lord_of_doors
+            or self.options.goal == Goal.option_any
+        ):
             completion_rule = completion_rule | Has(E.LORD_OF_DOORS)
-        if (self.options.goal == Goal.option_true_ending or self.options.goal == Goal.option_any):
+        if (
+            self.options.goal == Goal.option_true_ending
+            or self.options.goal == Goal.option_any
+        ):
             completion_rule = completion_rule | Has(E.TRUE_ENDING)
-        if (self.options.goal == Goal.option_green_tablet or self.options.goal == Goal.option_any):
+        if (
+            self.options.goal == Goal.option_green_tablet
+            or self.options.goal == Goal.option_any
+        ):
             completion_rule = completion_rule | Has(E.LIFE_SEED_DOOR)
 
         self.set_completion_rule(completion_rule)
@@ -448,6 +505,42 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         # generate_rule_json()
         # generate_items_json()
         # generate_locations_json()
+
+    def connect_entrances(self) -> None:
+        self.entrance_pairings: dict[str, str] = {}
+        if self.options.entrance_randomization != EntranceRandomization.option_off:
+            create_er_targets_and_exits(self, two_way_scene_transitions)
+
+            if self.options.plando_connections:
+                connect_plando(self, self.options.plando_connections)
+                
+            coupled = self.options.entrance_randomization == EntranceRandomization.option_coupled
+
+            randomize_one_ways(self, coupled)
+
+            i = 0 # attempts to randomize to satisfy Jefferson\
+            max_tries = 100
+            while (i < max_tries):
+                result = randomize_entrances(self, coupled, {0: [0]}) # All of the entrances are in group 0 for now
+                if self.resolve_rule(CanJeffersonTraverse())._evaluate(result.collection_state):
+                    break # If Jefferson can traverse the GER, it works, otherwise retry
+                elif i < max_tries - 1:
+                    i = i + 1
+                    print(i)
+                else:
+                    i = i + 1
+                    print(i)
+                    # raise Exception(f"Entrance Randomization could not find an entrance layout for Jefferson to traverse. Try with less plando.{result.placements}")
+
+            for placement in result.placements:
+                self.entrance_pairings[placement.parent_region.name] = placement.connected_region.name
+            if coupled:
+                direction = "both"
+            else:
+                direction = "entrance"
+            for entrance, exit in self.entrance_pairings.items():
+                self.multiworld.spoiler.set_entrance(entrance, exit, direction, self.player)
+
 
     def fill_slot_data(self) -> dict[str, Any]:
         # A dictionary returned from this method gets set as the slot_data and will be sent to the client after connecting.
@@ -466,8 +559,10 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             "offscreen_targeting_tricks",
             "geometry_exploits",
             "roll_buffers",
+            "entrance_randomization",
             toggles_as_bools=True,
         )
+        slot_data["entrance_pairings"] = self.entrance_pairings
         slot_data["APWorldVersion"] = deathsdoor_version
         return slot_data
 
