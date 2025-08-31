@@ -37,8 +37,16 @@ from .events import (
 from .event_rules import set_event_rules
 from .regions import DeathsDoorRegionName as R
 from .entrances.entrances import deathsdoor_entrances
-from .entrances.scene_transitions import two_way_scene_transitions, one_way_scene_transitions
-from .entrances.randomize_transitions import connect_plando, create_er_targets_and_exits, randomize_one_ways
+from .entrances.scene_transitions import (
+    two_way_scene_transitions,
+    one_way_scene_transitions,
+)
+from .entrances.randomize_transitions import (
+    connect_plando,
+    create_er_targets_and_exits,
+    randomize_one_ways,
+    find_transition_name,
+)
 from .rules import Has, set_location_rules
 from .rule_builder_overrides import CanJeffersonTraverse
 from worlds.AutoWorld import World, WebWorld
@@ -49,6 +57,7 @@ from .json_generator import (
     generate_rule_json,
     generate_items_json,
     generate_locations_json,
+    generate_scene_transition_json,
 )
 
 deathsdoor_version = "0.3.0"
@@ -205,11 +214,14 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             entrance_pairings: dict[str, str] = slot_data["entrance_pairings"]
             if slot_data["entrance_randomization"] == 1:
                 for entrance, exit in entrance_pairings.items():
-                    self.options.plando_connections.value.append(PlandoConnection(entrance, exit, "both"))
+                    self.options.plando_connections.value.append(
+                        PlandoConnection(entrance, exit, "both")
+                    )
             elif slot_data["entrance_randomization"] == 2:
                 for entrance, exit in entrance_pairings.items():
-                    self.options.plando_connections.value.append(PlandoConnection(entrance, exit, "entrance"))
-                
+                    self.options.plando_connections.value.append(
+                        PlandoConnection(entrance, exit, "entrance")
+                    )
 
     def create_regions(self) -> None:
         for deathsdoor_region in R:
@@ -317,8 +329,10 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             self.create_entrance(start_region, end_region, deathsdoor_entrance.rule)
 
         if self.options.entrance_randomization == EntranceRandomization.option_off:
-            # Create vanilla entrance 
-            all_scene_transitions = two_way_scene_transitions + one_way_scene_transitions
+            # Create vanilla entrance
+            all_scene_transitions = (
+                two_way_scene_transitions + one_way_scene_transitions
+            )
             for scene_transition_pair in all_scene_transitions:
                 for scene_transition in scene_transition_pair:
                     if scene_transition is not None:
@@ -505,6 +519,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         # generate_rule_json()
         # generate_items_json()
         # generate_locations_json()
+        generate_scene_transition_json()
 
     def connect_entrances(self) -> None:
         self.entrance_pairings: dict[str, str] = {}
@@ -513,24 +528,32 @@ class DeathsDoorWorld(RuleWorldMixin, World):
 
             if self.options.plando_connections:
                 connect_plando(self, self.options.plando_connections)
-                
-            coupled = self.options.entrance_randomization == EntranceRandomization.option_coupled
+
+            coupled = (
+                self.options.entrance_randomization
+                == EntranceRandomization.option_coupled
+            )
 
             randomize_one_ways(self, coupled)
 
-            result = randomize_entrances(self, coupled, {0: [0]}) # All of the entrances are in group 0 for now
+            result = randomize_entrances(
+                self, coupled, {0: [0]}
+            )  # All of the entrances are in group 0 for now
             # if not self.resolve_rule(CanJeffersonTraverse())._evaluate(result.collection_state):
-                # raise Exception(f"Entrance Randomization could not find an entrance layout for Jefferson to traverse. Try with less plando.{result.placements}")
+            # raise Exception(f"Entrance Randomization could not find an entrance layout for Jefferson to traverse. Try with less plando.{result.placements}")
 
             for placement in result.placements:
-                self.entrance_pairings[placement.parent_region.name] = placement.connected_region.name
+                self.entrance_pairings[
+                    find_transition_name(placement.parent_region.name, True)
+                ] = find_transition_name(placement.connected_region.name, False)
             if coupled:
                 direction = "both"
             else:
                 direction = "entrance"
             for entrance, exit in self.entrance_pairings.items():
-                self.multiworld.spoiler.set_entrance(entrance, exit, direction, self.player)
-
+                self.multiworld.spoiler.set_entrance(
+                    entrance, exit, direction, self.player
+                )
 
     def fill_slot_data(self) -> dict[str, Any]:
         # A dictionary returned from this method gets set as the slot_data and will be sent to the client after connecting.

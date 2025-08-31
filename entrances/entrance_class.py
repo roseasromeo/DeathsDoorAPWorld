@@ -16,3 +16,5 @@ class DeathsDoorEntrance(NamedTuple):
     ending_region: R
     rule: Rule["DeathsDoorWorld"] | None
     name: str = ""
+    loading_zone_id: str = ""
+    scene_name: str = ""
