@@ -18,3 +18,4 @@ class DeathsDoorEntrance(NamedTuple):
     name: str = ""
     loading_zone_id: str = ""
     scene_name: str = ""
+    no_jefferson: bool = False

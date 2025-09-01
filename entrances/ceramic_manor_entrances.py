@@ -3,7 +3,7 @@ try:
 except ModuleNotFoundError:
     from ..rule_builder import True_, OptionFilter
 from .entrance_class import DeathsDoorEntrance
-from ..rule_builder_overrides import Has, HasAll
+from ..rule_builder_overrides import Has
 from ..items import DeathsDoorItemName as I
 from ..regions import DeathsDoorRegionName as R
 from ..events import DeathsDoorEventName as E
@@ -37,13 +37,7 @@ ceramic_manor_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.CERAMIC_MANOR_MAIN_LOBBY,
         R.CERAMIC_MANOR_ANCIENT_DOOR,
-        HasAll(
-            E.ACCESS_TO_DAY,
-            I.CROW_MANOR_AFTER_TORCH_PUZZLE,
-            I.CROW_MANOR_BEDROOM,
-            I.CROW_MANOR_IMP_LOFT,
-            I.CROW_MANOR_LIBRARY,
-        ),
+        None,
     ),
     DeathsDoorEntrance(
         R.CERAMIC_MANOR_MAIN_LOBBY,

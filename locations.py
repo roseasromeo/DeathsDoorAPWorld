@@ -496,7 +496,7 @@ location_table: list[DeathsDoorLocationData] = [
         DeathsDoorLocationName.REAPERS_GREATSWORD,
         "Reaper's Greatsword",
         303,
-        R.STRANDED_SAILOR_JEFFERSON,
+        R.STRANDED_SAILOR,
         [LocationGroup.WEAPON],
     ),
     DeathsDoorLocationData(
@@ -702,7 +702,7 @@ location_table: list[DeathsDoorLocationData] = [
         DeathsDoorLocationName.CAPTAINS_LOG,
         "Captain's Log",
         708,
-        R.STRANDED_SAILOR_JEFFERSON,
+        R.STRANDED_SAILOR,
         [LocationGroup.SHINY_THING],
     ),
     DeathsDoorLocationData(
@@ -744,7 +744,7 @@ location_table: list[DeathsDoorLocationData] = [
         DeathsDoorLocationName.GRUNTS_OLD_MASK,
         "Grunt's Old Mask",
         714,
-        R.STRANDED_SAILOR_JEFFERSON,
+        R.STRANDED_SAILOR,
         [LocationGroup.SHINY_THING],
     ),
     DeathsDoorLocationData(
@@ -786,7 +786,7 @@ location_table: list[DeathsDoorLocationData] = [
         DeathsDoorLocationName.INK_COVERED_TEDDY_BEAR,
         "Ink-Covered Teddy Bear",
         720,
-        R.STRANDED_SAILOR_JEFFERSON,
+        R.STRANDED_SAILOR,
         [LocationGroup.SHINY_THING],
     ),
     DeathsDoorLocationData(
@@ -1594,7 +1594,7 @@ location_table: list[DeathsDoorLocationData] = [
         DeathsDoorLocationName.RED_ANCIENT_TABLET_OF_KNOWLEDGE,
         "Red Ancient Tablet of Knowledge",
         800,
-        R.FLOODED_FORTRESS_ENTRANCE,
+        R.FLOODED_FORTRESS_ENTRANCE_JEFFERSON,
         [LocationGroup.TABLET, LocationGroup.NIGHT],
     ),
     DeathsDoorLocationData(
@@ -1735,7 +1735,7 @@ location_table: list[DeathsDoorLocationData] = [
         DeathsDoorLocationName.LEVER_SAILOR_GREATSWORD_GATE,
         "Lever-Sailor Greatsword Gate",
         911,
-        R.STRANDED_SAILOR_JEFFERSON,
+        R.STRANDED_SAILOR,
         [LocationGroup.LEVER],
     ),
     DeathsDoorLocationData(
