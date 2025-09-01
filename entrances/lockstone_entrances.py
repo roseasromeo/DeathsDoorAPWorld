@@ -111,13 +111,7 @@ lockstone_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_CENTRAL,
         R.CASTLE_LOCKSTONE_ANCIENT_DOOR,
-        HasAll(
-            E.ACCESS_TO_DAY,
-            I.CROW_LOCKSTONE_EAST,
-            I.CROW_LOCKSTONE_WEST,
-            I.CROW_LOCKSTONE_SOUTH_WEST,
-            I.CROW_LOCKSTONE_WEST_LOCKED,
-        ),
+        None,
     ),
     DeathsDoorEntrance(
         R.CASTLE_LOCKSTONE_CENTRAL, R.CASTLE_LOCKSTONE_LORD_LOCKSTONE, None

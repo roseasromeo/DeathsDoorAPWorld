@@ -6,7 +6,7 @@ try:
     from rule_builder import True_
 except ModuleNotFoundError:
     from .rule_builder import True_
-from .entrances.entrances import deathsdoor_entrances, DeathsDoorEntrance
+from .entrances.entrances import deathsdoor_internal_entrances, DeathsDoorEntrance
 from .entrances.scene_transitions import two_way_scene_transitions, one_way_scene_transitions
 from .locations import location_table
 from .items import item_table
@@ -14,7 +14,7 @@ from .rules import deaths_door_location_rules
 
 def generate_rule_json():
     entrance_json_accumulator: list[dict[str, Any]] = list()
-    entrance_list = deathsdoor_entrances
+    entrance_list = deathsdoor_internal_entrances
     for (A_to_B, B_to_A) in two_way_scene_transitions:
         entrance_list.append(A_to_B)
         entrance_list.append(B_to_A)
@@ -52,16 +52,17 @@ def generate_rule_json():
         json.dump(location_json_accumulator, f)
 
 def generate_scene_transition_json():
-    def make_transition_dict(entrance: DeathsDoorEntrance):
+    def make_transition_dict(entrance: DeathsDoorEntrance, origin_scene_name: str = ""):
         transition_dict = dict ()
         transition_dict["apName"] = entrance.name
         transition_dict["loadingZoneId"] = entrance.loading_zone_id
-        transition_dict["sceneName"] = entrance.scene_name
+        transition_dict["toSceneName"] = entrance.scene_name
+        transition_dict["originSceneName"] = origin_scene_name
         return transition_dict
     scene_transition_json_accumulator: list[dict[str, Any]] = list()
     for (A_to_B, B_to_A) in two_way_scene_transitions:
-        scene_transition_json_accumulator.append(make_transition_dict(A_to_B))
-        scene_transition_json_accumulator.append(make_transition_dict(B_to_A))
+        scene_transition_json_accumulator.append(make_transition_dict(A_to_B, B_to_A.scene_name))
+        scene_transition_json_accumulator.append(make_transition_dict(B_to_A, A_to_B.scene_name))
     for (A_to_B, _) in one_way_scene_transitions:
         scene_transition_json_accumulator.append(make_transition_dict(A_to_B))
     with open("SceneTransitions.json", "w") as f:

@@ -20,7 +20,7 @@ from .throne_entrances import throne_entrances
 from .urn_witchs_laboratory_entrances import laboratory_entrances
 from .watchtowers_entrances import watchtower_entrances
 
-deathsdoor_entrances: list[DeathsDoorEntrance] = (
+deathsdoor_internal_entrances: list[DeathsDoorEntrance] = (
     bettys_lair_entrances
     + camp_entrances
     + ceramic_manor_entrances

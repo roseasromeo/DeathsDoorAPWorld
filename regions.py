@@ -169,6 +169,7 @@ class DeathsDoorRegionName(str, Enum):
         "Flooded Fortress Exit to Mushroom Dungeon"
     )
     FLOODED_FORTRESS_ENTRANCE = "Flooded Fortress Entrance"
+    FLOODED_FORTRESS_ENTRANCE_JEFFERSON = "Flooded Fortress Entrance (Jefferson)"
     FLOODED_FORTRESS_WATCHTOWER_LOWER = "Flooded Fortress Watchtower Lower"
     FLOODED_FORTRESS_FROG_KING_STATUE = "Flooded Fortress Frog King Statue"
     FLOODED_FORTRESS_PRE_MAIN_GATE = "Flooded Fortress Pre-Main Gate"
@@ -199,8 +200,6 @@ class DeathsDoorRegionName(str, Enum):
     STRANDED_SAILOR_EXIT_TO_CASTLE_LOCKSTONE = (
         "Stranded Sailor Exit to Castle Lockstone"
     )
-    STRANDED_SAILOR_JEFFERSON = "Stranded Sailor Jefferson"
-    STRANDED_SAILOR_JEFFERSON_QUEST_START = "Jefferson Quest Start"
 
     STRANDED_SAILOR_CAVES = "Stranded Sailor Caves"
     STRANDED_SAILOR_CAVES_EXIT_TO_LOST_CEMETERY = (
@@ -269,3 +268,44 @@ class DeathsDoorRegionName(str, Enum):
     BETTYS_LAIR = "Betty's Lair"
     BETTYS_LAIR_DOOR = "Betty's Lair Door"
     BETTYS_LAIR_EXIT_TO_OLD_WATCHTOWERS = "Betty's Lair Exit to Old Watchtowers"
+
+no_jefferson_regions: list[DeathsDoorRegionName] = [
+    # Hall of Doors Regions and Door Check Regions
+    DeathsDoorRegionName.HALL_OF_DOORS_LOBBY,
+    DeathsDoorRegionName.DOOR_TO_GROVE_OF_SPIRITS,
+    DeathsDoorRegionName.DOOR_TO_LOST_CEMETERY,
+    DeathsDoorRegionName.DOOR_TO_ESTATE_OF_THE_URN_WITCH,
+    DeathsDoorRegionName.DOOR_TO_CERAMIC_MANOR,
+    DeathsDoorRegionName.DOOR_TO_INNER_FURNACE,
+    DeathsDoorRegionName.DOOR_TO_URN_WITCHS_LABORATORY,
+    DeathsDoorRegionName.DOOR_TO_OVERGROWN_RUINS,
+    DeathsDoorRegionName.DOOR_TO_MUSHROOM_DUNGEON,
+    DeathsDoorRegionName.DOOR_TO_FLOODED_FORTRESS,
+    DeathsDoorRegionName.DOOR_TO_THRONE_OF_THE_FROG_KING,
+    DeathsDoorRegionName.DOOR_TO_STRANDED_SAILOR,
+    DeathsDoorRegionName.DOOR_TO_CASTLE_LOCKSTONE,
+    DeathsDoorRegionName.DOOR_TO_CAMP_OF_THE_FREE_CROWS,
+    DeathsDoorRegionName.DOOR_TO_OLD_WATCHTOWERS,
+    DeathsDoorRegionName.DOOR_TO_BETTYS_LAIR,
+    DeathsDoorRegionName.FIRE_AVARICE,
+    DeathsDoorRegionName.POST_FIRE_AVARICE,
+    DeathsDoorRegionName.HOOKSHOT_AVARICE,
+    DeathsDoorRegionName.POST_HOOKSHOT_AVARICE,
+    DeathsDoorRegionName.BOMB_AVARICE,
+    DeathsDoorRegionName.POST_BOMB_AVARICE,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_GROVE_OF_SPIRITS,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_LOST_CEMETERY,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_ESTATE_OF_THE_URN_WITCH,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_CERAMIC_MANOR,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_INNER_FURNACE,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_URN_WITCHS_LABORATORY,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_OVERGROWN_RUINS,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_MUSHROOM_DUNGEON,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_FLOODED_FORTRESS,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_THRONE_OF_THE_FROG_KING,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_STRANDED_SAILOR,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_CASTLE_LOCKSTONE,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_CAMP_OF_THE_FREE_CROWS,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_OLD_WATCHTOWERS,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_BETTYS_LAIR,
+]
