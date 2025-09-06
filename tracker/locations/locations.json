@@ -4976,15 +4976,21 @@
                 ]
             },
             {
-                "name": "Old Watchtowers - Ice Skating Life Seed",
+                "name": "Old Watchtowers - After Ice Skating Lever",
                 "map_locations": [
                     {
                         "map": "old_watchtowers",
-                        "x": 428.34375,
-                        "y": 551.3203125
+                        "x": 444.875,
+                        "y": 540.359375
                     }
                 ],
                 "sections": [
+                    {
+                        "name": "Old Watchtowers - After Ice Skating Lever"
+                    },
+                    {
+                        "name": "Old Watchtowers - Owl"
+                    },
                     {
                         "name": "Old Watchtowers - Ice Skating Life Seed"
                     }
@@ -5095,21 +5101,7 @@
                     }
                 ]
             },
-            {
-                "name": "Old Watchtowers - Owl",
-                "map_locations": [
-                    {
-                        "map": "old_watchtowers",
-                        "x": 447.75,
-                        "y": 532.8125
-                    }
-                ],
-                "sections": [
-                    {
-                        "name": "Old Watchtowers - Owl"
-                    }
-                ]
-            },
+            
             {
                 "name": "Old Watchtowers - After Boomers Lever",
                 "map_locations": [
@@ -5137,21 +5129,6 @@
                 "sections": [
                     {
                         "name": "Old Watchtowers - Before Ice Arena Lever"
-                    }
-                ]
-            },
-            {
-                "name": "Old Watchtowers - After Ice Skating Lever",
-                "map_locations": [
-                    {
-                        "map": "old_watchtowers",
-                        "x": 444.875,
-                        "y": 540.359375
-                    }
-                ],
-                "sections": [
-                    {
-                        "name": "Old Watchtowers - After Ice Skating Lever"
                     }
                 ]
             }
