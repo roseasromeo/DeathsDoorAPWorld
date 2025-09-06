@@ -46,7 +46,7 @@ from .json_generator import (
     generate_locations_json,
 )
 
-deathsdoor_version = "0.2.1"
+deathsdoor_version = "0.3.0"
 
 
 class DeathsDoorItem(Item):
