@@ -31,7 +31,7 @@ class DeathsDoorLocationName(str, Enum):
     HOOKSHOT_AVARICE = (
         "Hall of Doors - Hookshot Avarice (Castle Lockstone Ancient Door)"
     )
-    FIRE_SILENT_SERVANT = "Lost Cemetery - Crypt Fire Silent Servant"
+    FIRE_SILENT_SERVANT = "Crypt - Fire Silent Servant"
     BOMB_SILENT_SERVANT = "Lost Cemetery - East Tree Bridge Bomb Silent Servant"
     HOOKSHOT_SILENT_SERVANT = "Stranded Sailor Caves - Hookshot Silent Servant"
     ARROW_SILENT_SERVANT = "Lost Cemetery - Catacombs Arrow Silent Servant"
@@ -131,7 +131,7 @@ class DeathsDoorLocationName(str, Enum):
     SEED_LOCKSTONE_UPPER_EAST = "Castle Lockstone - Upper East Life Seed"
     SEED_LOCKSTONE_SOUL_DOOR = "Castle Lockstone - Soul Door Life Seed"
     SEED_LOCKSTONE_BEHIND_BARS = "Castle Lockstone - Behind Bars Life Seed"
-    SEED_LOCKSTONE_ENTRANCE_WEST = "Castle Lockstone - Entrance West Life Seed"
+    SEED_LOCKSTONE_ENTRANCE_WEST = "Castle Lockstone - Northwest Life Seed (Under Boxes)"
     SEED_LOCKSTONE_NORTH = "Castle Lockstone - North Life Seed"
     SEED_CAMP_LEDGE_WITH_HUTS = "Camp of the Free Crows - Ledge With Huts Life Seed"
     SEED_CAMP_STALL = "Camp of the Free Crows - Stall Life Seed"
@@ -237,7 +237,7 @@ class DeathsDoorLocationName(str, Enum):
     SOUL_ORB_FORTRESS_BOMB = "Flooded Fortress - Bomb Soul Orb"
     SOUL_ORB_FORTRESS_HIDDEN_SEWER = "Flooded Fortress - Hidden Sewer Soul Orb"
     SOUL_ORB_FORTRESS_DROP = "Flooded Fortress - Drop Soul Orb"
-    SOUL_ORB_ESTATE_ACCESS_CRYPT = "Lost Cemetery - Crypt Soul Orb"
+    SOUL_ORB_ESTATE_ACCESS_CRYPT = "Crypt - Soul Orb"
     SOUL_ORB_ESTATE_BALCONY = "Estate of the Urn Witch - Balcony Soul Orb"
     SOUL_ORB_GARDEN_OF_LOVE_TURNCAM = (
         "Estate of the Urn Witch - Garden of Love Turncam Soul Orb"
@@ -312,7 +312,7 @@ class DeathsDoorLocationName(str, Enum):
     LEVER_SAILOR_GREATSWORD_GATE = "Stranded Sailor - Greatsword Gate Lever"
     LEVER_LOCKSTONE_EAST_START_SHORTCUT = "Castle Lockstone - East Start Shortcut Lever"
     LEVER_LOCKSTONE_ENTRANCE = "Castle Lockstone - Entrance Lever"
-    LEVER_LOCKSTONE_EAST_LOWER = "Castle Lockstone - East Lower Lever"
+    LEVER_LOCKSTONE_WEST_UPPER = "Castle Lockstone - West Upper Lever"
     LEVER_LOCKSTONE_UPPER_SHORTCUT = "Castle Lockstone - Upper Shortcut Lever"
     LEVER_LOCKSTONE_DUAL_LASER_PUZZLE = "Castle Lockstone - Dual Laser Puzzle Lever"
     LEVER_LOCKSTONE_TRACKING_BEAM_PUZZLE = (
@@ -354,8 +354,8 @@ class DeathsDoorLocationName(str, Enum):
     LEVER_FORTRESS_PRE_MAIN_GATE = "Flooded Fortress - Pre-Main Gate Lever"
     LEVER_FORTRESS_WATCHTOWER_UPPER = "Flooded Fortress - Watchtower Upper Lever"
     LEVER_FORTRESS_NORTH_WEST = "Flooded Fortress - North West Lever"
-    LEVER_ESTATE_ELEVATOR_LEFT = "Estate of the Urn Witch - Elevator Left Lever"
-    LEVER_ESTATE_ELEVATOR_RIGHT = "Estate of the Urn Witch - Elevator Right Lever"
+    LEVER_ESTATE_ELEVATOR_LEFT = "Crypt - Elevator Left Lever"
+    LEVER_ESTATE_ELEVATOR_RIGHT = "Crypt - Elevator Right Lever"
     LEVER_GARDEN_OF_LOVE = "Estate of the Urn Witch - Garden of Love Lever"
     LEVER_GARDEN_OF_LIFE_END = "Estate of the Urn Witch - Garden of Life End Lever"
     LEVER_GARDEN_OF_PEACE = "Estate of the Urn Witch - Garden of Peace Lever"
@@ -1753,7 +1753,7 @@ location_table: list[DeathsDoorLocationData] = [
         [LocationGroup.LEVER],
     ),
     DeathsDoorLocationData(
-        DeathsDoorLocationName.LEVER_LOCKSTONE_EAST_LOWER,
+        DeathsDoorLocationName.LEVER_LOCKSTONE_WEST_UPPER,
         "Lever-Lockstone East Lower",
         914,
         R.CASTLE_LOCKSTONE_CENTRAL,

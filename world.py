@@ -47,7 +47,7 @@ from .rules import Has, set_location_rules
 from worlds.AutoWorld import World, WebWorld
 from BaseClasses import MultiWorld, Region, Location, Item, ItemClassification, Tutorial
 
-# from .tracker import tracker_world
+from .tracker import tracker_world
 from .json_generator import (
     generate_rule_json,
     generate_items_json,
@@ -55,7 +55,7 @@ from .json_generator import (
     generate_scene_transition_json,
 )
 
-deathsdoor_version = "0.2.1"
+deathsdoor_version = "0.3.0"
 
 
 class DeathsDoorItem(Item):
@@ -102,7 +102,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
     location_name_groups = location_name_groups
 
     #  UT Integration
-    # tracker_world: ClassVar[dict[str, Any]] = tracker_world
+    tracker_world: ClassVar[dict[str, Any]] = tracker_world
     ut_can_gen_without_yaml: ClassVar[bool] = True
     glitches_item_name: ClassVar[str] = E.OOL.value
 
