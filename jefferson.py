@@ -8,6 +8,8 @@ from .events import DeathsDoorEventName as E
 from .entrances.scene_transitions import (
     two_way_scene_transitions,
 )
+from entrance_rando import EntranceType
+from .entrances.entrance_class import DeathsDoorConnectionGroup
 
 if TYPE_CHECKING:
     from . import DeathsDoorWorld
@@ -46,7 +48,7 @@ def create_jefferson_internal_connections(world: "DeathsDoorWorld"):
             end_region = world.multiworld.get_region(
                 entrance.ending_region.value + jefferson_tag, world.player
             )
-            world.create_entrance(start_region, end_region, entrance.rule)
+            new_entrance = world.create_entrance(start_region, end_region, entrance.rule)
 
     # Create the ability to access the Jefferson network of regions
     jefferson_start = R.STRANDED_SAILOR
@@ -70,4 +72,6 @@ def create_jefferson_vanilla_connections(world: "DeathsDoorWorld"):
                 end_region = world.multiworld.get_region(
                     scene_transition.ending_region.value + jefferson_tag, world.player
                 )
-                world.create_entrance(start_region, end_region, scene_transition.rule)
+                new_entrance = world.create_entrance(start_region, end_region, scene_transition.rule)
+                new_entrance.randomization_type = EntranceType.TWO_WAY
+                new_entrance.randomization_group = DeathsDoorConnectionGroup.JEFFERSON

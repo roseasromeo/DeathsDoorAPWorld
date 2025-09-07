@@ -24,6 +24,9 @@ lost_cemetery_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.LOST_CEMETERY_NEAR_GROVE_OF_SPIRITS_DOOR, R.LOST_CEMETERY_CENTRAL, None
     ),
+    DeathsDoorEntrance(
+        R.LOST_CEMETERY_CENTRAL, R.LOST_CEMETERY_NEAR_GROVE_OF_SPIRITS_DOOR, Has(E.LOST_CEMETERY_OPENED_GROVE_TO_CENTRAL)
+    ), # For Jefferson Backtracking
     DeathsDoorEntrance(R.LOST_CEMETERY_DOOR, R.LOST_CEMETERY_CENTRAL, None),
     DeathsDoorEntrance(
         R.LOST_CEMETERY_CENTRAL, R.LOST_CEMETERY_DOOR, None
