@@ -1,11 +1,6 @@
 import dataclasses
 from typing import TYPE_CHECKING, Any, Iterable
 from typing_extensions import override
-
-from collections import deque
-
-from BaseClasses import CollectionState, Region
-
 from .items import ItemGroup as IG, DeathsDoorItemName as I
 from .locations import DeathsDoorLocationName as L
 from .events import DeathsDoorEventName as E
@@ -20,7 +15,6 @@ try:
         HasGroup as RBHasGroup,
         CanReachLocation as RBCanReachLocation,
         CanReachRegion as RBCanReachRegion,
-        Rule,
     )
 except ModuleNotFoundError:
     from .rule_builder import (
@@ -31,14 +25,8 @@ except ModuleNotFoundError:
         HasGroup as RBHasGroup,
         CanReachLocation as RBCanReachLocation,
         CanReachRegion as RBCanReachRegion,
-        Rule,
-        Rule,
     )
-
-if TYPE_CHECKING:
-    from . import DeathsDoorWorld
-
-
+    
 # Override Has, etc. to take DeathsDoorItemName enum instead of string
 @dataclasses.dataclass()
 class Has(RBHas, game="Death's Door"):

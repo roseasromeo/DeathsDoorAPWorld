@@ -43,6 +43,7 @@ deaths_door_event_rules: dict[EL: Rule["DeathsDoorWorld"] | None] = {
     EL.TRUE_ENDING: HasAll(I.RED_ANCIENT_TABLET_OF_KNOWLEDGE, I.BLUE_ANCIENT_TABLET_OF_KNOWLEDGE, I.CYAN_ANCIENT_TABLET_OF_KNOWLEDGE, I.PINK_ANCIENT_TABLET_OF_KNOWLEDGE, I.GREEN_ANCIENT_TABLET_OF_KNOWLEDGE, I.PURPLE_ANCIENT_TABLET_OF_KNOWLEDGE, I.YELLOW_ANCIENT_TABLET_OF_KNOWLEDGE) | True_(options=[OptionFilter(Goal, Goal.option_lord_of_doors)]) | True_(options=[OptionFilter(Goal, Goal.option_green_tablet)]),
     EL.LIFE_SEED_DOOR: HasPlantedEnoughLifeSeeds(),
     EL.LOST_CEMETERY_OPENED_EXIT_TO_SAILOR: Has(I.FIRE) | True_(options=[OptionFilter(OffscreenTargetingTricks, 1)]) | Has(E.OOL),
+    EL.FLOODED_FORTRESS_OPENED_BRIDGE: Has(I.LEVER_FORTRESS_NORTH_WEST),
     EL.ACCESS_TO_NIGHT: True_(options=[OptionFilter(StartDayOrNight, 1)])
     | (Has(I.RUSTY_BELLTOWER_KEY) & CanReachRegion(R.LOST_CEMETERY_BELLTOWER)) | CanReachRegion(R.LOST_CEMETERY_SUMMIT, options=[OptionFilter(BombBellGlitch, 1)]),
     EL.ACCESS_TO_DAY: True_(options=[OptionFilter(StartDayOrNight, 0)])

@@ -1,5 +1,4 @@
 from .entrance_class import DeathsDoorEntrance
-from ..items import DeathsDoorItemName as I
 from ..regions import DeathsDoorRegionName as R
 
 throne_entrances: list[DeathsDoorEntrance] = [

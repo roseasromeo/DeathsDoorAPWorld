@@ -13,7 +13,6 @@ from .options import (
     deathsdoor_options_presets,
     deathsdoor_option_groups,
     StartWeapon,
-    EntranceRandomization,
 )
 from .vanilla_pools import vanilla_location_lookup
 from .items import (
@@ -36,17 +35,13 @@ from .events import (
 from .event_rules import set_event_rules
 from .regions import DeathsDoorRegionName as R
 from .entrances.entrances import deathsdoor_internal_entrances
-from .entrances.scene_transitions import (
-    two_way_scene_transitions,
-    one_way_scene_transitions,
-)
 from .entrances.randomize_transitions import (
-    connect_entrances_function
+    connect_entrances_function,
+    create_vanilla_entrances
 )
 from .jefferson import (
     create_jefferson_regions,
     create_jefferson_internal_connections,
-    create_jefferson_vanilla_connections,
 )
 from .rules import Has, set_location_rules
 from worlds.AutoWorld import World, WebWorld
@@ -329,25 +324,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             )
             self.create_entrance(start_region, end_region, deathsdoor_entrance.rule)
         create_jefferson_internal_connections(self)
-
-        if self.options.entrance_randomization == EntranceRandomization.option_off:
-            # Create vanilla entrance
-            all_scene_transitions = (
-                two_way_scene_transitions + one_way_scene_transitions
-            )
-            for scene_transition_pair in all_scene_transitions:
-                for scene_transition in scene_transition_pair:
-                    if scene_transition is not None:
-                        start_region = self.multiworld.get_region(
-                            scene_transition.starting_region.value, self.player
-                        )
-                        end_region = self.multiworld.get_region(
-                            scene_transition.ending_region.value, self.player
-                        )
-                        self.create_entrance(
-                            start_region, end_region, scene_transition.rule
-                        )
-            create_jefferson_vanilla_connections(self)
+        create_vanilla_entrances(self)
 
     def create_item(self, name: str, useful: bool = False) -> DeathsDoorItem:
         # if the name provided is an event, create it as an event
