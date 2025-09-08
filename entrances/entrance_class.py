@@ -10,8 +10,6 @@ from ..regions import DeathsDoorRegionName as R
 if TYPE_CHECKING:
     from .. import DeathsDoorWorld
 
-from entrance_rando import EntranceType
-
 class DeathsDoorEntrance(NamedTuple):
     starting_region: R
     ending_region: R

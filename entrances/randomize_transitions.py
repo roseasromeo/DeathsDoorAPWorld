@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from BaseClasses import Entrance, Region
+from BaseClasses import CollectionState, Entrance, Region
 from Options import OptionError
 from Utils import visualize_regions
 from ..options import DeathsDoorPlandoConnections, EntranceRandomization
@@ -36,11 +36,11 @@ def create_vanilla_entrances(world: "DeathsDoorWorld"):
         )
         for scene_transition in scene_transition_pair:
             if scene_transition is not None:
-                start_region = world.multiworld.get_region(
-                    scene_transition.starting_region.value, world.player
+                start_region: Region = world.get_region(
+                    scene_transition.starting_region.value
                 )
-                end_region = world.multiworld.get_region(
-                    scene_transition.ending_region.value, world.player
+                end_region: Region = world.get_region(
+                    scene_transition.ending_region.value
                 )
                 new_entrance = world.create_entrance(
                     start_region, end_region, scene_transition.rule
@@ -62,47 +62,85 @@ def connect_plando(
             temp_exit = plando_connection.exit
             plando_connection.exit = plando_connection.entrance
             plando_connection.entrance = temp_exit
-        entrance, two_way_entrance = find_scene_transition_from_name(
-            plando_connection.entrance
-        )
-        exit, two_way_exit = find_scene_transition_from_name(plando_connection.exit)
+        two_way_entrance = not plando_connection.entrance in [
+            x[0].starting_region.value for x in one_way_scene_transitions
+        ]
+        two_way_exit = not plando_connection.exit in [
+            x[0].ending_region.value for x in one_way_scene_transitions
+        ]
+
         if two_way_exit != two_way_entrance:
             raise OptionError(
                 f"One-ways (Avarices) cannot be plando'd to two-ways. Plando connection {plando_connection.entrance} to {plando_connection.exit} is invalid."
             )
-        if plando_connection.direction != "both" and coupled and two_way_entrance:
+        if not getattr(world.multiworld, "re_gen_passthrough", {}) and plando_connection.direction != "both" and coupled and two_way_entrance:
             raise Warning(
                 f"If entrance randomization is set to coupled, all two-way plando_connections will be forced to be both. Plando connection {plando_connection.entrance} to {plando_connection.exit} has direction {plando_connection.direction}"
             )
 
-        from_region = world.multiworld.get_region(
-            entrance.starting_region.value, world.player
-        )
-        to_region = world.multiworld.get_region(exit.ending_region.value, world.player)
-        remove_dangling_exit(from_region)
-        remove_dangling_entrance(to_region)
-        from_to_to = from_region.connect(to_region)
-        world.entrance_pairings[entrance.name] = exit.name
-        if entrance.rule is not None:
-            resolved_rule = world.resolve_rule(entrance.rule)
-            world.register_rule_dependencies(resolved_rule)
-            if resolved_rule:
-                from_to_to.access_rule = resolved_rule
-                if resolved_rule is not None:
-                    world.register_rule_connections(resolved_rule, from_to_to)
+        if two_way_entrance:
+            entrance, _ = find_scene_transition_from_name(
+                find_two_way_transition_name(plando_connection.entrance, True)
+            )
+            exit, _ = find_scene_transition_from_name(
+                find_two_way_transition_name(plando_connection.exit, False)
+            )
+        else:
+            entrance, _ = find_scene_transition_from_name(
+                find_one_way_transition_name(plando_connection.entrance, True)
+            )
+            exit, _ = find_scene_transition_from_name(
+                find_one_way_transition_name(plando_connection.exit, False)
+            )
 
-        if (coupled or plando_connection.direction == "both") and two_way_entrance:
-            remove_dangling_exit(to_region)
-            remove_dangling_entrance(from_region)
-            to_to_from = to_region.connect(from_region)
-            world.entrance_pairings[entrance.name] = exit.name
-            if exit.rule is not None:
-                resolved_rule = world.resolve_rule(exit.rule)
-                world.register_rule_dependencies(resolved_rule)
-                if resolved_rule:
-                    from_to_to.access_rule = resolved_rule
-                    if resolved_rule is not None:
-                        world.register_rule_connections(resolved_rule, to_to_from)
+        from_region = world.get_region(
+            plando_connection.entrance
+        )
+        to_region = world.get_region(plando_connection.exit)
+        if f"{from_region.name} -> {to_region.name}" not in [x.name for x in world.get_entrances()]:
+            remove_dangling_exit(from_region)
+            remove_dangling_entrance(to_region)
+            world.create_entrance(from_region, to_region, entrance.rule)
+            world.entrance_pairings[from_region.name] = to_region.name
+
+            if not getattr(world.multiworld, "re_gen_passthrough", {}) and (coupled or plando_connection.direction == "both") and two_way_entrance:
+                remove_dangling_exit(to_region)
+                remove_dangling_entrance(from_region)
+                world.create_entrance(to_region, from_region, exit.rule)
+                world.entrance_pairings[to_region.name] = from_region.name
+            # Replicate connections between Jefferson regions
+            try:
+                start_region_jefferson = world.get_region(from_region.name + jefferson_tag)
+            except KeyError:
+                start_region_jefferson = None
+            try:
+                end_region_jefferson = world.get_region(to_region.name + jefferson_tag)
+            except KeyError:
+                end_region_jefferson = None
+            if start_region_jefferson:
+                try:
+                    remove_dangling_exit(start_region_jefferson)
+                except ValueError:
+                    pass
+            if end_region_jefferson:
+                try:
+                    remove_dangling_entrance(end_region_jefferson)
+                except ValueError:
+                    pass
+            if start_region_jefferson and end_region_jefferson:
+                scene_transition, _ = find_scene_transition_from_name(
+                    find_two_way_transition_name(from_region.name, True)
+                )
+                world.create_entrance(
+                    start_region_jefferson, end_region_jefferson, scene_transition.rule
+                )
+                if not getattr(world.multiworld, "re_gen_passthrough", {}) and (coupled or plando_connection.direction == "both") and two_way_entrance:
+                    scene_transition, _ = find_scene_transition_from_name(
+                        find_two_way_transition_name(to_region.name, True)
+                    )
+                    world.create_entrance(
+                        end_region_jefferson, start_region_jefferson, scene_transition.rule
+                    )
 
 
 def find_scene_transition_from_name(name: str) -> tuple[DeathsDoorEntrance, bool]:
@@ -204,7 +242,7 @@ def randomize_one_ways(world: "DeathsDoorWorld"):
     from_exits = sorted(
         [
             ex
-            for region in world.multiworld.get_regions(world.player)
+            for region in world.get_regions()
             for ex in region.exits
             if not ex.connected_region
             and ex.randomization_group == DeathsDoorConnectionGroup.ONE_WAY
@@ -215,7 +253,7 @@ def randomize_one_ways(world: "DeathsDoorWorld"):
     to_entrances = sorted(
         [
             entrance
-            for region in world.multiworld.get_regions(world.player)
+            for region in world.get_regions()
             for entrance in region.entrances
             if not entrance.parent_region
             and entrance.randomization_group == DeathsDoorConnectionGroup.ONE_WAY
@@ -230,13 +268,12 @@ def randomize_one_ways(world: "DeathsDoorWorld"):
         from_scene_transition_name = find_one_way_transition_name(
             from_exit.parent_region.name, True
         )
-        to_scene_transition_name = find_one_way_transition_name(
-            to_entrance.connected_region.name, False
-        )
         from_scene_transition, _ = find_scene_transition_from_name(
             from_scene_transition_name
         )
-        world.entrance_pairings[from_scene_transition_name] = to_scene_transition_name
+        world.entrance_pairings[from_exit.parent_region.name] = (
+            to_entrance.connected_region.name
+        )
         entrance = world.create_entrance(
             from_exit.parent_region,
             to_entrance.connected_region,
@@ -253,39 +290,35 @@ def connect_entrances_function(world: "DeathsDoorWorld"):
         entrances: list[Entrance],
     ) -> bool:
         for exit, entrance in zip(exits, entrances):
+            try:
+                start_region = world.get_region(exit.parent_region.name + jefferson_tag)
+            except KeyError:
+                start_region = None
+            try:
+                end_region = world.get_region(
+                    entrance.connected_region.name + jefferson_tag
+                )
+            except KeyError:
+                end_region = None
+            if start_region:
                 try:
-                    start_region = world.get_region(
-                        exit.parent_region.name + jefferson_tag
-                    )
-                except KeyError:
-                    start_region = None
+                    remove_dangling_exit(start_region)
+                except ValueError:
+                    pass
+            if end_region:
                 try:
-                    end_region = world.get_region(
-                        entrance.connected_region.name + jefferson_tag
-                    )
-                except KeyError:
-                    end_region = None
-                if start_region:
-                    try:
-                        remove_dangling_exit(start_region)
-                    except ValueError:
-                        pass
-                if end_region:
-                    try:
-                        remove_dangling_entrance(end_region)
-                    except ValueError:
-                        pass
-                if start_region and end_region:
-                    scene_transition, _ = find_scene_transition_from_name(
-                        find_two_way_transition_name(exit.parent_region.name, True)
-                    )
-                    new_entrance = world.create_entrance(
-                        start_region, end_region, scene_transition.rule
-                    )
-                    new_entrance.randomization_group = (
-                        DeathsDoorConnectionGroup.JEFFERSON
-                    )
-                    new_entrance.randomization_type = EntranceType.TWO_WAY
+                    remove_dangling_entrance(end_region)
+                except ValueError:
+                    pass
+            if start_region and end_region:
+                scene_transition, _ = find_scene_transition_from_name(
+                    find_two_way_transition_name(exit.parent_region.name, True)
+                )
+                new_entrance = world.create_entrance(
+                    start_region, end_region, scene_transition.rule
+                )
+                new_entrance.randomization_group = DeathsDoorConnectionGroup.JEFFERSON
+                new_entrance.randomization_type = EntranceType.TWO_WAY
         return True
 
     if world.options.entrance_randomization != EntranceRandomization.option_off:
@@ -305,9 +338,8 @@ def connect_entrances_function(world: "DeathsDoorWorld"):
                             entrance, entrance.randomization_group
                         )
                 if scene_transition is not None and not scene_transition.no_jefferson:
-                    start_region = world.multiworld.get_region(
+                    start_region: Region = world.get_region(
                         scene_transition.starting_region.value + jefferson_tag,
-                        world.player,
                     )
                     for _exit in start_region.get_exits():
                         if (
@@ -335,103 +367,121 @@ def connect_entrances_function(world: "DeathsDoorWorld"):
         if world.options.plando_connections:
             connect_plando(world, world.options.plando_connections, coupled)
 
-        # Randomize specifically the one-ways
-        randomize_one_ways(world)
+        if not getattr(world.multiworld, "re_gen_passthrough", {}):
+            # If in UT, only do plando
 
-        retry_count = 0
-        RETRY_MAX = 10
-        successful_ER = False
-        while retry_count < RETRY_MAX and not successful_ER:
-            try:
-                final_result = randomize_entrances(
-                    world,
-                    coupled,
-                    {
-                        DeathsDoorConnectionGroup.STANDARD: [
-                            DeathsDoorConnectionGroup.STANDARD
-                        ]
-                    },
-                    er_targets=sorted(
-                        [
-                            entrance
-                            for region in world.multiworld.get_regions(world.player)
-                            for entrance in region.entrances
-                            if not entrance.parent_region
-                            and entrance.randomization_group
-                            == DeathsDoorConnectionGroup.STANDARD
-                        ],
-                        key=lambda x: x.name,
-                    ),
-                    exits=sorted(
-                        [
-                            ex
-                            for region in world.multiworld.get_regions(world.player)
-                            for ex in region.exits
-                            if not ex.connected_region
-                            and ex.randomization_group
-                            == DeathsDoorConnectionGroup.STANDARD
-                        ],
-                        key=lambda x: x.name,
-                    ),
-                    on_connect=on_connect,
-                )
-                jefferson_region = world.get_region(R.FLOODED_FORTRESS_ENTRANCE_JEFFERSON.value)
-                if (
-                    not jefferson_region
-                    in world.multiworld.get_all_state().reachable_regions[world.player]
-                ):
-                    raise EntranceRandomizationError(
-                        f"Requested reachable region {jefferson_region.name} is not reachable in current state."
-                    )
-                
-                successful_ER = True
-                # print(retry_count)
-            except EntranceRandomizationError as error:
-                retry_count += 1
-                if retry_count >= RETRY_MAX:
-                    # start_region = world.get_region(world.origin_region_name)
-                    # visualize_regions(
-                    #     start_region,
-                    #     "DD_visualization.puml",
-                    #     regions_to_highlight=CollectionState(
-                    #         world.multiworld
-                    #     ).reachable_regions[world.player],
-                    # )
-                    raise EntranceRandomizationError(
-                        f"Death's Door: failed GER after {RETRY_MAX} attempts. Final error: {error}"
-                    )
-                # Undo placements
-                for region in world.get_regions():
-                    for _exit in region.get_exits():
-                        _exit: Entrance = _exit
-                        if (
-                            (
-                                _exit.randomization_group
+            # Randomize specifically the one-ways
+            randomize_one_ways(world)
+
+            retry_count = 0
+            RETRY_MAX = 10
+            successful_ER = False
+            while retry_count < RETRY_MAX and not successful_ER:
+                try:
+                    final_result = randomize_entrances(
+                        world,
+                        coupled,
+                        {
+                            DeathsDoorConnectionGroup.STANDARD: [
+                                DeathsDoorConnectionGroup.STANDARD
+                            ]
+                        },
+                        er_targets=sorted(
+                            [
+                                entrance
+                                for region in world.get_regions()
+                                for entrance in region.entrances
+                                if not entrance.parent_region
+                                and entrance.randomization_group
                                 == DeathsDoorConnectionGroup.STANDARD
-                                or _exit.randomization_group
-                                == DeathsDoorConnectionGroup.JEFFERSON
-                            )
-                            and _exit.parent_region
-                            and _exit.connected_region
-                            and _exit.name not in world.entrance_pairings.keys()
-                        ):
-                            disconnect_entrance_for_randomization(
-                                _exit, _exit.randomization_group
-                            )
+                            ],
+                            key=lambda x: x.name,
+                        ),
+                        exits=sorted(
+                            [
+                                ex
+                                for region in world.get_regions()
+                                for ex in region.exits
+                                if not ex.connected_region
+                                and ex.randomization_group
+                                == DeathsDoorConnectionGroup.STANDARD
+                            ],
+                            key=lambda x: x.name,
+                        ),
+                        on_connect=on_connect,
+                    )
+                    jefferson_region = world.get_region(
+                        R.FLOODED_FORTRESS_ENTRANCE_JEFFERSON.value
+                    )
+                    if (
+                        not jefferson_region
+                        in world.multiworld.get_all_state().reachable_regions[world.player]
+                    ):
+                        raise EntranceRandomizationError(
+                            f"Requested reachable region {jefferson_region.name} is not reachable in current state."
+                        )
 
-        for placement in final_result.placements:
-            world.entrance_pairings[
-                find_two_way_transition_name(placement.parent_region.name, True)
-            ] = find_two_way_transition_name(placement.connected_region.name, False)
+                    successful_ER = True
+                    # print(retry_count)
+                except EntranceRandomizationError as error:
+                    retry_count += 1
+                    if retry_count >= RETRY_MAX:
+                        # start_region = world.get_region(world.origin_region_name)
+                        # visualize_regions(
+                        #     start_region,
+                        #     "DD_visualization.puml",
+                        #     regions_to_highlight=CollectionState(
+                        #         world.multiworld
+                        #     ).reachable_regions[world.player],
+                        # )
+                        raise EntranceRandomizationError(
+                            f"Death's Door: failed GER after {RETRY_MAX} attempts. Final error: {error}"
+                        )
+                    # Undo placements
+                    for region in world.get_regions():
+                        for _exit in region.get_exits():
+                            _exit: Entrance = _exit
+                            if (
+                                (
+                                    _exit.randomization_group
+                                    == DeathsDoorConnectionGroup.STANDARD
+                                    or _exit.randomization_group
+                                    == DeathsDoorConnectionGroup.JEFFERSON
+                                )
+                                and _exit.parent_region
+                                and _exit.connected_region
+                                and (
+                                    _exit.parent_region
+                                    not in world.entrance_pairings.keys()
+                                    and _exit.connected_region
+                                    not in world.entrance_pairings.values()
+                                )
+                            ):
+                                disconnect_entrance_for_randomization(
+                                    _exit, _exit.randomization_group
+                                )
 
-        if coupled:
-            direction = "both"
-        else:
-            direction = "entrance"
-        for entrance, exit in world.entrance_pairings.items():
-            world.multiworld.spoiler.set_entrance(
-                entrance, exit, direction, world.player
-            )
+            for placement in final_result.placements:
+                world.entrance_pairings[placement.parent_region.name] = (
+                    placement.connected_region.name
+                )
+
+            i = 0
+            if coupled:
+                direction = "both"
+            else:
+                direction = "entrance"
+            for entrance, exit in world.entrance_pairings.items():
+                if coupled:
+                    # Skip every other two-way entrance because it is redundant in the spoiler on coupled
+                    if i >= 1 and exit in world.entrance_pairings.keys():
+                        i = 0
+                        continue
+                    i += 1
+                world.multiworld.spoiler.set_entrance(
+                    entrance, exit, direction, world.player
+                )
+
 
 # remove_dangling defs Credit to alwaysintreble's Messenger code
 def remove_dangling_exit(region: Region) -> None:

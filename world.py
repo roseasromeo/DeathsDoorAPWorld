@@ -13,6 +13,7 @@ from .options import (
     deathsdoor_options_presets,
     deathsdoor_option_groups,
     StartWeapon,
+    EntranceRandomization,
 )
 from .vanilla_pools import vanilla_location_lookup
 from .items import (
@@ -37,7 +38,7 @@ from .regions import DeathsDoorRegionName as R
 from .entrances.entrances import deathsdoor_internal_entrances
 from .entrances.randomize_transitions import (
     connect_entrances_function,
-    create_vanilla_entrances
+    create_vanilla_entrances,
 )
 from .jefferson import (
     create_jefferson_regions,
@@ -206,13 +207,8 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                     # You can also set .value directly but that won't work if you have OptionSets
                     setattr(self.options, key, opt.from_any(value))
             self.options.plando_connections.value.clear()
-            entrance_pairings: dict[str, str] = slot_data["entrance_pairings"]
-            if slot_data["entrance_randomization"] == 1:
-                for entrance, exit in entrance_pairings.items():
-                    self.options.plando_connections.value.append(
-                        PlandoConnection(entrance, exit, "both")
-                    )
-            elif slot_data["entrance_randomization"] == 2:
+            if "entrance_pairings" in slot_data.keys():
+                entrance_pairings: dict[str, str] = slot_data["entrance_pairings"]
                 for entrance, exit in entrance_pairings.items():
                     self.options.plando_connections.value.append(
                         PlandoConnection(entrance, exit, "entrance")
@@ -504,7 +500,6 @@ class DeathsDoorWorld(RuleWorldMixin, World):
     def connect_entrances(self) -> None:
         self.entrance_pairings: dict[str, str] = {}
         connect_entrances_function(self)
-
 
     def fill_slot_data(self) -> dict[str, Any]:
         # A dictionary returned from this method gets set as the slot_data and will be sent to the client after connecting.

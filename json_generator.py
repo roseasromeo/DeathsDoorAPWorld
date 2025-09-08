@@ -54,7 +54,8 @@ def generate_rule_json():
 def generate_scene_transition_json():
     def make_transition_dict(entrance: DeathsDoorEntrance, origin_scene_name: str = ""):
         transition_dict = dict ()
-        transition_dict["apName"] = entrance.name
+        transition_dict["startingRegion"] = entrance.starting_region.value
+        transition_dict["endingRegion"] = entrance.ending_region.value
         transition_dict["loadingZoneId"] = entrance.loading_zone_id
         transition_dict["toSceneName"] = entrance.scene_name
         transition_dict["originSceneName"] = origin_scene_name
