@@ -17,6 +17,7 @@ class ItemGroup(str, Enum):
     LIFE_SEED = "Life Seed"
     # SOUL_ORB = "Soul Orb"
     SHRINE = "Shrine"
+    TRAP = "Trap"
 
 
 class DeathsDoorItemName(str, Enum):
@@ -177,6 +178,8 @@ class DeathsDoorItemName(str, Enum):
     CROW_LOCKSTONE_WEST = "Castle Lockstone - West Crow"
     CROW_LOCKSTONE_WEST_LOCKED = "Castle Lockstone - West Locked Crow"
     CROW_LOCKSTONE_SOUTH_WEST = "Castle Lockstone - South West Crow"
+    ROTATION_TRAP = "Rotation Trap"
+    INVISIBILITY_TRAP = "Invisibility Trap"
 
 
 class DeathsDoorItemData(NamedTuple):
@@ -1244,6 +1247,22 @@ item_table: list[DeathsDoorItemData] = [
         ItemClassification.progression,
         1,
         [ItemGroup.LOST_CROW],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.ROTATION_TRAP,
+        "Rotation Trap",
+        2000,
+        ItemClassification.trap,
+        1,
+        [ItemGroup.TRAP],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.INVISIBILITY_TRAP,
+        "Invisibility Trap",
+        2001,
+        ItemClassification.trap,
+        1,
+        [ItemGroup.TRAP],
     ),
 ]
 
