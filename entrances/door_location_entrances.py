@@ -137,7 +137,9 @@ door_location_entrances: list[DeathsDoorEntrance] = [
         Has(I.STRANDED_SAILOR_DOOR),
         no_jefferson=True,
     ),
-    DeathsDoorEntrance(R.STRANDED_SAILOR, R.DOOR_CHECK_FOR_STRANDED_SAILOR, None),
+    DeathsDoorEntrance(
+        R.STRANDED_SAILOR, R.DOOR_CHECK_FOR_STRANDED_SAILOR, None, no_jefferson=True
+    ),
     DeathsDoorEntrance(
         R.DOOR_TO_CASTLE_LOCKSTONE,
         R.DOOR_CHECK_FOR_CASTLE_LOCKSTONE,
@@ -145,21 +147,9 @@ door_location_entrances: list[DeathsDoorEntrance] = [
         no_jefferson=True,
     ),
     DeathsDoorEntrance(
-        R.DOOR_TO_CASTLE_LOCKSTONE,
-        R.DOOR_CHECK_FOR_CASTLE_LOCKSTONE,
-        None,
-        no_jefferson=True,
-    ),
-    DeathsDoorEntrance(
         R.DOOR_TO_CAMP_OF_THE_FREE_CROWS,
         R.DOOR_CHECK_FOR_CAMP_OF_THE_FREE_CROWS,
         Has(I.CAMP_OF_THE_FREE_CROWS_DOOR),
-        no_jefferson=True,
-    ),
-    DeathsDoorEntrance(
-        R.DOOR_TO_CAMP_OF_THE_FREE_CROWS,
-        R.DOOR_CHECK_FOR_CAMP_OF_THE_FREE_CROWS,
-        None,
         no_jefferson=True,
     ),
     DeathsDoorEntrance(
