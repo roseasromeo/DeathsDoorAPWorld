@@ -139,9 +139,6 @@ door_location_entrances: list[DeathsDoorEntrance] = [
     ),
     DeathsDoorEntrance(R.STRANDED_SAILOR, R.DOOR_CHECK_FOR_STRANDED_SAILOR, None),
     DeathsDoorEntrance(
-        R.DOOR_TO_CASTLE_LOCKSTONE, R.DOOR_CHECK_FOR_CASTLE_LOCKSTONE, None
-    ),
-    DeathsDoorEntrance(
         R.DOOR_TO_CASTLE_LOCKSTONE,
         R.DOOR_CHECK_FOR_CASTLE_LOCKSTONE,
         Has(I.CASTLE_LOCKSTONE_DOOR),
