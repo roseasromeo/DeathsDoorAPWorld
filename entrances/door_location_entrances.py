@@ -1,4 +1,6 @@
 from .entrance_class import DeathsDoorEntrance
+from ..rule_builder_overrides import Has
+from ..items import DeathsDoorItemName as I
 from ..regions import DeathsDoorRegionName as R
 
 door_location_entrances: list[DeathsDoorEntrance] = [
@@ -6,15 +8,15 @@ door_location_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.DOOR_TO_GROVE_OF_SPIRITS,
         R.DOOR_CHECK_FOR_GROVE_OF_SPIRITS,
-        None,
+        Has(I.GROVE_OF_SPIRITS_DOOR),
         no_jefferson=True,
-    ),  ## not needed for now (see Hall of Doors Lobby connection below)
+    ),  # not needed for now (see Hall of Doors Lobby connection below)
     DeathsDoorEntrance(
         R.GROVE_OF_SPIRITS_DOOR,
         R.DOOR_CHECK_FOR_GROVE_OF_SPIRITS,
         None,
         no_jefferson=True,
-    ),  # Right now, this would be impossible to do outside of Entrance Rando. TODO: CHECK if possible in glitch settings? But also, not needed because Hall of Doors Lobby connection below
+    ),  # Not needed because Hall of Doors Lobby connection below
     DeathsDoorEntrance(
         R.HALL_OF_DOORS_LOBBY,
         R.DOOR_CHECK_FOR_GROVE_OF_SPIRITS,
@@ -24,7 +26,7 @@ door_location_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.DOOR_TO_LOST_CEMETERY,
         R.DOOR_CHECK_FOR_LOST_CEMETERY,
-        None,
+        Has(I.LOST_CEMETERY_DOOR),
         no_jefferson=True,
     ),
     DeathsDoorEntrance(
@@ -36,7 +38,7 @@ door_location_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.DOOR_TO_ESTATE_OF_THE_URN_WITCH,
         R.DOOR_CHECK_FOR_ESTATE_OF_THE_URN_WITCH,
-        None,
+        Has(I.ESTATE_OF_THE_URN_WITCH_DOOR),
         no_jefferson=True,
     ),
     DeathsDoorEntrance(
@@ -48,7 +50,7 @@ door_location_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.DOOR_TO_CERAMIC_MANOR,
         R.DOOR_CHECK_FOR_CERAMIC_MANOR,
-        None,
+        Has(I.CERAMIC_MANOR_DOOR),
         no_jefferson=True,
     ),
     DeathsDoorEntrance(
@@ -60,7 +62,7 @@ door_location_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.DOOR_TO_INNER_FURNACE,
         R.DOOR_CHECK_FOR_INNER_FURNACE,
-        None,
+        Has(I.INNER_FURNACE_DOOR),
         no_jefferson=True,
     ),
     DeathsDoorEntrance(
@@ -72,7 +74,7 @@ door_location_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.DOOR_TO_URN_WITCHS_LABORATORY,
         R.DOOR_CHECK_FOR_URN_WITCHS_LABORATORY,
-        None,
+        Has(I.THE_URN_WITCHS_LABORATORY_DOOR),
         no_jefferson=True,
     ),
     DeathsDoorEntrance(
@@ -84,7 +86,7 @@ door_location_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.DOOR_TO_OVERGROWN_RUINS,
         R.DOOR_CHECK_FOR_OVERGROWN_RUINS,
-        None,
+        Has(I.OVERGROWN_RUINS_DOOR),
         no_jefferson=True,
     ),
     DeathsDoorEntrance(
@@ -96,7 +98,7 @@ door_location_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.DOOR_TO_MUSHROOM_DUNGEON,
         R.DOOR_CHECK_FOR_MUSHROOM_DUNGEON,
-        None,
+        Has(I.MUSHROOM_DUNGEON_DOOR),
         no_jefferson=True,
     ),
     DeathsDoorEntrance(
@@ -108,7 +110,7 @@ door_location_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.DOOR_TO_FLOODED_FORTRESS,
         R.DOOR_CHECK_FOR_FLOODED_FORTRESS,
-        None,
+        Has(I.FLOODED_FORTRESS_DOOR),
         no_jefferson=True,
     ),
     DeathsDoorEntrance(
@@ -120,7 +122,7 @@ door_location_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.DOOR_TO_THRONE_OF_THE_FROG_KING,
         R.DOOR_CHECK_FOR_THRONE_OF_THE_FROG_KING,
-        None,
+        Has(I.THRONE_OF_THE_FROG_KING_DOOR),
         no_jefferson=True,
     ),
     DeathsDoorEntrance(
@@ -132,13 +134,17 @@ door_location_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.DOOR_TO_STRANDED_SAILOR,
         R.DOOR_CHECK_FOR_STRANDED_SAILOR,
-        None,
+        Has(I.STRANDED_SAILOR_DOOR),
         no_jefferson=True,
     ),
+    DeathsDoorEntrance(R.STRANDED_SAILOR, R.DOOR_CHECK_FOR_STRANDED_SAILOR, None),
     DeathsDoorEntrance(
-        R.STRANDED_SAILOR,
-        R.DOOR_CHECK_FOR_STRANDED_SAILOR,
-        None,
+        R.DOOR_TO_CASTLE_LOCKSTONE, R.DOOR_CHECK_FOR_CASTLE_LOCKSTONE, None
+    ),
+    DeathsDoorEntrance(
+        R.DOOR_TO_CASTLE_LOCKSTONE,
+        R.DOOR_CHECK_FOR_CASTLE_LOCKSTONE,
+        Has(I.CASTLE_LOCKSTONE_DOOR),
         no_jefferson=True,
     ),
     DeathsDoorEntrance(
@@ -148,9 +154,9 @@ door_location_entrances: list[DeathsDoorEntrance] = [
         no_jefferson=True,
     ),
     DeathsDoorEntrance(
-        R.CASTLE_LOCKSTONE_CENTRAL,
-        R.DOOR_CHECK_FOR_CASTLE_LOCKSTONE,
-        None,
+        R.DOOR_TO_CAMP_OF_THE_FREE_CROWS,
+        R.DOOR_CHECK_FOR_CAMP_OF_THE_FREE_CROWS,
+        Has(I.CAMP_OF_THE_FREE_CROWS_DOOR),
         no_jefferson=True,
     ),
     DeathsDoorEntrance(
@@ -160,15 +166,9 @@ door_location_entrances: list[DeathsDoorEntrance] = [
         no_jefferson=True,
     ),
     DeathsDoorEntrance(
-        R.CAMP_OF_THE_FREE_CROWS_VILLAGE,
-        R.DOOR_CHECK_FOR_CAMP_OF_THE_FREE_CROWS,
-        None,
-        no_jefferson=True,
-    ),
-    DeathsDoorEntrance(
         R.DOOR_TO_OLD_WATCHTOWERS,
         R.DOOR_CHECK_FOR_OLD_WATCHTOWERS,
-        None,
+        Has(I.OLD_WATCHTOWERS_DOOR),
         no_jefferson=True,
     ),
     DeathsDoorEntrance(
@@ -180,7 +180,7 @@ door_location_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.DOOR_TO_BETTYS_LAIR,
         R.DOOR_CHECK_FOR_BETTYS_LAIR,
-        None,
+        Has(I.BETTYS_LAIR_DOOR),
         no_jefferson=True,
     ),
     DeathsDoorEntrance(
