@@ -1,5 +1,5 @@
 from .entrance_class import DeathsDoorEntrance
-from ..rule_builder_overrides import Has, HasAny, HasAll
+from ..rule_builder_overrides import Has, HasAny
 try:
     from rule_builder import True_, OptionFilter
 except ModuleNotFoundError:
@@ -19,7 +19,7 @@ mushroom_dungeon_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.MUSHROOM_DUNGEON_LOBBY,
         R.MUSHROOM_DUNGEON_DOOR,
-        Has(I.MUSHROOM_DUNGEON_DOOR),
+        None,
     ),
     DeathsDoorEntrance(
         R.OVERGROWN_RUINS_OUTSIDE_MAIN_DUNGEON_GATE,
@@ -114,13 +114,7 @@ mushroom_dungeon_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.MUSHROOM_DUNGEON_BIG_DOOR,
         R.MUSHROOM_DUNGEON_ANCIENT_DOOR,
-        HasAll(
-            E.ACCESS_TO_DAY,
-            I.CROW_DUNGEON_COBWEB,
-            I.CROW_DUNGEON_HALL,
-            I.CROW_DUNGEON_RIGHTMOST,
-            I.CROW_DUNGEON_WATER_ARENA,
-        ),
+        None,
     ),
     DeathsDoorEntrance(
         R.MUSHROOM_DUNGEON_MAIN_HALL,

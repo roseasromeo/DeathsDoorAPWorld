@@ -1,11 +1,7 @@
-try:
-    from rule_builder import False_
-except ModuleNotFoundError:
-    from ..rule_builder import False_
-
 from .entrance_class import DeathsDoorEntrance
 from ..rule_builder_overrides import Has, HasAny, HasAll
 from ..items import DeathsDoorItemName as I
+from ..events import DeathsDoorEventName as E
 from ..regions import DeathsDoorRegionName as R
 
 estate_entrances: list[DeathsDoorEntrance] = [
@@ -20,12 +16,12 @@ estate_entrances: list[DeathsDoorEntrance] = [
         R.ESTATE_OF_THE_URN_WITCH_ENTRANCE, R.ESTATE_OF_THE_URN_WITCH_SOUTH, None
     ),
     DeathsDoorEntrance(
-        R.ESTATE_OF_THE_URN_WITCH_SOUTH, R.ESTATE_OF_THE_URN_WITCH_ENTRANCE, False_()
-    ),  # Not possible in vanilla
+        R.ESTATE_OF_THE_URN_WITCH_SOUTH, R.ESTATE_OF_THE_URN_WITCH_ENTRANCE, Has(E.ESTATE_OF_THE_URN_WITCH_ENTRANCE_LAMPS)
+    ),  # Here so that Jefferson can have backwards access if we have forward access without Jefferson
     DeathsDoorEntrance(
         R.ESTATE_OF_THE_URN_WITCH_SOUTH,
         R.ESTATE_OF_THE_URN_WITCH_DOOR,
-        Has(I.ESTATE_OF_THE_URN_WITCH_DOOR),
+        None,
     ),
     DeathsDoorEntrance(
         R.ESTATE_OF_THE_URN_WITCH_DOOR, R.ESTATE_OF_THE_URN_WITCH_SOUTH, None

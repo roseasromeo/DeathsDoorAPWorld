@@ -29,7 +29,7 @@ watchtower_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.OLD_WATCHTOWERS_ENTRANCE,
         R.OLD_WATCHTOWERS_DOOR,
-        Has(I.OLD_WATCHTOWERS_DOOR),
+        None,
     ),
     DeathsDoorEntrance(
         R.OLD_WATCHTOWERS_JAMMING_START,

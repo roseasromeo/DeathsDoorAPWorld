@@ -1,5 +1,5 @@
 from .entrance_class import DeathsDoorEntrance
-from ..rule_builder_overrides import Has, HasAll
+from ..rule_builder_overrides import HasAll
 from ..items import DeathsDoorItemName as I
 from ..regions import DeathsDoorRegionName as R
 from ..events import DeathsDoorEventName as E
@@ -18,7 +18,7 @@ inner_furnace_entrances: list[DeathsDoorEntrance] = [
     ),
     DeathsDoorEntrance(R.INNER_FURNACE_DOOR, R.INNER_FURNACE_ENTRANCE, None),
     DeathsDoorEntrance(
-        R.INNER_FURNACE_ENTRANCE, R.INNER_FURNACE_DOOR, Has(I.INNER_FURNACE_DOOR)
+        R.INNER_FURNACE_ENTRANCE, R.INNER_FURNACE_DOOR, None
     ),
     DeathsDoorEntrance(R.INNER_FURNACE_POST_BURNER_1, R.INNER_FURNACE_ENTRANCE, None),
     DeathsDoorEntrance(R.INNER_FURNACE_POST_BURNER_2, R.INNER_FURNACE_ENTRANCE, None),

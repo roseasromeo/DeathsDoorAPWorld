@@ -1,7 +1,7 @@
 from typing import ClassVar, Any
 from logging import warning
 
-from Options import Option
+from Options import Option, PlandoConnection
 
 try:
     from rule_builder import RuleWorldMixin, Rule, False_
@@ -13,6 +13,7 @@ from .options import (
     deathsdoor_options_presets,
     deathsdoor_option_groups,
     StartWeapon,
+    EntranceRandomization,
 )
 from .vanilla_pools import vanilla_location_lookup
 from .items import (
@@ -34,7 +35,15 @@ from .events import (
 )
 from .event_rules import set_event_rules
 from .regions import DeathsDoorRegionName as R
-from .entrances.entrances import deathsdoor_entrances
+from .entrances.entrances import deathsdoor_internal_entrances
+from .entrances.randomize_transitions import (
+    connect_entrances_function,
+    create_vanilla_entrances,
+)
+from .jefferson import (
+    create_jefferson_regions,
+    create_jefferson_internal_connections,
+)
 from .rules import Has, set_location_rules
 from worlds.AutoWorld import World, WebWorld
 from BaseClasses import MultiWorld, Region, Location, Item, ItemClassification, Tutorial
@@ -44,6 +53,7 @@ from .json_generator import (
     generate_rule_json,
     generate_items_json,
     generate_locations_json,
+    generate_scene_transition_json,
 )
 
 deathsdoor_version = "0.3.0"
@@ -175,11 +185,13 @@ class DeathsDoorWorld(RuleWorldMixin, World):
 
         if self.options.start_weapon == StartWeapon.option_random_excluding_umbrella:
             self.options.start_weapon.value = self.random.randint(0, 3)
-        
+
         if self.options.extra_life_seeds < 0:
             max_life_seeds_to_remove = 50 - self.options.plant_pot_number.value
             if max_life_seeds_to_remove < -self.options.extra_life_seeds.value:
-                warning(f"{self.options.extra_life_seeds} is too many Life Seeds to remove based on a plant_pot_number of {self.options.plant_pot_number}. Only {max_life_seeds_to_remove} will be removed instead.")
+                warning(
+                    f"{self.options.extra_life_seeds} is too many Life Seeds to remove based on a plant_pot_number of {self.options.plant_pot_number}. Only {max_life_seeds_to_remove} will be removed instead."
+                )
                 self.options.extra_life_seeds.value = -max_life_seeds_to_remove
 
         # Universal Tracker slot data handling
@@ -194,11 +206,19 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                 if opt is not None:
                     # You can also set .value directly but that won't work if you have OptionSets
                     setattr(self.options, key, opt.from_any(value))
+            self.options.plando_connections.value.clear()
+            if "entrance_pairings" in slot_data.keys():
+                entrance_pairings: dict[str, str] = slot_data["entrance_pairings"]
+                for entrance, exit in entrance_pairings.items():
+                    self.options.plando_connections.value.append(
+                        PlandoConnection(entrance, exit, "entrance")
+                    )
 
     def create_regions(self) -> None:
         for deathsdoor_region in R:
             region = Region(deathsdoor_region.value, self.player, self.multiworld)
             self.multiworld.regions.append(region)
+        create_jefferson_regions(self)
 
         for location_data in location_table:
             region = self.get_region(location_data.region.value)
@@ -217,7 +237,10 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                 == 0
             ):
                 # Skip locations that are irrelevant on specific goals
-                if (self.options.goal == Goal.option_lord_of_doors or self.options.goal == Goal.option_any) and location_data.name == L.RUSTY_BELLTOWER_KEY:
+                if (
+                    self.options.goal == Goal.option_lord_of_doors
+                    or self.options.goal == Goal.option_any
+                ) and location_data.name == L.RUSTY_BELLTOWER_KEY:
                     location = DeathsDoorLocation(
                         self.player,
                         location_data.name.value,
@@ -226,7 +249,10 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                     )
                     region.locations.append(location)
                     location.place_locked_item(self.create_event(E.LORD_OF_DOORS.value))
-                elif (self.options.goal == Goal.option_green_tablet or self.options.goal == Goal.option_any) and location_data.name == L.GREEN_ANCIENT_TABLET_OF_KNOWLEDGE:
+                elif (
+                    self.options.goal == Goal.option_green_tablet
+                    or self.options.goal == Goal.option_any
+                ) and location_data.name == L.GREEN_ANCIENT_TABLET_OF_KNOWLEDGE:
                     location = DeathsDoorLocation(
                         self.player,
                         location_data.name.value,
@@ -234,7 +260,9 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                         region,
                     )
                     region.locations.append(location)
-                    location.place_locked_item(self.create_event(E.LIFE_SEED_DOOR.value))
+                    location.place_locked_item(
+                        self.create_event(E.LIFE_SEED_DOOR.value)
+                    )
                 else:
                     location = DeathsDoorLocation(
                         self.player,
@@ -283,7 +311,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                 self.create_event(event_location_data.event_name.value)
             )
 
-        for deathsdoor_entrance in deathsdoor_entrances:
+        for deathsdoor_entrance in deathsdoor_internal_entrances:
             start_region = self.multiworld.get_region(
                 deathsdoor_entrance.starting_region.value, self.player
             )
@@ -291,6 +319,8 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                 deathsdoor_entrance.ending_region.value, self.player
             )
             self.create_entrance(start_region, end_region, deathsdoor_entrance.rule)
+        create_jefferson_internal_connections(self)
+        create_vanilla_entrances(self)
 
     def create_item(self, name: str, useful: bool = False) -> DeathsDoorItem:
         # if the name provided is an event, create it as an event
@@ -308,8 +338,9 @@ class DeathsDoorWorld(RuleWorldMixin, World):
                 name, ItemClassification.useful, self.item_name_to_id[name], self.player
             )
         elif (
-            (self.options.goal == Goal.option_lord_of_doors or self.options.goal == Goal.option_green_tablet) and IG.TABLET in item_data.item_groups
-        ): 
+            self.options.goal == Goal.option_lord_of_doors
+            or self.options.goal == Goal.option_green_tablet
+        ) and IG.TABLET in item_data.item_groups:
             return DeathsDoorItem(
                 name, ItemClassification.filler, self.item_name_to_id[name], self.player
             )
@@ -335,7 +366,10 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             == 0  # filter out unrandomized pools
         }
 
-        if "Weapon" not in self.options.unrandomized_pools.value and self.options.remove_spell_upgrades.value:
+        if (
+            "Weapon" not in self.options.unrandomized_pools.value
+            and self.options.remove_spell_upgrades.value
+        ):
             items_to_create[I.FIRE] = 1
             items_to_create[I.BOMB] = 1
             items_to_create[I.HOOKSHOT] = 1
@@ -378,7 +412,11 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             # Only create up to the number of Life Seeds needed for check as progression
             items_to_create[I.LIFE_SEED.value] = self.options.plant_pot_number.value
             # Remainder are useful, include extra_life_seeds addition/subtraction here
-            for _ in range(50 - self.options.plant_pot_number.value + self.options.extra_life_seeds.value):
+            for _ in range(
+                50
+                - self.options.plant_pot_number.value
+                + self.options.extra_life_seeds.value
+            ):
                 deathsdoor_items.append(self.create_item(I.LIFE_SEED.value, True))
 
         # Create extra magic shards
@@ -417,11 +455,20 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         set_event_rules(self)
 
         completion_rule: Rule = False_()
-        if (self.options.goal == Goal.option_lord_of_doors or self.options.goal == Goal.option_any):
+        if (
+            self.options.goal == Goal.option_lord_of_doors
+            or self.options.goal == Goal.option_any
+        ):
             completion_rule = completion_rule | Has(E.LORD_OF_DOORS)
-        if (self.options.goal == Goal.option_true_ending or self.options.goal == Goal.option_any):
+        if (
+            self.options.goal == Goal.option_true_ending
+            or self.options.goal == Goal.option_any
+        ):
             completion_rule = completion_rule | Has(E.TRUE_ENDING)
-        if (self.options.goal == Goal.option_green_tablet or self.options.goal == Goal.option_any):
+        if (
+            self.options.goal == Goal.option_green_tablet
+            or self.options.goal == Goal.option_any
+        ):
             completion_rule = completion_rule | Has(E.LIFE_SEED_DOOR)
 
         self.set_completion_rule(completion_rule)
@@ -430,6 +477,11 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         # generate_rule_json()
         # generate_items_json()
         # generate_locations_json()
+        # generate_scene_transition_json()
+
+    def connect_entrances(self) -> None:
+        self.entrance_pairings: dict[str, str] = {}
+        connect_entrances_function(self)
 
     def fill_slot_data(self) -> dict[str, Any]:
         # A dictionary returned from this method gets set as the slot_data and will be sent to the client after connecting.
@@ -448,8 +500,10 @@ class DeathsDoorWorld(RuleWorldMixin, World):
             "offscreen_targeting_tricks",
             "geometry_exploits",
             "roll_buffers",
+            "entrance_randomization",
             toggles_as_bools=True,
         )
+        slot_data["entrance_pairings"] = self.entrance_pairings
         slot_data["APWorldVersion"] = deathsdoor_version
         return slot_data
 
