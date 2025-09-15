@@ -1253,7 +1253,7 @@ item_table: list[DeathsDoorItemData] = [
         "Rotation Trap",
         2000,
         ItemClassification.trap,
-        1,
+        0,
         [ItemGroup.TRAP],
     ),
     DeathsDoorItemData(
@@ -1261,7 +1261,7 @@ item_table: list[DeathsDoorItemData] = [
         "Invisibility Trap",
         2001,
         ItemClassification.trap,
-        1,
+        0,
         [ItemGroup.TRAP],
     ),
 ]
