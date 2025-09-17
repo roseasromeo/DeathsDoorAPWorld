@@ -178,8 +178,11 @@ class DeathsDoorItemName(str, Enum):
     CROW_LOCKSTONE_WEST = "Castle Lockstone - West Crow"
     CROW_LOCKSTONE_WEST_LOCKED = "Castle Lockstone - West Locked Crow"
     CROW_LOCKSTONE_SOUTH_WEST = "Castle Lockstone - South West Crow"
+
     ROTATION_TRAP = "Rotation Trap"
-    INVISIBILITY_TRAP = "Invisibility Trap"
+    PLAYER_INVISIBILITY_TRAP = "Player Invisibility Trap"
+    ENEMY_INVISIBILITY_TRAP = "Enemy Invisibility Trap"
+    KNOCKBACK_TRAP = "Knockback Trap"
 
 
 class DeathsDoorItemData(NamedTuple):
@@ -1257,9 +1260,25 @@ item_table: list[DeathsDoorItemData] = [
         [ItemGroup.TRAP],
     ),
     DeathsDoorItemData(
-        DeathsDoorItemName.INVISIBILITY_TRAP,
-        "Invisibility Trap",
+        DeathsDoorItemName.PLAYER_INVISIBILITY_TRAP,
+        "Player Invisibility Trap",
         2001,
+        ItemClassification.trap,
+        0,
+        [ItemGroup.TRAP],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.ENEMY_INVISIBILITY_TRAP,
+        "Enemy Invisibility Trap",
+        2002,
+        ItemClassification.trap,
+        0,
+        [ItemGroup.TRAP],
+    ),
+    DeathsDoorItemData(
+        DeathsDoorItemName.KNOCKBACK_TRAP,
+        "Knockback Trap",
+        2003,
         ItemClassification.trap,
         0,
         [ItemGroup.TRAP],

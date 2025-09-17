@@ -321,19 +321,33 @@ class DeathsDoorWorld(RuleWorldMixin, World):
     def create_event(self, name: str) -> DeathsDoorItem:
         # for creating event versions of items for non-randomized pools
         return DeathsDoorItem(name, ItemClassification.progression, None, self.player)
-
+    
     def create_items(self) -> None:
+        def choose_trap(trap_weights: dict) -> str:
+            trap_weights_sum = sum(trap_weights.values())
+            return self.random.choices(list(k for k in trap_weights.keys()), list((w/trap_weights_sum) for w in trap_weights.values()))[0]
+
         deathsdoor_items: list[DeathsDoorItem] = []
-        items_to_create: dict[str, int] = {
-            data.name.value: data.base_quantity_in_item_pool
-            for data in item_table
+        items_to_create: dict[str, int] = {data.name.value: 0 for data in item_table if data.classification == ItemClassification.trap}
+
+        trap_weights = self.options.trap_type_weights
+        trap_chance = self.options.trap_chance / 100
+        are_traps_added = trap_chance > 0 and any(v > 0 for v in trap_weights.values())
+
+        for data in item_table:
             if len(
                 self.options.unrandomized_pools.value.intersection(
                     set(data.item_groups)
                 )
-            )
-            == 0  # filter out unrandomized pools
-        }
+            ) == 0:  # filter out unrandomized pools
+                if are_traps_added and data.classification == ItemClassification.filler:
+                    trap_number = self.random.binomialvariate(data.base_quantity_in_item_pool, trap_chance)
+                    items_to_create[data.name.value] = data.base_quantity_in_item_pool - trap_number
+                    for _ in range(0, trap_number):
+                        trap = choose_trap(trap_weights)
+                        items_to_create[trap] += 1
+                else:
+                    items_to_create[data.name.value] = data.base_quantity_in_item_pool
 
         if "Weapon" not in self.options.unrandomized_pools.value and self.options.remove_spell_upgrades.value:
             items_to_create[I.FIRE] = 1
@@ -406,8 +420,12 @@ class DeathsDoorWorld(RuleWorldMixin, World):
         junk = len(self.multiworld.get_unfilled_locations(self.player)) - len(
             deathsdoor_items
         )
+        trap_number = self.random.binomialvariate(junk, trap_chance)
         deathsdoor_items += [
-            self.create_item(self.get_filler_item_name()) for _ in range(junk)
+            self.create_item(self.get_filler_item_name()) for _ in range(junk - trap_number)
+        ]
+        deathsdoor_items += [
+            self.create_item(choose_trap(trap_weights)) for _ in range(trap_number)
         ]
 
         self.multiworld.itempool += deathsdoor_items
