@@ -153,6 +153,12 @@ door_location_entrances: list[DeathsDoorEntrance] = [
         no_jefferson=True,
     ),
     DeathsDoorEntrance(
+        R.CAMP_OF_THE_FREE_CROWS_CASTLE_DOOR,
+        R.DOOR_CHECK_FOR_CAMP_OF_THE_FREE_CROWS,
+        Has(I.CAMP_OF_THE_FREE_CROWS_DOOR),
+        no_jefferson=True,
+    ),
+    DeathsDoorEntrance(
         R.DOOR_TO_OLD_WATCHTOWERS,
         R.DOOR_CHECK_FOR_OLD_WATCHTOWERS,
         Has(I.OLD_WATCHTOWERS_DOOR),
