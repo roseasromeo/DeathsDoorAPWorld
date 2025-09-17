@@ -1,8 +1,11 @@
 from dataclasses import dataclass
 from typing import Any
 
+from schema import And, Schema
+
 from Options import (
     Choice,
+    OptionDict,
     StartInventoryPool,
     PerGameCommonOptions,
     OptionGroup,
@@ -185,6 +188,37 @@ class RollBuffers(Toggle):
     display_name = "Roll Buffers"
 
 
+# Trap Chance and Trap Type Weights from Ixrec's Outer Wilds implementation
+class TrapChance(Range):
+    """The probability for each filler item (including unique filler) to be replaced with a trap item.
+    The exact number of trap items will still be somewhat random, so you can't know
+    if you've seen the 'last trap' in your world without checking the spoiler log.
+    If you don't want any traps, set this to 0."""
+    display_name = "Trap Chance"
+    range_start = 0
+    range_end = 100
+    default = 15
+
+
+class TrapTypeWeights(OptionDict):
+    """When a filler item is replaced with a trap, these weights determine the
+    odds for each trap type to be selected.
+    If you don't want a specific trap type, set its weight to 0.
+    Setting all weights to 0 is the same as setting trap_chance to 0."""
+    schema = Schema({
+        "Rotation Trap": And(int, lambda n: n >= 0),
+        "Player Invisibility Trap": And(int, lambda n: n >= 0),
+        "Enemy Invisibility Trap": And(int, lambda n: n >= 0),
+        "Knockback Trap": And(int, lambda n: n >= 0),
+    })
+    display_name = "Trap Type Weights"
+    default = {
+        "Rotation Trap": 2,
+        "Player Invisibility Trap": 2,
+        "Enemy Invisibility Trap": 0,
+        "Knockback Trap": 2,
+    }
+
 class UnrandomizedPools(OptionSet):
     """Allows sets of location-item pairs (pools) to be removed from randomization. Valid keys are:
     - Spell
@@ -240,6 +274,8 @@ class DeathsDoorOptions(PerGameCommonOptions):
     extra_magic_shards: ExtraMagicShards
     extra_vitality_shards: ExtraVitalityShards
     remove_spell_upgrades: RemoveSpellUpgrades
+    trap_chance: TrapChance
+    trap_type_weights: TrapTypeWeights
     gate_rolls_glitch: GateRollsGlitch
     bomb_bell_glitch: BombBellGlitch
     offscreen_targeting_tricks: OffscreenTargetingTricks
@@ -255,6 +291,6 @@ deathsdoor_option_groups: list[OptionGroup] = [
     OptionGroup("Logic Options", [Goal, StartDayOrNight, PlantedPotsRequired, EarlyImportantItem, GateRollsGlitch,
                                   BombBellGlitch, OffscreenTargetingTricks, GeometryExploits, RollBuffers]),
     OptionGroup("Itempool Modification Options", [ExtraLifeSeeds, ExtraMagicShards, ExtraVitalityShards,
-                                                  RemoveSpellUpgrades, UnrandomizedPools]),
+                                                  RemoveSpellUpgrades, UnrandomizedPools, TrapChance, TrapTypeWeights]),
     OptionGroup("Customization Options", [StartWeapon, SoulMultiplier, StartingSouls])
 ]
