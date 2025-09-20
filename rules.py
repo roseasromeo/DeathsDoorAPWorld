@@ -1,8 +1,7 @@
 import dataclasses
 from typing import TYPE_CHECKING
-from typing_extensions import override
 
-from .items import ItemGroup as IG, DeathsDoorItemName as I
+from .items import DeathsDoorItemName as I
 from .locations import location_table, DeathsDoorLocationName as L
 from .events import DeathsDoorEventName as E
 from .regions import DeathsDoorRegionName as R
@@ -22,11 +21,9 @@ except ModuleNotFoundError:
         OptionFilter,
     )
 from .rule_builder_overrides import (
-    CanJeffersonTraverse,
     Has,
     HasAny,
     HasAll,
-    HasGroup,
     CanReachRegion,
 )
 
@@ -178,8 +175,7 @@ deaths_door_location_rules: dict[L, Rule["DeathsDoorWorld"] | None] = {
     L.CROW_LOCKSTONE_WEST_LOCKED: Has(I.PINK_KEY, 5)
     | HasAny(I.SWORD, I.ROGUE_DAGGERS, I.REAPERS_GREATSWORD, I.DISCARDED_UMBRELLA)
     & (True_(options=[OptionFilter(RollBuffers, 1)]) | Has(E.OOL)),
-    L.RED_ANCIENT_TABLET_OF_KNOWLEDGE: HasAll(E.ACCESS_TO_NIGHT, I.HOOKSHOT)
-    & CanJeffersonTraverse(),
+    L.RED_ANCIENT_TABLET_OF_KNOWLEDGE: HasAll(E.ACCESS_TO_NIGHT, I.HOOKSHOT),
 }
 
 

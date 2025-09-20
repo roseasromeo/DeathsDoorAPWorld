@@ -24,9 +24,12 @@ lost_cemetery_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.LOST_CEMETERY_NEAR_GROVE_OF_SPIRITS_DOOR, R.LOST_CEMETERY_CENTRAL, None
     ),
+    DeathsDoorEntrance(
+        R.LOST_CEMETERY_CENTRAL, R.LOST_CEMETERY_NEAR_GROVE_OF_SPIRITS_DOOR, Has(E.LOST_CEMETERY_OPENED_GROVE_TO_CENTRAL)
+    ), # For Jefferson Backtracking
     DeathsDoorEntrance(R.LOST_CEMETERY_DOOR, R.LOST_CEMETERY_CENTRAL, None),
     DeathsDoorEntrance(
-        R.LOST_CEMETERY_CENTRAL, R.LOST_CEMETERY_DOOR, Has(I.LOST_CEMETERY_DOOR)
+        R.LOST_CEMETERY_CENTRAL, R.LOST_CEMETERY_DOOR, None
     ),
     DeathsDoorEntrance(
         R.LOST_CEMETERY_STEADHONE, R.LOST_CEMETERY_CENTRAL, Has(I.LEVER_CATACOMBS_TOWER)
@@ -58,13 +61,13 @@ lost_cemetery_entrances: list[DeathsDoorEntrance] = [
         HasAny(I.LEVER_GUARDIAN_OF_THE_DOOR_ACCESS, I.LEVER_CATACOMBS_TOWER),
     ),
     DeathsDoorEntrance(
-        R.LOST_CEMETERY_EXIT_TO_STRANDED_SAILOR,
+        R.LOST_CEMETERY_EXIT_TO_STRANDED_SAILOR_CAVES,
         R.LOST_CEMETERY_NEAR_EXIT_TO_STRANDED_SAILOR,
         None,
     ),
     DeathsDoorEntrance(
         R.LOST_CEMETERY_NEAR_EXIT_TO_STRANDED_SAILOR,
-        R.LOST_CEMETERY_EXIT_TO_STRANDED_SAILOR,
+        R.LOST_CEMETERY_EXIT_TO_STRANDED_SAILOR_CAVES,
         None,
     ),
     DeathsDoorEntrance(

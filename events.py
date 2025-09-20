@@ -8,9 +8,15 @@ class DeathsDoorEventName(str, Enum):
     LORD_OF_DOORS = "Defeat the Lord of Doors"
     TRUE_ENDING = "Unlock the Door of Truth"
     LIFE_SEED_DOOR = "Unlock the Door to the Green Ancient Tablet of Knowledge"
+    LOST_CEMETERY_OPENED_GROVE_TO_CENTRAL = (
+        "Lost Cemetery - Hit Switch to Access to Lost Cemetery Central from Grove of Spirits Door"
+    )
     LOST_CEMETERY_OPENED_EXIT_TO_SAILOR = (
         "Lost Cemetery - Light Lamp to Open Exit to Stranded Sailor Caves"
     )
+    ESTATE_OF_THE_URN_WITCH_ENTRANCE_LAMPS = "Estate of the Urn Witch - Light Entrance Lamps"
+    FLOODED_FORTRESS_OPENED_FORTRESS_ENTRANCE = "Flooded Fortress - Shoot Switches in Flooded Fortress Entrance"
+    FLOODED_FORTRESS_OPENED_BRIDGE = "Flooded Fortress - Shoot Switch for Bridge to Throne of the Frog King"
     ACCESS_TO_NIGHT = "Access to Night"
     ACCESS_TO_DAY = "Access to Day"
     GREY_CROW_BOSS = "Lost Cemetery - Defeat Grey Crow Boss"
@@ -31,9 +37,15 @@ class DeathsDoorEventLocationName(str, Enum):
     LORD_OF_DOORS = "Lord of Doors"
     TRUE_ENDING = "Door of Truth"
     LIFE_SEED_DOOR = "Family Tomb Door"
+    LOST_CEMETERY_OPENED_GROVE_TO_CENTRAL = (
+        "Lost Cemetery - Switch to Access to Lost Cemetery Central from Grove of Spirits Door"
+    )
     LOST_CEMETERY_OPENED_EXIT_TO_SAILOR = (
         "Lost Cemetery - Lamp for Exit to Stranded Sailor"
     )
+    ESTATE_OF_THE_URN_WITCH_ENTRANCE_LAMPS = "Estate of the Urn Witch - Entrance Lamps"
+    FLOODED_FORTRESS_OPENED_FORTRESS_ENTRANCE = "Flooded Fortress - Switches in Flooded Fortress Entrance"
+    FLOODED_FORTRESS_OPENED_BRIDGE = "Flooded Fortress - Switch for Bridge to Throne of the Frog King"
     ACCESS_TO_NIGHT = "Access to Night"
     ACCESS_TO_DAY = "Access to Day"
     GREY_CROW_BOSS = "Lost Cemetery - Grey Crow Boss"
@@ -125,9 +137,29 @@ event_location_table: list[DeathsDoorEventLocationData] = [
     #     DeathsDoorEventName.LIFE_SEED_DOOR,
     # ),
     DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.LOST_CEMETERY_OPENED_GROVE_TO_CENTRAL,
+        R.LOST_CEMETERY_NEAR_GROVE_OF_SPIRITS_DOOR,
+        DeathsDoorEventName.LOST_CEMETERY_OPENED_GROVE_TO_CENTRAL,
+    ),
+    DeathsDoorEventLocationData(
         DeathsDoorEventLocationName.LOST_CEMETERY_OPENED_EXIT_TO_SAILOR,
         R.LOST_CEMETERY_STEADHONE,
         DeathsDoorEventName.LOST_CEMETERY_OPENED_EXIT_TO_SAILOR,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.ESTATE_OF_THE_URN_WITCH_ENTRANCE_LAMPS,
+        R.ESTATE_OF_THE_URN_WITCH_ENTRANCE,
+        DeathsDoorEventName.ESTATE_OF_THE_URN_WITCH_ENTRANCE_LAMPS,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.FLOODED_FORTRESS_OPENED_FORTRESS_ENTRANCE,
+        R.FLOODED_FORTRESS_ENTRANCE,
+        DeathsDoorEventName.FLOODED_FORTRESS_OPENED_FORTRESS_ENTRANCE,
+    ),
+    DeathsDoorEventLocationData(
+        DeathsDoorEventLocationName.FLOODED_FORTRESS_OPENED_BRIDGE,
+        R.FLOODED_FORTRESS_BRIDGE,
+        DeathsDoorEventName.FLOODED_FORTRESS_OPENED_BRIDGE,
     ),
     DeathsDoorEventLocationData(
         DeathsDoorEventLocationName.ACCESS_TO_NIGHT,

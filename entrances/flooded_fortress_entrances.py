@@ -34,7 +34,7 @@ flooded_fortress_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.FLOODED_FORTRESS_FROG_KING_STATUE,
         R.FLOODED_FORTRESS_ENTRANCE,
-        True_(options=[OptionFilter(OffscreenTargetingTricks, 1)]) | Has(E.OOL),
+        True_(options=[OptionFilter(OffscreenTargetingTricks, 1)]) | Has(E.OOL) | Has(E.FLOODED_FORTRESS_OPENED_FORTRESS_ENTRANCE),  # Event is for Jefferson back-tracking
     ),
     DeathsDoorEntrance(
         R.FLOODED_FORTRESS_FROG_KING_ENCOUNTER,
@@ -54,7 +54,7 @@ flooded_fortress_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.FLOODED_FORTRESS_FROG_KING_ENCOUNTER,
         R.FLOODED_FORTRESS_DOOR,
-        Has(I.FLOODED_FORTRESS_DOOR),
+        None,
     ),
     DeathsDoorEntrance(
         R.FLOODED_FORTRESS_FROG_KING_STATUE,
@@ -73,12 +73,27 @@ flooded_fortress_entrances: list[DeathsDoorEntrance] = [
     ),
     DeathsDoorEntrance(
         R.FLOODED_FORTRESS_INSIDE_MAIN_GATE,
+        R.FLOODED_FORTRESS_FROG_KING_ENCOUNTER,
+        Has(I.LEVER_FORTRESS_MAIN_GATE) & Has(I.BOMB),
+    ),
+    DeathsDoorEntrance(
+        R.FLOODED_FORTRESS_INSIDE_MAIN_GATE,
         R.FLOODED_FORTRESS_U_TURN,
         HasAll(I.BOMB, I.LEVER_FORTRESS_CENTRAL_SHORTCUT),
     ),
     DeathsDoorEntrance(
         R.FLOODED_FORTRESS_U_TURN,
+        R.FLOODED_FORTRESS_INSIDE_MAIN_GATE,
+        HasAll(I.BOMB, I.LEVER_FORTRESS_CENTRAL_SHORTCUT),
+    ),
+    DeathsDoorEntrance(
+        R.FLOODED_FORTRESS_U_TURN,
         R.FLOODED_FORTRESS_BREAKABLE_BRIDGES,
+        Has(I.BOMB),
+    ),
+    DeathsDoorEntrance(
+        R.FLOODED_FORTRESS_BREAKABLE_BRIDGES,
+        R.FLOODED_FORTRESS_U_TURN,
         Has(I.BOMB),
     ),
     DeathsDoorEntrance(
@@ -96,4 +111,9 @@ flooded_fortress_entrances: list[DeathsDoorEntrance] = [
         R.FLOODED_FORTRESS_EXIT_TO_THRONE_OF_THE_FROG_KING,
         None,
     ),
+    DeathsDoorEntrance(
+        R.FLOODED_FORTRESS_EXIT,
+        R.FLOODED_FORTRESS_BRIDGE,
+        Has(E.FLOODED_FORTRESS_OPENED_BRIDGE) # For Jefferson back-tracking
+    )
 ]

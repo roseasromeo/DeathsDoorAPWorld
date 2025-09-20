@@ -12,7 +12,7 @@ class DeathsDoorRegionName(str, Enum):
     DOOR_TO_ESTATE_OF_THE_URN_WITCH = "Door to Estate of the Urn Witch"
     DOOR_TO_CERAMIC_MANOR = "Door to Ceramic Manor"
     DOOR_TO_INNER_FURNACE = "Door to Inner Furnace"
-    DOOR_TO_URN_WITCHS_LABORATORY = "Door to Urn Witchs Laboratory"
+    DOOR_TO_URN_WITCHS_LABORATORY = "Door to the Urn Witch's Laboratory"
     DOOR_TO_OVERGROWN_RUINS = "Door to Overgrown Ruins"
     DOOR_TO_MUSHROOM_DUNGEON = "Door to Mushroom Dungeon"
     DOOR_TO_FLOODED_FORTRESS = "Door to Flooded Fortress"
@@ -21,7 +21,7 @@ class DeathsDoorRegionName(str, Enum):
     DOOR_TO_CASTLE_LOCKSTONE = "Door to Castle Lockstone"
     DOOR_TO_CAMP_OF_THE_FREE_CROWS = "Door to Camp of the Free Crows"
     DOOR_TO_OLD_WATCHTOWERS = "Door to Old Watchtowers"
-    DOOR_TO_BETTYS_LAIR = "Door to Bettys Lair"
+    DOOR_TO_BETTYS_LAIR = "Door to Betty's Lair"
     FIRE_AVARICE = "Fire Avarice"
     POST_FIRE_AVARICE = "Post Fire Avarice"
     HOOKSHOT_AVARICE = "Hookshot Avarice"
@@ -36,7 +36,7 @@ class DeathsDoorRegionName(str, Enum):
     DOOR_CHECK_FOR_ESTATE_OF_THE_URN_WITCH = "Door Check for Estate of the Urn Witch"
     DOOR_CHECK_FOR_CERAMIC_MANOR = "Door Check for Ceramic Manor"
     DOOR_CHECK_FOR_INNER_FURNACE = "Door Check for Inner Furnace"
-    DOOR_CHECK_FOR_URN_WITCHS_LABORATORY = "Door Check for Urn Witchs Laboratory"
+    DOOR_CHECK_FOR_URN_WITCHS_LABORATORY = "Door Check for Urn Witch's Laboratory"
     DOOR_CHECK_FOR_OVERGROWN_RUINS = "Door Check for Overgrown Ruins"
     DOOR_CHECK_FOR_MUSHROOM_DUNGEON = "Door Check for Mushroom Dungeon"
     DOOR_CHECK_FOR_FLOODED_FORTRESS = "Door Check for Flooded Fortress"
@@ -45,7 +45,7 @@ class DeathsDoorRegionName(str, Enum):
     DOOR_CHECK_FOR_CASTLE_LOCKSTONE = "Door Check for Castle Lockstone"
     DOOR_CHECK_FOR_CAMP_OF_THE_FREE_CROWS = "Door Check for Camp of the Free Crows"
     DOOR_CHECK_FOR_OLD_WATCHTOWERS = "Door Check for Old Watchtowers"
-    DOOR_CHECK_FOR_BETTYS_LAIR = "Door Check for Bettys Lair"
+    DOOR_CHECK_FOR_BETTYS_LAIR = "Door Check for Betty's Lair"
 
     # Grove of Spirits Regions
     GROVE_OF_SPIRITS = "Grove of Spirits"
@@ -65,7 +65,7 @@ class DeathsDoorRegionName(str, Enum):
     LOST_CEMETERY_NEAR_EXIT_TO_STRANDED_SAILOR = (
         "Lost Cemetery Near Exit to Stranded Sailor"
     )
-    LOST_CEMETERY_EXIT_TO_STRANDED_SAILOR = "Lost Cemetery Exit to Stranded Sailor"
+    LOST_CEMETERY_EXIT_TO_STRANDED_SAILOR_CAVES = "Lost Cemetery Exit to Stranded Sailor Caves"
     LOST_CEMETERY_EXIT_TO_CRYPT = "Lost Cemetery Exit to Crypt"
     LOST_CEMETERY_BELLTOWER = "Lost Cemetery Belltower"
     LOST_CEMETERY_CATACOMBS_ROOM_1 = "Lost Cemetery Catacombs"
@@ -75,7 +75,7 @@ class DeathsDoorRegionName(str, Enum):
     # Crypt Regions
     CRYPT_EXIT_TO_LOST_CEMETERY = "Crypt Exit to Lost Cemetery"
     CRYPT_MAIN_ROOM = "Crypt Main Room"
-    CRYPT_EXIT_TO_ESTATE_OF_THE_URN_WITCH = "Crypt Exit to the Estate of the Urn Witch"
+    CRYPT_EXIT_TO_ESTATE_OF_THE_URN_WITCH = "Crypt Exit to Estate of the Urn Witch"
 
     # Estate of Urn Witch Regions
     ESTATE_OF_THE_URN_WITCH_DOOR = "Estate of the Urn Witch Door"
@@ -169,6 +169,7 @@ class DeathsDoorRegionName(str, Enum):
         "Flooded Fortress Exit to Mushroom Dungeon"
     )
     FLOODED_FORTRESS_ENTRANCE = "Flooded Fortress Entrance"
+    FLOODED_FORTRESS_ENTRANCE_JEFFERSON = "Flooded Fortress Entrance (Jefferson)"
     FLOODED_FORTRESS_WATCHTOWER_LOWER = "Flooded Fortress Watchtower Lower"
     FLOODED_FORTRESS_FROG_KING_STATUE = "Flooded Fortress Frog King Statue"
     FLOODED_FORTRESS_PRE_MAIN_GATE = "Flooded Fortress Pre-Main Gate"
@@ -199,8 +200,6 @@ class DeathsDoorRegionName(str, Enum):
     STRANDED_SAILOR_EXIT_TO_CASTLE_LOCKSTONE = (
         "Stranded Sailor Exit to Castle Lockstone"
     )
-    STRANDED_SAILOR_JEFFERSON = "Stranded Sailor Jefferson"
-    STRANDED_SAILOR_JEFFERSON_QUEST_START = "Jefferson Quest Start"
 
     STRANDED_SAILOR_CAVES = "Stranded Sailor Caves"
     STRANDED_SAILOR_CAVES_EXIT_TO_LOST_CEMETERY = (
@@ -227,7 +226,7 @@ class DeathsDoorRegionName(str, Enum):
     CASTLE_LOCKSTONE_LIBRARY = "Castle Lockstone Library"
     CASTLE_LOCKSTONE_ROOF = "Castle Lockstone Roof"
     CASTLE_LOCKSTONE_EXIT_TO_CAMP = (
-        "Castle Lockstone Exit to Camp of the Free Crows (via Roof)"
+        "Castle Lockstone Exit to Camp of the Free Crows"
     )
     CASTLE_LOCKSTONE_LORD_LOCKSTONE = "Castle Lockstone Lord Lockstone's Grave"
     CASTLE_LOCKSTONE_LORD_OPENGATE = "Castle Lockstone Lord Opengate's Grave"
@@ -238,7 +237,7 @@ class DeathsDoorRegionName(str, Enum):
     # Camp of the Free Crows Regions
     CAMP_OF_THE_FREE_CROWS_DOOR = "Camp of the Free Crows Door"
     CAMP_OF_THE_FREE_CROWS_EXIT_TO_CASTLE_LOCKSTONE = (
-        "Camp of the Free Crows Exit to Castle Lockstone (via Roof)"
+        "Camp of the Free Crows Exit to Castle Lockstone"
     )
     CAMP_OF_THE_FREE_CROWS_CAMP_BRIDGE = "Camp of the Free Crows Camp Bridge"
     CAMP_OF_THE_FREE_CROWS_CASTLE_DOOR = "Camp of the Free Crows Castle Door"
@@ -269,3 +268,44 @@ class DeathsDoorRegionName(str, Enum):
     BETTYS_LAIR = "Betty's Lair"
     BETTYS_LAIR_DOOR = "Betty's Lair Door"
     BETTYS_LAIR_EXIT_TO_OLD_WATCHTOWERS = "Betty's Lair Exit to Old Watchtowers"
+
+no_jefferson_regions: list[DeathsDoorRegionName] = [
+    # Hall of Doors Regions and Door Check Regions
+    DeathsDoorRegionName.HALL_OF_DOORS_LOBBY,
+    DeathsDoorRegionName.DOOR_TO_GROVE_OF_SPIRITS,
+    DeathsDoorRegionName.DOOR_TO_LOST_CEMETERY,
+    DeathsDoorRegionName.DOOR_TO_ESTATE_OF_THE_URN_WITCH,
+    DeathsDoorRegionName.DOOR_TO_CERAMIC_MANOR,
+    DeathsDoorRegionName.DOOR_TO_INNER_FURNACE,
+    DeathsDoorRegionName.DOOR_TO_URN_WITCHS_LABORATORY,
+    DeathsDoorRegionName.DOOR_TO_OVERGROWN_RUINS,
+    DeathsDoorRegionName.DOOR_TO_MUSHROOM_DUNGEON,
+    DeathsDoorRegionName.DOOR_TO_FLOODED_FORTRESS,
+    DeathsDoorRegionName.DOOR_TO_THRONE_OF_THE_FROG_KING,
+    DeathsDoorRegionName.DOOR_TO_STRANDED_SAILOR,
+    DeathsDoorRegionName.DOOR_TO_CASTLE_LOCKSTONE,
+    DeathsDoorRegionName.DOOR_TO_CAMP_OF_THE_FREE_CROWS,
+    DeathsDoorRegionName.DOOR_TO_OLD_WATCHTOWERS,
+    DeathsDoorRegionName.DOOR_TO_BETTYS_LAIR,
+    DeathsDoorRegionName.FIRE_AVARICE,
+    DeathsDoorRegionName.POST_FIRE_AVARICE,
+    DeathsDoorRegionName.HOOKSHOT_AVARICE,
+    DeathsDoorRegionName.POST_HOOKSHOT_AVARICE,
+    DeathsDoorRegionName.BOMB_AVARICE,
+    DeathsDoorRegionName.POST_BOMB_AVARICE,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_GROVE_OF_SPIRITS,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_LOST_CEMETERY,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_ESTATE_OF_THE_URN_WITCH,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_CERAMIC_MANOR,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_INNER_FURNACE,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_URN_WITCHS_LABORATORY,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_OVERGROWN_RUINS,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_MUSHROOM_DUNGEON,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_FLOODED_FORTRESS,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_THRONE_OF_THE_FROG_KING,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_STRANDED_SAILOR,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_CASTLE_LOCKSTONE,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_CAMP_OF_THE_FREE_CROWS,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_OLD_WATCHTOWERS,
+    DeathsDoorRegionName.DOOR_CHECK_FOR_BETTYS_LAIR,
+]

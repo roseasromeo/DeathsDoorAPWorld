@@ -36,7 +36,7 @@ camp_entrances: list[DeathsDoorEntrance] = [
     DeathsDoorEntrance(
         R.CAMP_OF_THE_FREE_CROWS_VILLAGE,
         R.CAMP_OF_THE_FREE_CROWS_DOOR,
-        Has(I.CAMP_OF_THE_FREE_CROWS_DOOR),
+        None,
     ),
     DeathsDoorEntrance(
         R.CAMP_OF_THE_FREE_CROWS_CAMP_BRIDGE,
