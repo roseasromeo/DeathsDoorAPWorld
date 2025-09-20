@@ -327,7 +327,7 @@ two_way_scene_transitions: list[
             "tdoor_gy",
             "lvl_Tutorial",
         ),
-    ),  ## The backwards transition here is not meaningful for now because you can't get back to the exit from the main part of Lost Cemetery, but would be meaningful in decoupled entrance rando
+    ),
     (
         DeathsDoorEntrance(
             R.LOST_CEMETERY_EXIT_TO_CRYPT,
@@ -438,7 +438,7 @@ two_way_scene_transitions: list[
     ),
     (
         DeathsDoorEntrance(
-            R.LOST_CEMETERY_EXIT_TO_STRANDED_SAILOR,
+            R.LOST_CEMETERY_EXIT_TO_STRANDED_SAILOR_CAVES,
             R.STRANDED_SAILOR_CAVES_EXIT_TO_LOST_CEMETERY,
             None,
             "Lost Cemetery to Stranded Sailor Caves",
@@ -447,7 +447,7 @@ two_way_scene_transitions: list[
         ),
         DeathsDoorEntrance(
             R.STRANDED_SAILOR_CAVES_EXIT_TO_LOST_CEMETERY,
-            R.LOST_CEMETERY_EXIT_TO_STRANDED_SAILOR,
+            R.LOST_CEMETERY_EXIT_TO_STRANDED_SAILOR_CAVES,
             None,
             "Stranded Sailor Caves to Lost Cemetery",
             "d_graveyardtosailorcaves",

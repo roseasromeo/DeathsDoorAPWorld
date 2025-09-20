@@ -39,6 +39,7 @@ from .entrances.entrances import deathsdoor_internal_entrances
 from .entrances.randomize_transitions import (
     connect_entrances_function,
     create_vanilla_entrances,
+    connect_plando_connection,
 )
 from .jefferson import (
     create_jefferson_regions,
@@ -106,6 +107,7 @@ class DeathsDoorWorld(RuleWorldMixin, World):
     tracker_world: ClassVar[dict[str, Any]] = tracker_world
     ut_can_gen_without_yaml: ClassVar[bool] = True
     glitches_item_name: ClassVar[str] = E.OOL.value
+    found_entrances_datastorage_key = "{player}_{team}_deathsdoor_found_entrances",
 
     # rule_builder
     rule_caching_enabled = False
@@ -500,6 +502,27 @@ class DeathsDoorWorld(RuleWorldMixin, World):
     def connect_entrances(self) -> None:
         self.entrance_pairings: dict[str, str] = {}
         connect_entrances_function(self)
+    
+    def reconnect_found_entrances(self, found_key: str, data_storage_value) -> None:
+        coupled = (
+            self.options.entrance_randomization == EntranceRandomization.option_coupled
+        )
+        if data_storage_value != None:
+            for entrance in data_storage_value:
+                for plando_connection in self.options.plando_connections:
+                    if plando_connection.entrance == entrance:
+                        connect_plando_connection(self, plando_connection, coupled)
+                        break
+        # from Utils import visualize_regions
+        # from BaseClasses import CollectionState
+        # start_region = self.get_region(self.origin_region_name)
+        # visualize_regions(
+        #     start_region,
+        #     "DD_visualization.puml",
+        #     regions_to_highlight=CollectionState(
+        #         self.multiworld
+        #     ).reachable_regions[self.player],
+        # )
 
     def fill_slot_data(self) -> dict[str, Any]:
         # A dictionary returned from this method gets set as the slot_data and will be sent to the client after connecting.

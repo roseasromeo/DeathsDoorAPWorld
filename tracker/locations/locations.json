@@ -18,6 +18,21 @@
                 ]
             },
             {
+                "name": "Door to Mushroom Dungeon -> Mushroom Dungeon Door",
+                "map_locations": [
+                    {
+                        "map": "hall_of_doors",
+                        "x": 533,
+                        "y": 147.753758125
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Door to Mushroom Dungeon -> Mushroom Dungeon Door"
+                    }
+                ]
+            },
+            {
                 "name": "Flooded Fortress - Door",
                 "map_locations": [
                     {
@@ -33,6 +48,21 @@
                 ]
             },
             {
+                "name": "Door to Flooded Fortress -> Flooded Fortress Door",
+                "map_locations": [
+                    {
+                        "map": "hall_of_doors",
+                        "x": 499,
+                        "y": 123.34867374999999
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Door to Flooded Fortress -> Flooded Fortress Door"
+                    }
+                ]
+            },
+            {
                 "name": "Overgrown Ruins - Door",
                 "map_locations": [
                     {
@@ -44,6 +74,21 @@
                 "sections": [
                     {
                         "name": "Overgrown Ruins - Door"
+                    }
+                ]
+            },
+            {
+                "name": "Door to Overgrown Ruins -> Overgrown Ruins Door",
+                "map_locations": [
+                    {
+                        "map": "hall_of_doors",
+                        "x": 491,
+                        "y": 144.21611375
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Door to Overgrown Ruins -> Overgrown Ruins Door"
                     }
                 ]
             },
@@ -108,6 +153,21 @@
                 ]
             },
             {
+                "name": "Door to Throne of the Frog King -> Throne of the Frog King Door",
+                "map_locations": [
+                    {
+                        "map": "hall_of_doors",
+                        "x": 504,
+                        "y": 168.82752825
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Door to Throne of the Frog King -> Throne of the Frog King Door"
+                    }
+                ]
+            },
+            {
                 "name": "Betty's Lair - Door",
                 "map_locations": [
                     {
@@ -119,6 +179,21 @@
                 "sections": [
                     {
                         "name": "Betty's Lair - Door"
+                    }
+                ]
+            },
+            {
+                "name": "Door to Betty's Lair -> Betty's Lair Door",
+                "map_locations": [
+                    {
+                        "map": "hall_of_doors",
+                        "x": 449,
+                        "y": 392.31130625000003
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Door to Betty's Lair -> Betty's Lair Door"
                     }
                 ]
             },
@@ -138,6 +213,21 @@
                 ]
             },
             {
+                "name": "Door to Castle Lockstone -> Castle Lockstone Door",
+                "map_locations": [
+                    {
+                        "map": "hall_of_doors",
+                        "x": 445,
+                        "y": 369.82348750000006
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Door to Castle Lockstone -> Castle Lockstone Door"
+                    }
+                ]
+            },
+            {
                 "name": "Camp of the Free Crows - Door",
                 "map_locations": [
                     {
@@ -149,6 +239,21 @@
                 "sections": [
                     {
                         "name": "Camp of the Free Crows - Door"
+                    }
+                ]
+            },
+            {
+                "name": "Door to Camp of the Free Crows -> Camp of the Free Crows Door",
+                "map_locations": [
+                    {
+                        "map": "hall_of_doors",
+                        "x": 446,
+                        "y": 346.356875
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Door to Camp of the Free Crows -> Camp of the Free Crows Door"
                     }
                 ]
             },
@@ -168,6 +273,21 @@
                 ]
             },
             {
+                "name": "Door to Old Watchtowers -> Old Watchtowers Door",
+                "map_locations": [
+                    {
+                        "map": "hall_of_doors",
+                        "x": 456,
+                        "y": 327.63559375
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Door to Old Watchtowers -> Old Watchtowers Door"
+                    }
+                ]
+            },
+            {
                 "name": "Lost Cemetery - Door",
                 "map_locations": [
                     {
@@ -179,6 +299,21 @@
                 "sections": [
                     {
                         "name": "Lost Cemetery - Door"
+                    }
+                ]
+            },
+            {
+                "name": "Door to Lost Cemetery -> Lost Cemetery Door",
+                "map_locations": [
+                    {
+                        "map": "hall_of_doors",
+                        "x": 410,
+                        "y": 223.994215625
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Door to Lost Cemetery -> Lost Cemetery Door"
                     }
                 ]
             },
@@ -198,6 +333,21 @@
                 ]
             },
             {
+                "name": "Door to Stranded Sailor -> Stranded Sailor Door",
+                "map_locations": [
+                    {
+                        "map": "hall_of_doors",
+                        "x": 469,
+                        "y": 366.49481249999997
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Door to Stranded Sailor -> Stranded Sailor Door"
+                    }
+                ]
+            },
+            {
                 "name": "Inner Furnace - Door",
                 "map_locations": [
                     {
@@ -209,6 +359,21 @@
                 "sections": [
                     {
                         "name": "Inner Furnace - Door"
+                    }
+                ]
+            },
+            {
+                "name": "Door to Inner Furnace -> Inner Furnace Door",
+                "map_locations": [
+                    {
+                        "map": "hall_of_doors",
+                        "x": 351,
+                        "y": 236.14320375
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Door to Inner Furnace -> Inner Furnace Door"
                     }
                 ]
             },
@@ -228,6 +393,22 @@
                 ]
             },
             {
+                "name": "Door to The Urn Witch's Laboratory -> The Urn Witch's Laboratory Door",
+                "map_locations": [
+                    {
+                        "map": "hall_of_doors",
+                        "x": 378,
+                        "y": 243.46834437500002
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Door to The Urn Witch's Laboratory -> The Urn Witch's Laboratory Door"
+                    }
+                ]
+            },
+            {
+                
                 "name": "Estate of the Urn Witch - Door",
                 "map_locations": [
                     {
@@ -239,6 +420,22 @@
                 "sections": [
                     {
                         "name": "Estate of the Urn Witch - Door"
+                    }
+                ]
+            },
+            {
+                
+                "name": "Door to Estate of the Urn Witch -> Estate of the Urn Witch Door",
+                "map_locations": [
+                    {
+                        "map": "hall_of_doors",
+                        "x": 331,
+                        "y": 249.00927437500002
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Door to Estate of the Urn Witch -> Estate of the Urn Witch Door"
                     }
                 ]
             },
@@ -258,6 +455,21 @@
                 ]
             },
             {
+                "name": "Door to Ceramic Manor -> Ceramic Manor Door",
+                "map_locations": [
+                    {
+                        "map": "hall_of_doors",
+                        "x": 356,
+                        "y": 277.02625
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Door to Ceramic Manor -> Ceramic Manor Door"
+                    }
+                ]
+            },
+            {
                 "name": "Grove of Spirits - Door",
                 "map_locations": [
                     {
@@ -269,6 +481,21 @@
                 "sections": [
                     {
                         "name": "Grove of Spirits - Door"
+                    }
+                ]
+            },
+            {
+                "name": "Door to Grove of Spirits -> Grove of Spirits Door",
+                "map_locations": [
+                    {
+                        "map": "hall_of_doors",
+                        "x": 419,
+                        "y": 190.62419125
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Door to Grove of Spirits -> Grove of Spirits Door"
                     }
                 ]
             },
@@ -548,6 +775,36 @@
                 ]
             },
             {
+                "name": "Grove of Spirits Door -> Door to Grove of Spirits",
+                "map_locations": [
+                    {
+                        "map": "grove_of_spirits",
+                        "x": 154,
+                        "y": 178
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Grove of Spirits Door -> Door to Grove of Spirits"
+                    }
+                ]
+            },
+            {
+                "name": "Grove of Spirits Exit to Lost Cemetery -> Lost Cemetery Exit to Grove of Spirits",
+                "map_locations": [
+                    {
+                        "map": "grove_of_spirits",
+                        "x": 162,
+                        "y": 93
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Grove of Spirits Exit to Lost Cemetery -> Lost Cemetery Exit to Grove of Spirits"
+                    }
+                ]
+            },
+            {
                 "name": "Grove of Spirits - Makeshift Soul Key",
                 "map_locations": [
                     {
@@ -579,6 +836,81 @@
                 "sections": [
                     {
                         "name": "Lost Cemetery - Door"
+                    }
+                ]
+            },
+            {
+                "name": "Lost Cemetery Door -> Door to Lost Cemetery",
+                "map_locations": [
+                    {
+                        "map": "lost_cemetery",
+                        "x": 501,
+                        "y": 499.47405000000003
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Lost Cemetery Door -> Door to Lost Cemetery"
+                    }
+                ]
+            },
+            {
+                "name": "Lost Cemetery Exit to Grove of Spirits -> Grove of Spirits Exit to Lost Cemetery",
+                "map_locations": [
+                    {
+                        "map": "lost_cemetery",
+                        "x": 358,
+                        "y": 676
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Lost Cemetery Exit to Grove of Spirits -> Grove of Spirits Exit to Lost Cemetery"
+                    }
+                ]
+            },
+            {
+                "name": "Lost Cemetery Exit to Crypt -> Crypt Exit to Lost Cemetery",
+                "map_locations": [
+                    {
+                        "map": "lost_cemetery",
+                        "x": 237,
+                        "y": 234
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Lost Cemetery Exit to Crypt -> Crypt Exit to Lost Cemetery"
+                    }
+                ]
+            },
+            {
+                "name": "Lost Cemetery Exit to Stranded Sailor Caves -> Stranded Sailor Caves Exit to Lost Cemetery",
+                "map_locations": [
+                    {
+                        "map": "lost_cemetery",
+                        "x": 128,
+                        "y": 482
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Lost Cemetery Exit to Stranded Sailor Caves -> Stranded Sailor Caves Exit to Lost Cemetery"
+                    }
+                ]
+            },
+            {
+                "name": "Lost Cemetery Exit to Overgrown Ruins -> Overgrown Ruins Exit to Lost Cemetery",
+                "map_locations": [
+                    {
+                        "map": "lost_cemetery",
+                        "x": 825,
+                        "y": 277
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Lost Cemetery Exit to Overgrown Ruins -> Overgrown Ruins Exit to Lost Cemetery"
                     }
                 ]
             },
@@ -1173,6 +1505,36 @@
         "name": "Crypt",
         "children": [
             {
+                "name": "Crypt Exit to Lost Cemetery -> Lost Cemetery Exit to Crypt",
+                "map_locations": [
+                    {
+                        "map": "crypt",
+                        "x": 325,
+                        "y": 120
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Crypt Exit to Lost Cemetery -> Lost Cemetery Exit to Crypt"
+                    }
+                ]
+            },
+            {
+                "name": "Crypt Exit to the Estate of the Urn Witch -> Estate of the Urn Witch Exit to Crypt",
+                "map_locations": [
+                    {
+                        "map": "crypt",
+                        "x": 42,
+                        "y": 140
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Crypt Exit to the Estate of the Urn Witch -> Estate of the Urn Witch Exit to Crypt"
+                    }
+                ]
+            },
+            {
                 "name": "Crypt - Soul Orb",
                 "map_locations": [
                     {
@@ -1264,6 +1626,51 @@
                 "sections": [
                     {
                         "name": "Estate of the Urn Witch - Door"
+                    }
+                ]
+            },
+            {
+                "name": "Estate of the Urn Witch Door -> Door to Estate of the Urn Witch",
+                "map_locations": [
+                    {
+                        "map": "estate_of_the_urn_witch",
+                        "x": 568,
+                        "y": 801.319375
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Estate of the Urn Witch Door -> Door to Estate of the Urn Witch"
+                    }
+                ]
+            },
+            {
+                "name": "Estate of the Urn Witch Exit to Crypt -> Crypt Exit to Estate of the Urn Witch",
+                "map_locations": [
+                    {
+                        "map": "estate_of_the_urn_witch",
+                        "x": 998,
+                        "y": 833
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Estate of the Urn Witch Exit to Crypt -> Crypt Exit to Estate of the Urn Witch"
+                    }
+                ]
+            },
+            {
+                "name": "Estate of the Urn Witch Exit to Ceramic Manor -> Ceramic Manor Exit to Estate of the Urn Witch",
+                "map_locations": [
+                    {
+                        "map": "estate_of_the_urn_witch",
+                        "x": 572,
+                        "y": 227
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Estate of the Urn Witch Exit to Ceramic Manor -> Ceramic Manor Exit to Estate of the Urn Witch"
                     }
                 ]
             },
@@ -1828,6 +2235,66 @@
                 ]
             },
             {
+                "name": "Ceramic Manor Door -> Door to Ceramic Manor",
+                "map_locations": [
+                    {
+                        "map": "ceramic_manor",
+                        "x": 193,
+                        "y": 455.36625000000004
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Ceramic Manor Door -> Door to Ceramic Manor"
+                    }
+                ]
+            },
+            {
+                "name": "Ceramic Manor Exit to Estate of the Urn Witch -> Estate of the Urn Witch Exit to Ceramic Manor",
+                "map_locations": [
+                    {
+                        "map": "ceramic_manor",
+                        "x": 203,
+                        "y": 537
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Ceramic Manor Exit to Estate of the Urn Witch -> Estate of the Urn Witch Exit to Ceramic Manor"
+                    }
+                ]
+            },
+            {
+                "name": "Ceramic Manor Exit to Furnace Observation Rooms -> Furnace Observation Rooms Exit to Ceramic Manor",
+                "map_locations": [
+                    {
+                        "map": "ceramic_manor",
+                        "x": 203,
+                        "y": 411
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Ceramic Manor Exit to Furnace Observation Rooms -> Furnace Observation Rooms Exit to Ceramic Manor"
+                    }
+                ]
+            },
+            {
+                "name": "Ceramic Manor Ancient Door -> Fire Avarice",
+                "map_locations": [
+                    {
+                        "map": "ceramic_manor",
+                        "x": 203,
+                        "y": 306
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Ceramic Manor Ancient Door -> Fire Avarice"
+                    }
+                ]
+            },
+            {
                 "name": "Ceramic Manor - Main Room Upper Life Seed",
                 "map_locations": [
                     {
@@ -2283,6 +2750,51 @@
                 ]
             },
             {
+                "name": "Inner Furnace Door -> Door to Inner Furnace",
+                "map_locations": [
+                    {
+                        "map": "inner_furnace",
+                        "x": 376,
+                        "y": 608.586875
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Inner Furnace Door -> Door to Inner Furnace"
+                    }
+                ]
+            },
+            {
+                "name": "Inner Furnace Exit to Furnace Observation Rooms -> Furnace Observation Rooms Exit to Inner Furnace",
+                "map_locations": [
+                    {
+                        "map": "inner_furnace",
+                        "x": 350,
+                        "y": 685
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Inner Furnace Exit to Furnace Observation Rooms -> Furnace Observation Rooms Exit to Inner Furnace"
+                    }
+                ]
+            },
+            {
+                "name": "Inner Furnace Exit to the Urn Witch's Laboratory -> The Urn Witch's Laboratory Exit to Inner Furnace",
+                "map_locations": [
+                    {
+                        "map": "inner_furnace",
+                        "x": 440,
+                        "y": 20
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Inner Furnace Exit to the Urn Witch's Laboratory -> The Urn Witch's Laboratory Exit to Inner Furnace"
+                    }
+                ]
+            },
+            {
                 "name": "Inner Furnace - Conveyor Bridge Life Seed",
                 "map_locations": [
                     {
@@ -2408,6 +2920,36 @@
         "name": "Furnace Observation Rooms",
         "children": [
             {
+                "name": "Furnace Observation Rooms Exit to Ceramic Manor -> Ceramic Manor Exit to Furnace Observation Rooms",
+                "map_locations": [
+                    {
+                        "map": "furnace_observation_rooms",
+                        "x": 901,
+                        "y": 46
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Furnace Observation Rooms Exit to Ceramic Manor -> Ceramic Manor Exit to Furnace Observation Rooms"
+                    }
+                ]
+            },
+            {
+                "name": "Furnace Observation Rooms Exit to Inner Furnace -> Inner Furnace Exit to Furnace Observation Rooms",
+                "map_locations": [
+                    {
+                        "map": "furnace_observation_rooms",
+                        "x": 40,
+                        "y": 360
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Furnace Observation Rooms Exit to Inner Furnace -> Inner Furnace Exit to Furnace Observation Rooms"
+                    }
+                ]
+            },
+            {
                 "name": "Furnace Observation Rooms - Entrance Life Seed",
                 "map_locations": [
                     {
@@ -2518,6 +3060,36 @@
                 ]
             },
             {
+                "name": "The Urn Witch's Laboratory Door -> Door to the Urn Witch's Laboratory",
+                "map_locations": [
+                    {
+                        "map": "the_urn_witchs_laboratory",
+                        "x": 140,
+                        "y": 140
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "The Urn Witch's Laboratory Door -> Door to the Urn Witch's Laboratory"
+                    }
+                ]
+            },
+            {
+                "name": "The Urn Witch's Laboratory Exit to Inner Furnace -> Inner Furnace Exit to the Urn Witch's Laboratory",
+                "map_locations": [
+                    {
+                        "map": "the_urn_witchs_laboratory",
+                        "x": 167,
+                        "y": 153
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "The Urn Witch's Laboratory Exit to Inner Furnace -> Inner Furnace Exit to the Urn Witch's Laboratory"
+                    }
+                ]
+            },
+            {
                 "name": "The Urn Witch's Laboratory - Urn Witch Giant Soul",
                 "map_locations": [
                     {
@@ -2553,6 +3125,21 @@
                 ]
             },
             {
+                "name": "Overgrown Ruins Door -> Door to Overgrown Ruins",
+                "map_locations": [
+                    {
+                        "map": "overgrown_ruins",
+                        "x": 319,
+                        "y": 520.10121875
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Overgrown Ruins Door -> Door to Overgrown Ruins"
+                    }
+                ]
+            },
+            {
                 "name": "Mushroom Dungeon - Door",
                 "map_locations": [
                     {
@@ -2564,6 +3151,66 @@
                 "sections": [
                     {
                         "name": "Mushroom Dungeon - Door"
+                    }
+                ]
+            },
+            {
+                "name": "Mushroom Dungeon Door -> Door to Mushroom Dungeon",
+                "map_locations": [
+                    {
+                        "map": "overgrown_ruins",
+                        "x": 984,
+                        "y": 356.2260749999999
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Mushroom Dungeon Door -> Door to Mushroom Dungeon"
+                    }
+                ]
+            },
+            {
+                "name": "Overgrown Ruins Exit to Lost Cemetery -> Lost Cemetery Exit to Overgrown Ruins",
+                "map_locations": [
+                    {
+                        "map": "overgrown_ruins",
+                        "x": 288,
+                        "y": 680
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Overgrown Ruins Exit to Lost Cemetery -> Lost Cemetery Exit to Overgrown Ruins"
+                    }
+                ]
+            },
+            {
+                "name": "Mushroom Dungeon Exit to Flooded Fortress -> Flooded Fortress Exit to Mushroom Dungeon",
+                "map_locations": [
+                    {
+                        "map": "overgrown_ruins",
+                        "x": 1300,
+                        "y": 402
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Mushroom Dungeon Exit to Flooded Fortress -> Flooded Fortress Exit to Mushroom Dungeon"
+                    }
+                ]
+            },
+            {
+                "name": "Mushroom Dungeon Ancient Door -> Bomb Avarice",
+                "map_locations": [
+                    {
+                        "map": "overgrown_ruins",
+                        "x": 941,
+                        "y": 104
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Mushroom Dungeon Ancient Door -> Bomb Avarice"
                     }
                 ]
             },
@@ -3533,6 +4180,36 @@
                 ]
             },
             {
+                "name": "Throne of the Frog King Door -> Door to Throne of the Frog King",
+                "map_locations": [
+                    {
+                        "map": "throne_of_the_frog_king",
+                        "x": 265,
+                        "y": 65
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Throne of the Frog King Door -> Door to Throne of the Frog King"
+                    }
+                ]
+            },
+            {
+                "name": "Throne of the Frog King Exit to Flooded Fortress -> Flooded Fortress Exit to Throne of the Frog King",
+                "map_locations": [
+                    {
+                        "map": "throne_of_the_frog_king",
+                        "x": 293,
+                        "y": 76
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Throne of the Frog King Exit to Flooded Fortress -> Flooded Fortress Exit to Throne of the Frog King"
+                    }
+                ]
+            },
+            {
                 "name": "Throne of the Frog King - Giant Arrowhead",
                 "map_locations": [
                     {
@@ -3579,6 +4256,51 @@
                 "sections": [
                     {
                         "name": "Flooded Fortress - Door"
+                    }
+                ]
+            },
+            {
+                "name": "Flooded Fortress Door -> Door to Flooded Fortress",
+                "map_locations": [
+                    {
+                        "map": "flooded_fortress",
+                        "x": 901,
+                        "y": 688.99213125
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Flooded Fortress Door -> Door to Flooded Fortress"
+                    }
+                ]
+            },
+            {
+                "name": "Flooded Fortress Exit to Mushroom Dungeon -> Mushroom Dungeon Exit to Flooded Fortress",
+                "map_locations": [
+                    {
+                        "map": "flooded_fortress",
+                        "x": 51,
+                        "y": 110
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Flooded Fortress Exit to Mushroom Dungeon -> Mushroom Dungeon Exit to Flooded Fortress"
+                    }
+                ]
+            },
+            {
+                "name": "Flooded Fortress Exit to Throne of the Frog King -> Throne of the Frog King Exit to Flooded Fortress",
+                "map_locations": [
+                    {
+                        "map": "flooded_fortress",
+                        "x": 165,
+                        "y": 706
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Flooded Fortress Exit to Throne of the Frog King -> Throne of the Frog King Exit to Flooded Fortress"
                     }
                 ]
             },
@@ -3948,6 +4670,36 @@
         "name": "Stranded Sailor Caves",
         "children": [
             {
+                "name": "Stranded Sailor Caves Exit to Lost Cemetery -> Lost Cemetery Exit to Stranded Sailor Caves",
+                "map_locations": [
+                    {
+                        "map": "stranded_sailor_caves",
+                        "x": 338,
+                        "y": 46
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Stranded Sailor Caves Exit to Lost Cemetery -> Lost Cemetery Exit to Stranded Sailor Caves"
+                    }
+                ]
+            },
+            {
+                "name": "Stranded Sailor Caves Exit to Stranded Sailor -> Stranded Sailor Exit to Stranded Sailor Caves",
+                "map_locations": [
+                    {
+                        "map": "stranded_sailor_caves",
+                        "x": 51,
+                        "y": 245
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Stranded Sailor Caves Exit to Stranded Sailor -> Stranded Sailor Exit to Stranded Sailor Caves"
+                    }
+                ]
+            },
+            {
                 "name": "Stranded Sailor Caves - Between Cemetery and Sailor Life Seed",
                 "map_locations": [
                     {
@@ -4039,6 +4791,51 @@
                 "sections": [
                     {
                         "name": "Stranded Sailor - Door"
+                    }
+                ]
+            },
+            {
+                "name": "Stranded Sailor Door -> Door to Stranded Sailor",
+                "map_locations": [
+                    {
+                        "map": "stranded_sailor",
+                        "x": 438,
+                        "y": 359.875625
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Stranded Sailor Door -> Door to Stranded Sailor"
+                    }
+                ]
+            },
+            {
+                "name": "Stranded Sailor Exit to Stranded Sailor Caves -> Stranded Sailor Caves Exit to Stranded Sailor",
+                "map_locations": [
+                    {
+                        "map": "stranded_sailor",
+                        "x": 460,
+                        "y": 220
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Stranded Sailor Exit to Stranded Sailor Caves -> Stranded Sailor Caves Exit to Stranded Sailor"
+                    }
+                ]
+            },
+            {
+                "name": "Stranded Sailor Exit to Castle Lockstone -> Castle Lockstone Exit to Stranded Sailor",
+                "map_locations": [
+                    {
+                        "map": "stranded_sailor",
+                        "x": 95,
+                        "y": 266
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Stranded Sailor Exit to Castle Lockstone -> Castle Lockstone Exit to Stranded Sailor"
                     }
                 ]
             },
@@ -4212,6 +5009,66 @@
                 "sections": [
                     {
                         "name": "Castle Lockstone - Door"
+                    }
+                ]
+            },
+            {
+                "name": "Castle Lockstone Door -> Door to Castle Lockstone",
+                "map_locations": [
+                    {
+                        "map": "castle_lockstone",
+                        "x": 371,
+                        "y": 745
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Castle Lockstone Door -> Door to Castle Lockstone"
+                    }
+                ]
+            },
+            {
+                "name": "Castle Lockstone Exit to Stranded Sailor -> Stranded Sailor Exit to Castle Lockstone",
+                "map_locations": [
+                    {
+                        "map": "castle_lockstone",
+                        "x": 330,
+                        "y": 811
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Castle Lockstone Exit to Stranded Sailor -> Stranded Sailor Exit to Castle Lockstone"
+                    }
+                ]
+            },
+            {
+                "name": "Castle Lockstone Exit to Camp of the Free Crows -> Camp of the Free Crows Exit to Castle Lockstone",
+                "map_locations": [
+                    {
+                        "map": "castle_lockstone",
+                        "x": 330,
+                        "y": 669
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Castle Lockstone Exit to Camp of the Free Crows -> Camp of the Free Crows Exit to Castle Lockstone"
+                    }
+                ]
+            },
+            {
+                "name": "Castle Lockstone Ancient Door -> Hookshot Avarice",
+                "map_locations": [
+                    {
+                        "map": "castle_lockstone",
+                        "x": 330,
+                        "y": 484
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Castle Lockstone Ancient Door -> Hookshot Avarice"
                     }
                 ]
             },
@@ -4761,6 +5618,51 @@
                 ]
             },
             {
+                "name": "Camp of the Free Crows Door -> Door to Camp of the Free Crows",
+                "map_locations": [
+                    {
+                        "map": "camp_of_the_free_crows",
+                        "x": 636,
+                        "y": 301.74965624999993
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Camp of the Free Crows Door -> Door to Camp of the Free Crows"
+                    }
+                ]
+            },
+            {
+                "name": "Camp of the Free Crows Exit to Castle Lockstone -> Castle Lockstone Exit to Camp of the Free Crows",
+                "map_locations": [
+                    {
+                        "map": "camp_of_the_free_crows",
+                        "x": 772,
+                        "y": 851
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Camp of the Free Crows Exit to Castle Lockstone -> Castle Lockstone Exit to Camp of the Free Crows"
+                    }
+                ]
+            },
+            {
+                "name": "Camp of the Free Crows Exit to Old Watchtowers -> Old Watchtowers Exit to Camp of the Free Crows",
+                "map_locations": [
+                    {
+                        "map": "camp_of_the_free_crows",
+                        "x": 390,
+                        "y": 287
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Camp of the Free Crows Exit to Old Watchtowers -> Old Watchtowers Exit to Camp of the Free Crows"
+                    }
+                ]
+            },
+            {
                 "name": "Camp of the Free Crows - Stall Life Seed",
                 "map_locations": [
                     {
@@ -4912,6 +5814,51 @@
                 "sections": [
                     {
                         "name": "Old Watchtowers - Door"
+                    }
+                ]
+            },
+            {
+                "name": "Old Watchtowers Door -> Door to Old Watchtowers",
+                "map_locations": [
+                    {
+                        "map": "old_watchtowers",
+                        "x": 866,
+                        "y": 579.3824687499998
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Old Watchtowers Door -> Door to Old Watchtowers"
+                    }
+                ]
+            },
+            {
+                "name": "Old Watchtowers Exit to Camp of the Free Crows -> Camp of the Free Crows Exit to Old Watchtowers",
+                "map_locations": [
+                    {
+                        "map": "old_watchtowers",
+                        "x": 891,
+                        "y": 594
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Old Watchtowers Exit to Camp of the Free Crows -> Camp of the Free Crows Exit to Old Watchtowers"
+                    }
+                ]
+            },
+            {
+                "name": "Old Watchtowers Exit to Betty's Lair -> Betty's Lair Exit to Old Watchtowers",
+                "map_locations": [
+                    {
+                        "map": "old_watchtowers",
+                        "x": 199,
+                        "y": 671
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Old Watchtowers Exit to Betty's Lair -> Betty's Lair Exit to Old Watchtowers"
                     }
                 ]
             },
@@ -5149,6 +6096,36 @@
                 "sections": [
                     {
                         "name": "Betty's Lair - Door"
+                    }
+                ]
+            },
+            {
+                "name": "Betty's Lair Door -> Door to Betty's Lair",
+                "map_locations": [
+                    {
+                        "map": "bettys_lair",
+                        "x": 190,
+                        "y": 98
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Betty's Lair Door -> Door to Betty's Lair"
+                    }
+                ]
+            },
+            {
+                "name": "Betty's Lair Exit to Old Watchtowers -> Old Watchtowers Exit to Betty's Lair",
+                "map_locations": [
+                    {
+                        "map": "bettys_lair",
+                        "x": 206,
+                        "y": 103
+                    }
+                ],
+                "sections": [
+                    {
+                        "name": "Betty's Lair Exit to Old Watchtowers -> Old Watchtowers Exit to Betty's Lair"
                     }
                 ]
             },

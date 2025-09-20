@@ -61,13 +61,13 @@ lost_cemetery_entrances: list[DeathsDoorEntrance] = [
         HasAny(I.LEVER_GUARDIAN_OF_THE_DOOR_ACCESS, I.LEVER_CATACOMBS_TOWER),
     ),
     DeathsDoorEntrance(
-        R.LOST_CEMETERY_EXIT_TO_STRANDED_SAILOR,
+        R.LOST_CEMETERY_EXIT_TO_STRANDED_SAILOR_CAVES,
         R.LOST_CEMETERY_NEAR_EXIT_TO_STRANDED_SAILOR,
         None,
     ),
     DeathsDoorEntrance(
         R.LOST_CEMETERY_NEAR_EXIT_TO_STRANDED_SAILOR,
-        R.LOST_CEMETERY_EXIT_TO_STRANDED_SAILOR,
+        R.LOST_CEMETERY_EXIT_TO_STRANDED_SAILOR_CAVES,
         None,
     ),
     DeathsDoorEntrance(

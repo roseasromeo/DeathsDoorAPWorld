@@ -12,7 +12,7 @@ class DeathsDoorRegionName(str, Enum):
     DOOR_TO_ESTATE_OF_THE_URN_WITCH = "Door to Estate of the Urn Witch"
     DOOR_TO_CERAMIC_MANOR = "Door to Ceramic Manor"
     DOOR_TO_INNER_FURNACE = "Door to Inner Furnace"
-    DOOR_TO_URN_WITCHS_LABORATORY = "Door to Urn Witch's Laboratory"
+    DOOR_TO_URN_WITCHS_LABORATORY = "Door to the Urn Witch's Laboratory"
     DOOR_TO_OVERGROWN_RUINS = "Door to Overgrown Ruins"
     DOOR_TO_MUSHROOM_DUNGEON = "Door to Mushroom Dungeon"
     DOOR_TO_FLOODED_FORTRESS = "Door to Flooded Fortress"
@@ -65,7 +65,7 @@ class DeathsDoorRegionName(str, Enum):
     LOST_CEMETERY_NEAR_EXIT_TO_STRANDED_SAILOR = (
         "Lost Cemetery Near Exit to Stranded Sailor"
     )
-    LOST_CEMETERY_EXIT_TO_STRANDED_SAILOR = "Lost Cemetery Exit to Stranded Sailor"
+    LOST_CEMETERY_EXIT_TO_STRANDED_SAILOR_CAVES = "Lost Cemetery Exit to Stranded Sailor Caves"
     LOST_CEMETERY_EXIT_TO_CRYPT = "Lost Cemetery Exit to Crypt"
     LOST_CEMETERY_BELLTOWER = "Lost Cemetery Belltower"
     LOST_CEMETERY_CATACOMBS_ROOM_1 = "Lost Cemetery Catacombs"
@@ -75,7 +75,7 @@ class DeathsDoorRegionName(str, Enum):
     # Crypt Regions
     CRYPT_EXIT_TO_LOST_CEMETERY = "Crypt Exit to Lost Cemetery"
     CRYPT_MAIN_ROOM = "Crypt Main Room"
-    CRYPT_EXIT_TO_ESTATE_OF_THE_URN_WITCH = "Crypt Exit to the Estate of the Urn Witch"
+    CRYPT_EXIT_TO_ESTATE_OF_THE_URN_WITCH = "Crypt Exit to Estate of the Urn Witch"
 
     # Estate of Urn Witch Regions
     ESTATE_OF_THE_URN_WITCH_DOOR = "Estate of the Urn Witch Door"
@@ -226,7 +226,7 @@ class DeathsDoorRegionName(str, Enum):
     CASTLE_LOCKSTONE_LIBRARY = "Castle Lockstone Library"
     CASTLE_LOCKSTONE_ROOF = "Castle Lockstone Roof"
     CASTLE_LOCKSTONE_EXIT_TO_CAMP = (
-        "Castle Lockstone Exit to Camp of the Free Crows (via Roof)"
+        "Castle Lockstone Exit to Camp of the Free Crows"
     )
     CASTLE_LOCKSTONE_LORD_LOCKSTONE = "Castle Lockstone Lord Lockstone's Grave"
     CASTLE_LOCKSTONE_LORD_OPENGATE = "Castle Lockstone Lord Opengate's Grave"
@@ -237,7 +237,7 @@ class DeathsDoorRegionName(str, Enum):
     # Camp of the Free Crows Regions
     CAMP_OF_THE_FREE_CROWS_DOOR = "Camp of the Free Crows Door"
     CAMP_OF_THE_FREE_CROWS_EXIT_TO_CASTLE_LOCKSTONE = (
-        "Camp of the Free Crows Exit to Castle Lockstone (via Roof)"
+        "Camp of the Free Crows Exit to Castle Lockstone"
     )
     CAMP_OF_THE_FREE_CROWS_CAMP_BRIDGE = "Camp of the Free Crows Camp Bridge"
     CAMP_OF_THE_FREE_CROWS_CASTLE_DOOR = "Camp of the Free Crows Castle Door"
