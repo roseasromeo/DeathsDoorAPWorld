@@ -45,7 +45,7 @@ PER_SCENE_TRANSFORMATION: dict[int, SceneTransformation] = {
     6: SceneTransformation(
         {0: (991, 1515)}, False, False, True
     ),  # Furnace Observation Rooms
-    7: SceneTransformation({0: (-800, 1648)}, True, False, False),  # Inner Furnace
+    7: SceneTransformation({0: (-800, 1648), 1: (-800, 1503)}, True, False, False),  # Inner Furnace
     8: SceneTransformation(
         {0: (1636, 1394)}, False, False, True
     ),  # The Urn Witch's Laboratory
@@ -87,8 +87,11 @@ MAP_VOLUMES: dict[int, list[Volume]] = {
     ],
     5: [
         Volume((-100, 39, 1116),(-32, 41, 1227), 0),
-        Volume((-95, 28, 1060),(-32, 30, 1070), 0),
-        Volume((-242, 26, 952), (-26, 40, 1070), 1),
+        Volume((-95, 28, 1060),(-32, 30, 1110), 0),
+        Volume((-200, 26, 1035), (-258, 32, 1070), 1),
+        Volume((-255, 28, 1035), (-273, 38, 1070), 1),
+        Volume((-247, 35, 1035), (-305, 46, 1136), 1),
+        Volume((-242, 29, 952), (-26, 46, 1083), 1),
         Volume((-54, 38, 1060), (-185, 57, 1094), 1),
         Volume((60, 18, 1050), (35, 36, 965), 1),
         Volume((26, 28, 960), (-22, 62, 1013), 1),
@@ -96,6 +99,9 @@ MAP_VOLUMES: dict[int, list[Volume]] = {
         Volume((-96, 40, 952), (-26, 100, 1230), 2),
         Volume((-19, 36, 1013), (33, 39, 1230), 2),
         Volume((-19, 29, 1048), (33, 50, 1230), 2),
+    ],
+    7: [
+        Volume((-770, -63, 783),(-1020, -29, 879), 1)
     ],
     9: [
         Volume((220, -110, 476), (278, -75, 525), 1),
