@@ -57,10 +57,13 @@ def connect_plando(
 ) -> None:
     for plando_connection in plando_connections:
         connect_plando_connection(world, plando_connection, coupled)
-        
-def connect_plando_connection(world: "DeathsDoorWorld",
+
+
+def connect_plando_connection(
+    world: "DeathsDoorWorld",
     plando_connection: PlandoConnection,
-    coupled: bool,) -> None:
+    coupled: bool,
+) -> None:
     if plando_connection.direction == "exit":
         ## Switch connections to be in entrance direction
         temp_exit = plando_connection.exit
@@ -77,30 +80,43 @@ def connect_plando_connection(world: "DeathsDoorWorld",
         raise OptionError(
             f"One-ways (Avarices) cannot be plando'd to two-ways. Plando connection {plando_connection.entrance} to {plando_connection.exit} is invalid."
         )
-    if not getattr(world.multiworld, "re_gen_passthrough", {}) and plando_connection.direction != "both" and coupled and two_way_entrance:
+    if (
+        not getattr(world.multiworld, "re_gen_passthrough", {})
+        and plando_connection.direction != "both"
+        and coupled
+        and two_way_entrance
+    ):
         raise Warning(
             f"If entrance randomization is set to coupled, all two-way plando_connections will be forced to be both. Plando connection {plando_connection.entrance} to {plando_connection.exit} has direction {plando_connection.direction}"
         )
 
     if two_way_entrance:
-        entrance, _ = find_scene_transition_from_name(
-            find_two_way_transition_name(plando_connection.entrance, True)
-        )
-        exit, _ = find_scene_transition_from_name(
-            find_two_way_transition_name(plando_connection.exit, False)
-        )
+        entrance = find_scene_transition_from_region(plando_connection.entrance, True)
+        exit = find_scene_transition_from_region(plando_connection.exit, False)
     else:
-        entrance, _ = find_scene_transition_from_name(
-            find_one_way_transition_name(plando_connection.entrance, True)
+        entrance = find_scene_transition_from_region(
+            plando_connection.entrance, True, False
         )
-        exit, _ = find_scene_transition_from_name(
-            find_one_way_transition_name(plando_connection.exit, False)
-        )
+        exit = find_scene_transition_from_region(plando_connection.exit, False, False)
 
-    from_region = world.get_region(
-        plando_connection.entrance
-    )
+    from_region = world.get_region(plando_connection.entrance)
     to_region = world.get_region(plando_connection.exit)
+
+    create_entrance_for_regions(world, from_region, to_region, entrance)
+    if (coupled or plando_connection.direction == "both") and two_way_entrance:
+        create_entrance_for_regions(world, to_region, from_region, exit)
+    # Replicate connections between Jefferson regions
+    connect_jefferson(world, from_region.name, to_region.name)
+    if (coupled or plando_connection.direction == "both") and two_way_entrance:
+        connect_jefferson(world, to_region.name, from_region.name)
+
+
+def create_entrance_for_regions(
+    world: "DeathsDoorWorld",
+    from_region: Region,
+    to_region: Region,
+    entrance: DeathsDoorEntrance,
+):
     ends_exist = True
     try:
         name = remove_dangling_exit(from_region)
@@ -114,108 +130,25 @@ def connect_plando_connection(world: "DeathsDoorWorld",
         world.create_entrance(from_region, to_region, entrance.rule, name)
         world.entrance_pairings[from_region.name] = to_region.name
 
-        if not getattr(world.multiworld, "re_gen_passthrough", {}) and (coupled or plando_connection.direction == "both") and two_way_entrance:
-            ends_exist = True
-            try:
-                name = remove_dangling_exit(to_region)
-            except ValueError:
-                ends_exist = False
-            try:
-                remove_dangling_entrance(from_region)
-            except ValueError:
-                ends_exist = False
-            if ends_exist:
-                world.create_entrance(to_region, from_region, exit.rule, name)
-                world.entrance_pairings[to_region.name] = from_region.name
-        # Replicate connections between Jefferson regions
-        try:
-            start_region_jefferson = world.get_region(from_region.name + jefferson_tag)
-        except KeyError:
-            start_region_jefferson = None
-        try:
-            end_region_jefferson = world.get_region(to_region.name + jefferson_tag)
-        except KeyError:
-            end_region_jefferson = None
-        if start_region_jefferson:
-            try:
-                remove_dangling_exit(start_region_jefferson)
-            except ValueError:
-                pass
-        if end_region_jefferson:
-            try:
-                remove_dangling_entrance(end_region_jefferson)
-            except ValueError:
-                pass
-        if start_region_jefferson and end_region_jefferson:
-            scene_transition, _ = find_scene_transition_from_name(
-                find_two_way_transition_name(from_region.name, True)
-            )
-            if not scene_transition.no_jefferson:
-                world.create_entrance(
-                    start_region_jefferson, end_region_jefferson, scene_transition.rule
-                )
-            if not getattr(world.multiworld, "re_gen_passthrough", {}) and (coupled or plando_connection.direction == "both") and two_way_entrance:
-                ends_exist = True
-                if start_region_jefferson:
-                    try:
-                        remove_dangling_entrance(start_region_jefferson)
-                    except ValueError:
-                        ends_exist = False
-                if end_region_jefferson:
-                    try:
-                        remove_dangling_exit(end_region_jefferson)
-                    except ValueError:
-                        ends_exist = False
-                if ends_exist:
-                    scene_transition, _ = find_scene_transition_from_name(
-                        find_two_way_transition_name(to_region.name, True)
-                    )
-                    world.create_entrance(
-                        end_region_jefferson, start_region_jefferson, scene_transition.rule
-                    )
 
-def find_scene_transition_from_name(name: str) -> tuple[DeathsDoorEntrance, bool]:
-    try:
-        scene_transition_pair = next(
-            pair
-            for pair in two_way_scene_transitions
-            if pair[0].name == name or pair[1].name == name
-        )
-        if scene_transition_pair[0].name == name:
-            return [scene_transition_pair[0], scene_transition_pair[1] != None]
-        elif scene_transition_pair[1].name == name:
-            return [scene_transition_pair[1], True]
-    except StopIteration:
-        try:
-            scene_transition_pair = next(
-                pair for pair in one_way_scene_transitions if pair[0].name == name
-            )
-            if scene_transition_pair[0].name == name:
-                return [scene_transition_pair[0], False]
-        except StopIteration:
-            raise OptionError(
-                f"Provided name of entrance or exit {name} in plando_connections is not valid."
-            )
-    raise OptionError(
-        f"Provided name of entrance or exit {name} in plando_connections is not valid."
-    )
-
-
-def find_two_way_transition_name(region_name: str, from_region: bool):
+def find_scene_transition_from_region(
+    region_name: str, from_region: bool, two_way: bool = True
+) -> DeathsDoorEntrance:
+    transitions = two_way_scene_transitions if two_way else one_way_scene_transitions
     if from_region:
         found = next(
             (
-                transition_pair[0].name
-                for transition_pair in two_way_scene_transitions
+                transition_pair[0]
+                for transition_pair in transitions
                 if transition_pair[0].starting_region.value == region_name
             ),
             None,
         )
-        if not found:
+        if not found and two_way:
             found = next(
                 (
-                    transition_pair[1].name
-                    for transition_pair in two_way_scene_transitions
+                    transition_pair[1]
+                    for transition_pair in transitions
                     if transition_pair[1].starting_region.value == region_name
                 ),
                 None,
@@ -223,45 +156,21 @@ def find_two_way_transition_name(region_name: str, from_region: bool):
     else:
         found = next(
             (
-                transition_pair[0].name
-                for transition_pair in two_way_scene_transitions
+                transition_pair[0]
+                for transition_pair in transitions
                 if transition_pair[0].ending_region.value == region_name
             ),
             None,
         )
-        if not found:
+        if not found and two_way:
             found = next(
                 (
-                    transition_pair[1].name
-                    for transition_pair in two_way_scene_transitions
+                    transition_pair[1]
+                    for transition_pair in transitions
                     if transition_pair[1].ending_region.value == region_name
                 ),
                 None,
             )
-    if not found:
-        raise Warning(f"no transition for region name {region_name} found")
-    return found
-
-
-def find_one_way_transition_name(region_name: str, from_region: bool):
-    if from_region:
-        found = next(
-            (
-                transition_pair[0].name
-                for transition_pair in one_way_scene_transitions
-                if transition_pair[0].starting_region.value == region_name
-            ),
-            None,
-        )
-    else:
-        found = next(
-            (
-                transition_pair[0].name
-                for transition_pair in one_way_scene_transitions
-                if transition_pair[0].ending_region.value == region_name
-            ),
-            None,
-        )
     if not found:
         raise Warning(f"no transition for region name {region_name} found")
     return found
@@ -296,11 +205,8 @@ def randomize_one_ways(world: "DeathsDoorWorld"):
     for from_exit, to_entrance in zip(from_exits, to_entrances):
         remove_dangling_exit(from_exit.parent_region)
         remove_dangling_entrance(to_entrance.connected_region)
-        from_scene_transition_name = find_one_way_transition_name(
-            from_exit.parent_region.name, True
-        )
-        from_scene_transition, _ = find_scene_transition_from_name(
-            from_scene_transition_name
+        from_scene_transition = find_scene_transition_from_region(
+            from_exit.parent_region.name, True, False
         )
         world.entrance_pairings[from_exit.parent_region.name] = (
             to_entrance.connected_region.name
@@ -314,6 +220,38 @@ def randomize_one_ways(world: "DeathsDoorWorld"):
         entrance.randomization_type = EntranceType.ONE_WAY
 
 
+def connect_jefferson(
+    world: "DeathsDoorWorld", start_region_name: str, end_region_name: str
+):
+    try:
+        start_region_jefferson = world.get_region(start_region_name + jefferson_tag)
+    except KeyError:
+        start_region_jefferson = None
+    try:
+        end_region_jefferson = world.get_region(end_region_name + jefferson_tag)
+    except KeyError:
+        end_region_jefferson = None
+    if start_region_jefferson:
+        try:
+            remove_dangling_exit(start_region_jefferson)
+        except ValueError:
+            pass
+    if end_region_jefferson:
+        try:
+            remove_dangling_entrance(end_region_jefferson)
+        except ValueError:
+            pass
+
+    if start_region_jefferson and end_region_jefferson:
+        scene_transition = find_scene_transition_from_region(end_region_name, True)
+        if not scene_transition.no_jefferson:
+            new_entrance = world.create_entrance(
+                start_region_jefferson, end_region_jefferson, scene_transition.rule
+            )
+            new_entrance.randomization_group = DeathsDoorConnectionGroup.JEFFERSON
+            new_entrance.randomization_type = EntranceType.TWO_WAY
+
+
 def connect_entrances_function(world: "DeathsDoorWorld"):
     def on_connect(
         _: ERPlacementState,
@@ -321,37 +259,9 @@ def connect_entrances_function(world: "DeathsDoorWorld"):
         entrances: list[Entrance],
     ) -> bool:
         for exit, entrance in zip(exits, entrances):
-            try:
-                start_region = world.get_region(exit.parent_region.name + jefferson_tag)
-            except KeyError:
-                start_region = None
-            try:
-                end_region = world.get_region(
-                    entrance.connected_region.name + jefferson_tag
-                )
-            except KeyError:
-                end_region = None
-            if start_region:
-                try:
-                    remove_dangling_exit(start_region)
-                except ValueError:
-                    pass
-            if end_region:
-                try:
-                    remove_dangling_entrance(end_region)
-                except ValueError:
-                    pass
-            
-            if start_region and end_region:
-                scene_transition, _ = find_scene_transition_from_name(
-                    find_two_way_transition_name(exit.parent_region.name, True)
-                )
-                if not scene_transition.no_jefferson:
-                    new_entrance = world.create_entrance(
-                        start_region, end_region, scene_transition.rule
-                    )
-                    new_entrance.randomization_group = DeathsDoorConnectionGroup.JEFFERSON
-                    new_entrance.randomization_type = EntranceType.TWO_WAY
+            connect_jefferson(
+                world, exit.parent_region.name, entrance.connected_region.name
+            )
         return True
 
     if world.options.entrance_randomization != EntranceRandomization.option_off:
@@ -397,7 +307,11 @@ def connect_entrances_function(world: "DeathsDoorWorld"):
                     )
 
         # Plando
-        if world.options.plando_connections and (not getattr(world.multiworld, "re_gen_passthrough", {}) or not getattr(world.multiworld, "enforce_deferred_connections", "on") != "off"):
+        if world.options.plando_connections and (
+            not getattr(world.multiworld, "re_gen_passthrough", {})
+            or not getattr(world.multiworld, "enforce_deferred_connections", "on")
+            != "off"
+        ):
             connect_plando(world, world.options.plando_connections, coupled)
 
         if not getattr(world.multiworld, "re_gen_passthrough", {}):
@@ -448,7 +362,9 @@ def connect_entrances_function(world: "DeathsDoorWorld"):
                     )
                     if (
                         not jefferson_region
-                        in world.multiworld.get_all_state().reachable_regions[world.player]
+                        in world.multiworld.get_all_state().reachable_regions[
+                            world.player
+                        ]
                     ):
                         raise EntranceRandomizationError(
                             f"Requested reachable region {jefferson_region.name} is not reachable in current state."
