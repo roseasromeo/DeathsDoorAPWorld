@@ -1,5 +1,73 @@
 from typing import Any, NamedTuple
 
+entrance_mapping = {
+    "Door to Mushroom Dungeon": "Door to Mushroom Dungeon -> Mushroom Dungeon Door",
+    "Door to Flooded Fortress": "Door to Flooded Fortress -> Flooded Fortress Door",
+    "Door to Overgrown Ruins": "Door to Overgrown Ruins -> Overgrown Ruins Door",
+    "Door to Throne of the Frog King": "Door to Throne of the Frog King -> Throne of the Frog King Door",
+    "Door to Betty's Lair": "Door to Betty's Lair -> Betty's Lair Door",
+    "Door to Castle Lockstone": "Door to Castle Lockstone -> Castle Lockstone Door",
+    "Door to Camp of the Free Crows": "Door to Camp of the Free Crows -> Camp of the Free Crows Door",
+    "Door to Old Watchtowers": "Door to Old Watchtowers -> Old Watchtowers Door",
+    "Door to Lost Cemetery": "Door to Lost Cemetery -> Lost Cemetery Door",
+    "Door to Stranded Sailor": "Door to Stranded Sailor -> Stranded Sailor Door",
+    "Door to Inner Furnace": "Door to Inner Furnace -> Inner Furnace Door",
+    "Door to the Urn Witch's Laboratory": "Door to the Urn Witch's Laboratory -> The Urn Witch's Laboratory Door",
+    "Door to Estate of the Urn Witch": "Door to Estate of the Urn Witch -> Estate of the Urn Witch Door",
+    "Door to Ceramic Manor": "Door to Ceramic Manor -> Ceramic Manor Door",
+    "Door to Grove of Spirits": "Door to Grove of Spirits -> Grove of Spirits Door",
+    "Grove of Spirits Door": "Grove of Spirits Door -> Door to Grove of Spirits",
+    "Grove of Spirits Exit to Lost Cemetery": "Grove of Spirits Exit to Lost Cemetery -> Lost Cemetery Exit to Grove of Spirits",
+    "Lost Cemetery Door": "Lost Cemetery Door -> Door to Lost Cemetery",
+    "Lost Cemetery Exit to Grove of Spirits": "Lost Cemetery Exit to Grove of Spirits -> Grove of Spirits Exit to Lost Cemetery",
+    "Lost Cemetery Exit to Crypt": "Lost Cemetery Exit to Crypt -> Crypt Exit to Lost Cemetery",
+    "Lost Cemetery Exit to Stranded Sailor Caves": "Lost Cemetery Exit to Stranded Sailor Caves -> Stranded Sailor Caves Exit to Lost Cemetery",
+    "Lost Cemetery Exit to Overgrown Ruins": "Lost Cemetery Exit to Overgrown Ruins -> Overgrown Ruins Exit to Lost Cemetery",
+    "Crypt Exit to Lost Cemetery": "Crypt Exit to Lost Cemetery -> Lost Cemetery Exit to Crypt",
+    "Crypt Exit to Estate of the Urn Witch": "Crypt Exit to Estate of the Urn Witch -> Estate of the Urn Witch Exit to Crypt",
+    "Estate of the Urn Witch Door": "Estate of the Urn Witch Door -> Door to Estate of the Urn Witch",
+    "Estate of the Urn Witch Exit to Crypt": "Estate of the Urn Witch Exit to Crypt -> Crypt Exit to Estate of the Urn Witch",
+    "Estate of the Urn Witch Exit to Ceramic Manor": "Estate of the Urn Witch Exit to Ceramic Manor -> Ceramic Manor Exit to Estate of the Urn Witch",
+    "Ceramic Manor Door": "Ceramic Manor Door -> Door to Ceramic Manor",
+    "Ceramic Manor Exit to Estate of the Urn Witch": "Ceramic Manor Exit to Estate of the Urn Witch -> Estate of the Urn Witch Exit to Ceramic Manor",
+    "Ceramic Manor Exit to Furnace Observation Rooms": "Ceramic Manor Exit to Furnace Observation Rooms -> Furnace Observation Rooms Exit to Ceramic Manor",
+    "Ceramic Manor Ancient Door": "Ceramic Manor Ancient Door -> Fire Avarice",
+    "Inner Furnace Door": "Inner Furnace Door -> Door to Inner Furnace",
+    "Inner Furnace Exit to Furnace Observation Rooms": "Inner Furnace Exit to Furnace Observation Rooms -> Furnace Observation Rooms Exit to Inner Furnace",
+    "Inner Furnace Exit to the Urn Witch's Laboratory": "Inner Furnace Exit to the Urn Witch's Laboratory -> The Urn Witch's Laboratory Exit to Inner Furnace",
+    "Furnace Observation Rooms Exit to Ceramic Manor": "Furnace Observation Rooms Exit to Ceramic Manor -> Ceramic Manor Exit to Furnace Observation Rooms",
+    "Furnace Observation Rooms Exit to Inner Furnace": "Furnace Observation Rooms Exit to Inner Furnace -> Inner Furnace Exit to Furnace Observation Rooms",
+    "The Urn Witch's Laboratory Door": "The Urn Witch's Laboratory Door -> Door to the Urn Witch's Laboratory",
+    "The Urn Witch's Laboratory Exit to Inner Furnace": "The Urn Witch's Laboratory Exit to Inner Furnace -> Inner Furnace Exit to the Urn Witch's Laboratory",
+    "Overgrown Ruins Door": "Overgrown Ruins Door -> Door to Overgrown Ruins",
+    "Mushroom Dungeon Door": "Mushroom Dungeon Door -> Door to Mushroom Dungeon",
+    "Overgrown Ruins Exit to Lost Cemetery": "Overgrown Ruins Exit to Lost Cemetery -> Lost Cemetery Exit to Overgrown Ruins",
+    "Mushroom Dungeon Exit to Flooded Fortress": "Mushroom Dungeon Exit to Flooded Fortress -> Flooded Fortress Exit to Mushroom Dungeon",
+    "Mushroom Dungeon Ancient Door": "Mushroom Dungeon Ancient Door -> Bomb Avarice",
+    "Throne of the Frog King Door": "Throne of the Frog King Door -> Door to Throne of the Frog King",
+    "Throne of the Frog King Exit to Flooded Fortress": "Throne of the Frog King Exit to Flooded Fortress -> Flooded Fortress Exit to Throne of the Frog King",
+    "Flooded Fortress Door": "Flooded Fortress Door -> Door to Flooded Fortress",
+    "Flooded Fortress Exit to Mushroom Dungeon": "Flooded Fortress Exit to Mushroom Dungeon -> Mushroom Dungeon Exit to Flooded Fortress",
+    "Flooded Fortress Exit to Throne of the Frog King": "Flooded Fortress Exit to Throne of the Frog King -> Throne of the Frog King Exit to Flooded Fortress",
+    "Stranded Sailor Caves Exit to Lost Cemetery": "Stranded Sailor Caves Exit to Lost Cemetery -> Lost Cemetery Exit to Stranded Sailor Caves",
+    "Stranded Sailor Caves Exit to Stranded Sailor": "Stranded Sailor Caves Exit to Stranded Sailor -> Stranded Sailor Exit to Stranded Sailor Caves",
+    "Stranded Sailor Door": "Stranded Sailor Door -> Door to Stranded Sailor",
+    "Stranded Sailor Exit to Stranded Sailor Caves": "Stranded Sailor Exit to Stranded Sailor Caves -> Stranded Sailor Caves Exit to Stranded Sailor",
+    "Stranded Sailor Exit to Castle Lockstone": "Stranded Sailor Exit to Castle Lockstone -> Castle Lockstone Exit to Stranded Sailor",
+    "Castle Lockstone Door": "Castle Lockstone Door -> Door to Castle Lockstone",
+    "Castle Lockstone Exit to Stranded Sailor": "Castle Lockstone Exit to Stranded Sailor -> Stranded Sailor Exit to Castle Lockstone",
+    "Castle Lockstone Exit to Camp of the Free Crows": "Castle Lockstone Exit to Camp of the Free Crows -> Camp of the Free Crows Exit to Castle Lockstone",
+    "Castle Lockstone Ancient Door": "Castle Lockstone Ancient Door -> Hookshot Avarice",
+    "Camp of the Free Crows Door": "Camp of the Free Crows Door -> Door to Camp of the Free Crows",
+    "Camp of the Free Crows Exit to Castle Lockstone": "Camp of the Free Crows Exit to Castle Lockstone -> Castle Lockstone Exit to Camp of the Free Crows",
+    "Camp of the Free Crows Exit to Old Watchtowers": "Camp of the Free Crows Exit to Old Watchtowers -> Old Watchtowers Exit to Camp of the Free Crows",
+    "Old Watchtowers Door": "Old Watchtowers Door -> Door to Old Watchtowers",
+    "Old Watchtowers Exit to Camp of the Free Crows": "Old Watchtowers Exit to Camp of the Free Crows -> Camp of the Free Crows Exit to Old Watchtowers",
+    "Old Watchtowers Exit to Betty's Lair": "Old Watchtowers Exit to Betty's Lair -> Betty's Lair Exit to Old Watchtowers",
+    "Betty's Lair Door": "Betty's Lair Door -> Door to Betty's Lair",
+    "Betty's Lair Exit to Old Watchtowers": "Betty's Lair Exit to Old Watchtowers -> Old Watchtowers Exit to Betty's Lair",
+}
+
 
 class SceneTransformation(NamedTuple):
     map_offsets: dict[int, tuple[int, int]]
@@ -45,7 +113,9 @@ PER_SCENE_TRANSFORMATION: dict[int, SceneTransformation] = {
     6: SceneTransformation(
         {0: (991, 1515)}, False, False, True
     ),  # Furnace Observation Rooms
-    7: SceneTransformation({0: (-800, 1648), 1: (-800, 1503)}, True, False, False),  # Inner Furnace
+    7: SceneTransformation(
+        {0: (-800, 1648), 1: (-800, 1503)}, True, False, False
+    ),  # Inner Furnace
     8: SceneTransformation(
         {0: (1636, 1394)}, False, False, True
     ),  # The Urn Witch's Laboratory
@@ -86,8 +156,8 @@ MAP_VOLUMES: dict[int, list[Volume]] = {
         Volume((15, -100, 200), (70, 23, 340), 1),
     ],
     5: [
-        Volume((-100, 39, 1116),(-32, 41, 1227), 0),
-        Volume((-95, 28, 1060),(-32, 30, 1110), 0),
+        Volume((-100, 39, 1116), (-32, 41, 1227), 0),
+        Volume((-95, 28, 1060), (-32, 30, 1110), 0),
         Volume((-200, 26, 1035), (-258, 32, 1070), 1),
         Volume((-255, 28, 1035), (-273, 38, 1070), 1),
         Volume((-247, 35, 1035), (-305, 46, 1136), 1),
@@ -100,9 +170,7 @@ MAP_VOLUMES: dict[int, list[Volume]] = {
         Volume((-19, 36, 1013), (33, 39, 1230), 2),
         Volume((-19, 29, 1048), (33, 50, 1230), 2),
     ],
-    7: [
-        Volume((-770, -63, 783),(-1020, -29, 879), 1)
-    ],
+    7: [Volume((-770, -63, 783), (-1020, -29, 879), 1)],
     9: [
         Volume((220, -110, 476), (278, -75, 525), 1),
         Volume((260, -101, 586), (611, -200, 430), 1),
@@ -200,4 +268,5 @@ tracker_world = {
     "map_page_index": map_page_index,
     "location_setting_key": "{player}_{team}_deathsdoor_coords",
     "location_icon_coords": location_icon_coords,
+    "poptracker_entrance_mapping": entrance_mapping,
 }
