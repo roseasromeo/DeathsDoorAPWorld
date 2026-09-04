@@ -51,11 +51,6 @@ lost_cemetery_entrances: list[DeathsDoorEntrance] = [
         Has(I.LEVER_CEMETERY_SHORTCUT_TO_EAST_TREE),
     ),
     DeathsDoorEntrance(
-        R.LOST_CEMETERY_SUMMIT,
-        R.LOST_CEMETERY_EXIT_TO_OVERGROWN_RUINS,
-        None,
-    ),
-    DeathsDoorEntrance(
         R.LOST_CEMETERY_CENTRAL,
         R.LOST_CEMETERY_RIGHT_ARENA,
         HasAny(I.LEVER_GUARDIAN_OF_THE_DOOR_ACCESS, I.LEVER_CATACOMBS_TOWER),
