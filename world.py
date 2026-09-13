@@ -57,7 +57,7 @@ from .json_generator import (
     generate_scene_transition_json,
 )
 
-deathsdoor_version = "0.3.0"
+deathsdoor_version = "0.3.3"
 
 
 class DeathsDoorItem(Item):

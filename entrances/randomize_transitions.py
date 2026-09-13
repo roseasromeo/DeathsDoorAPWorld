@@ -321,7 +321,7 @@ def connect_entrances_function(world: "DeathsDoorWorld"):
             randomize_one_ways(world)
 
             retry_count = 0
-            RETRY_MAX = 10
+            RETRY_MAX = 100
             successful_ER = False
             while retry_count < RETRY_MAX and not successful_ER:
                 try:
